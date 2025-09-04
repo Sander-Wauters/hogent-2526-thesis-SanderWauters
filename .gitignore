@@ -22,7 +22,8 @@
 # these rules might exclude image files for figures etc.
 # *.ps
 # *.eps
-*.pdf
+*.xdv
+/output/_minted
 
 ## Bibliography auxiliary files (bibtex/biblatex/biber):
 *.bbl
@@ -130,7 +131,3 @@ sympy-plots-for-*.tex/
 
 # Vim-LaTeX
 *.latexmain
-
-# output directory - see make_thesis.sh
-output/
-out/
