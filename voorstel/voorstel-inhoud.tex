@@ -29,29 +29,55 @@ In de volgende sectie wordt een overzicht gegeven van de stand van zaken binnen 
 Vervolgens wordt de methodologie van dit onderzoek beschreven.
 En tenslotte worden de verwachte resultaten besproken, waarin de bevindignen worden samengevat.
 
+% TODO: add references
 \section{Literatuurstudie}
 \label{sec:literatuurstudie}
 
-Hier beschrijf je de \emph{state-of-the-art} rondom je gekozen onderzoeksdomein, d.w.z.\ een inleidende, doorlopende tekst over het onderzoeksdomein van je bachelorproef. Je steunt daarbij heel sterk op de professionele \emph{vakliteratuur}, en niet zozeer op populariserende teksten voor een breed publiek. Wat is de huidige stand van zaken in dit domein, en wat zijn nog eventuele open vragen (die misschien de aanleiding waren tot je onderzoeksvraag!)?
+\subsection{Angular versies}
+\label{sec:angular versies}
 
-Je mag de titel van deze sectie ook aanpassen (literatuurstudie, stand van zaken, enz.). Zijn er al gelijkaardige onderzoeken gevoerd? Wat concluderen ze? Wat is het verschil met jouw onderzoek?
+% TODO: change this to a reference
+De \textcite{Angular update guide} geeft ons een compleet overzicht van alle aanpassingen die moeten gebeuren voor de applicatie tot versie 20 te updaten. Deze updates kunnen onderverdeeld worden in volgende categoriën:
 
-Verwijs bij elke introductie van een term of bewering over het domein naar de vakliteratuur, bijvoorbeeld~\autocite{Hykes2013}! Denk zeker goed na welke werken je refereert en waarom.
+\begin{itemize}
+  \item Packages updaten naar een nieuwe versie.
+  \item Toevoegen van nieuwe configuraties.
+  \item Vervangen van verouderde functionaliteiten. 
+  \item Hernoemen van functies en variabelen.
+  \item Verwijderen van verouderde functies en variabelen.
+\end{itemize}
 
-Draag zorg voor correcte literatuurverwijzingen! Een bronvermelding hoort thuis \emph{binnen} de zin waar je je op die bron baseert, dus niet er buiten! Maak meteen een verwijzing als je gebruik maakt van een bron. Doe dit dus \emph{niet} aan het einde van een lange paragraaf. Baseer nooit teveel aansluitende tekst op eenzelfde bron.
 
-Als je informatie over bronnen verzamelt in JabRef, zorg er dan voor dat alle nodige info aanwezig is om de bron terug te vinden (zoals uitvoerig besproken in de lessen Research Methods).
+\subsection{Automatisatie process}
+\label{sec:automatisatie_process}
 
-% Voor literatuurverwijzingen zijn er twee belangrijke commando's:
-% \autocite{KEY} => (Auteur, jaartal) Gebruik dit als de naam van de auteur
-%   geen onderdeel is van de zin.
-% \textcite{KEY} => Auteur (jaartal)  Gebruik dit als de auteursnaam wel een
-%   functie heeft in de zin (bv. ``Uit onderzoek door Doll & Hill (1954) bleek
-%   ...'')
+De eenvoudigste manier om code in bulk aan te passen is het gebruik maken van regex gebaseerde find en replace tools.
+Dit is een snelle en makelijke manier om code aan te passen zonder dat er nood is aan speciale tooling.
+Regex is text gebaseerd en kan dus geen rekening houden met de semantiek van de programmeertaal.
+Als gevolg kunnen aanpassingen ongewenste gevolgen met zich meebrengen.
 
-Je mag deze sectie nog verder onderverdelen in subsecties als dit de structuur van de tekst kan verduidelijken.
+Een andere manier is abstract syntax tree (AST) gebaseerd refactoren.
+Een AST geeft informatie over de semantiek van de programmeertaal.
+Dit laat ons toe om een stuk code aan te passen enkel als het in een bepaalde scope zit.
+Voor het opstellen van een AST bestaan er verschillende open-source programmas.
+Een nadeel aan deze manier is dat de abstract syntax tree op de correcte manier uitgelezen moet worden om correcte aanpassingen te maken.
 
-%---------- Methodologie ------------------------------------------------------
+Nog een alternatief is om gebruik te maken van compiler tooling.
+Angular is gebaseerd op TypeScript en moet gecompileerd worden naar JavaScript.
+Compilers komen ingebouwd met de kennis van de verschillende scopes in een programmeertaal.
+Een nadeel aan deze aanpak is dat het uitbreiden van een compiler een complexe taak is.
+
+Een ander optie is door Language Server Protocol (LSP) integratie.
+LSP's komen met programmeertaal specifieke tools zoal: code completion, syntax highlighting, het markeren van warnings en errors, etc.
+In het begin van 2020 zijn LSP's de ``norm'' geworden voor de implementatie van inteligente programmeertaal tools.
+Deze tools kunnen makelijk uitgebrijd worden door middle van script.
+Een nadeel is dat deze aanpak gelimiteerd is aan de functies van de LSP.
+
+Tenslotte is het mogenlijk om AI tools in te zetten voor deze aanpassingen te maken.
+Met de recente opkomst van AI tools dat specifiek gemaakt zijn voor programmeren is het mogelijk om deze taak uit te besteden aan deze tools.
+Het probleem met deze aanpak is dat AI tools niet 100\% betrouwbaar zijn.
+
+% TODO: fill in
 \section{Methodologie}
 \label{sec:methodologie}
 
@@ -67,7 +93,7 @@ Je beschrijft ook al welke tools (hardware, software, diensten, \ldots) je denkt
 
 Probeer ook een tijdschatting te maken. Hoe lang zal je met elke fase van je onderzoek bezig zijn en wat zijn de concrete \emph{deliverables} in elke fase?
 
-%---------- Verwachte resultaten ----------------------------------------------
+% TODO: fill in
 \section{Verwacht resultaat, conclusie}
 \label{sec:verwachte_resultaten}
 

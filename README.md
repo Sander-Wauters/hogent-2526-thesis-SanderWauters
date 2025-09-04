@@ -8,6 +8,7 @@ I you just want to view the documents as a `pdf`, check out the `output` directo
 ## Compiling the project
 
 Use `make.sh <path-to-main-tex-file>` to compile one of the documents (bachproef, poster, voorstel).
+You may need to rerun this script multiple times since the commands used for compilation rely on the output of each other.
 Note that this script assumes that a `.bib` is present and will always try to generate a bibliography.
 In the case of the `poster` the errors thrown by `biber` can be ignored since no bibliography is present.
 The `output`directory is where all compiled documents end up.
