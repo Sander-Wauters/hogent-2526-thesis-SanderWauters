@@ -2,32 +2,45 @@
 \section{Inleiding}
 \label{sec:inleiding}
 
-Het bedrijf Stater maakt momenteel gebruik van het web application framework Angular voor het maken van verschillende applicaties.
-De huidige versie van Angular die binnen Stater in gebruik is, is Angular versie 16.
-Op dit moment is de laatste stabiele versie van Angular, versie 20.
+% Voor wie doen we dit? Wat doet Stater?
+Het bedrijf Stater is een end-to-end dienstverlener voor zowel hypothecaire en consumentenkredieten, ze ondersteunen de kredietverstrekker voor de dienstverlening aan consumenten.
+% Welke relevante technologie gebruiken ze?
+Binnen het bedrijf zijn er verschillende applicatie dat gebruik maken van het Angular framework.
+% Wat is Angular?
+Angular is een open-source front-end framework, gebaseerd op de TypeScript programmeertaal, dat gebruikt wordt voor de ontwikkeling van dynamische web applicaties.
+% Wat moet er gebeuren? 
+Momenteel is Angular versie 20 (v.20) de meest recente stabiele versie.
+Binnen Stater maken de applicaties gebruikt van Angular versie 16 (v.16), maar het bedrijf is van plan de applicaties te updaten naar de recentste versie, Angular v.20.
 
-Stater wil graag de huidige applicaties updaten naar versie 20.
-\textcite{Angular} voorziet tooling voor een applicatie automatisch naar een nieuwe versie te updaten.
-Maar volgens dezeflde bron is dit gelimiteerd tot applicaties dat enkel 1 versie uiteenlopen.
-Dit betekend dat de update handmatig zal uitgevoerd moeten worden.
-Gezien de huidige schaal van de codebase zal dit veel tijd in beslag nemen.
-Hieruit komt de vraag: Is het mogelijk om een web applicatie in Angular versie 16 automatisch te updaten naar Angular versie 20.
+% Waarom moeten de applicaties geupdate worden?
+Software updates introduceren nieuwe functionaliteiten, kunnen de performatie van de applicatie verbeteren en verzekeren dat de software compatibel blijft met nieuwe software and hardware.
+Verder is het up-to-date houden van software cruciaal voor de cyberveiligheid te garanderen.
 
+% Waarom is dit een probleem?
+Vanwege het grote verschil in versies zal het updaten van alle applicaties veel tijd in beslag nemen.
+% Wat is de onderzoeksvraag?
+Hieruit komt de vraag: Is het mogelijk om een applicatie in Angular v.16 automatisch te updaten naar Angular v.20?
+% In welke deelvragen wordt de onderzoeksvraag opgesplitst?
 Voor deze vraag te beantwoorden worden volgende deelvragen geformuleerd:
-
 \begin{itemize}
-  \item Wat zijn de veranderingen tussen Angular versie 16 en Angular versie 20?
-  \item Welke van deze veranderingen kunnen automatisch toegepast worden zonder de functionele of niet-functionele vereisten van de applicatie in drang te brengen?
-  \item Welke manieren besteen er om code automatisch aan te passen?
-  \item Wat is de meest geschikte manier om code automatisch aan te passen voor de applicaties van dit bedrijf?
+  \item Wat zijn de veranderingen tussen Angular v.16 en Angular v.20?
+  \item Welke van deze veranderingen kunnen automatisch uitgevoerdt worden zonder de functionele en niet-functionele vereisten van de applicatie in drang te brengen?
+  \item Wat zijn de manieren om code automatisch aan te passen?
+  \item Welke manier(en) is meest geschikt voor toe te passen in deze context?
 \end{itemize}
 
-Het automatisatie process zal uitgevoerd worden op een Angular applicatie waarvan op voorhand geweten is hoeveel aanpassingen er moeten gebeuren.
-De effectiviteid het het process wordt beoordeeld aan de hand van het aantal aanpassingen automatisch uitgevoerd kunnen worden ten opzichte van het totaal aantal aanpassingen.
+% Wat zal gebeuren om de onderzoeksvraag op te lossen?
+Gedurende dit onderzoek zal een applicatie ontwikkeld worden dat een software project in Angular v.16 automatisch update naar Angular v.20.
+In de rest van dit document wordt naar deze applicatie verwezen als de ``updater''.
+% Wat zal de updater doen?
+De updater doorloopt de source code van een applicatie een maakt een oplijsting van alle nodige aanpassingen en tracht de aanpassing zelf uit te voeren indien mogelijk.
+% Hoe wordt de updater geëvalueerd?
+Voor de effectiviteit van de updater te meten, worden de uit te voeren updates opgedeeld in verschillende categoriën en wordt gemeten hoeveel van de nodige updates automatisch uitgevoerdt kunnen worden.
 
-In de volgende sectie wordt een overzicht gegeven van de stand van zaken binnen het probleem en onderzoeksdomein.
-Vervolgens wordt de methodologie van dit onderzoek beschreven.
-En tenslotte worden de verwachte resultaten besproken, waarin de bevindignen worden samengevat.
+% Wat zal er in de volgende hoofstukken van dit document besproken worden?
+In de volgende sectie wordt een kort overzicht gegeven van de huidige stand van zaken binnen het probleem en oplossingsdomein.
+Hierna volgt een beschrijving van de methodologie waar de werking en evaluatie van de updater in meer detail beschreven worden.
+En tenslotte worden de verwachte resultaten besproken, waarin een inschatting wordt gegeven naar de bevindingen van het onderzoek.
 
 % TODO: add references
 \section{Literatuurstudie}
