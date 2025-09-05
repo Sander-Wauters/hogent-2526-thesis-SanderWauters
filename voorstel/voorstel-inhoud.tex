@@ -33,7 +33,7 @@ Voor deze vraag te beantwoorden worden volgende deelvragen geformuleerd:
 Gedurende dit onderzoek zal een applicatie ontwikkeld worden dat een software project in Angular v.16 automatisch update naar Angular v.20.
 In de rest van dit document wordt naar deze applicatie verwezen als de ``updater''.
 % Wat zal de updater doen?
-De updater doorloopt de source code van een applicatie een maakt een oplijsting van alle nodige aanpassingen en tracht de aanpassing zelf uit te voeren indien mogelijk.
+De updater doorloopt de broncode van een applicatie en maakt een oplijsting van alle nodige aanpassingen en tracht de aanpassing zelf uit te voeren indien mogelijk.
 % Hoe wordt de updater geëvalueerd?
 Voor de effectiviteit van de updater te meten, worden de uit te voeren updates opgedeeld in verschillende categoriën en wordt gemeten hoeveel van de nodige updates automatisch uitgevoerdt kunnen worden.
 
@@ -83,7 +83,7 @@ In het begin van 2020 zijn LSP's de ``norm'' geworden voor de implementatie van 
 Deze tools kunnen makelijk uitgebrijd worden door middle van script.
 Een nadeel is dat deze aanpak gelimiteerd is aan de functies van de LSP.
 
-Tenslotte is het mogenlijk om AI tools in te zetten voor deze aanpassingen te maken.
+Tenslotte is het mogelijk om AI tools in te zetten voor deze aanpassingen te maken.
 Met de recente opkomst van AI tools dat specifiek gemaakt zijn voor programmeren is het mogelijk om deze taak uit te besteden aan deze tools.
 Het probleem met deze aanpak is dat AI tools niet 100\% betrouwbaar zijn.
 
@@ -91,22 +91,47 @@ Het probleem met deze aanpak is dat AI tools niet 100\% betrouwbaar zijn.
 \label{sec:methodologie}
 
 \subsection{Literatuurstudie}
+\label{sec:methodologie:literatuurstudie}
 
-Dit onderzoek start met een uitgebreide literatuurstudie naar wat veranderd tussen Angular versie 16 en Angular versie 20, en welke verandering geautomatiseerd kunnen worden.
+% Wat moet eerst onderzocht worden?
+Dit onderzoek start met een uitgebreide literatuurstudie naar de verschillen tussen Angular v.16 en Angular v.20.
+% Wat krijgen we uit dit onderzoek?
+De nodige verandering worden opgelijst en onderverdeeld in verschillende categorieën.
+% Waarom hebben we dit nodig?
+Deze lijst zal gebruikt worden voor de capaciteiten van de updater te bepalen.
+
+% Wat moet nog onderzocht worden?
 Verder wordt onderzocht wat de verschillende manieren zijn om automatisch code te updaten.
-Eén of meerdere manieren worden verkozen om te implementeren op basis van de complexiteit en betrouwbaarheid.
+% Wat krijgen we uit dit onderzoek?
+Eén of meerdere manieren worden verkozen om te implementeren op basis van volgende parameters:
+\begin{itemize}
+  \item De complexiteit van de implementatie. Een voorkeur wordt gegeven aan het gebruik maken van bestaande tools over het ontwikkelen van nieuwe algorithme.
+  \item De betrouwbaarheid van de output. Is het mogelijk om een correct configuratie een incorrecte output te krijgen?
+\end{itemize}
+
+% Hoe lang duurt dit?
 Deze literatuurstudie neemt één tot twee weken in beslag en het resultaat dient als basis voor de volgende fase van het onderzoek.
 
 \subsection{Ontwikkeling}
 
-In deze fase van het onderzoek zal een applicatie ontwikkeldt worden op basis van de voorafgaande literatuurstudie.
-Deze applicatie wordt in een gecontroleerde omgeving getest om de stabiliteit te verzekeren.
+% Wat wordt ontwikkeld?
+In deze fase van het onderzoek zal de updater ontwikkeld worden op basis van de voorafgaande literatuurstudie.
+
+% Wat doet de updater?
+De updater heeft drie functies: het detecteren van aanpassingen in de broncode, het evalueren of deze aanpassingen automatisch kunnen uitgevoerd worden, en de aanpassingen uitvoeren indien mogelijk.
+Elke gedetecteerde aanpassing wordt geregistreerd, waaronder de locatie in de broncode, de aard van de wijziging, de categorie, en of de updater in staat is om de wijziging automatisch uit te voeren.
+
+% Hoe wordt het getest?
+De updater wordt in een gecontroleerde omgeving getest om de stabiliteit te verzekeren.
+% Hoe lang duurt dit?
 Voor het ontwikkelen van de applicatie wordt vier tot vijf weken voorzien.
 
-\subsection{Proof of Concept}
+\subsection{Evaluatie}
 
-Duurende twee weken zal het automatisatie process uitgevoerdt worden op de verschillende applicaties binnen het bedrijf.
-Er wordt gemeten op aantal handelingen er automatisch uitgevoerdt worden onderverdeeld per categorie.
+% Hoe krijgen we resultaten?
+De updater wordt uitgevoerd op één van de applicatie binnen Stater.
+% Wat doen we met deze resultaten?
+Vervolgens wordt het resultaat van de updater geëvalueerd aan de hand van het aantal uitgevoerde aanpassingen ten opzichte van het totaal aantal gedetecteerde aanpassingen.
 
 \section{Verwacht resultaat, conclusie}
 \label{sec:verwachte_resultaten}
