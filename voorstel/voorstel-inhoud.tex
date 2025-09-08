@@ -7,7 +7,7 @@ Het bedrijf Stater is een end-to-end dienstverlener voor zowel hypothecaire en c
 % Welke relevante technologie gebruiken ze?
 Binnen het bedrijf zijn er verschillende applicatie dat gebruik maken van het Angular framework.
 % Wat is Angular?
-Angular is een open-source front-end framework, gebaseerd op de TypeScript programmeertaal, dat gebruikt wordt voor de ontwikkeling van dynamische web applicaties.
+Angular is een open-source front-end framework, gebaseerd op de TypeScript programmeertaal, dat gebruikt wordt voor de ontwikkeling van dynamische web applicaties \autocite{Cincovic2019}.
 % Wat moet er gebeuren? 
 Momenteel is Angular versie 20 (v.20) de meest recente stabiele versie.
 Binnen Stater maken de applicaties gebruikt van Angular versie 16 (v.16), maar het bedrijf is van plan de applicaties te updaten naar de recentste versie, Angular v.20.
@@ -42,50 +42,52 @@ In de volgende sectie wordt een kort overzicht gegeven van de huidige stand van 
 Hierna volgt een beschrijving van de methodologie waar de werking en evaluatie van de updater in meer detail beschreven worden.
 En tenslotte worden de verwachte resultaten besproken, waarin een inschatting wordt gegeven naar de bevindingen van het onderzoek.
 
-% TODO: add references
 \section{Literatuurstudie}
 \label{sec:literatuurstudie}
 
-\subsection{Angular versies}
+\subsection{Veranderingen in Angular}
 
-De \textcite{Angular update guide} geeft ons een compleet overzicht van alle aanpassingen die moeten gebeuren voor de applicatie tot versie 20 te updaten. Deze updates kunnen onderverdeeld worden in volgende categoriën:
+% Wat zijn de aanpassingen die uitgevoert moeten worden?
+De \textcite{AngularUpdateGuide} geeft ons een uitgebrijd overzicht van alle aanpassingen die nodig zijn voor een Angular applicatie van v.16 naar v.20 te updaten. 
+Dit onderzoek zal voor de duidelijkheid het overzicht uit deze bron onderverdeelen in volgende ``categorieën'':
 
-\begin{itemize}\label{categories}
-  \item Packages updaten naar een nieuwe versie.
-  \item Toevoegen van nieuwe configuraties.
-  \item Vervangen van verouderde functionaliteiten. 
-  \item Hernoemen van functies en variabelen.
-  \item Verwijderen van verouderde functies en variabelen.
+\begin{itemize}
+  \item Uitvoeringen van CLI commandos.
+  \item Aanpassingen aan configuraties.
+  \item Vervangen van verouderde functionaliteiten.
+  \item Hernoemen van functies, variabelen, enumeraties en imports.
+  \item Verwijderen van referenties naar verouderde functies, variabelen, enumeraties en imports.
 \end{itemize}
-
 
 \subsection{Automatisatie process}
 
-De eenvoudigste manier om code in bulk aan te passen is het gebruik maken van regex gebaseerde find en replace tools.
-Dit is een snelle en makelijke manier om code aan te passen zonder dat er nood is aan speciale tooling.
-Regex is text gebaseerd en kan dus geen rekening houden met de semantiek van de programmeertaal.
-Als gevolg kunnen aanpassingen ongewenste gevolgen met zich meebrengen.
+% Wat is de meest voor de hand liggende oplossing?
+Eén van de meest gekende manieren om code in bulk aan te passen is het gebruik maken van zoek en vervang functies gebaseerd op reguliere expresies (Regex).
+Een reguliere expresie is een sequentie van karakters dat een patroonin een text omschreven.
+% Wat zijn de problemen bij deze oplossing?
+Aangezien dat Regex text gebaseerd is, kan het geen rekening houden met de semantiek van de programmeertaal.
+Uit de studie van \textcite{Michael2019} blijken nog enkele problemen bij de implementatie van Regex, namelijk dat het moeilijk leesbaar, vindbaar, valideerbaar en documenteerbaar zijn.
 
-Een andere manier is abstract syntax tree (AST) gebaseerd refactoren.
-Een AST geeft informatie over de semantiek van de programmeertaal.
+% Wat is een alternatief?
+Om met de semantiek van de programmeertaal rekening te houden kan gebruik gemaakt worden van een abstract syntax tree.
+Zoals omschreven door \textcite{Sun2023}, een abstract syntax tree is een data structuur dat de broncode van een applicatie illustreert en rekening houd met de syntax en semantiek van de programmeertaal.
 Dit laat ons toe om een stuk code aan te passen enkel als het in een bepaalde scope zit.
-Voor het opstellen van een AST bestaan er verschillende open-source programmas.
-Een nadeel aan deze manier is dat de abstract syntax tree op de correcte manier uitgelezen moet worden om correcte aanpassingen te maken.
 
-Nog een alternatief is om gebruik te maken van compiler tooling.
-Angular is gebaseerd op TypeScript en moet gecompileerd worden naar JavaScript.
-Compilers komen ingebouwd met de kennis van de verschillende scopes in een programmeertaal.
-Een nadeel aan deze aanpak is dat het uitbreiden van een compiler een complexe taak is.
+% Is hier al een tool voor?
+Herinner dat Angular gebaseerd is op de TypeScript programmeertaal.
+Een bestaande tool voor TypeScript dat gebruik maak van een abstract syntax tree is de TypeScript Compiler API.
+De studie door \textcite{Reid2023} onderzoekt hoe de TypeScript compiler gebruikt kan worden voor het corrigeren van foutive code fragmenten. 
+Deze studie raad aan om de TypeScript compiler te gebruiken voor statische code analyse vanwege de effectiviteit, accuraatheid en mogelijkheid om foutive code te detecteren.
 
-Een ander optie is door Language Server Protocol (LSP) integratie.
-LSP's komen met programmeertaal specifieke tools zoal: code completion, syntax highlighting, het markeren van warnings en errors, etc.
-In het begin van 2020 zijn LSP's de ``norm'' geworden voor de implementatie van inteligente programmeertaal tools.
-Deze tools kunnen makelijk uitgebrijd worden door middle van script.
-Een nadeel is dat deze aanpak gelimiteerd is aan de functies van de LSP.
+% Wat is een alternatief?
+Een alternatief op de TypeScript compiler dat ook gebruikt maakt van een abstract systax tree is het TypeScript Language Server Protocol (LSP).
+Het LSP, als omschreven door \textcite{Bork2023}, is een open protocol voor gebruik in verschillende code editors of integrated development environments (IDEs) dat programmeertaal specifieke functies voorziet zoals: automatische code aanvullen en code diagnostiek. 
+Dezelfe bron omschrijft LSPs als het de-facto standaard protocol voor de implementatie van deze functies in IDEs.
 
+% Wat is een alternatief?
 Tenslotte is het mogelijk om AI tools in te zetten voor deze aanpassingen te maken.
-Met de recente opkomst van AI tools dat specifiek gemaakt zijn voor programmeren is het mogelijk om deze taak uit te besteden aan deze tools.
-Het probleem met deze aanpak is dat AI tools niet 100\% betrouwbaar zijn.
+Met de recente opkomst van AI tools dat specifiek gemaakt zijn voor programmeren is het mogelijk om deze taak uit te besteden aan AI.
+Uit de studie door \textcite{Hodovychenko2025} blijkt dat AI gedreven tools een gebrek hebben aan transparantie en risico lopen voor de semantiek van de programmeertaal over tijd fout te interpreteren.
 
 \section{Methodologie}
 \label{sec:methodologie}
