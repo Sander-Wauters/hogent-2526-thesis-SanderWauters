@@ -13,7 +13,7 @@ Momenteel is Angular versie 20 (v.20) de meest recente stabiele versie.
 Binnen Stater maken de applicaties gebruikt van Angular versie 16 (v.16), maar het bedrijf is van plan de applicaties te updaten naar de recentste versie, Angular v.20.
 
 % Waarom moeten de applicaties geupdate worden?
-Software updates introduceren nieuwe functionaliteiten, kunnen de performantie van de applicatie verbeteren en verzekeren dat de software compatibel blijft met nieuwe software and hardware.
+Software updates introduceren nieuwe functionaliteiten, kunnen de performantie van de applicatie verbeteren en verzekeren dat de software compatibel blijft met nieuwe software en hardware.
 Verder is het up-to-date houden van software cruciaal voor de cyberveiligheid te garanderen.
 
 % Waarom is dit een probleem?
@@ -24,7 +24,7 @@ Hieruit komt de vraag: Is het mogelijk om een applicatie in Angular v.16 automat
 Voor deze vraag te beantwoorden worden volgende deelvragen geformuleerd:
 \begin{itemize}
   \item Wat zijn de veranderingen tussen Angular v.16 en Angular v.20?
-  \item Welke van deze veranderingen kunnen automatisch uitgevoerdt worden zonder de functionele en niet-functionele vereisten van de applicatie in drang te brengen?
+  \item Welke van deze veranderingen kunnen automatisch uitgevoerd worden zonder de functionele en niet-functionele vereisten van de applicatie in drang te brengen?
   \item Wat zijn de manieren om code automatisch aan te passen?
   \item Welke manier(en) is meest geschikt voor toe te passen in deze context?
 \end{itemize}
@@ -35,7 +35,7 @@ In de rest van dit document wordt naar deze applicatie verwezen als de ``updater
 % Wat zal de updater doen?
 De updater doorloopt de broncode van een applicatie en maakt een oplijsting van alle nodige aanpassingen en tracht de aanpassing zelf uit te voeren indien mogelijk.
 % Hoe wordt de updater geëvalueerd?
-Voor de effectiviteit van de updater te meten, worden de uit te voeren updates opgedeeld in verschillende categoriën en wordt gemeten hoeveel van de nodige updates automatisch uitgevoerdt kunnen worden.
+Voor de effectiviteit van de updater te meten, worden de uit te voeren updates opgedeeld in verschillende categorieën en wordt gemeten hoeveel van de nodige updates automatisch uitgevoerd kunnen worden.
 
 % Wat zal er in de volgende hoofstukken van dit document besproken worden?
 In de volgende sectie wordt een kort overzicht gegeven van de huidige stand van zaken binnen het probleem en oplossingsdomein.
@@ -48,11 +48,11 @@ En tenslotte worden de verwachte resultaten besproken, waarin een inschatting wo
 \subsection{Veranderingen in Angular}
 
 % Wat zijn de aanpassingen die uitgevoert moeten worden?
-De \textcite{AngularUpdateGuide} geeft ons een uitgebrijd overzicht van alle aanpassingen die nodig zijn voor een Angular applicatie van v.16 naar v.20 te updaten. 
-Dit onderzoek zal voor de duidelijkheid het overzicht uit deze bron onderverdeelen in volgende ``categorieën'':
+De \textcite{AngularUpdateGuide} geeft ons een uitgebreid overzicht van alle aanpassingen die nodig zijn voor een Angular applicatie van v.16 naar v.20 te updaten. 
+Dit onderzoek zal voor de duidelijkheid het overzicht uit deze bron onderverdelen in volgende ``categorieën'':
 
 \begin{itemize}
-  \item Uitvoeringen van CLI commandos.
+  \item Uitvoeringen van CLI-commando's.
   \item Aanpassingen aan configuraties.
   \item Vervangen van verouderde functionaliteiten.
   \item Hernoemen van functies, variabelen, enumeraties en imports.
@@ -62,31 +62,31 @@ Dit onderzoek zal voor de duidelijkheid het overzicht uit deze bron onderverdeel
 \subsection{Automatisatie process}
 
 % Wat is de meest voor de hand liggende oplossing?
-Eén van de meest gekende manieren om code in bulk aan te passen is het gebruik maken van zoek en vervang functies gebaseerd op reguliere expresies (Regex).
-Een reguliere expresie is een sequentie van karakters dat een patroonin een text omschreven.
+Eén van de meest bekende manieren om code in bulk aan te passen is het gebruik maken van zoek en vervang functies gebaseerd op reguliere expressies (Regex).
+Een reguliere expressie is een sequentie van karakters dat een patroon in een tekst omschrijven.
 % Wat zijn de problemen bij deze oplossing?
 Aangezien dat Regex text gebaseerd is, kan het geen rekening houden met de semantiek van de programmeertaal.
-Uit de studie van \textcite{Michael2019} blijken nog enkele problemen bij de implementatie van Regex, namelijk dat het moeilijk leesbaar, vindbaar, valideerbaar en documenteerbaar zijn.
+Uit de studie van \textcite{Michael2019} blijken nog enkele problemen bij de implementatie van Regex, namelijk dat het moeilijk leesbaar, vindbaar, valideerbaar en documenteerbaar is.
 
 % Wat is een alternatief?
 Om met de semantiek van de programmeertaal rekening te houden kan gebruik gemaakt worden van een abstract syntax tree.
-Zoals omschreven door \textcite{Sun2023}, een abstract syntax tree is een data structuur dat de broncode van een applicatie illustreert en rekening houd met de syntax en semantiek van de programmeertaal.
+Zoals omschreven door \textcite{Sun2023}, een abstract syntax tree is een data structuur dat de broncode van een applicatie illustreert en rekening houdt met de syntax en semantiek van de programmeertaal.
 Dit laat ons toe om een stuk code aan te passen enkel als het in een bepaalde scope zit.
 
 % Is hier al een tool voor?
 Herinner dat Angular gebaseerd is op de TypeScript programmeertaal.
-Een bestaande tool voor TypeScript dat gebruik maak van een abstract syntax tree is de TypeScript Compiler API.
-De studie door \textcite{Reid2023} onderzoekt hoe de TypeScript compiler gebruikt kan worden voor het corrigeren van foutive code fragmenten. 
-Deze studie raad aan om de TypeScript compiler te gebruiken voor statische code analyse vanwege de effectiviteit, accuraatheid en mogelijkheid om foutive code te detecteren.
+Een bestaande tool voor TypeScript dat gebruik maakt van een abstract syntax tree is de TypeScript Compiler API.
+De studie door \textcite{Reid2023} onderzoekt hoe de TypeScript compiler gebruikt kan worden voor het corrigeren van foutieve code fragmenten. 
+Deze studie raad aan om de TypeScript compiler te gebruiken voor statische code analyse vanwege de effectiviteit, accuraatheid en mogelijkheid om foutieve code te detecteren.
 
 % Wat is een alternatief?
 Een alternatief op de TypeScript compiler dat ook gebruikt maakt van een abstract systax tree is het TypeScript Language Server Protocol (LSP).
 Het LSP, als omschreven door \textcite{Bork2023}, is een open protocol voor gebruik in verschillende code editors of integrated development environments (IDEs) dat programmeertaal specifieke functies voorziet zoals: automatische code aanvullen en code diagnostiek. 
-Dezelfe bron omschrijft LSPs als het de-facto standaard protocol voor de implementatie van deze functies in IDEs.
+Dezelfde bron omschrijft LSPs als het de facto standaard protocol voor de implementatie van deze functies in IDEs.
 
 % Wat is een alternatief?
-Tenslotte is het mogelijk om AI tools in te zetten voor deze aanpassingen te maken.
-Met de recente opkomst van AI tools dat specifiek gemaakt zijn voor programmeren is het mogelijk om deze taak uit te besteden aan AI.
+Tenslotte is het mogelijk om AI-tools in te zetten voor deze aanpassingen te maken.
+Met de recente opkomst van AI-tools dat specifiek gemaakt zijn voor programmeren is het mogelijk om deze taak uit te besteden aan AI.
 Uit de studie door \textcite{Hodovychenko2025} blijkt dat AI gedreven tools een gebrek hebben aan transparantie en risico lopen voor de semantiek van de programmeertaal over tijd fout te interpreteren.
 
 \section{Methodologie}
@@ -107,7 +107,7 @@ Verder wordt onderzocht wat de verschillende manieren zijn om automatisch code t
 % Wat krijgen we uit dit onderzoek?
 Eén of meerdere manieren worden verkozen om te implementeren op basis van volgende parameters:
 \begin{itemize}
-  \item De complexiteit van de implementatie. Een voorkeur wordt gegeven aan het gebruik maken van bestaande tools over het ontwikkelen van nieuwe algorithme.
+  \item De complexiteit van de implementatie. Een voorkeur wordt gegeven aan het gebruik maken van bestaande tools over het ontwikkelen van nieuwe algoritme.
   \item De betrouwbaarheid van de output. Is het mogelijk om een correct configuratie een incorrecte output te krijgen?
 \end{itemize}
 
@@ -125,7 +125,7 @@ Elke gedetecteerde aanpassing wordt geregistreerd, waaronder de locatie in de br
 
 % Hoe wordt het getest?
 De updater wordt in een gecontroleerde omgeving getest om de stabiliteit te verzekeren.
-% Hoe lang duurt dit?
+% Hoelang duurt dit?
 Voor het ontwikkelen van de applicatie wordt vier tot vijf weken voorzien.
 
 \subsection{Evaluatie}
@@ -139,14 +139,14 @@ Vervolgens wordt het resultaat van de updater geëvalueerd aan de hand van het a
 \label{sec:verwachte_resultaten}
 
 % Wat zijn de verwachtingen?
-Op basis van de literatuurstudie en de gehanteerde methodologie verwacht dit onderzoek dat minstens 75\% van alle nodige aanpassingen automatisch uitgevoerdt kunnen worden.
+Op basis van de literatuurstudie en de gehanteerde methodologie verwacht dit onderzoek dat minstens 75\% van alle nodige aanpassingen automatisch uitgevoerd kunnen worden.
 % Wat hebben we hieraan?
-Het automatisatie process zal naar verwachting de nodige tijd voor de applicaties te updaten verminderen.
-De hoeveelheid tijd dat in totaal bespaard zal worden zal afhangen van het aantal applicatie en de grote van de broncode dat geupdate moet worden.
+Het automatisatie proces zal naar verwachting de nodige tijd voor de applicaties te updaten verminderen.
+De hoeveelheid tijd dat in totaal bespaard zal worden zal afhangen van het aantal applicatie en de grootte van de broncode dat geüpdatet moet worden.
 Het ontwikkelen van de updater heeft uiteraard ook tijd in beslag genomen.
-Deze oplossing zal wellicht meer tijd in beslag nemen als enkel één kleine applicatie geupdate moet worden.
+Deze oplossing zal wellicht meer tijd in beslag nemen als enkel één kleine applicatie geüpdatet moet worden.
 
 % Wat kan nog onderzocht worden?
 Of dit de meest effectieve manier is voor deze casus op te lossen is open voor debat.
-Verder onderzoek kan uitgevoert worden naar de performantie, accuraatheid, en complexiteit van de verschillend implementaties besproken in de literatuurstudie.
+Verder onderzoek zal uitgevoerd worden naar de performantie, accuraatheid en complexiteit van de verschillende implementaties besproken in de literatuurstudie.
 
