@@ -12,3 +12,5 @@ You may need to rerun this script multiple times since the commands used for com
 Note that this script assumes that a `.bib` is present and will always try to generate a bibliography.
 In the case of the `poster` the errors thrown by `biber` can be ignored since no bibliography is present.
 The `output`directory is where all compiled documents end up.
+
+All files in the `diagrams` directory are compiled using [plantuml](https://plantuml.com/).

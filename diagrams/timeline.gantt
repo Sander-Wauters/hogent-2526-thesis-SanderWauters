@@ -1,0 +1,50 @@
+@startgantt
+
+sunday are closed
+
+Project starts 2025-09-23
+
+-- Onderzoeksidee --
+
+[Literatuurstudie probleemdomein] requires 4 days
+then [Literatuurstudie oplossingsdomein] requires 4 days
+then [Onderzoeksidee afwerken] requires 3 days
+
+[Onderzoeksidee indienen via formulier] is colored in red and happens 2025-10-06
+[Mondelinge pitch van onderzoeksidee] is colored in red and starts 2025-10-09 and ends 2025-10-21 
+then [Feedback op onderzoeksidee toepassen] requires 5 days
+
+[Final draft onderzoeksidee indienen op Chamilo] is colored in red and happens 2025-10-31
+[Intentieverklaring co-promotor indienen op Chamilo] is colored in red and happens 2025-10-31
+
+-- Onderzoek --
+
+[Methodologie kiezen aan de hand van literatuurstudie] starts 2025-10-06 and requires 1 days
+then [Oplijsten van nodige veranderingen] requires 1 days
+then [PoC uitwerken] requires 4 weeks
+then [Methodologie schrijven] requires 4 days
+then [Literatuurstudie schrijven] requires 4 days
+then [Inleiding schrijven] requires 3 days
+
+[First draft BP met inleiding, literatuurstudie en methodologie] is colored in red and happens 2025-11-18
+then [Conclusie schrijven] requires 3 days
+then [Abstract schrijven] requires 3 days
+
+[Mondelinge toelichting van literatuurstudie en methodologie] is colored in red and starts 2025-11-19 and ends 2025-11-28
+then [Feedback toepassen] requires 5 days
+then [BP afwerken] requires 1 weeks
+
+[Final draft BP indienen op Chamilo] is colored in red and happens 2025-12-17
+then [Feedback toepassen] requires 4 days
+then [BP poster maken] requires 5 days
+then [BP presentatie maken] requires 5 days
+
+[BP indienen via BPApplicatie op Chamilo] is colored in red and happens 2026-01-09
+
+legend
+Legende:
+|= Kleur |= Betekenis |
+|<#red> | Deadlines HOGENT |
+end legend
+
+@endgantt
