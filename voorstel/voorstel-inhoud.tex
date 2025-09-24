@@ -13,13 +13,16 @@ Momenteel is Angular versie 20 (v.20) de meest recente stabiele versie.
 Binnen Stater maken de applicaties gebruikt van Angular versie 16 (v.16), maar het bedrijf is van plan de applicaties te updaten naar de recentste versie, Angular v.20.
 
 % Waarom moeten de applicaties geupdate worden?
-Software updates introduceren nieuwe functionaliteiten, kunnen de performantie van de applicatie verbeteren en verzekeren dat de software compatibel blijft met nieuwe software en hardware.
-Verder is het up-to-date houden van software cruciaal voor de cyberveiligheid te garanderen.
+\textcite{Vaniea2016} omschrijven software updates als het introduceren van nieuwe functionaliteiten, de performantie van de applicatie verbeteren en verzekeren dat de software compatibel blijft met nieuwe software en hardware.
+Verder omschrijft deze brond dat het up-to-date houden van software cruciaal voor de cyberveiligheid te garanderen.
 
 % Waarom is dit een probleem?
 Vanwege het grote verschil in versies zal het updaten van alle applicaties veel tijd in beslag nemen.
+% Waarom automatiseren?
+Volgends \textcite{Kaur2015} neemt het onderhoudt van een softwareproject gemiddeld 60\% van de kostprijs in beslag.
+Een manier om de tijd voor software-onderhoud in te korten is daarom best interesant.
 % Wat is de onderzoeksvraag?
-Hieruit komt de vraag: Is het mogelijk om een applicatie in Angular v.16 automatisch te updaten naar Angular v.20?
+Hieruit komt de vraag: In welke mate is het mogelijk om een applicatie in Angular v.16 automatisch te updaten naar Angular v.20?
 % In welke deelvragen wordt de onderzoeksvraag opgesplitst?
 Voor deze vraag te beantwoorden worden volgende deelvragen geformuleerd:
 \begin{itemize}
@@ -48,16 +51,12 @@ En tenslotte worden de verwachte resultaten besproken, waarin een inschatting wo
 \subsection{Veranderingen in Angular}
 
 % Wat zijn de aanpassingen die uitgevoert moeten worden?
-De \textcite{AngularUpdateGuide} geeft ons een uitgebreid overzicht van alle aanpassingen die nodig zijn voor een Angular applicatie van v.16 naar v.20 te updaten. 
-Dit onderzoek zal voor de duidelijkheid het overzicht uit deze bron onderverdelen in volgende ``categorieën'':
+De \textcite{AngularUpdateGuide2025} geeft ons een uitgebreid overzicht van alle aanpassingen die nodig zijn voor een Angular applicatie van v.16 naar v.20 te updaten. 
+Uit deze bron blijkt dat in totaal er 79 verschillende stappen uitgevoerd worden.
 
-\begin{itemize}
-  \item Uitvoeringen van CLI-commando's.
-  \item Aanpassingen aan configuraties.
-  \item Vervangen van verouderde functionaliteiten.
-  \item Hernoemen van functies, variabelen, enumeraties en imports.
-  \item Verwijderen van referenties naar verouderde functies, variabelen, enumeraties en imports.
-\end{itemize}
+De studie door \textcite{Bavota2012} onderzoek welke veranderingen aan code het meeste kans hebben om nieuwe bugs te introduceren.
+In deze studie zijn deze verandering onderverdeeld in 4 categorieën: schadelijk, potentieel schadelijk, niet schadelijk en niet geclassificeerd.
+Deze studie maakt het mogelijk om een geïnformeerde inschatting te maken naar welke aanpassingen geautomatiseerd kunnen worden zonder onderwachte bijwerkingen te introduceren.
 
 \subsection{Automatisatie process}
 
