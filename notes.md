@@ -1,5 +1,37 @@
 # Notes
 
+## TLDR
+
+Problem:
+
+- Multiple Angular application need to be updated from v.16 to v.20.
+  - This would take a long time and the results are not directly obvious to the end-user.
+
+Research question:
+
+- To what extent can the update of Angular v.16 to v.20 be automized?
+  - What does the update entail?
+    - Use AngularUpdateGuide2025 to determine what needs to happen.
+  - What can we automize?
+    - Use Bavota2012 to categorize the changes
+      - Changes that are deemed potentially harmfull and not harmfull will be automized.
+      - Changes that are deemed harmfull will not be automized.
+      - Changes that are uncategorized will be evaluated case by case.
+  - What are our options to automize?
+    - AI (still to many problems with this, but its topical these days)
+    - TypeScript compiler API (good documentation, battle tested, commonly used for similar cases, no support for Angular templates)
+    - Angular LSP (no documentation, battle tested, not commonly used for this case, support for Angular templates, limited to LSP capabilities)
+    - TypeScript LSP (limited documentation, battle tested, not commonly used for this case, support for Angular templates, limited to LSP capabilities)
+  - What option is best suited for us?
+    - Will most likely use ts-morph (wrapper over the TypeScript compiler API with built in find and replace).
+
+Proposed solution:
+
+- Build an application that can detect and/or execute the needed updates to the source code.
+  - This application purpose is the ASSIST in the update process NOT to replace it.
+  - Implementation measured by the amount of detected changes and executed changes.
+  - The application should be easely expandable so that it can be used for future updates.
+
 ## Problem domain
 
 ### What needs to change?
