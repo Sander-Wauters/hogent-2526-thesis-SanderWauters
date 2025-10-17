@@ -1,6 +1,6 @@
 #!/bin/bash
 
-[ $# -ne 1 ] && (echo "Usage: $0 <path_to_main_tex_file>"; exit -1)
+[ $# -ne 1 ] && { echo "Usage: $0 <path_to_main_tex_file>"; exit -1; }
 
 readonly SRC_DIR="$(dirname "$1")"
 readonly SRC_FILE="$(basename "$1")"
