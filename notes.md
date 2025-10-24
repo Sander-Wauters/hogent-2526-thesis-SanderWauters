@@ -1,5 +1,10 @@
 # Notes
 
+## Include in thesis
+
+- Mention the practical and organizational aspects of every descision made. Don't focus on only the academic.
+- When talking about the time to implement something, mention how that time is spent. Is it research, implementation, communication, etc.
+
 ## TLDR
 
 Problem:
