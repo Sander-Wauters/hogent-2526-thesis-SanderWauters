@@ -20,14 +20,14 @@ Wat is het probleem?
 
 - Dezelfde update herhalen over meerdere applicaties neemt veel tijd in beslag.
 
+Waarom is dit een probleem?
+
+- Het kost tijd en geld voor deze updates uit te voeren.
+
 Voor wie is dit een probleem?
 
 - Dit is een probleem voor het bedrijf omdat dit hun geld kost.
 - Dis is een probleem voor de developers omdat dit hun tijd kost.
-
-Waarom is dit een probleem?
-
-- Het kost tijd en geld voor deze updates uit te voeren.
 
 ## Onderzoeksvraag
 
@@ -48,8 +48,10 @@ Wat probeert het onderzoek te bereiken?
 
 - De developers een tool geven om het update process te versnellen.
 
-Wat zijn de criteria voor succees?
+Wat zijn de criteria voor succes?
 
+- De tool moet aanpasbaar zijn voor nieuwe Angular updates.
+- De tool moet passen in de huidige workflow.
 - De tool mag geen nieuwe bugs introduceren.
 - De tool moet makelijk bruikbaar zijn door de developers.
 - De tool moet los zijn van Angular, anders hebben we een extra applicatie voor te onderhouden.

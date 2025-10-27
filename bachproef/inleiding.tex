@@ -5,46 +5,81 @@
 \chapter{\IfLanguageName{dutch}{Inleiding}{Introduction}}%
 \label{ch:inleiding}
 
-De inleiding moet de lezer net genoeg informatie verschaffen om het onderwerp te begrijpen en in te zien waarom de onderzoeksvraag de moeite waard is om te onderzoeken. In de inleiding ga je literatuurverwijzingen beperken, zodat de tekst vlot leesbaar blijft. Je kan de inleiding verder onderverdelen in secties als dit de tekst verduidelijkt. Zaken die aan bod kunnen komen in de inleiding~\autocite{Pollefliet2011}:
+% Waar gaat het onderzoek over?
+Software frameworks zoals Angular vereenvoudigen het maken van dynamische web applicaties.
+Zoals vele software krijgt Angular geregeld updates.
+Deze updates komen met verschillende voordelen, zoals: nieuwe functionaliteiten, betere performanie, bug fixes, \dots.
+Het toepassen van deze updates is niet altijd even vanzelfsprekend.
+Soms dienen nieuwe functionaliteiten als vervanging op oudere.
+Dit zort ervoor dat de code die Angular aanspreek ook moet veranderen.
 
-\begin{itemize}
-  \item context, achtergrond
-  \item afbakenen van het onderwerp
-  \item verantwoording van het onderwerp, methodologie
-  \item probleemstelling
-  \item onderzoeksdoelstelling
-  \item onderzoeksvraag
-  \item \ldots
-\end{itemize}
+% Wat is de context?
+Het bedrijf Stater is een end-to-end dienstverlener voor zowel hypothecaire als consumentenkredieten.
+Ze ondersteunen de kredietverstrekker voor de dienstverlening aan consumenten.
+Intern zijn er meerder applicatie die gebruik maken van het Angular framework.
+Specifiek Angular versie 16 (v16).
+Stater zou graag al deze applicaties updaten naar de meest recente versie, Angular versie 20 (v20).
 
 \section{\IfLanguageName{dutch}{Probleemstelling}{Problem Statement}}%
 \label{sec:probleemstelling}
 
-Uit je probleemstelling moet duidelijk zijn dat je onderzoek een meerwaarde heeft voor een concrete doelgroep. De doelgroep moet goed gedefinieerd en afgelijnd zijn. Doelgroepen als ``bedrijven,'' ``KMO's'', systeembeheerders, enz.~zijn nog te vaag. Als je een lijstje kan maken van de personen/organisaties die een meerwaarde zullen vinden in deze bachelorproef (dit is eigenlijk je steekproefkader), dan is dat een indicatie dat de doelgroep goed gedefinieerd is. Dit kan een enkel bedrijf zijn of zelfs één persoon (je co-promotor/opdrachtgever).
+% Wat is het probleem?
+De sprong van 4 versies betekend welicht dat er veel aanpassingen aan de broncodee nodig zijn.
+Dit probleem vermeenigvuldicht zich met de grote van de broncode en het aantal applicaties dat deze updates nodig hebben.
+Het manueel uitvoeren van al deze veranderingen neemt veel tijd in beslag.
+Dit probleem is niet eenmalig, Angular krijgt een nieuwe versie om de 6 maanden.
+
+% Waarom is dit een probleem?
+De onderhoudskost van software kan snel tot boven de 60\% van de totale project kost oplopen.
+Dit soort onderhoud kan ook niet eewig uitgesteld worden.
+Software updates zijn noodzakelijk om de cyberveiligheid van een applicatie te garanderen.
+
+% Voor wie is dit een probleem?
+Om deze redenen is het vereenvoudigen van het update process best interesant.
+Voor de programmeurs dat de updates toepassen verminderd dit de werkdruk.
+Voor het bedrijf Stater betekend dit dat de onderhoudstijd, en bij gevolg kost, lager kan liggen.
 
 \section{\IfLanguageName{dutch}{Onderzoeksvraag}{Research question}}%
 \label{sec:onderzoeksvraag}
 
-Wees zo concreet mogelijk bij het formuleren van je onderzoeksvraag. Een onderzoeksvraag is trouwens iets waar nog niemand op dit moment een antwoord heeft (voor zover je kan nagaan). Het opzoeken van bestaande informatie (bv. ``welke tools bestaan er voor deze toepassing?'') is dus geen onderzoeksvraag. Je kan de onderzoeksvraag verder specifiëren in deelvragen. Bv.~als je onderzoek gaat over performantiemetingen, dan 
+% Wat is de onderzoeksvraag?
+Op basis van de bovenstaande probleemstelling is de volgende onderzoeksvraag gefromuleerd: in welke mate kan de automatisering van het updateproces van Angular v16 naar v20, bij meerdere applicaties, de onderhoudstijd voor de ontwikkelaars verlagen?
+
+% Wat zijn de deelvragen?
+Om deze onderzoeksvraag te beantwoorden zijn volgende deelvragen opgesteld:
+\begin{itemize}
+  \item Hoeveel veranderingen moeten uitgevoerd worden om Angular van v16 naar v20 te updaten?
+  \item Welke manieren bestaan om code automatisch aan te passen zonder ongewenste veranderingen uit te voeren?
+  \item Welke manier om code automatisch aan te passen is het meest geschikt om in deze casus toe te passen?
+  \item Wat zijn statistisch gezien de meest voorkomende problemen bij het updaten van code?
+\end{itemize}
 
 \section{\IfLanguageName{dutch}{Onderzoeksdoelstelling}{Research objective}}%
 \label{sec:onderzoeksdoelstelling}
 
-Wat is het beoogde resultaat van je bachelorproef? Wat zijn de criteria voor succes? Beschrijf die zo concreet mogelijk. Gaat het bv.\ om een proof-of-concept, een prototype, een verslag met aanbevelingen, een vergelijkende studie, enz.
+% Wat probeert het onderzoek te bereiken?
+Om de onderzoeksvraag te beantwoorden wordt als proof of concept een applicatie ontwikkeld dat de programmeurs ondersteunt in het updateprocess.
+In de rest van dit onderzoek zal naar deze applicatie verwezen worden als de ``updater''.
+
+% Wat zijn de criteria voor succes?
+De updater moet minstens voldoen aan de volgende criteria:
+
+\begin{itemize}
+  \item De updater is van de ontwikkelaars voor de ontwikkelaars. De bedoeling is dat de persoon die de update uitvoerd de updater kan instellen.
+  \item De updater moet passen in de huidige workflow van de ontwikkelaars.
+  \item De updater moet aanpasbaar zijn aan de uit te voeren update. Het moet kunnen gebruikt worden bij de volgende update.
+  \item De updater mag geen nieuwe bugs introduceren. Gegeven dat de instelling correct is mag het geen fouten maken.
+  \item De updater mag niet gekoppeld zijn aan Angular. Dit zorgt ervoor dat de updater zelf niet geupdate moet worden bij een nieuwe Angular versie.
+\end{itemize}
 
 \section{\IfLanguageName{dutch}{Opzet van deze bachelorproef}{Structure of this bachelor thesis}}%
 \label{sec:opzet-bachelorproef}
 
-% Het is gebruikelijk aan het einde van de inleiding een overzicht te
-% geven van de opbouw van de rest van de tekst. Deze sectie bevat al een aanzet
-% die je kan aanvullen/aanpassen in functie van je eigen tekst.
-
+% Hoe is de rest van de tekst opgebouwd?
 De rest van deze bachelorproef is als volgt opgebouwd:
 
 In Hoofdstuk~\ref{ch:stand-van-zaken} wordt een overzicht gegeven van de stand van zaken binnen het onderzoeksdomein, op basis van een literatuurstudie.
 
 In Hoofdstuk~\ref{ch:methodologie} wordt de methodologie toegelicht en worden de gebruikte onderzoekstechnieken besproken om een antwoord te kunnen formuleren op de onderzoeksvragen.
-
-% TODO: Vul hier aan voor je eigen hoofstukken, één of twee zinnen per hoofdstuk
 
 In Hoofdstuk~\ref{ch:conclusie}, tenslotte, wordt de conclusie gegeven en een antwoord geformuleerd op de onderzoeksvragen. Daarbij wordt ook een aanzet gegeven voor toekomstig onderzoek binnen dit domein.
