@@ -51,7 +51,6 @@ Wat probeert het onderzoek te bereiken?
 Wat zijn de criteria voor succes?
 
 - De tool moet aanpasbaar zijn voor nieuwe Angular updates.
-- De tool moet passen in de huidige workflow.
 - De tool mag geen nieuwe bugs introduceren.
 - De tool moet makelijk bruikbaar zijn door de developers.
 - De tool moet los zijn van Angular, anders hebben we een extra applicatie voor te onderhouden.

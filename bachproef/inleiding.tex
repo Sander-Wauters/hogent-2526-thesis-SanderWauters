@@ -6,50 +6,54 @@
 \label{ch:inleiding}
 
 % Waar gaat het onderzoek over?
-Software frameworks zoals Angular vereenvoudigen het maken van dynamische web applicaties.
+Softwareframeworks zoals Angular vereenvoudigen het maken van dynamische webapplicaties.
 Zoals vele software krijgt Angular geregeld updates.
-Deze updates komen met verschillende voordelen, zoals: nieuwe functionaliteiten, betere performanie, bug fixes, \dots.
+Deze updates komen met verschillende voordelen, zoals: nieuwe functionaliteiten, betere performantie, bugfixes, \dots.
 Het toepassen van deze updates is niet altijd even vanzelfsprekend.
-Soms dienen nieuwe functionaliteiten als vervanging op oudere.
-Dit zort ervoor dat de code die Angular aanspreek ook moet veranderen.
+Soms dienen nieuwe functionaliteiten als vervanging voor oudere functionaliteiten.
+Dit zorgt ervoor dat de code die Angular aanspreekt ook moet veranderen.
 
 % Wat is de context?
 Het bedrijf Stater is een end-to-end dienstverlener voor zowel hypothecaire als consumentenkredieten.
 Ze ondersteunen de kredietverstrekker voor de dienstverlening aan consumenten.
-Intern zijn er meerder applicatie die gebruik maken van het Angular framework.
-Specifiek Angular versie 16 (v16).
+Stater heeft intern meerdere applicaties die gebruikmaken van het Angular-framework.
+Specifiek gebruiken deze applicaties Angular versie 16 (v16).
 Stater zou graag al deze applicaties updaten naar de meest recente versie, Angular versie 20 (v20).
 
 \section{\IfLanguageName{dutch}{Probleemstelling}{Problem Statement}}%
 \label{sec:probleemstelling}
 
 % Wat is het probleem?
-De sprong van 4 versies betekend welicht dat er veel aanpassingen aan de broncodee nodig zijn.
-Dit probleem vermeenigvuldicht zich met de grote van de broncode en het aantal applicaties dat deze updates nodig hebben.
+De sprong van 4 versies betekent wellicht dat er veel aanpassingen aan de broncode nodig zijn.
+Dit probleem vermeerdert zich met de grootte van de broncode en het aantal applicaties dat deze updates nodig heeft.
 Het manueel uitvoeren van al deze veranderingen neemt veel tijd in beslag.
-Dit probleem is niet eenmalig, Angular krijgt een nieuwe versie om de 6 maanden.
+Dit probleem is niet eenmalig.
+Angular krijgt volgens \textcite{Callaghan2023} een nieuwe versie om de 6 maanden.
 
 % Waarom is dit een probleem?
-De onderhoudskost van software kan snel tot boven de 60\% van de totale project kost oplopen.
-Dit soort onderhoud kan ook niet eewig uitgesteld worden.
-Software updates zijn noodzakelijk om de cyberveiligheid van een applicatie te garanderen.
+Al dit tezamen zorgt ervoor dat de onderhoudskosten snel oplopen.
+De studie door \textcite{Kaur2015} beweert dat het onderhouden van een softwareproject gemiddeld 60\% van de totale kostprijs in beslag neemt.
+Het tijdig uitvoeren van deze updates is in de praktijk niet altijd mogelijk.
+Buiten het onderhouden van software worden er nieuwe functies toegevoegd of wordt aan een andere applicatie gewerkt.
+Dit soort onderhoud kan ook niet eeuwig uitgesteld worden.
+Software-updates zijn volgens \textcite{Vaniea2016} noodzakelijk om de cyberveiligheid van een applicatie te garanderen.
 
 % Voor wie is dit een probleem?
-Om deze redenen is het vereenvoudigen van het update process best interesant.
-Voor de programmeurs dat de updates toepassen verminderd dit de werkdruk.
-Voor het bedrijf Stater betekend dit dat de onderhoudstijd, en bij gevolg kost, lager kan liggen.
+Om deze redenen is het vereenvoudigen van het updateproces best interessant.
+Voor de programmeurs die de updates toepassen, vermindert de werkdruk.
+Voor het bedrijf Stater betekent dit dat de onderhoudstijd/-kost voor hun applicaties lager kan liggen.
 
 \section{\IfLanguageName{dutch}{Onderzoeksvraag}{Research question}}%
 \label{sec:onderzoeksvraag}
 
 % Wat is de onderzoeksvraag?
-Op basis van de bovenstaande probleemstelling is de volgende onderzoeksvraag gefromuleerd: in welke mate kan de automatisering van het updateproces van Angular v16 naar v20, bij meerdere applicaties, de onderhoudstijd voor de ontwikkelaars verlagen?
+Op basis van de bovenstaande probleemstelling is de volgende onderzoeksvraag geformuleerd: in welke mate kan de automatisering van het updateproces van Angular v16 naar v20, bij meerdere applicaties, de onderhoudstijd voor de ontwikkelaars verlagen?
 
 % Wat zijn de deelvragen?
-Om deze onderzoeksvraag te beantwoorden zijn volgende deelvragen opgesteld:
+Om deze onderzoeksvraag te beantwoorden, zijn de volgende deelvragen opgesteld:
 \begin{itemize}
   \item Hoeveel veranderingen moeten uitgevoerd worden om Angular van v16 naar v20 te updaten?
-  \item Welke manieren bestaan om code automatisch aan te passen zonder ongewenste veranderingen uit te voeren?
+  \item Welke manieren bestaan er om code automatisch aan te passen zonder ongewenste veranderingen uit te voeren?
   \item Welke manier om code automatisch aan te passen is het meest geschikt om in deze casus toe te passen?
   \item Wat zijn statistisch gezien de meest voorkomende problemen bij het updaten van code?
 \end{itemize}
@@ -58,18 +62,26 @@ Om deze onderzoeksvraag te beantwoorden zijn volgende deelvragen opgesteld:
 \label{sec:onderzoeksdoelstelling}
 
 % Wat probeert het onderzoek te bereiken?
-Om de onderzoeksvraag te beantwoorden wordt als proof of concept een applicatie ontwikkeld dat de programmeurs ondersteunt in het updateprocess.
+Om de onderzoeksvraag te beantwoorden, wordt als proof of concept een applicatie ontwikkeld die de programmeurs ondersteunt in het updateproces.
 In de rest van dit onderzoek zal naar deze applicatie verwezen worden als de ``updater''.
 
-% Wat zijn de criteria voor succes?
-De updater moet minstens voldoen aan de volgende criteria:
+% Zijn er niet-functionele requirements?
+Buiten de functionele requirements van de updater zal dit onderzoek proberen rekening te houden met de ruimere bedrijfscontext.
+Dit houdt in dat de gekozen implementatie rekening houdt met de huidige doelgroepen en de middelen/noden van het bedrijf.
 
+% Wat zijn de criteria voor succes?
+Concreet betekend dit dat de updater aan de volgende criteria moet voldoen:
 \begin{itemize}
-  \item De updater is van de ontwikkelaars voor de ontwikkelaars. De bedoeling is dat de persoon die de update uitvoerd de updater kan instellen.
-  \item De updater moet passen in de huidige workflow van de ontwikkelaars.
-  \item De updater moet aanpasbaar zijn aan de uit te voeren update. Het moet kunnen gebruikt worden bij de volgende update.
-  \item De updater mag geen nieuwe bugs introduceren. Gegeven dat de instelling correct is mag het geen fouten maken.
-  \item De updater mag niet gekoppeld zijn aan Angular. Dit zorgt ervoor dat de updater zelf niet geupdate moet worden bij een nieuwe Angular versie.
+  \item De updater is van de ontwikkelaars voor de ontwikkelaars. 
+    De bedoeling is dat de persoon die de update uitvoert de updater kan instellen.
+  \item De updater moet aanpasbaar zijn aan de uit te voeren update. 
+    Het moet kunnen gebruikt worden bij de volgende update.
+  \item De updater mag geen nieuwe bugs introduceren. 
+    Gegeven dat de configuratie correct is, mag het geen fouten maken.
+  \item De updater mag niet gekoppeld zijn aan Angular. 
+    Dit zorgt ervoor dat de updater zelf niet geüpdatet moet worden bij een nieuwe Angular-versie.
+  \item De updater stuurt geen informatie door aan derde partijen.
+    Het bedrijf bevindt zich in de financiële sector, waardoor confidentialiteit een prioriteit is.
 \end{itemize}
 
 \section{\IfLanguageName{dutch}{Opzet van deze bachelorproef}{Structure of this bachelor thesis}}%
@@ -79,7 +91,18 @@ De updater moet minstens voldoen aan de volgende criteria:
 De rest van deze bachelorproef is als volgt opgebouwd:
 
 In Hoofdstuk~\ref{ch:stand-van-zaken} wordt een overzicht gegeven van de stand van zaken binnen het onderzoeksdomein, op basis van een literatuurstudie.
+Hier geven we een omschrijving van wat Angular is en hoe een Angular-project is opgebouwd.
+Verder overlopen we wat refactoring is en welke manieren reeds bestaan om dit te automatiseren.
 
 In Hoofdstuk~\ref{ch:methodologie} wordt de methodologie toegelicht en worden de gebruikte onderzoekstechnieken besproken om een antwoord te kunnen formuleren op de onderzoeksvragen.
+De methodologie begint met het toelichten van de gekozen refactoringtechnieken uit de literatuurstudie.
+Hierna volgt een korte oplijsting van welke veranderingen concreet uitgevoerd moeten worden om een Angular-applicatie van v16 naar v20 te updaten.
+Vervolgens wordt als proof of concept de updater uitgewerkt op basis van de gekozen technieken.
+Tegelijk wordt een gecontroleerde omgeving gemaakt die dient om de effectiviteit van de updater te testen.
+Tenslotte geven we de resultaten van de updater.
 
-In Hoofdstuk~\ref{ch:conclusie}, tenslotte, wordt de conclusie gegeven en een antwoord geformuleerd op de onderzoeksvragen. Daarbij wordt ook een aanzet gegeven voor toekomstig onderzoek binnen dit domein.
+In Hoofdstuk~\ref{ch:conclusie}, tenslotte, wordt de conclusie gegeven en een antwoord geformuleerd op de onderzoeksvragen.
+Alle deelvragen worden beantwoord.
+Om het onderzoek af te ronden, worden enkele nieuwe inzichten gegeven. 
+Deze kunnen dienen als aanzet tot verder onderzoek.
+

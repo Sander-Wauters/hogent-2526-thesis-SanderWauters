@@ -17,6 +17,7 @@ compile_latex() {
     -shell-escape \
     -synctex=1 \
     -xelatex \
+    -f \
     "${SRC_FILE}"
 }
 
