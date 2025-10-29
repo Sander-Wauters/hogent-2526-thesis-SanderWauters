@@ -1,51 +1,230 @@
 \chapter{\IfLanguageName{dutch}{Stand van zaken}{State of the art}}%
 \label{ch:stand-van-zaken}
 
+% Welke termen en technologiën moet iemand kennen voor het onderzoek te snappen?
+In dit hoofdstuk bespreken we de verschillende technologiën dat betrekking hebben tot dit onderzoek.
+Deze literatuurstudie start met een omschrijven van het Angular framework en hoe een Angular project gestructureerd is.
+Vervolgens wordt uitleg gegeven over de TypeScript programmeertaal, specifiek hoe Angular dit gebruikt.
+Ten slotte volgt een overzicht van verschillende gekende manieren om code automatisch aan te passen.
+
+\section{Angular}
+\label{ch:stand-van-zaken:angular}
+
+% Wat is Angular?
+Angular, ook wel Angular2 genoemd, is een user interface (UI) framework ontwikkeld door Google in 2016. % citation needed
+Het is gratis, open-source en wordt onderhouden door diverse groep van ontwikkelaars.
+% Waarvoor dient het?
+Angular wordt gebruikt voor het maken van single-page web applicaties dat zowel client als server side rendered kunnen worden.
+% Hoe maakt het een UI?
+Voor het opbouwen van een UI in Angular worden ``componenten'' gebruikt.
+% Wat is een component in Angular?
+Een component is een zelfstandige, herbruikbare bouwblok dat in combinatie met andere componenten een UI vormt. % citation needed
+
+% Hoe werkt het?
+Het is een opinionated framework.
+Dit wil zeggen dat het komt met een specifieke structuur en richtlijnen waar een applicatie zich aan moet houden. % citation needed
+% Wat kan het?
+Het framework komt ingebouwd met verschillende functionaliteiten dat de ontwikkeling van applicatie vereenvoudigt. % citation needed
+Het heeft functies dat toelaten om unit testen te schrijven voor componenten.
+Angular heeft een collectie van command line (CLI) tools dat de ontwikkelaars helpt bij het maken van een applicatie, bijvoorbeel het genereren van een blanko component met bijhorende testen in één commando.
+Verder komt het met een eigen Hyper Text Transfer Protocol (HTTP) client voor een applicatie te verbinden met een backend service over het internet.
+
+% Hoe is een Angular project gestructureerd?
+Angular is gebaseerd op TypeScript en gebruikt dit in combinatie met andere technologiën.
+In een Angular project zijn de volgende bestanden terug te vinden:
+\begin{itemize}
+  \item TypeScript, de TypeScript programmeertaal wordt gebruikt voor de implementatie van de bedrijfslogica en testen.
+  \item HTML, HTML wordt bebruikt voor de achterliggende structuur van de UI te omschrijven. 
+    In de context van Angular componenten wordt hiernaar verwezen als een ``template''.
+  \item CSS, CSS wordt gebruikt om de visuele representatie van de UI te omschrijven
+  \item JSON, JSON wordt gebruikt voor het configureren van Angular en TypeScript.
+\end{itemize}
+
+\section{TypeScript}
+\label{ch:stand-van-zaken:typescript}
+
+% Wat is TypeScript?
+
+- Basically JavaScript met een type system.
+- Compileerd naar JavaScript.
+- Inheritly object oriented, basically the prototype patern on steroids.
+
+% Hoe wordt HTML en CSS binnen Angular gebruikt?
+
+- HTML kan in apparte bestanden of als een string in een TypeScript component (templates) in een decorator.
+- CSS in apparte bestanden en wordt gelinkt in TypeScript via een decorator.
+
+\section{Automatisch refactoren}
+\label{ch:stand-van-zaken:refactoring}
+
+% Wat is refactoren?
+
+- De source code van een applicatie aanpassen om de operatie aan te passen zonder de functionaliteit te veranderen.
+
+% Welke manieren bestaan er?
+
+- De ander hoofdstukken omschrijven de verschillende manieren dat van toepassing zijn.
+
+\subsection{Find \& replace}
+\label{ch:stand-van-zaken:refactoring:find-and-replace}
+
+% Wat is find & replace?
+
+- Gebaseerd op tekst of Regex.
+
+% Waarom is dit relevant?
+
+- De simpelste vorm om in bulk code aan te passen.
+
+% Hoe werkt dit?
+
+- Pattern matching.
+- Verschillende algorithme.
+
+% Wat zijn de voordelen?
+
+- Simpel te begrijpen.
+- Simpel te implementeren.
+
+% Wat zijn de nadelen?
+
+- Geen vat op syntax.
+- Geen vat op semantiek.
+
+\subsection{Compiler gebaseerd}
+\label{ch:stand-van-zaken:refactoring:compiler}
+
+% Wat is compiler gebaseerd refactoren?
+
+- De functionaliteit van de compiler gebruiken om code aan te passen.
+
+% Waarom is dit relevant?
+
+- TypeScript is compiled.
+- TypeScript heeft een compiler API.
+
+% Hoe werkt dit?
+
+- Compiler leest de code in als een Abstract Syntax Tree (AST).
+
+% Wat zijn de voordelen?
+
+- Bestaande API.
+- Heeft vat op syntax.
+- Goed gedocumenteerd.
+
+% Wat zijn de nadelen?
+
+- Geen vat op semantiek.
+
+\subsection{Language Server Protocol (LSP) gebaseerd}
+\label{ch:stand-van-zaken:refactoring:lsp}
+
+% Wat is het LSP gebaseerd refactoren?
+
+- LSP is de technologie achter de refactoring tools in meeste moderen IDE's en text editors.
+
+% Waarom is dit relevant?
+
+- LSP is de defactor standaard.
+
+% Wat kan de TypeScript LSP?
+% Wat kan de Angular LSP?
+% Wat zijn de voordelen?
+
+- Heeft vat op syntax.
+
+% Wat zijn de nadelen?
+
+- Geen vat op semantiek.
+- Weinig tot geen documentatie tot de interne werking.
+- Wordt zelden tot nooit programatisch aangesproken.
+
+\subsection{Artificiele Inteligentie (AI) gebaseerd}
+\label{ch:stand-van-zaken:refactoring:ai}
+
+% Wat is AI gebaseerd refactoren?
+
+- AI de code laten inlezen en veranderingen laten toebrengen.
+
+% Waarom is dit relevant?
+
+- AI is overal vandaag.
+
+% Hoe werkt dit?
+
+- No one knows exectly, it's a black box.
+- Geeft statistisch gezien het beste antwoord op een vraag op basis van gekende data.
+
+% Wat zijn de voordelen?
+
+- Kan vat hebben op syntax.
+- Kan vat hebben op semantiek.
+
+% Wat zijn de nadelen?
+
+- Voor het maken van een AI is een grote dataset nodig.
+- Geen absolute zekerheid of het een corecte output zal geven.
+- Open AI tools zoals ChatGPT op interne code gebruiken geeft problemen met confidentialiteit.
+
+\subsection{Gekende problemen}
+\label{ch:stand-van-zaken:refactoring:known-problems}
+
+% Wat zijn de gekende problemen bij refactoren?
+
+- Kan soms nieuwe bugs introduceren.
+
+
+
+
+
+
+
 % Tip: Begin elk hoofdstuk met een paragraaf inleiding die beschrijft hoe
 % dit hoofdstuk past binnen het geheel van de bachelorproef. Geef in het
 % bijzonder aan wat de link is met het vorige en volgende hoofdstuk.
 
 % Pas na deze inleidende paragraaf komt de eerste sectiehoofding.
 
-Dit hoofdstuk bevat je literatuurstudie. De inhoud gaat verder op de inleiding, maar zal het onderwerp van de bachelorproef *diepgaand* uitspitten. De bedoeling is dat de lezer na lezing van dit hoofdstuk helemaal op de hoogte is van de huidige stand van zaken (state-of-the-art) in het onderzoeksdomein. Iemand die niet vertrouwd is met het onderwerp, weet nu voldoende om de rest van het verhaal te kunnen volgen, zonder dat die er nog andere informatie moet over opzoeken \autocite{Pollefliet2011}.
-
-Je verwijst bij elke bewering die je doet, vakterm die je introduceert, enz.\ naar je bronnen. In \LaTeX{} kan dat met het commando \texttt{$\backslash${textcite\{\}}} of \texttt{$\backslash${autocite\{\}}}. Als argument van het commando geef je de ``sleutel'' van een ``record'' in een bibliografische databank in het Bib\LaTeX{}-formaat (een tekstbestand). Als je expliciet naar de auteur verwijst in de zin (narratieve referentie), gebruik je \texttt{$\backslash${}textcite\{\}}. Soms is de auteursnaam niet expliciet een onderdeel van de zin, dan gebruik je \texttt{$\backslash${}autocite\{\}} (referentie tussen haakjes). Dit gebruik je bv.~bij een citaat, of om in het bijschrift van een overgenomen afbeelding, broncode, tabel, enz. te verwijzen naar de bron. In de volgende paragraaf een voorbeeld van elk.
-
-\textcite{Knuth1998} schreef een van de standaardwerken over sorteer- en zoekalgoritmen. Experten zijn het erover eens dat cloud computing een interessante opportuniteit vormen, zowel voor gebruikers als voor dienstverleners op vlak van informatietechnologie~\autocite{Creeger2009}.
-
-Let er ook op: het \texttt{cite}-commando voor de punt, dus binnen de zin. Je verwijst meteen naar een bron in de eerste zin die erop gebaseerd is, dus niet pas op het einde van een paragraaf.
-
-\begin{figure}
-  \centering
-  \includegraphics[width=0.8\textwidth]{grail.jpg}
-  \caption[Voorbeeld figuur.]{\label{fig:grail}Voorbeeld van invoegen van een figuur. Zorg altijd voor een uitgebreid bijschrift dat de figuur volledig beschrijft zonder in de tekst te moeten gaan zoeken. Vergeet ook je bronvermelding niet!}
-\end{figure}
-
-\begin{listing}
-  \begin{minted}{python}
-    import pandas as pd
-    import seaborn as sns
-
-    penguins = sns.load_dataset('penguins')
-    sns.relplot(data=penguins, x="flipper_length_mm", y="bill_length_mm", hue="species")
-  \end{minted}
-  \caption[Voorbeeld codefragment]{Voorbeeld van het invoegen van een codefragment.}
-\end{listing}
-
-\lipsum[7-20]
-
-\begin{table}
-  \centering
-  \begin{tabular}{lcr}
-    \toprule
-    \textbf{Kolom 1} & \textbf{Kolom 2} & \textbf{Kolom 3} \\
-    $\alpha$         & $\beta$          & $\gamma$         \\
-    \midrule
-    A                & 10.230           & a                \\
-    B                & 45.678           & b                \\
-    C                & 99.987           & c                \\
-    \bottomrule
-  \end{tabular}
-  \caption[Voorbeeld tabel]{\label{tab:example}Voorbeeld van een tabel.}
-\end{table}
+% Dit hoofdstuk bevat je literatuurstudie. De inhoud gaat verder op de inleiding, maar zal het onderwerp van de bachelorproef *diepgaand* uitspitten. De bedoeling is dat de lezer na lezing van dit hoofdstuk helemaal op de hoogte is van de huidige stand van zaken (state-of-the-art) in het onderzoeksdomein. Iemand die niet vertrouwd is met het onderwerp, weet nu voldoende om de rest van het verhaal te kunnen volgen, zonder dat die er nog andere informatie moet over opzoeken \autocite{Pollefliet2011}.
+% 
+% Je verwijst bij elke bewering die je doet, vakterm die je introduceert, enz.\ naar je bronnen. In \LaTeX{} kan dat met het commando \texttt{$\backslash${textcite\{\}}} of \texttt{$\backslash${autocite\{\}}}. Als argument van het commando geef je de ``sleutel'' van een ``record'' in een bibliografische databank in het Bib\LaTeX{}-formaat (een tekstbestand). Als je expliciet naar de auteur verwijst in de zin (narratieve referentie), gebruik je \texttt{$\backslash${}textcite\{\}}. Soms is de auteursnaam niet expliciet een onderdeel van de zin, dan gebruik je \texttt{$\backslash${}autocite\{\}} (referentie tussen haakjes). Dit gebruik je bv.~bij een citaat, of om in het bijschrift van een overgenomen afbeelding, broncode, tabel, enz. te verwijzen naar de bron. In de volgende paragraaf een voorbeeld van elk.
+% 
+% \textcite{Knuth1998} schreef een van de standaardwerken over sorteer- en zoekalgoritmen. Experten zijn het erover eens dat cloud computing een interessante opportuniteit vormen, zowel voor gebruikers als voor dienstverleners op vlak van informatietechnologie~\autocite{Creeger2009}.
+% 
+% Let er ook op: het \texttt{cite}-commando voor de punt, dus binnen de zin. Je verwijst meteen naar een bron in de eerste zin die erop gebaseerd is, dus niet pas op het einde van een paragraaf.
+% 
+% \begin{figure}
+%   \centering
+%   \includegraphics[width=0.8\textwidth]{grail.jpg}
+%   \caption[Voorbeeld figuur.]{\label{fig:grail}Voorbeeld van invoegen van een figuur. Zorg altijd voor een uitgebreid bijschrift dat de figuur volledig beschrijft zonder in de tekst te moeten gaan zoeken. Vergeet ook je bronvermelding niet!}
+% \end{figure}
+% 
+% \begin{listing}
+%   \begin{minted}{python}
+%     import pandas as pd
+%     import seaborn as sns
+% 
+%     penguins = sns.load_dataset('penguins')
+%     sns.relplot(data=penguins, x="flipper_length_mm", y="bill_length_mm", hue="species")
+%   \end{minted}
+%   \caption[Voorbeeld codefragment]{Voorbeeld van het invoegen van een codefragment.}
+% \end{listing}
+% 
+% \lipsum[7-20]
+% 
+% \begin{table}
+%   \centering
+%   \begin{tabular}{lcr}
+%     \toprule
+%     \textbf{Kolom 1} & \textbf{Kolom 2} & \textbf{Kolom 3} \\
+%     $\alpha$         & $\beta$          & $\gamma$         \\
+%     \midrule
+%     A                & 10.230           & a                \\
+%     B                & 45.678           & b                \\
+%     C                & 99.987           & c                \\
+%     \bottomrule
+%   \end{tabular}
+%   \caption[Voorbeeld tabel]{\label{tab:example}Voorbeeld van een tabel.}
+% \end{table}
 

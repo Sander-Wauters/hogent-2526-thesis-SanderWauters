@@ -104,6 +104,8 @@ Hoe is een Angular project gestructureerd?
 - CSS bestanden omschrijven de visuele representatie van de UI.
 - (optional) JSON bestanden bevatten project configurations.
 
+## TypeScript
+
 Wat is TypeScript?
 
 - Basically JavaScript met een type system.
