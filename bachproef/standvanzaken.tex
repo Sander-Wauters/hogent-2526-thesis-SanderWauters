@@ -47,16 +47,43 @@ In een Angular-project zijn de volgende bestanden terug te vinden:
 \section{TypeScript}
 \label{ch:stand-van-zaken:typescript}
 
+% Waarom is dit relevant?
+Om de broncode van een Angular-applicatie te begrijpen, moeten we de taal kennen waarin deze geschreven is.
 % Wat is TypeScript?
+TypeScript is een programmeertaal ontwikkeld door Microsoft in 2012.
+\textcite{Bierman2014} omschrijft TypeScript als een extensie van JavaScript die een statisch typesysteem toevoegt.
+Om TypeScript-code te gebruiken, moet deze eerst gecompileerd worden naar JavaScript.
+TypeScript is een multiparadigm-programmeertaal. 
+Het ondersteunt verschillende programmeerstijlen zoals: functioneel, procedureel, objectgeoriënteerd, \dots.
 
-- Basically JavaScript met een type system.
-- Compileerd naar JavaScript.
-- Inheritly object oriented, basically the prototype patern on steroids.
+% Hoe maakt Angular gebruik van TypeScript?
+Angular gebruikt TypeScript op een objectgeoriënteerde manier.
+Een Angular-component is een TypeScript-klasse waar de ``@Component''-decorator boven de klasdeclaratie wordt meegegeven \autocite{Wilken2018}.
+% Hoe worden HTML en CSS binnen Angular gebruikt?
+Via deze decorator wordt de bedrijfslogica van de klasse gelinkt met de bijbehorende HTML en CSS.
+Codefragment \ref{cf:component-declaration} illustreert hoe deze syntax eruitziet.
 
-% Hoe wordt HTML en CSS binnen Angular gebruikt?
+% Hoe ziet dit er uit?
+\begin{listing}
+  \begin{minted}{ts}
+    import { Component } from '@angular/core';
+    
+    @Component({
+      selector: 'my-component',
+      templateUrl: './my-component.html',
+      styleUrl: './my-component.css',
+    })
+    export class MyComponent {}
+  \end{minted}
+  \caption[Voorbeeld Angular component]{Voorbeeld van hoe een Angular component gedeclareerd wordt in TypeScript.}
+  \label{cf:component-declaration}
+\end{listing}
 
-- HTML kan in apparte bestanden of als een string in een TypeScript component (templates) in een decorator.
-- CSS in apparte bestanden en wordt gelinkt in TypeScript via een decorator.
+% Moet ik nog iets weten?
+Angular gebruikt nog meerdere verschillende decorators, maar ``@Component'' is vrijwel de meest voorkomende.
+TypeScript en Angular zijn uitgebreide thema's.
+Hier hebben we de belangrijkste onderwerpen omschreven die nodig zijn om dit onderzoek te begrijpen.
+In de volgende sectie bespreken we welke manieren bestaan om dit soort code automatisch aan te passen.
 
 \section{Automatisch refactoren}
 \label{ch:stand-van-zaken:refactoring}
@@ -72,13 +99,13 @@ In een Angular-project zijn de volgende bestanden terug te vinden:
 \subsection{Find \& replace}
 \label{ch:stand-van-zaken:refactoring:find-and-replace}
 
-% Wat is find & replace?
-
-- Gebaseerd op tekst of Regex.
-
 % Waarom is dit relevant?
 
 - De simpelste vorm om in bulk code aan te passen.
+
+% Wat is find & replace?
+
+- Gebaseerd op tekst of Regex.
 
 % Hoe werkt dit?
 
