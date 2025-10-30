@@ -105,31 +105,40 @@ In hun studie worden de manieren onderverdeeld in de volgende categorieën:
 De volgende secties van het onderzoek geven concrete voorbeelden voor elke categorie.
 Per voorbeeld worden inzichten gegeven in de werking en de voor- en nadelen.
 
-\subsection{Find \& replace}
+\subsection{Zoek \& vervang}
 \label{ch:stand-van-zaken:refactoring:find-and-replace}
 
 % Waarom is dit relevant?
-
-- De simpelste vorm om in bulk code aan te passen.
+Eén van de simpelste vormen van toolgebaseerd refactoren is de zoek- en vervangfunctie.
+Zoals de naam het zegt, zoekt dit naar instanties van een bepaalde sequentie van karakters in een tekst om deze vervolgens te vervangen.
 
 % Wat is find & replace?
-
-- Gebaseerd op tekst of Regex.
-
+De simpelste vorm zoekt op basis van een woord of een vaste sequentie van karakters.
+Meer complexe implementaties maken gebruik van reguliere expressies (regex).
 % Hoe werkt dit?
-
-- Pattern matching.
-- Verschillende algorithme.
+Regex, als omschreven door \textcite{Goyvaerts2006}, is een speciale sequentie van karakters die een zoekpatroon omschrijft.
+Het laat toe om naar complexe patronen in een tekst te zoeken.
 
 % Wat zijn de voordelen?
-
-- Simpel te begrijpen.
-- Simpel te implementeren.
+Zoek- en vervangfuncties hebben meerdere voordelen.
+Deze functies worden in veel applicaties gebruikt, zoals webbrowsers, tekstverwerkers, IDE's, \dots.
+De meeste programmeertalen hebben functies om dit te implementeren, zowel tekst- als regex-gebaseerd.
 
 % Wat zijn de nadelen?
+Zoek- en vervangfuncties gebruiken op code is niet zonder nadelen.
+Omdat het enkel zoekt op tekst, heeft het geen vat op de syntax of de semantiek van de programmeertaal.
+% Wat is syntax?
+De syntax omschrijft de structuur en volgorde van verklaringen in de programmeertaal.
+% Wat is semantiek?
+De semantiek daarentegen omschrijft de betekenis achter deze structuur en verklaringen.
+% Wat heeft dit te maken met de nadelen?
+Hierdoor is het mogelijk om ongewenste aanpassingen uit te voeren op de broncode.
+Bijvoorbeeld: stel dat er twee klassen zijn met de naam A en B, en dat beide een methode foo bevatten.
+Als we alle instanties van de methode foo in klasse A willen veranderen naar bar met behulp van zoek- en vervangfuncties, zullen alle instanties van foo in klasse B ook vervangen worden.
 
-- Geen vat op syntax.
-- Geen vat op semantiek.
+% Zijn er nog nadelen?
+Hoewel het theoretisch mogelijk zou zijn om een reguliere expressie te schrijven die met deze specifieke syntax rekening houdt, zijn hier verschillende praktische problemen mee.
+Uit de studie door \textcite{Michael2019} blijkt dat regexes moeilijk leesbaar, vindbaar, valideerbaar en documenteerbaar zijn.
 
 \subsection{Compiler gebaseerd}
 \label{ch:stand-van-zaken:refactoring:compiler}
