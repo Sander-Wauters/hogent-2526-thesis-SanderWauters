@@ -170,33 +170,40 @@ Nieuwe functies implementeren, hoewel mogelijk, is niet praktisch.
 Hoewel het de facto standaard in code-editors en IDE's is, blijft dit een zeer niche domein.
 Een grondige kennis van het LSP is nodig om een language server aan te spreken of uit te breiden.
 
-\subsection{Compiler gebaseerd}
+\subsection{Compiler}
 \label{ch:stand-van-zaken:refactoring:compiler}
 
-% Wat is compiler gebaseerd refactoren?
+% Wat is compiler-gebaseerd refactoren?
+De studie door \textcite{Wright2013} presenteert een tool voor het refactoren van grote C++ broncodes bij Google.
+% Hoe werkt dit?
+Deze tool maakt gebruik van de Clang C++ compiler om broncode om te zetten naar een Abstract Syntax Tree (AST) en zo de code te doorlopen met vat op de syntax.
+Een AST, als omschreven door \textcite{Sun2023}, is een datastructuur die de structuur en syntax van een stuk code weergeeft.
+Dezelfde bron noemt ATS's een fundamentele eigenschap van code.
+Om deze reden wordt deze datastructuur vaak gebruikt om codegerelateerde problemen op te lossen.
+Figuur \ref{fig:ast-preview} geeft een vereenvoudigde representatie van hoe een AST van een stuk TypeScript code eruit ziet.
 
-- De functionaliteit van de compiler gebruiken om code aan te passen.
+\begin{figure}
+  \centering
+  \includegraphics[width=0.8\textwidth]{simple_ast_preview.png}
+  \caption[Vereenvoudigde AST]{\label{fig:ast-preview}Voorbeeld van een vereenvoudigde AST-representatie (rechts) van een stuk TypeScript-code (links).}
+\end{figure}
 
 % Waarom is dit relevant?
-
-- TypeScript is compiled.
-- TypeScript heeft een compiler API.
-
-% Hoe werkt dit?
-
-- Compiler leest de code in als een Abstract Syntax Tree (AST).
+Herinner dat Angular gebaseerd is op TypeScript en dat TypeScript gecompileerd moet worden.
+De TypeScript compiler kan programmatisch aangesproken worden met de TypeScript compiler API.
+Een studie door \textcite{Reid2023} gebruikt de TypeScript compiler voor het opsporen van foutieve code-elementen, met positieve resultaten.
 
 % Wat zijn de voordelen?
-
-- Bestaande API.
-- Heeft vat op syntax.
-- Goed gedocumenteerd.
+Net zoals LSP's heeft de compiler vat op de syntax van de programmeertaal.
+Op het vlak van correctheid is dit één van de meest betrouwbare opties.
+Verder is de werking van AST's goed gedocumenteerd.
+Tenslotte bestaan er voor TypeScript verschillende packages die helpen met het opstellen en doorlopen van een AST.
 
 % Wat zijn de nadelen?
+Maar net zoals LSP's heeft de compiler geen vat op de semantiek van de applicatie.
+Werken met een AST vraagt kennis van boomstructuren en een goede kennis van de nuances van de syntax.
 
-- Geen vat op semantiek.
-
-\subsection{Artificiele Inteligentie (AI) gebaseerd}
+\subsection{Artificiele Inteligentie (AI)}
 \label{ch:stand-van-zaken:refactoring:ai}
 
 % Wat is AI gebaseerd refactoren?
