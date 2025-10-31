@@ -140,6 +140,36 @@ Als we alle instanties van de methode foo in klasse A willen veranderen naar bar
 Hoewel het theoretisch mogelijk zou zijn om een reguliere expressie te schrijven die met deze specifieke syntax rekening houdt, zijn hier verschillende praktische problemen mee.
 Uit de studie door \textcite{Michael2019} blijkt dat regexes moeilijk leesbaar, vindbaar, valideerbaar en documenteerbaar zijn.
 
+\subsection{Language server}
+\label{ch:stand-van-zaken:refactoring:lsp}
+
+% Wat is een LSP?
+Het Language Server Protocol (LSP) is een open protocol ontwikkeld door Microsoft voor Visual Studio Code.
+Code editors en IDE's gebruiken LSP's om te communiceren met een language server \autocite{Bork2023}.
+Een language server is een programma dat programmeertaalspecifieke functionaliteiten aanbiedt, zoals: automatisch aanvullen van code, code-diagnostiek, code-navigatie, \dots.
+% Waarom is dit relevant?
+Sinds de ontwikkeling van het LSP is het de facto standaard geworden om deze functies te implementeren in code-editors en IDE's.
+
+% Wat is het LSP gebaseerd refactoren?
+Voor dit onderzoek zijn de TypeScript en Angular language servers relevant.
+% Wat kan de TypeScript LSP?
+Volgens de \textcite{TypeScriptLS2025} biedt de TypeScript language server functies aan die broncode aanpassen, zoals: verwijderen van ongebruikte variabelen, organiseren van imports, verwijderen van ongebruikte imports, \dots.
+% Wat kan de Angular LSP?
+De Angular language server focust volgens de \textcite{AngularLS2025} op automatisch aanvullen en diagnostiek voor Angular-specifieke syntax in HTML.
+
+% Wat zijn de voordelen?
+Het voordeel van language servers is dat ze vat hebben op de specifieke syntax van de programmeertaal.
+In combinatie met een zoek- en vervangfunctie kunnen we gericht code aanpassen.
+En omdat language servers komen met code-diagnostiek, is het mogelijk om na een verandering direct fouten in de syntax op te sporen.
+
+% Wat zijn de nadelen?
+Language servers zijn echter niet perfect.
+Ze hebben vat op de syntax, maar niet op de semantiek van de applicatie.
+Verder zijn we gelimiteerd aan de functies van de language server.
+Nieuwe functies implementeren, hoewel mogelijk, is niet praktisch.
+Hoewel het de facto standaard in code-editors en IDE's is, blijft dit een zeer niche domein.
+Een grondige kennis van het LSP is nodig om een language server aan te spreken of uit te breiden.
+
 \subsection{Compiler gebaseerd}
 \label{ch:stand-van-zaken:refactoring:compiler}
 
@@ -165,29 +195,6 @@ Uit de studie door \textcite{Michael2019} blijkt dat regexes moeilijk leesbaar, 
 % Wat zijn de nadelen?
 
 - Geen vat op semantiek.
-
-\subsection{Language Server Protocol (LSP) gebaseerd}
-\label{ch:stand-van-zaken:refactoring:lsp}
-
-% Wat is het LSP gebaseerd refactoren?
-
-- LSP is de technologie achter de refactoring tools in meeste moderen IDE's en text editors.
-
-% Waarom is dit relevant?
-
-- LSP is de defactor standaard.
-
-% Wat kan de TypeScript LSP?
-% Wat kan de Angular LSP?
-% Wat zijn de voordelen?
-
-- Heeft vat op syntax.
-
-% Wat zijn de nadelen?
-
-- Geen vat op semantiek.
-- Weinig tot geen documentatie tot de interne werking.
-- Wordt zelden tot nooit programatisch aangesproken.
 
 \subsection{Artificiele Inteligentie (AI) gebaseerd}
 \label{ch:stand-van-zaken:refactoring:ai}
