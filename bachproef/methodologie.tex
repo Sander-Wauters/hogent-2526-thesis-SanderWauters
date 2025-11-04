@@ -26,5 +26,41 @@
 %% Maak voor elke fase (behalve het literatuuronderzoek) een NIEUW HOOFDSTUK aan
 %% en geef het een gepaste titel.
 
-\lipsum[21-25]
+% Wat gebeurt er in dit hoofdstuk?
+In dit hoofdstuk maakt het onderzoek een beslissing over hoe de updater ontwikkeld wordt.
+Deze beslissing is gebaseerd op de huidige stand van zaken en de noden van het bedrijf, zoals besproken in Hoofdstuk~\ref{sec:onderzoeksdoelstelling}.
+Vervolgens wordt een proof of concept voor de updater ontwikkeld, samen met een testomgeving.
+We bespreken de verschillende soorten aanpassingen die moeten gebeuren.
+Geven een technisch overzicht van hoe de updater en testomgeving werkt.
+En tenslotte wordt de effectiviteit van de updater opgemeten op de testomgeving.
+
+\section{Plan van aanpak}
+\label{ch:plan-van-aanpak}
+
+% Hoe ziet de updater eruit?
+Op basis van de huidige stand van zaken en de noden van het bedrijf, kiest het onderzoek voor het volgende plan van aanpak.
+De updater wordt een collectie aan helperfuncties om een TypeScript command line applicatie te maken die onderliggend gebruikmaakt van zoek- en vervangfuncties op basis van regex in combinatie met de TypeScript compiler API.
+Met de hulp van deze functies kan de ontwikkelaar programmatisch een updater maken, specifiek voor de nodige aanpassingen.
+
+% Waarom een collectie van helperfuncties?
+De nodige aanpassingen aan een applicatie zijn afhankelijk van de Angular versie.
+Deze kunnen complex of simpel zijn.
+Door de ontwikkelaar programmatisch de updater te laten configureren, is er een hoge flexibiliteit en uitbreidbaarheid van de updater.
+De helperfuncties zorgen voor een hoge abstractie, wat toelaat om snel nieuwe updates te automatiseren.
+Al dit geschreven in TypeScript, de programmeertaal waar de ontwikkelaars bekend mee zijn.
+
+% Waarom TypeScript compiler API?
+Om dit te implementeren wordt van de TypeScript compiler API gebruikgemaakt.
+Door te programmeren op de compiler die normaal gebruikt wordt om de applicaties te compileren, krijgen we toegang tot dezelfde error detectie als de compiler.
+Dit zorgt ervoor dat we nieuwe bugs snel en accuraat kunnen opsporen.
+Verder is de interne werking, op basis van een AST, goed gedocumenteerd.
+Tenslotte zijn we niet rechtstreeks gekoppeld aan Angular, enkel aan de programmeertaal.
+
+% Waarom find & replace?
+Om de implementatie voor de ontwikkelaar te vereenvoudigen, wordt de TypeScript compiler API gebruikt in combinatie met zoek- en vervangfuncties op basis van regex.
+
+% Waarom een CLI-applicatie?
+Angular komt reeds met CLI-tools; door de updater een CLI-applicatie te maken, past het in de huidige workflow.
+Verder geeft dit de mogelijkheid om alle commando's samen te voegen in één script om de updater op meerdere projecten te laten uitvoeren.
+
 
