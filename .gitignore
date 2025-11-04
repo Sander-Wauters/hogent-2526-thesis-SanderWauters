@@ -131,3 +131,7 @@ sympy-plots-for-*.tex/
 
 # Vim-LaTeX
 *.latexmain
+
+# PoC
+node_modules/
+dist/
