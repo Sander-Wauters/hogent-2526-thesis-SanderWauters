@@ -28,7 +28,7 @@ The `output`directory is where all compiled documents end up.
 
 All files in the `diagrams` directory are compiled using [plantuml](https://plantuml.com/).
 
-To compile the updater run `yarn build` in the `poc/updater/` directory.
+To compile the updater, first install the dependancies with `yarn install` in the `poc/updater/` directory, then run `yarn build` in the `poc/updater/` directory.
 The compiled updater is put in the `poc/updater/dist/` directory.
 To run the updater use `node poc/updater/dist/<name_of_the_updater>.js <path_to_the_project_to_update>`.
 **NEVER** run the updater directly on `poc/updater/__testenv__/`.

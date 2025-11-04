@@ -1,0 +1,15 @@
+{
+  "name": "updater",
+  "type": "module",
+  "scripts": {
+    "build": "tsc"
+  },
+  "devDependencies": {
+    "typescript": "^5.9.3"
+  },
+  "dependencies": {
+    "@types/node": "^24.7.0",
+    "node": "^24.9.0",
+    "ts-morph": "^27.0.0"
+  }
+}
