@@ -12,12 +12,15 @@ export enum Capability {
 
 export enum Change {
   NOT_APPLICABLE = 0,
-  IN_TEMPLATE = 1 << 0,
-  IN_TEST = 1 << 1,
-  IN_JSON = 1 << 2,
-  IN_CLI = 1 << 3,
-  TO_SYNTAX = 1 << 4,
-  TO_SEMANTICS = 1 << 5,
+
+  IN_TYPESCRIPT = 1 << 0,
+  IN_TEMPLATE = 1 << 1,
+  IN_TEST = 1 << 2,
+  IN_JSON = 1 << 3,
+  IN_CLI = 1 << 4,
+
+  TO_SYNTAX = 1 << 5,
+  TO_SEMANTICS = 1 << 6,
 }
 
 export interface StepData {
@@ -39,6 +42,7 @@ interface StepTotals {
   numPartiallyDetectable: number;
 
   numChangesNotApplicable: number;
+  numChangesInTypeScript: number;
   numChangesInTemplate: number;
   numChangesInTest: number;
   numChangesInJson: number;
@@ -59,6 +63,7 @@ const EMPTY_STEP_TOTALS: StepTotals = {
   numPartiallyDetectable: 0,
 
   numChangesNotApplicable: 0,
+  numChangesInTypeScript: 0,
   numChangesInTemplate: 0,
   numChangesInTest: 0,
   numChangesInJson: 0,
@@ -82,10 +87,14 @@ function addTotals(step: StepData, total: StepTotals) {
 
   total.numChangesNotApplicable +=
     step.changeFlags & Change.NOT_APPLICABLE ? 1 : 0;
+
   total.numChangesInTemplate += step.changeFlags & Change.IN_TEMPLATE ? 1 : 0;
+  total.numChangesInTypeScript +=
+    step.changeFlags & Change.IN_TYPESCRIPT ? 1 : 0;
   total.numChangesInTest += step.changeFlags & Change.IN_TEST ? 1 : 0;
   total.numChangesInJson += step.changeFlags & Change.IN_JSON ? 1 : 0;
   total.numChangesInCli += step.changeFlags & Change.IN_CLI ? 1 : 0;
+
   total.numChangesToSyntax += step.changeFlags & Change.TO_SYNTAX ? 1 : 0;
   total.numChangesToSemantics += step.changeFlags & Change.TO_SEMANTICS ? 1 : 0;
 }
@@ -180,6 +189,14 @@ function logStepTotals(totals: StepTotals, label: string) {
       .padEnd(pad, " "),
   );
   console.log(
+    `| Change in TypeScript  | %s | %s |`,
+    totals.numChangesInTypeScript.toString().padEnd(pad, " "),
+    ((totals.numChangesInTypeScript * 100) / totals.numSteps)
+      .toFixed(2)
+      .concat("%")
+      .padEnd(pad, " "),
+  );
+  console.log(
     `| Change in template    | %s | %s |`,
     totals.numChangesInTemplate.toString().padEnd(pad, " "),
     ((totals.numChangesInTemplate * 100) / totals.numSteps)
@@ -212,7 +229,12 @@ function logStepTotals(totals: StepTotals, label: string) {
       .padEnd(pad, " "),
   );
   console.log(
-    `| Change in syntax      | %s | %s |`,
+    `|-----------------------|%s|%s|`,
+    "".padEnd(pad + 2, "-"),
+    "".padEnd(pad + 2, "-"),
+  );
+  console.log(
+    `| Change to syntax      | %s | %s |`,
     totals.numChangesToSyntax.toString().padEnd(pad, " "),
     ((totals.numChangesToSyntax * 100) / totals.numSteps)
       .toFixed(2)
@@ -220,7 +242,7 @@ function logStepTotals(totals: StepTotals, label: string) {
       .padEnd(pad, " "),
   );
   console.log(
-    `| Change in semantics   | %s | %s |`,
+    `| Change to semantics   | %s | %s |`,
     totals.numChangesToSemantics.toString().padEnd(pad, " "),
     ((totals.numChangesToSemantics * 100) / totals.numSteps)
       .toFixed(2)
@@ -242,10 +264,7 @@ export function logStepData(stepData: StepData[]) {
   stepData.forEach((step) => {
     addTotals(step, total);
 
-    const onlyTs =
-      !(step.changeFlags & Change.IN_TEMPLATE) &&
-      !(step.changeFlags & Change.IN_JSON) &&
-      !(step.changeFlags & Change.IN_CLI);
+    const onlyTs = step.changeFlags & Change.IN_TYPESCRIPT;
     if (onlyTs) addTotals(step, ts);
 
     const onlyTsSyntax = onlyTs && step.changeFlags & Change.TO_SYNTAX;
