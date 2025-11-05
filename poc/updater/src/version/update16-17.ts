@@ -10,8 +10,10 @@ import { Project } from "ts-morph";
 import { loadProject, saveProject } from "../util/projectio.js";
 import { Capability, Change, logStepData, StepData } from "../util/metrics.js";
 import {
+  accessedFrom,
   findNodes,
   getAncestor,
+  hasType,
   lastInstanceInTree,
 } from "../util/traversal.js";
 
@@ -21,7 +23,7 @@ const project = loadProject();
  * Define steps.
  *****************************************************************************/
 
-function step5(project: Project): StepData {
+function step05(project: Project): StepData {
   let detection = Capability.NOT;
   let automation = Capability.NOT;
   project.getSourceFiles().forEach((file) =>
@@ -47,6 +49,85 @@ function step5(project: Project): StepData {
     changeFlags: Change.IN_TYPESCRIPT | Change.TO_SYNTAX | Change.TO_SEMANTICS,
     description:
       "Angular now automatically removes styles of destroyed components, which may impact your existing apps in cases you rely on leaked styles. To change this update the value of the REMOVE_STYLES_ON_COMPONENT_DESTROY provider to false.",
+  };
+}
+
+function step11(project: Project): StepData {
+  let detection = Capability.NOT;
+  let automation = Capability.NOT;
+  project.getSourceFiles().forEach((file) =>
+    findNodes(
+      file,
+      (node) =>
+        lastInstanceInTree(node, "AnimationDriver.NOOP") &&
+        hasType(node, "AnimationDriver"),
+      (node) => {
+        detection = Capability.FULLY;
+        automation = Capability.FULLY;
+        node.replaceWithText("NoopAnimationDriver");
+      },
+    ),
+  );
+  return {
+    detection,
+    automation,
+    changeFlags: Change.IN_TYPESCRIPT | Change.TO_SYNTAX,
+    description:
+      "Change references to AnimationDriver.NOOP to use NoopAnimationDriver because AnimationDriver.NOOP is now deprecated.",
+  };
+}
+
+function step13(project: Project): StepData {
+  let detection = Capability.NOT;
+  let automation = Capability.NOT;
+  project.getSourceFiles().forEach((file) =>
+    findNodes(
+      file,
+      (node) =>
+        lastInstanceInTree(node, "mutate") &&
+        accessedFrom(node, "WritableSignal"),
+      (node) => {
+        detection = Capability.FULLY;
+        automation = Capability.PARTIALLY;
+        node.replaceWithText("update");
+      },
+    ),
+  );
+  return {
+    detection,
+    automation,
+    changeFlags: Change.IN_TYPESCRIPT | Change.TO_SYNTAX | Change.TO_SEMANTICS,
+    description:
+      "Use update instead of mutate in Angular Signals. For example items.mutate(itemsArray => itemsArray.push(newItem)); will now be items.update(itemsArray => [itemsArray, …newItem]);",
+  };
+}
+
+function step14(project: Project): StepData {
+  let detection = Capability.NOT;
+  let automation = Capability.NOT;
+  project.getSourceFiles().forEach((file) =>
+    findNodes(
+      file,
+      (node) =>
+        lastInstanceInTree(node, "provideClientHydration") &&
+        findNodes(
+          getAncestor(node, 3)!,
+          (node) => lastInstanceInTree(node, "providers"),
+          () => {},
+        ),
+      (node) => {
+        detection = Capability.PARTIALLY;
+        automation = Capability.PARTIALLY;
+        node.getParent()!.replaceWithText("");
+      },
+    ),
+  );
+  return {
+    detection,
+    automation,
+    changeFlags: Change.IN_TYPESCRIPT | Change.TO_SYNTAX,
+    description:
+      "To disable hydration use ngSkipHydration or remove the provideClientHydration call from the provider list since withNoDomReuse is no longer part of the public API.",
   };
 }
 
@@ -87,7 +168,7 @@ metrics.push({
   description:
     "In the application's project directory, run ng update @angular/core@17 @angular/cli@17 to update your application to Angular v17.",
 });
-metrics.push(step5(project));
+metrics.push(step05(project));
 metrics.push({
   // 6 - Config is specific to each project.
   detection: Capability.NOT,
@@ -127,6 +208,25 @@ metrics.push({
   changeFlags: Change.IN_TYPESCRIPT | Change.TO_SEMANTICS,
   description:
     "You may need to adjust your router configuration to prevent infinite redirects after absolute redirects. In v17 we no longer prevent additional redirects after absolute redirects.",
+});
+metrics.push(step11(project));
+metrics.push({
+  // 12 - Change to templates.
+  detection: Capability.NOT,
+  automation: Capability.NOT,
+  changeFlags: Change.IN_TEMPLATE | Change.TO_SEMANTICS,
+  description:
+    "You may need to adjust the equality check for NgSwitch because now it defaults to stricter check with === instead of ==. Angular will log a warning message for the usages where you'd need to provide an adjustment.",
+});
+metrics.push(step13(project));
+metrics.push(step14(project));
+metrics.push({
+  // 15 - Depends on inheritance. To many variables.
+  detection: Capability.NOT,
+  automation: Capability.NOT,
+  changeFlags: Change.IN_TYPESCRIPT | Change.TO_SEMANTICS,
+  description:
+    "If you want the child routes of loadComponent routes to inherit data from their parent specify the paramsInheritanceStrategy to always, which in v17 is now set to emptyOnly.",
 });
 
 logStepData(metrics);

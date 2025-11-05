@@ -288,14 +288,14 @@ export function logStepData(stepData: StepData[]) {
   logStepTotals(total, "Total");
   console.log();
   logStepTotals(ts, "TS");
-  console.log();
-  logStepTotals(tsSyntax, "TS syntax");
-  console.log();
-  logStepTotals(tsSemantics, "TS semantics");
-  console.log();
-  logStepTotals(tsNoTest, "TS no test");
-  console.log();
-  logStepTotals(tsSyntaxNoTest, "TS syntax no test");
-  console.log();
-  logStepTotals(tsSemanticNoTest, "TS semantics no test");
+  // console.log();
+  // logStepTotals(tsSyntax, "TS syntax");
+  // console.log();
+  // logStepTotals(tsSemantics, "TS semantics");
+  // console.log();
+  // logStepTotals(tsNoTest, "TS no test");
+  // console.log();
+  // logStepTotals(tsSyntaxNoTest, "TS syntax no test");
+  // console.log();
+  // logStepTotals(tsSemanticNoTest, "TS semantics no test");
 }

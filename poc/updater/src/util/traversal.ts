@@ -69,14 +69,15 @@ export function getAncestor(node: Node, count: number): Node | undefined {
 
 /**
  * Checks if a node is in a certain scope.
+ * Returns the first node that matches the given scope, otherwise undefined.
  *
  * @param {Node} node - The node to check.
  * @param {SyntaxKind} kind - The kind of the scope.
  */
-export function inScopeOf(node: Node, kind: SyntaxKind): boolean {
+export function inScopeOf(node: Node, kind: SyntaxKind): Node | undefined {
   const parent = node.getParent();
-  if (!parent) return false;
-  if (parent.getKind() === kind) return true;
+  if (!parent) return undefined;
+  if (parent.getKind() === kind) return parent;
   return inScopeOf(parent, kind);
 }
 

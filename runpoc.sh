@@ -7,8 +7,13 @@ printf "\nCreating test environment...\n"
 cp -r poc/__testenv__/ poc/tmptestenv/
 
 printf "\nRunning updaters...\n"
-cd poc/updater
+cd poc/updater/
 yarn build
+
+cd ../tmptestenv/
+yarn ng update @angular/core@17 @angular/cli@17
+
+cd ../updater/
 node dist/src/version/update16-17.js ../tmptestenv/
 
 [ "$1" = "-c" ] && {
