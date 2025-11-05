@@ -36,3 +36,9 @@ To run the updater use `node poc/updater/dist/<name_of_the_updater>.js <path_to_
 The test environment in `poc/updater/__testenv__/` is not a real project.
 It is just a collection of code fragments meant to be updated by the updater.
 Therefore no compilation steps are provided.
+
+## Running the PoC
+
+The `runpoc.sh` script runs the entire proof of concept.
+It creates a copy of the `__testenv__` directory, build the `updaters` and runs them.
+Add the `-c` option to remove the test environment after the `updaters` have finished.
