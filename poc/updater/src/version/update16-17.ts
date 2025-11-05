@@ -140,7 +140,7 @@ metrics.push({
   // 1 - CLI operation.
   detection: Capability.NOT,
   automation: Capability.FULLY,
-  changeFlags: Change.IN_JSON | Change.IN_JSON,
+  changeFlags: Change.IN_JSON | Change.IN_CLI,
   description:
     "Make sure that you are using a supported version of node.js before you upgrade your application. Angular v17 supports node.js versions: v18.13.0 and newer",
 });
