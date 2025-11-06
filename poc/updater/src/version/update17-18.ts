@@ -13,6 +13,7 @@ import {
   accessedFrom,
   findNodes,
   getAncestor,
+  hasType,
   inScopeOf,
   lastInstanceInTree,
 } from "../util/traversal.js";
@@ -181,6 +182,101 @@ function step29(project: Project): StepData {
   };
 }
 
+function step31(project: Project): StepData {
+  let detection = Capability.NOT;
+  let automation = Capability.NOT;
+  project.getSourceFiles().forEach((file) => {
+    findNodes(
+      file,
+      (node) =>
+        lastInstanceInTree(node, "useAbsoluteUrl") &&
+        findNodes(
+          getAncestor(node, 3)!,
+          (ancestor) => hasType(ancestor, "PlatformConfig"),
+          () => {},
+        ),
+      (node) => {
+        detection = Capability.FULLY;
+        automation = Capability.FULLY;
+        node.getParent()?.replaceWithText("");
+      },
+    );
+    findNodes(
+      file,
+      (node) =>
+        lastInstanceInTree(node, "baseUrl") &&
+        findNodes(
+          getAncestor(node, 3)!,
+          (ancestor) => hasType(ancestor, "PlatformConfig"),
+          () => {},
+        ),
+      (node) => {
+        detection = Capability.FULLY;
+        automation = Capability.PARTIALLY;
+        node.getParent()?.replaceWithText(`url: TODO`);
+      },
+    );
+  });
+  return {
+    detection,
+    automation,
+    changeFlags: Change.IN_TYPESCRIPT | Change.TO_SYNTAX,
+    description:
+      "Provide an absolute url instead of using useAbsoluteUrl and baseUrl from PlatformConfig.",
+  };
+}
+
+function step32(project: Project): StepData {
+  let detection = Capability.NOT;
+  let automation = Capability.NOT;
+  project.getSourceFiles().forEach((file) =>
+    findNodes(
+      file,
+      (node) =>
+        lastInstanceInTree(node, "platformDynamicServer") &&
+        (!!inScopeOf(node, SyntaxKind.CallExpression) ||
+          !!inScopeOf(node, SyntaxKind.ImportDeclaration)),
+      (node) => {
+        detection = Capability.FULLY;
+        automation = Capability.FULLY;
+        node.replaceWithText("platformServer");
+      },
+    ),
+  );
+  return {
+    detection,
+    automation,
+    changeFlags: Change.IN_TYPESCRIPT | Change.TO_SYNTAX,
+    description:
+      "Replace the usage of platformDynamicServer with platformServer. Also, add an import @angular/compiler.",
+  };
+}
+
+function step33(project: Project): StepData {
+  let detection = Capability.NOT;
+  let automation = Capability.NOT;
+  project.getSourceFiles().forEach((file) =>
+    findNodes(
+      file,
+      (node) =>
+        lastInstanceInTree(node, "ServerTransferStateModule") &&
+        !inScopeOf(node, SyntaxKind.ImportDeclaration),
+      (node) => {
+        detection = Capability.FULLY;
+        automation = Capability.PARTIALLY;
+        node.replaceWithText("");
+      },
+    ),
+  );
+  return {
+    detection,
+    automation,
+    changeFlags: Change.IN_TYPESCRIPT | Change.TO_SYNTAX,
+    description:
+      "Remove all imports of ServerTransferStateModule from your application. It is no longer needed.",
+  };
+}
+
 /******************************************************************************
  * Execute steps and register data.
  *****************************************************************************/
@@ -269,6 +365,25 @@ metrics.push({
   changeFlags: Change.IN_TYPESCRIPT | Change.TO_SYNTAX | Change.TO_SEMANTICS,
   description:
     "In @angular/platform-server now pathname is always suffixed with / and the default ports for http: and https: respectively are 80 and 443.",
+});
+metrics.push(step31(project));
+metrics.push(step32(project));
+metrics.push(step33(project));
+metrics.push({
+  // 34 - To error prone. The type change could require a change in logic.
+  detection: Capability.NOT,
+  automation: Capability.NOT,
+  changeFlags: Change.IN_TYPESCRIPT | Change.TO_SEMANTICS,
+  description:
+    "Route.redirectTo can now include a function in addition to a string. Any code which reads Route objects directly and expects redirectTo to be a string may need to update to account for functions as well.",
+});
+metrics.push({
+  // 35 - To error prone. The type change could require a change in logic.
+  detection: Capability.NOT,
+  automation: Capability.NOT,
+  changeFlags: Change.IN_TYPESCRIPT | Change.TO_SEMANTICS,
+  description:
+    "Route guards and resolvers can now return a RedirectCommand object in addition to a UrlTree and boolean. Any code which reads Route objects directly and expects only boolean or UrlTree may need to update to account for RedirectCommand as well.",
 });
 
 logStepData(metrics);
