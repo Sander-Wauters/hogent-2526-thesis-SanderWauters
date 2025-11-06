@@ -271,9 +271,33 @@ function step33(project: Project): StepData {
   return {
     detection,
     automation,
-    changeFlags: Change.IN_TYPESCRIPT | Change.TO_SYNTAX,
+    changeFlags: Change.IN_TYPESCRIPT | Change.TO_SEMANTICS,
     description:
       "Remove all imports of ServerTransferStateModule from your application. It is no longer needed.",
+  };
+}
+
+function step36(project: Project): StepData {
+  let detection = Capability.NOT;
+  let automation = Capability.NOT;
+  project.getSourceFiles().forEach((file) =>
+    findNodes(
+      file,
+      (node) =>
+        lastInstanceInTree(node, "OnPush") &&
+        accessedFrom(node, "ChangeDetectionStrategy") &&
+        !!inScopeOf(node, SyntaxKind.Decorator),
+      () => {
+        detection = Capability.FULLY;
+      },
+    ),
+  );
+  return {
+    detection,
+    automation,
+    changeFlags: Change.IN_TYPESCRIPT | Change.TO_SEMANTICS,
+    description:
+      "For any components using OnPush change detection, ensure they are properly marked dirty to enable host binding updates.",
   };
 }
 
@@ -384,6 +408,31 @@ metrics.push({
   changeFlags: Change.IN_TYPESCRIPT | Change.TO_SEMANTICS,
   description:
     "Route guards and resolvers can now return a RedirectCommand object in addition to a UrlTree and boolean. Any code which reads Route objects directly and expects only boolean or UrlTree may need to update to account for RedirectCommand as well.",
+});
+metrics.push(step36(project));
+metrics.push({
+  // 37 - Way to complex to find or automate this.
+  detection: Capability.NOT,
+  automation: Capability.NOT,
+  changeFlags: Change.IN_TYPESCRIPT | Change.TO_SEMANTICS,
+  description:
+    "Be aware that newly created views or views marked for check and reattached during change detection are now guaranteed to be refreshed in that same change detection cycle.",
+});
+metrics.push({
+  // 38 - Way to complex to find or automate this.
+  detection: Capability.NOT,
+  automation: Capability.NOT,
+  changeFlags: Change.IN_TYPESCRIPT | Change.IN_TEST | Change.TO_SEMANTICS,
+  description:
+    "After aligning the semantics of ComponentFixture.whenStable and ApplicationRef.isStable, your tests may wait longer when using whenStable.",
+});
+metrics.push({
+  // 39 - Way to complex to find or automate this.
+  detection: Capability.NOT,
+  automation: Capability.NOT,
+  changeFlags: Change.IN_TYPESCRIPT | Change.IN_TEST | Change.TO_SEMANTICS,
+  description:
+    "You may experience tests failures if you have tests that rely on change detection execution order when using ComponentFixture.autoDetect because it now executes change detection for fixtures within ApplicationRef.tick. For example, this will cause test fixture to refresh before any dialogs that it creates whereas this may have been the other way around in the past.",
 });
 
 logStepData(metrics);
