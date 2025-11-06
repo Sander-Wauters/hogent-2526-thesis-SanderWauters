@@ -94,7 +94,6 @@ export function hasType(node: Node, type: string): boolean {
     .match(type);
   return matches !== null && matches.length > 0;
 }
-
 /**
  * Checks if a node is accessed from a certain type.
  *

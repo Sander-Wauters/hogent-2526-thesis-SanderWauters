@@ -158,6 +158,29 @@ function step23(project: Project): StepData {
   };
 }
 
+function step29(project: Project): StepData {
+  let detection = Capability.NOT;
+  let automation = Capability.NOT;
+  project.getSourceFiles().forEach((file) =>
+    findNodes(
+      file,
+      (node) => lastInstanceInTree(node, "...RESOURCE_CACHE_PROVIDER"),
+      (node) => {
+        detection = Capability.FULLY;
+        automation = Capability.FULLY;
+        node.replaceWithText("");
+      },
+    ),
+  );
+  return {
+    detection,
+    automation,
+    changeFlags: Change.IN_TYPESCRIPT | Change.TO_SYNTAX,
+    description:
+      "Remove dependencies of RESOURCE_CACHE_PROVIDER since it's no longer part of the Angular runtime.",
+  };
+}
+
 /******************************************************************************
  * Execute steps and register data.
  *****************************************************************************/
@@ -213,6 +236,39 @@ metrics.push({
   changeFlags: Change.IN_TEMPLATE | Change.TO_SYNTAX,
   description:
     "Remove expressions that write to properties in templates that use [(ngModel)]",
+});
+metrics.push({
+  // 26 - Change effects test behavior, detection is doable. To many variables.
+  detection: Capability.FULLY,
+  automation: Capability.NOT,
+  changeFlags: Change.IN_TYPESCRIPT | Change.IN_TEST | Change.TO_SEMANTICS,
+  description:
+    "Remove calls to Testability methods increasePendingRequestCount, decreasePendingRequestCount, and getPendingRequestCount. This information is tracked by ZoneJS.",
+});
+metrics.push({
+  // 27 - Has to do with how routes are inherited. To many variables.
+  detection: Capability.NOT,
+  automation: Capability.NOT,
+  changeFlags: Change.IN_TYPESCRIPT | Change.TO_SEMANTICS,
+  description:
+    "Move any environment providers that should be available to routed components from the component that defines the RouterOutlet to the providers of bootstrapApplication or the Route config.",
+});
+metrics.push({
+  // 28 - Should be evaluated case by case. To many variables.
+  detection: Capability.NOT,
+  automation: Capability.NOT,
+  changeFlags: Change.IN_TYPESCRIPT | Change.TO_SEMANTICS,
+  description:
+    "When a guard returns a UrlTree as a redirect, the redirecting navigation will now use replaceUrl if the initial navigation was also using the replaceUrl option. If you prefer the previous behavior, configure the redirect using the new NavigationBehaviorOptions by returning a RedirectCommand with the desired options instead of UrlTree.",
+});
+metrics.push(step29(project));
+metrics.push({
+  // 30 - Change in string literal. If it is hardcoded then it's fine but different kinds of string concatination make this hard to automate.
+  detection: Capability.NOT,
+  automation: Capability.NOT,
+  changeFlags: Change.IN_TYPESCRIPT | Change.TO_SYNTAX | Change.TO_SEMANTICS,
+  description:
+    "In @angular/platform-server now pathname is always suffixed with / and the default ports for http: and https: respectively are 80 and 443.",
 });
 
 logStepData(metrics);
