@@ -79,6 +79,30 @@ function step44(project: Project): StepData {
   };
 }
 
+function step49(project: Project): StepData {
+  let detection = Capability.NOT;
+  let automation = Capability.NOT;
+  project.getSourceFiles().forEach((file) =>
+    findNodes(
+      file,
+      (node) =>
+        lastInstanceInTree(node, "fakeAsync") &&
+        node.getKind() == SyntaxKind.Identifier &&
+        node.getParent()?.getKind() === SyntaxKind.CallExpression,
+      () => {
+        detection = Capability.FULLY;
+      },
+    ),
+  );
+  return {
+    detection,
+    automation,
+    changeFlags: Change.IN_TYPESCRIPT | Change.IN_TEST | Change.TO_SEMANTICS,
+    description:
+      "Update tests using fakeAsync that rely on specific timing of zone coalescing and scheduling when a change happens outside the Angular zone (hybrid mode scheduling) as these timers are now affected by tick and flush.",
+  };
+}
+
 /******************************************************************************
  * Execute steps and register data.
  *****************************************************************************/
@@ -115,6 +139,37 @@ metrics.push({
   automation: Capability.NOT,
   changeFlags: Change.IN_JSON | Change.TO_SYNTAX,
   description: `In angular.json, replace the "name" option with "project" for the @angular/localize builder.`,
+});
+metrics.push({
+  // 46 - Feature added in v18.
+  detection: Capability.NOT,
+  automation: Capability.NOT,
+  changeFlags: Change.NOT_APPLICABLE,
+  description: "Rename ExperimentalPendingTasks to PendingTasks.",
+});
+metrics.push({
+  // 47 - Way to many variables to chack.
+  detection: Capability.NOT,
+  automation: Capability.FULLY,
+  changeFlags: Change.IN_TYPESCRIPT | Change.IN_TEST | Change.TO_SEMANTICS,
+  description:
+    "Update tests that relied on the Promise timing of effects to use await whenStable() or call .detectChanges() to trigger effects. For effects triggered during change detection, ensure they don't depend on the application being fully rendered or consider using afterRenderEffect(). Tests using faked clocks may need to fast-forward/flush the clock.",
+});
+metrics.push({
+  // 48 - CLI operation.
+  detection: Capability.NOT,
+  automation: Capability.FULLY,
+  changeFlags: Change.IN_JSON | Change.IN_CLI,
+  description: "Upgrade to TypeScript version 5.5 or later.",
+});
+metrics.push(step49(project));
+metrics.push({
+  // 50 - Detection is dependant on templates.
+  detection: Capability.NOT,
+  automation: Capability.NOT,
+  changeFlags: Change.IN_TYPESCRIPT | Change.IN_TEMPLATE | Change.TO_SEMANTICS,
+  description:
+    "When using createComponent API and not passing content for the first ng-content, provide document.createTextNode('') as a projectableNode to prevent rendering the default fallback content.",
 });
 
 logStepData(metrics);

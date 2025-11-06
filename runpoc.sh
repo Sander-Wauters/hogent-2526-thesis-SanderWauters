@@ -2,7 +2,6 @@
 
 printf "\nRemoving old test environment...\n"
 rm -r poc/tmptestenv/
-rm output/metrics.txt
 
 printf "\nCreating test environment...\n"
 cp -r poc/__testenv__/ poc/tmptestenv/
@@ -11,7 +10,7 @@ printf "\nRunning updaters...\n"
 cd poc/updater/
 yarn build
 
-printf "\n\n\nv16-v17\n\n\n" >> ../../output/metrics.txt
+printf "\n\n\nv16-v17\n\n\n" > ../../output/metrics.txt
 cd ../tmptestenv/
 yarn ng update @angular/core@17 @angular/cli@17
 cd ../updater/

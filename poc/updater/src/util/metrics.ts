@@ -88,11 +88,10 @@ function addTotals(step: StepData, total: StepTotals) {
     step.detection === Capability.PARTIALLY ? 1 : 0;
 
   total.numChangesNotApplicable +=
-    step.changeFlags & Change.NOT_APPLICABLE ? 1 : 0;
-
-  total.numChangesInTemplate += step.changeFlags & Change.IN_TEMPLATE ? 1 : 0;
+    step.changeFlags === Change.NOT_APPLICABLE ? 1 : 0;
   total.numChangesInTypeScript +=
     step.changeFlags & Change.IN_TYPESCRIPT ? 1 : 0;
+  total.numChangesInTemplate += step.changeFlags & Change.IN_TEMPLATE ? 1 : 0;
   total.numChangesInTest += step.changeFlags & Change.IN_TEST ? 1 : 0;
   total.numChangesInJson += step.changeFlags & Change.IN_JSON ? 1 : 0;
   total.numChangesInCli += step.changeFlags & Change.IN_CLI ? 1 : 0;
@@ -266,7 +265,9 @@ export function logStepData(stepData: StepData[]) {
   stepData.forEach((step) => {
     addTotals(step, total);
 
-    const onlyTs = step.changeFlags & Change.IN_TYPESCRIPT;
+    const onlyTs =
+      step.changeFlags & Change.IN_TYPESCRIPT &&
+      !(step.changeFlags & Change.NOT_APPLICABLE);
     if (onlyTs) addTotals(step, ts);
 
     const onlyTsSyntax = onlyTs && step.changeFlags & Change.TO_SYNTAX;
