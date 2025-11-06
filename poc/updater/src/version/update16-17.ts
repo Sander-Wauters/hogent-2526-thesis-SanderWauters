@@ -211,7 +211,7 @@ metrics.push({
 });
 metrics.push(step11(project));
 metrics.push({
-  // 12 - Change to templates.
+  // 12 - Can't access templates.
   detection: Capability.NOT,
   automation: Capability.NOT,
   changeFlags: Change.IN_TEMPLATE | Change.TO_SEMANTICS,

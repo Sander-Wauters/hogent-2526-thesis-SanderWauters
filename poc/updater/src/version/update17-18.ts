@@ -13,6 +13,7 @@ import {
   accessedFrom,
   findNodes,
   getAncestor,
+  inScopeOf,
   lastInstanceInTree,
 } from "../util/traversal.js";
 
@@ -71,6 +72,92 @@ function step20(project: Project): StepData {
   };
 }
 
+function step21(project: Project): StepData {
+  let detection = Capability.NOT;
+  let automation = Capability.NOT;
+  project.getSourceFiles().forEach((file) => {
+    findNodes(
+      file,
+      (node) =>
+        lastInstanceInTree(node, "StateKey") &&
+        !!inScopeOf(node, SyntaxKind.ImportDeclaration),
+      (node) =>
+        findNodes(
+          getAncestor(node, 4)!,
+          (node) =>
+            lastInstanceInTree(node, `"@angular/platform-browser"`) &&
+            !!inScopeOf(node, SyntaxKind.ImportDeclaration),
+          (node) => {
+            detection = Capability.FULLY;
+            automation = Capability.FULLY;
+            node.replaceWithText(`"@angular/core"`);
+          },
+        ),
+    );
+    findNodes(
+      file,
+      (node) =>
+        lastInstanceInTree(node, "TransferState") &&
+        !!inScopeOf(node, SyntaxKind.ImportDeclaration),
+      (node) =>
+        findNodes(
+          getAncestor(node, 4)!,
+          (node) =>
+            lastInstanceInTree(node, `"@angular/platform-browser"`) &&
+            !!inScopeOf(node, SyntaxKind.ImportDeclaration),
+          (node) => {
+            detection = Capability.FULLY;
+            automation = Capability.FULLY;
+            node.replaceWithText(`"@angular/core"`);
+          },
+        ),
+    );
+  });
+  return {
+    detection,
+    automation,
+    changeFlags: Change.IN_TYPESCRIPT | Change.TO_SYNTAX,
+    description:
+      "Import StateKey and TransferState from @angular/core instead of @angular/platform-browser.",
+  };
+}
+
+function step23(project: Project): StepData {
+  let detection = Capability.NOT;
+  let automation = Capability.NOT;
+  project.getSourceFiles().forEach((file) => {
+    findNodes(
+      file,
+      (node) =>
+        lastInstanceInTree(node, "isPlatformWorkerUi") &&
+        node.getParent()?.getKind() === SyntaxKind.CallExpression,
+      (node) => {
+        detection = Capability.FULLY;
+        automation = Capability.PARTIALLY;
+        node.getParent()?.replaceWithText("false");
+      },
+    );
+    findNodes(
+      file,
+      (node) =>
+        lastInstanceInTree(node, "isPlatformWorkerApp") &&
+        node.getParent()?.getKind() === SyntaxKind.CallExpression,
+      (node) => {
+        detection = Capability.FULLY;
+        automation = Capability.PARTIALLY;
+        node.getParent()?.replaceWithText("false");
+      },
+    );
+  });
+  return {
+    detection,
+    automation,
+    changeFlags: Change.IN_TYPESCRIPT | Change.TO_SEMANTICS,
+    description:
+      "Update the application to remove isPlatformWorkerUi and isPlatformWorkerApp since they were part of platform WebWorker which is now not part of Angular.",
+  };
+}
+
 /******************************************************************************
  * Execute steps and register data.
  *****************************************************************************/
@@ -101,6 +188,32 @@ metrics.push({
 });
 metrics.push(step19(project));
 metrics.push(step20(project));
+metrics.push(step21(project));
+metrics.push({
+  // 22 - Can't find any references to withHttpTransferCache. It should be fully detectable and partially automatable, depends on the type of project.
+  detection: Capability.FULLY,
+  automation: Capability.PARTIALLY,
+  changeFlags: Change.IN_TYPESCRIPT | Change.TO_SEMANTICS,
+  description:
+    "Use includeRequestsWithAuthHeaders: true in withHttpTransferCache to opt-in of caching for HTTP requests that require authorization.",
+});
+metrics.push(step23(project));
+metrics.push({
+  // 24 - Change in how Angular tests work under the hood. To many variables.
+  detection: Capability.NOT,
+  automation: Capability.NOT,
+  changeFlags: Change.IN_TYPESCRIPT | Change.IN_TEST | Change.TO_SEMANTICS,
+  description:
+    "Tests may run additional rounds of change detection to fully reflect test state in the DOM. As a last resort, revert to the old behavior by adding provideZoneChangeDetection({ignoreChangesOutsideZone: true}) to the TestBed providers.",
+});
+metrics.push({
+  // 25 - Can't access templates.
+  detection: Capability.NOT,
+  automation: Capability.NOT,
+  changeFlags: Change.IN_TEMPLATE | Change.TO_SYNTAX,
+  description:
+    "Remove expressions that write to properties in templates that use [(ngModel)]",
+});
 
 logStepData(metrics);
 
