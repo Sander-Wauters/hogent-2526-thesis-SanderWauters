@@ -111,46 +111,98 @@ v18-v19
 Loading project at: ../tmptestenv/
 | Type                  | #Total  | %Total  |
 |-----------------------|---------|---------|
-| #Steps                | 11      | 1OO.00% |
+| #Steps                | 16      | 1OO.00% |
 |-----------------------|---------|---------|
-| Not automatable       | 7       | 63.64%  |
-| Partially automatable | 1       | 9.09%   |
-| Fully automatable     | 3       | 27.27%  |
+| Not automatable       | 12      | 75.00%  |
+| Partially automatable | 1       | 6.25%   |
+| Fully automatable     | 3       | 18.75%  |
 |-----------------------|---------|---------|
-| Not detectable        | 8       | 72.73%  |
-| Partially detectable  | 0       | 0.00%   |
-| Fully detectable      | 3       | 27.27%  |
+| Not detectable        | 8       | 50.00%  |
+| Partially detectable  | 1       | 6.25%   |
+| Fully detectable      | 7       | 43.75%  |
 |-----------------------|---------|---------|
-| Change not applicable | 2       | 18.18%  |
-| Change in TypeScript  | 5       | 45.45%  |
-| Change in template    | 2       | 18.18%  |
-| Change in test        | 2       | 18.18%  |
-| Change in JSON        | 3       | 27.27%  |
-| Change in CLI         | 2       | 18.18%  |
+| Change not applicable | 2       | 12.50%  |
+| Change in TypeScript  | 10      | 62.50%  |
+| Change in template    | 2       | 12.50%  |
+| Change in test        | 5       | 31.25%  |
+| Change in JSON        | 3       | 18.75%  |
+| Change in CLI         | 2       | 12.50%  |
 |-----------------------|---------|---------|
-| Change to syntax      | 3       | 27.27%  |
-| Change to semantics   | 4       | 36.36%  |
+| Change to syntax      | 3       | 18.75%  |
+| Change to semantics   | 9       | 56.25%  |
 
 | Type                  | #TS     | %TS     |
+|-----------------------|---------|---------|
+| #Steps                | 10      | 1OO.00% |
+|-----------------------|---------|---------|
+| Not automatable       | 8       | 80.00%  |
+| Partially automatable | 1       | 10.00%  |
+| Fully automatable     | 1       | 10.00%  |
+|-----------------------|---------|---------|
+| Not detectable        | 2       | 20.00%  |
+| Partially detectable  | 1       | 10.00%  |
+| Fully detectable      | 7       | 70.00%  |
+|-----------------------|---------|---------|
+| Change not applicable | 0       | 0.00%   |
+| Change in TypeScript  | 10      | 100.00% |
+| Change in template    | 1       | 10.00%  |
+| Change in test        | 5       | 50.00%  |
+| Change in JSON        | 0       | 0.00%   |
+| Change in CLI         | 0       | 0.00%   |
+|-----------------------|---------|---------|
+| Change to syntax      | 1       | 10.00%  |
+| Change to semantics   | 9       | 90.00%  |
+Checking for errors...
+Errors: 11
+
+
+
+v19-v20
+
+
+Loading project at: ../tmptestenv/
+| Type                  | #Total  | %Total  |
 |-----------------------|---------|---------|
 | #Steps                | 5       | 1OO.00% |
 |-----------------------|---------|---------|
 | Not automatable       | 3       | 60.00%  |
-| Partially automatable | 1       | 20.00%  |
-| Fully automatable     | 1       | 20.00%  |
+| Partially automatable | 0       | 0.00%   |
+| Fully automatable     | 2       | 40.00%  |
 |-----------------------|---------|---------|
-| Not detectable        | 2       | 40.00%  |
+| Not detectable        | 4       | 80.00%  |
 | Partially detectable  | 0       | 0.00%   |
-| Fully detectable      | 3       | 60.00%  |
+| Fully detectable      | 1       | 20.00%  |
+|-----------------------|---------|---------|
+| Change not applicable | 2       | 40.00%  |
+| Change in TypeScript  | 2       | 40.00%  |
+| Change in template    | 1       | 20.00%  |
+| Change in test        | 1       | 20.00%  |
+| Change in JSON        | 1       | 20.00%  |
+| Change in CLI         | 1       | 20.00%  |
+|-----------------------|---------|---------|
+| Change to syntax      | 1       | 20.00%  |
+| Change to semantics   | 1       | 20.00%  |
+
+| Type                  | #TS     | %TS     |
+|-----------------------|---------|---------|
+| #Steps                | 2       | 1OO.00% |
+|-----------------------|---------|---------|
+| Not automatable       | 1       | 50.00%  |
+| Partially automatable | 0       | 0.00%   |
+| Fully automatable     | 1       | 50.00%  |
+|-----------------------|---------|---------|
+| Not detectable        | 1       | 50.00%  |
+| Partially detectable  | 0       | 0.00%   |
+| Fully detectable      | 1       | 50.00%  |
 |-----------------------|---------|---------|
 | Change not applicable | 0       | 0.00%   |
-| Change in TypeScript  | 5       | 100.00% |
-| Change in template    | 1       | 20.00%  |
-| Change in test        | 2       | 40.00%  |
+| Change in TypeScript  | 2       | 100.00% |
+| Change in template    | 1       | 50.00%  |
+| Change in test        | 1       | 50.00%  |
 | Change in JSON        | 0       | 0.00%   |
 | Change in CLI         | 0       | 0.00%   |
 |-----------------------|---------|---------|
-| Change to syntax      | 1       | 20.00%  |
-| Change to semantics   | 4       | 80.00%  |
+| Change to syntax      | 1       | 50.00%  |
+| Change to semantics   | 1       | 50.00%  |
 Checking for errors...
-Errors: 9
+Errors: 11

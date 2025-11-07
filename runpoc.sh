@@ -28,6 +28,12 @@ yarn ng update @angular/core@19 @angular/cli@19
 cd ../updater/
 node dist/src/version/update18-19.js ../tmptestenv/ >> ../../output/metrics.txt
 
+printf "\n\n\nv19-v20\n\n\n" >> ../../output/metrics.txt
+cd ../tmptestenv/
+yarn ng update @angular/core@20 @angular/cli@20
+cd ../updater/
+node dist/src/version/update19-20.js ../tmptestenv/ >> ../../output/metrics.txt
+
 [ "$1" = "-c" ] && {
   printf "\nRemoving test environment...\n";
   rm -r ../tmptestenv/;
