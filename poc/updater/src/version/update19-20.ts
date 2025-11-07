@@ -84,6 +84,44 @@ metrics.push({
   description:
     "Refactor application and test code to avoid relying on ng-reflect-\* attributes. If needed temporarily for migration, use provideNgReflectAttributes() from @angular/core in bootstrap providers to re-enable them in dev mode only.",
 });
+metrics.push({
+  // 61 - To many variables.
+  detection: Capability.PARTIALLY,
+  automation: Capability.NOT,
+  changeFlags: Change.IN_TYPESCRIPT | Change.TO_SEMANTICS,
+  description:
+    "Adjust code that directly calls functions returning RedirectFn. These functions can now also return an Observable or Promise; ensure your logic correctly handles these asynchronous return types.",
+});
+metrics.push({
+  // 62 - Feature added in v19.
+  detection: Capability.NOT,
+  automation: Capability.NOT,
+  changeFlags: Change.NOT_APPLICABLE,
+  description: "Rename the request property passed in resources to params.",
+});
+metrics.push({
+  // 63 - Feature added in v19.
+  detection: Capability.NOT,
+  automation: Capability.NOT,
+  changeFlags: Change.NOT_APPLICABLE,
+  description: "Rename the loader property passed in rxResources to stream.",
+});
+metrics.push({
+  // 64 - Feature added in v19.
+  detection: Capability.NOT,
+  automation: Capability.NOT,
+  changeFlags: Change.NOT_APPLICABLE,
+  description:
+    "ResourceStatus is no longer an enum. Use the corresponding constant string values instead.",
+});
+metrics.push({
+  // 65 - Feature added in v18.
+  detection: Capability.NOT,
+  automation: Capability.NOT,
+  changeFlags: Change.NOT_APPLICABLE,
+  description:
+    "Rename provideExperimentalZonelessChangeDetection to provideZonelessChangeDetection.",
+});
 
 logStepData(metrics);
 
