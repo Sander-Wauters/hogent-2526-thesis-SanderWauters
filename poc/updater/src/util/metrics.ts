@@ -116,7 +116,7 @@ function logStepTotals(totals: StepTotals, label: string) {
   console.log(
     `| #Steps                | %s | %s |`,
     totals.numSteps.toString().padEnd(pad, " "),
-    "1OO.00%".padEnd(pad, " "),
+    "100.00%".padEnd(pad, " "),
   );
   console.log(
     `|-----------------------|%s|%s|`,
