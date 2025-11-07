@@ -1,7 +1,7 @@
 /******************************************************************************
  *
  *
- * Updates Angular from version 18 to 19.
+ * Updates Angular from version 19 to 20.
  *
  *
  *****************************************************************************/
@@ -9,7 +9,12 @@
 import { loadProject, saveProject } from "../util/projectio.js";
 import { Capability, Change, logStepData, StepData } from "../util/metrics.js";
 import { Project, SyntaxKind } from "ts-morph";
-import { findNodes, inScopeOf, lastInstanceInTree } from "../util/traversal.js";
+import {
+  accessedFrom,
+  findNodes,
+  inScopeOf,
+  lastInstanceInTree,
+} from "../util/traversal.js";
 
 const project = loadProject();
 
@@ -39,6 +44,54 @@ function step57(project: Project): StepData {
     automation,
     changeFlags: Change.IN_TYPESCRIPT | Change.TO_SYNTAX,
     description: "Rename the afterRender lifecycle hook to afterEveryRender",
+  };
+}
+
+function step70(project: Project): StepData {
+  let detection = Capability.NOT;
+  let automation = Capability.NOT;
+  project.getSourceFiles().forEach((file) => {
+    findNodes(
+      file,
+      (node) =>
+        lastInstanceInTree(node, "canActivate") && accessedFrom(node, "Route"),
+      () => {
+        detection = Capability.FULLY;
+      },
+    );
+    findNodes(
+      file,
+      (node) =>
+        lastInstanceInTree(node, "canDeactivate") &&
+        accessedFrom(node, "Route"),
+      () => {
+        detection = Capability.FULLY;
+      },
+    );
+    findNodes(
+      file,
+      (node) =>
+        lastInstanceInTree(node, "canMatch") && accessedFrom(node, "Route"),
+      () => {
+        detection = Capability.FULLY;
+      },
+    );
+    findNodes(
+      file,
+      (node) =>
+        lastInstanceInTree(node, "canActivateChild") &&
+        accessedFrom(node, "Route"),
+      () => {
+        detection = Capability.FULLY;
+      },
+    );
+  });
+  return {
+    detection,
+    automation,
+    changeFlags: Change.IN_TYPESCRIPT | Change.TO_SEMANTICS,
+    description:
+      "The any type is removed from the Route guard arrays (canActivate, canDeactivate, etc); ensure guards are functions, ProviderToken<T>, or (deprecated) strings. Refactor string guards to ProviderToken<T> or functions.",
   };
 }
 
@@ -122,6 +175,43 @@ metrics.push({
   description:
     "Rename provideExperimentalZonelessChangeDetection to provideZonelessChangeDetection.",
 });
+metrics.push({
+  // 66 - Can't access templates.
+  detection: Capability.NOT,
+  automation: Capability.NOT,
+  changeFlags: Change.IN_TEMPLATE | Change.TO_SYNTAX,
+  description:
+    "If your templates use {{ in }} or in in expressions to refer to a component property named 'in', change it to {{ this.in }} or this.in as 'in' now refers to the JavaScript 'in' operator. If you're using in as a template reference, you'd have to rename the reference.",
+});
+metrics.push({
+  // 67 - To many variables. Type extraction is to complex to detect.
+  detection: Capability.NOT,
+  automation: Capability.NOT,
+  changeFlags: Change.IN_TYPESCRIPT | Change.TO_SEMANTICS,
+  description:
+    "The type for the commands arrays passed to Router methods (createUrlTree, navigate, createUrlTreeFromSnapshot) have been updated to use readonly T[] since the array is not mutated. Code which extracts these types (e.g. with typeof) may need to be adjusted if it expects mutable arrays.",
+});
+metrics.push({
+  // 68 - To complex to figure out if a test case checks a dom element involved in an animation.
+  detection: Capability.NOT,
+  automation: Capability.NOT,
+  changeFlags: Change.IN_TYPESCRIPT | Change.IN_TEST | Change.TO_SEMANTICS,
+  description:
+    "Review and update tests asserting on DOM elements involved in animations. Animations are now guaranteed to be flushed with change detection or ApplicationRef.tick, potentially altering previous test outcomes.",
+});
+metrics.push({
+  // 69 - Event listeners are a template thing. Can't access templates.
+  detection: Capability.NOT,
+  automation: Capability.NOT,
+  changeFlags:
+    Change.IN_TYPESCRIPT |
+    Change.IN_TEST |
+    Change.IN_TEMPLATE |
+    Change.TO_SEMANTICS,
+  description:
+    "In tests, uncaught errors in event listeners are now rethrown by default. Previously, these were only logged to the console by default. Catch them if intentional for the test case, or use rethrowApplicationErrors: false in configureTestingModule as a last resort.",
+});
+metrics.push(step70(project));
 
 logStepData(metrics);
 
