@@ -95,6 +95,115 @@ function step70(project: Project): StepData {
   };
 }
 
+function step72(project: Project): StepData {
+  let detection = Capability.NOT;
+  let automation = Capability.NOT;
+  project.getSourceFiles().forEach((file) =>
+    findNodes(
+      file,
+      (node) =>
+        lastInstanceInTree(node, "get") &&
+        !!inScopeOf(node, SyntaxKind.CallExpression) &&
+        accessedFrom(node, "TestBed"),
+      (node) => {
+        detection = Capability.FULLY;
+        automation = Capability.FULLY;
+        node.replaceWithText("inject");
+      },
+    ),
+  );
+  return {
+    detection,
+    automation,
+    changeFlags: Change.IN_TYPESCRIPT | Change.IN_TEST | Change.TO_SYNTAX,
+    description:
+      "Replace all occurrences of the deprecated TestBed.get() method with TestBed.inject() in your Angular tests for dependency injection.",
+  };
+}
+
+function step73(project: Project): StepData {
+  let detection = Capability.NOT;
+  let automation = Capability.NOT;
+  project.getSourceFiles().forEach((file) => {
+    findNodes(
+      file,
+      (node) => lastInstanceInTree(node, "InjectFlags.Default"),
+      (node) => {
+        detection = Capability.FULLY;
+        automation = Capability.FULLY;
+        node.replaceWithText("{}"); // Hacky way to ensure that there are not trailing comma's.
+      },
+    );
+    findNodes(
+      file,
+      (node) => lastInstanceInTree(node, "InjectFlags.Host"),
+      (node) => {
+        detection = Capability.FULLY;
+        automation = Capability.FULLY;
+        node.replaceWithText("{ host: true }");
+      },
+    );
+    findNodes(
+      file,
+      (node) => lastInstanceInTree(node, "InjectFlags.Self"),
+      (node) => {
+        detection = Capability.FULLY;
+        automation = Capability.FULLY;
+        node.replaceWithText("{ self: true }");
+      },
+    );
+    findNodes(
+      file,
+      (node) => lastInstanceInTree(node, "InjectFlags.SkipSelf"),
+      (node) => {
+        detection = Capability.FULLY;
+        automation = Capability.FULLY;
+        node.replaceWithText("{ skipSelf: true }");
+      },
+    );
+    findNodes(
+      file,
+      (node) => lastInstanceInTree(node, "InjectFlags.Optional"),
+      (node) => {
+        detection = Capability.FULLY;
+        automation = Capability.FULLY;
+        node.replaceWithText("{ optional: true }");
+      },
+    );
+  });
+  return {
+    detection,
+    automation,
+    changeFlags: Change.IN_TYPESCRIPT | Change.IN_TEST | Change.TO_SYNTAX,
+    description:
+      "Remove InjectFlags enum and its usage from inject, Injector.get, EnvironmentInjector.get, and TestBed.inject calls. Use options like {optional: true} for inject or handle null for \*.get methods.",
+  };
+}
+
+function step74(project: Project): StepData {
+  let detection = Capability.NOT;
+  let automation = Capability.NOT;
+  project.getSourceFiles().forEach((file) =>
+    findNodes(
+      file,
+      (node) =>
+        lastInstanceInTree(node, "get") &&
+        !!inScopeOf(node, SyntaxKind.CallExpression) &&
+        accessedFrom(node, "Injector"),
+      () => {
+        detection = Capability.FULLY;
+      },
+    ),
+  );
+  return {
+    detection,
+    automation,
+    changeFlags: Change.IN_TYPESCRIPT | Change.TO_SEMANTICS,
+    description:
+      "Update injector.get() calls to use a specific ProviderToken<T> instead of relying on the removed any overload. If using string tokens (deprecated since v4), migrate them to ProviderToken<T>.",
+  };
+}
+
 /******************************************************************************
  * Execute steps and register data.
  *****************************************************************************/
@@ -212,6 +321,25 @@ metrics.push({
     "In tests, uncaught errors in event listeners are now rethrown by default. Previously, these were only logged to the console by default. Catch them if intentional for the test case, or use rethrowApplicationErrors: false in configureTestingModule as a last resort.",
 });
 metrics.push(step70(project));
+metrics.push({
+  // 71 - CLI operation.
+  detection: Capability.NOT,
+  automation: Capability.FULLY,
+  changeFlags: Change.IN_JSON | Change.IN_CLI,
+  description:
+    "Ensure your Node.js version is at least 20.11.1 and not v18 or v22.0-v22.10 before upgrading to Angular v20. Check https://angular.dev/reference/versions for the full list of supported Node.js versions.",
+});
+metrics.push(step72(project));
+metrics.push(step73(project));
+metrics.push(step74(project));
+metrics.push({
+  // 75 - CLI operation.
+  detection: Capability.NOT,
+  automation: Capability.FULLY,
+  changeFlags: Change.IN_JSON | Change.IN_CLI,
+  description:
+    "Upgrade your project's TypeScript version to at least 5.8 before upgrading to Angular v20 to ensure compatibility.",
+});
 
 logStepData(metrics);
 
