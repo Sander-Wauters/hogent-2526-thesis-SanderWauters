@@ -108,6 +108,174 @@ Een verandering kan impact hebben op zowel TypeScript als HTML, syntax als seman
 \subsection{Opzet updater}
 \label{ch:proof-of-concept:opzet-updater}
 
+Voor de updater te maken voorziet dit onderzoek verschillende helperfuncties om de implementatie te vereenvoudigen.
+Deze helper functies maken gebruikt de ts-morph package.
+ts-morph is een open-source TypeScript package ontwikkeld door \textcite{Sherret2025}.
+Het is een wrapper bovenop de TypeScript Compiler API dat het makkelijker maakt op de AST te navigeren en te manipuleren.
+
+\begin{listing}
+  \begin{minted}{ts}
+    /**
+     * Finds the number of nodes that match the predicate in the given AST.
+     *
+     * @param {Node} root - The root node of the tree.
+     * @param {(node: Node) => boolean | number} predicate - Callback function that evaluates each node.
+     * @param {(node: Node) => void} onMatch - Callback function called if a node matches the predicate.
+     */
+    export function findNodes(
+      root: Node,
+      predicate: (node: Node) => boolean | number,
+      onMatch: (node: Node) => void,
+    ): number {
+      let matches = 0;
+      root.forEachDescendant((node) => {
+        if (predicate(node)) {
+          matches += 1;
+          onMatch(node);
+        }
+      });
+      return matches;
+    }
+  \end{minted}
+  \caption[Doorloop AST]
+    {
+      Helperfunctie dat de AST vanaf een gegeven node doorloopt.
+      Op basis van de callback functies kunnen gericht aanpassingen uitgevoerd worden op de AST.
+    }
+  \label{cf:find-nodes}
+\end{listing}
+
+
+
+\begin{listing}
+  \begin{minted}{ts}
+    /**
+     * Checks if the text of a node contains a given pattern.
+     *
+     * @param {Node} node - The node to check.
+     * @param {string} pattern - The pattern to check against.
+     */
+    export function containsPattern(node: Node, pattern: string): boolean {
+      const matches = node.getText().match(pattern);
+      return matches !== null && matches.length > 0;
+    }
+  \end{minted}
+  \caption[Bevat patroon]
+    {
+      Helperfunctie die nagaat of een patrooon terug te vinden is in de tekst representatie van een AST node.
+    }
+  \label{cf:contains-pattern}
+\end{listing}
+
+
+
+\begin{listing}
+  \begin{minted}{ts}
+    /**
+     * Checks if a node contains the last occurance of a given string in it's own subtree.
+     *
+     * @param {Node} node - The node to check.
+     * @param {string} pattern - The pattern to check against.
+     */
+    export function lastInstanceInTree(node: Node, pattern: string): boolean {
+      const matchesCurrent = containsPattern(node, pattern);
+      const matchesChild = node.forEachChild((child) =>
+        containsPattern(child, pattern),
+      );
+      return matchesCurrent && !matchesChild;
+    }
+  \end{minted}
+  \caption[Bevat laatste instantie van patroon]
+    {
+      Helperfunctie die nagaat of een AST node de laatste instantie van een patroon bevat in de boomstructuur.
+    }
+  \label{cf:last-instance-in-tree}
+\end{listing}
+
+
+
+\begin{listing}
+  \begin{minted}{ts}
+    /**
+     * Gets the n'th ancestor of a node.
+     *
+     * @param {Node} node - The root node.
+     * @param {number} count - The distance of the ancestor to the root node.
+     */
+    export function getAncestor(node: Node, count: number): Node | undefined {
+      const parent = node.getParent();
+      if (count <= 1 || !parent) return parent;
+      return getAncestor(parent, --count);
+    }
+  \end{minted}
+  \caption[Vind voorouder]{Helperfunctie die de n'de voorouder van een AST node teruggeeft.}
+  \label{cf:get-ancestor}
+\end{listing}
+
+
+
+\begin{listing}
+  \begin{minted}{ts}
+    /**
+     * Checks if a node is in a certain scope.
+     * Returns the first node that matches the given scope, otherwise undefined.
+     *
+     * @param {Node} node - The node to check.
+     * @param {SyntaxKind} kind - The kind of the scope.
+     */
+    export function inScopeOf(node: Node, kind: SyntaxKind): Node | undefined {
+      const parent = node.getParent();
+      if (!parent) return undefined;
+      if (parent.getKind() === kind) return parent;
+      return inScopeOf(parent, kind);
+    }
+  \end{minted}
+  \caption[In scope van]{Helperfunctie die nagaat of een AST node in een bepaalde scope zit.}
+  \label{cf:in-scope-of}
+\end{listing}
+
+
+
+\begin{listing}
+  \begin{minted}{ts}
+    /**
+     * Checks if the type of the node matches the given pattern.
+     *
+     * @param {Node} node - The node to check.
+     * @param {string} type - The pattern of the type.
+     */
+    export function hasType(node: Node, type: string): boolean {
+      const matches = node
+        .getType()
+        .getText(undefined, TypeFormatFlags.InTypeAlias)
+        .match(type);
+      return matches !== null && matches.length > 0;
+    }
+  \end{minted}
+  \caption[Heeft type]{Helperfunctie die nagaat of een AST node een bepaalt type heeft.}
+  \label{cf:has-type}
+\end{listing}
+
+
+
+\begin{listing}
+  \begin{minted}{ts}
+    /**
+     * Checks if a node is accessed from a certain type.
+     *
+     * @param {Node} node - The node to check.
+     * @param {string} type - The pattern of the type.
+     */
+    export function accessedFrom(node: Node, type: string): boolean {
+      const accessProp = node.getParentIfKind(SyntaxKind.PropertyAccessExpression);
+      if (!accessProp) return false;
+      return hasType(accessProp.getExpression(), type);
+    }
+  \end{minted}
+  \caption[Opgeroepen van]{Helperfunctie die nagaat of een AST node opgeroepen wordt vanuit een bepaald type.}
+  \label{cf:accessed-from}
+\end{listing}
+
 \subsection{Opzet testomgeving}
 \label{ch:proof-of-concept:opzet-testomgeving}
 

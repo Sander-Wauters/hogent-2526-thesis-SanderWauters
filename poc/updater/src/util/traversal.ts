@@ -36,7 +36,7 @@ export function findNodes(
  * @param {Node} node - The node to check.
  * @param {string} pattern - The pattern to check against.
  */
-export function firstInstanceInTree(node: Node, pattern: string): boolean {
+export function containsPattern(node: Node, pattern: string): boolean {
   const matches = node.getText().match(pattern);
   return matches !== null && matches.length > 0;
 }
@@ -48,9 +48,9 @@ export function firstInstanceInTree(node: Node, pattern: string): boolean {
  * @param {string} pattern - The pattern to check against.
  */
 export function lastInstanceInTree(node: Node, pattern: string): boolean {
-  const matchesCurrent = firstInstanceInTree(node, pattern);
+  const matchesCurrent = containsPattern(node, pattern);
   const matchesChild = node.forEachChild((child) =>
-    firstInstanceInTree(child, pattern),
+    containsPattern(child, pattern),
   );
   return matchesCurrent && !matchesChild;
 }
@@ -94,6 +94,7 @@ export function hasType(node: Node, type: string): boolean {
     .match(type);
   return matches !== null && matches.length > 0;
 }
+
 /**
  * Checks if a node is accessed from a certain type.
  *
