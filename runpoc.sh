@@ -1,40 +1,46 @@
 #!/bin/bash
 
-printf "\nRemoving old test environment...\n"
+printf "\nRemoving old test environments...\n"
 rm -r poc/tmptestenv/
+rm -r poc/tmptestenvtotal/
 
-printf "\nCreating test environment...\n"
+printf "\nCreating test environments...\n"
 cp -r poc/__testenv__/ poc/tmptestenv/
+cp -r poc/__testenv__/ poc/tmptestenvtotal/
 
 printf "\nRunning updaters...\n"
 cd poc/updater/
 yarn build
 
-printf "\n\n\nv16-v17\n\n\n" > ../../output/metrics.txt
+printf "#v16-v17\n\n" > ../../output/metrics.md
 cd ../tmptestenv/
 yarn ng update @angular/core@17 @angular/cli@17
 cd ../updater/
-node dist/src/version/update16-17.js ../tmptestenv/ >> ../../output/metrics.txt
+node dist/src/version/update16-17.js ../tmptestenv/ >> ../../output/metrics.md
 
-printf "\n\n\nv17-v18\n\n\n" >> ../../output/metrics.txt
+printf "\n#v17-v18\n\n" >> ../../output/metrics.md
 cd ../tmptestenv/
 yarn ng update @angular/core@18 @angular/cli@18
 cd ../updater/
-node dist/src/version/update17-18.js ../tmptestenv/ >> ../../output/metrics.txt
+node dist/src/version/update17-18.js ../tmptestenv/ >> ../../output/metrics.md
 
-printf "\n\n\nv18-v19\n\n\n" >> ../../output/metrics.txt
+printf "\n#v18-v19\n\n" >> ../../output/metrics.md
 cd ../tmptestenv/
 yarn ng update @angular/core@19 @angular/cli@19
 cd ../updater/
-node dist/src/version/update18-19.js ../tmptestenv/ >> ../../output/metrics.txt
+node dist/src/version/update18-19.js ../tmptestenv/ >> ../../output/metrics.md
 
-printf "\n\n\nv19-v20\n\n\n" >> ../../output/metrics.txt
+printf "\n#v19-v20\n\n" >> ../../output/metrics.md
 cd ../tmptestenv/
 yarn ng update @angular/core@20 @angular/cli@20
 cd ../updater/
-node dist/src/version/update19-20.js ../tmptestenv/ >> ../../output/metrics.txt
+node dist/src/version/update19-20.js ../tmptestenv/ >> ../../output/metrics.md
+
+printf "\n#v16-v20\n\n" >> ../../output/metrics.md
+node dist/src/version/update16-20.js ../tmptestenvtotal/ >> ../../output/metrics.md
 
 [ "$1" = "-c" ] && {
   printf "\nRemoving test environment...\n";
   rm -r ../tmptestenv/;
+  rm -r ../tmptestenvtotal/;
 }

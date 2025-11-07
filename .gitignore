@@ -136,3 +136,4 @@ sympy-plots-for-*.tex/
 node_modules/
 dist/
 tmptestenv/
+tmptestenvtotal/

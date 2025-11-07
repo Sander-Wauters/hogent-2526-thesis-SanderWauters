@@ -18,7 +18,7 @@ export function loadProject(): Project {
     console.error(`No path to project provided, exiting...`);
     exit(-1);
   }
-  console.log(`Loading project at: ${projectRoot}`);
+  console.debug(`Loading project at: ${projectRoot}`);
   return new Project({
     tsConfigFilePath: `${projectRoot}/tsconfig.json`,
   });
@@ -34,7 +34,7 @@ export async function saveProject(
   project: Project,
   force: boolean = false,
 ): Promise<boolean> {
-  console.log(`Checking for errors...`);
+  console.debug(`Checking for errors...`);
   const diagnostics = project.getPreEmitDiagnostics();
   console.log(`Errors: ${diagnostics.length}`);
 

@@ -286,10 +286,11 @@ export function logStepData(stepData: StepData[]) {
     if (onlyTsSemanticsNoTest) addTotals(step, tsSemanticNoTest);
   });
 
+  console.log();
   logStepTotals(total, "Total");
   console.log();
   logStepTotals(ts, "TS");
-  // console.log();
+  console.log();
   // logStepTotals(tsSyntax, "TS syntax");
   // console.log();
   // logStepTotals(tsSemantics, "TS semantics");
