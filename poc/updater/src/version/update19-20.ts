@@ -340,6 +340,46 @@ metrics.push({
   description:
     "Upgrade your project's TypeScript version to at least 5.8 before upgrading to Angular v20 to ensure compatibility.",
 });
+metrics.push({
+  // 76 - To complex. Way to many variables.
+  detection: Capability.NOT,
+  automation: Capability.NOT,
+  changeFlags: Change.IN_TYPESCRIPT | Change.IN_TEST | Change.TO_SEMANTICS,
+  description:
+    "Unhandled errors in subscriptions/promises of AsyncPipe are now directly reported to ErrorHandler. This may alter test outcomes; ensure tests correctly handle these reported errors.",
+});
+metrics.push({
+  // 77 - Feature added in v19.
+  detection: Capability.NOT,
+  automation: Capability.NOT,
+  changeFlags: Change.NOT_APPLICABLE,
+  description:
+    "If relying on the return value of PendingTasks.run, refactor to use PendingTasks.add. Handle promise results/rejections manually, especially for SSR to prevent node process shutdown on unhandled rejections.",
+});
+metrics.push({
+  // 78 - Can't access templates.
+  detection: Capability.NOT,
+  automation: Capability.NOT,
+  changeFlags: Change.IN_TEMPLATE | Change.TO_SYNTAX,
+  description:
+    "If your templates use {{ void }} or void in expressions to refer to a component property named 'void', change it to {{ this.void }} or this.void as 'void' now refers to the JavaScript void operator.",
+});
+metrics.push({
+  // 79 - Can't access templates.
+  detection: Capability.NOT,
+  automation: Capability.NOT,
+  changeFlags: Change.IN_TEMPLATE | Change.TO_SYNTAX,
+  description:
+    "Review DatePipe usages. Using the Y (week-numbering year) formatter without also including w (week number) is now detected as suspicious. Use y (year) if that was the intent, or include w alongside Y.",
+});
+metrics.push({
+  // 80 - Can't access templates.
+  detection: Capability.NOT,
+  automation: Capability.NOT,
+  changeFlags: Change.IN_TEMPLATE | Change.TO_SYNTAX,
+  description:
+    "In templates parentheses are now always respected. This can lead to runtime breakages when nullish coalescing were nested in parathesis. eg (foo?.bar).baz will throw if foo is nullish as it would in native JavaScript.",
+});
 
 logStepData(metrics);
 
