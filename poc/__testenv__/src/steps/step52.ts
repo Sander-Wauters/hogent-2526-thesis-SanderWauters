@@ -1,0 +1,15 @@
+// 52. Migrate from using Router.errorHandler to withNavigationErrorHandler from provideRouter or errorHandler from RouterModule.forRoot.
+import { NgModule } from "@angular/core";
+import { Router, RouterModule } from "@angular/router";
+
+@NgModule({
+  imports: [RouterModule.forRoot([])],
+  exports: [RouterModule],
+})
+export class Step52 {
+  constructor(router: Router) {
+    router.errorHandler = (error) => {
+      console.error("Old navigation error:", error);
+    };
+  }
+}
