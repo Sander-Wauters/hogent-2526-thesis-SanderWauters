@@ -66,6 +66,42 @@ Verder geeft dit de mogelijkheid om alle commando's samen te voegen in één scr
 \section{Angular aanpassingen}
 \label{ch:angular-aanpassingen}
 
+% Wat moet er veranderen aan de code?
+Volgens de Angular update handleidling door \textcite{AngularUpdateGuide2025} zijn er in totaal 80 verschillende stappen nodig om een applicatie van v16 naar v20 te updaten.
+% Wat doen we hiermee?
+Dit onderzoek verdeelt deze stappen in verschillende ``categorieën''.
+% Waarom verdelen in categorieën?
+Deze onderverdeling geeft een beter overzicht van wat veranderd moet worden aan een Angular v16 applicatie.
+Tenslotte geeft deze onderverdeling in combinatie met de resultaten van de updater een beter inzicht in waar de updater meer geschikt voor is.
+% Wat zijn de categorieën?
+De categorieën zijn opgesteld als volgt:
+\begin{itemize}
+  \item Veranderingen aan TypeScript.
+  Dit is het grootste deel van alle aanpassingen.
+  \item Veranderingen aan HTML templates.
+  Dit zijn aanpassingen aan Angular specifieke code in HTML templates.
+  \item Veranderingen aan unittesten.
+  Dit zijn aanpassingen aan de unittests die afhankelijk zijn van Angular.
+  \item Veranderingen aan JSON.
+  Dit zijn aanpassingen aan JSON bestanden di de applicatie configureren.
+  \item Uit te voeren commando's.
+  Dit zijn commando's die uitgevoerd moeten worden in de command line.
+  Meestal gaat dit om Angular packages of dependencies te updaten.
+  \item Veranderingen aan syntax.
+  Dit zijn aanpassingen aan syntax die de werking van de applicatie niet aanpassen.
+  \item Veranderingen aan semantiek.
+  Dit zijn aanpassingen in de achterliggende werking van Angular.
+  En/of een verandering die ervoor zorgt dat de huidige werking van de applicatie moet veranderen.
+  \item Veranderingen die niet van toepassing zijn. 
+  Dit zijn aanpassingen aan functies toegevoegd na v16. 
+  Het is dus onmogelijk dat de applicaties binnen Stater hiervan gebruikmaken.
+\end{itemize}
+
+% Kan een stap meerdere categorieën hebben?
+Buiten de veranderingen dat niet van toepassing zijn, zijn deze categorieën niet wederzijds exclusief.
+In één stap kunnen meerdere categorieën van toepassing zijn.
+Een verandering kan impact hebben op zowel TypeScript als HTML, syntax als semantiek, \dots.
+
 \section{Proof of concept}
 \label{ch:proof-of-concept}
 
