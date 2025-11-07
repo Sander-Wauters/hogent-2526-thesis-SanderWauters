@@ -41,6 +41,6 @@ Therefore no compilation steps are provided.
 
 The `runpoc.sh` script runs the entire proof of concept.
 It creates a copy of the `__testenv__` directory, build the `updaters` and runs them.
-The output of the updaters will be put into `output/metrics.txt`.
+The output of the updaters will be put into `output/metrics.md`.
 Add the `-c` option to remove the test environment after the `updaters` have finished.
 Note that the script calls interactive commands, if it looks like it's doing nothing you may need to press enter.
