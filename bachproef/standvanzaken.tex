@@ -12,7 +12,7 @@ Ten slotte volgt een overzicht van verschillende gekende manieren om code automa
 
 % Wat is Angular?
 Angular, ook wel Angular2 genoemd, is een user interface (UI) framework ontwikkeld door Google in 2016 \autocite{Cincovic2019}.
-Het is gratis, open-source en wordt onderhouden door een diverse groep van ontwikkelaars.
+Het is open-source, gratis en wordt onderhouden door een diverse groep van ontwikkelaars.
 % Waarvoor dient het?
 Angular wordt gebruikt voor het maken van single-page webapplicaties die zowel client- als server-side gerenderd kunnen worden.
 % Hoe maakt het een UI?
@@ -23,6 +23,7 @@ Componenten encapsuleren de bedrijfslogica, structuur en stijl van een deel van 
 Het combineren van verschillende componenten laat toe om complexe UI's te maken.
 
 % Hoe werkt het?
+Een component aanmaken met Angular kan enkel op één manier.
 Angular is een opinionated framework.
 \textcite{Parker2017} defineert een framework als opinionated als het de ontwikkelaar aanstuurt om op een specifieke manier te te werken.
 Opinionated frameworks houden zich aan strikte conventies die dicteren hoe een project is opgesteld en geschreven.
@@ -30,8 +31,8 @@ Opinionated frameworks houden zich aan strikte conventies die dicteren hoe een p
 Het Angular-framework komt ingebouwd met verschillende functionaliteiten die de ontwikkeling van een applicatie aansturen \autocite{Wilken2018}.
 Zoals eerder besproken maakt Angular gebruik van componenten voor het bouwen van een UI.
 Verder komt het met functies die toelaten om unittests te schrijven voor deze componenten.
-Angular heeft een collectie van command line (CLI) tools die de ontwikkelaars helpt bij het maken van een applicatie, bijvoorbeeld het genereren van een blanco component met bijhorende testen in één commando.
-Verder komt het met een eigen Hyper Text Transfer Protocol (HTTP) client voor een applicatie te verbinden met een backendservice over het internet.
+Hiernaast heeft Angular een collectie van Command Line Interface (CLI) tools die de ontwikkelaars helpt bij het maken van een applicatie, bijvoorbeeld het genereren van een blanco component met bijhorende testen in één commando.
+Verder komt het met een ingebouwde Hyper Text Transfer Protocol (HTTP) client voor een applicatie te verbinden met een backendservice over het internet.
 
 % Hoe is een Angular-project gestructureerd?
 Angular is gebaseerd op TypeScript en gebruikt dit in combinatie met andere technologieën.
@@ -45,9 +46,9 @@ In een Angular-project zijn de volgende bestanden terug te vinden:
 \end{itemize}
 
 % Wat is er speciaal aan Angular templates?
-HTML-templates hebben een unieke eigenschap.
+HTML-templates hebben een unieke eigenschap, specifiek in Angular.
 Angular maakt het mogelijk om conditionele operaties zoals if-else en lussen te gebruiken in HTML-templates.
-Deze syntax en functie is normaal niet mogelijk il .
+Deze syntax en functie zijn normaal niet mogelijk in HTML.
 Dit laat Angular toe om complexere UI te maken.
 Maar dit betekent dat niet alle logica in TypeScript bestanden terug te vinden is.
 
@@ -58,14 +59,14 @@ Maar dit betekent dat niet alle logica in TypeScript bestanden terug te vinden i
 Om de broncode van een Angular-applicatie te begrijpen, moeten we de taal kennen waarin deze geschreven is.
 % Wat is TypeScript?
 TypeScript is een programmeertaal ontwikkeld door Microsoft in 2012.
-\textcite{Bierman2014} omschrijft TypeScript als een extensie van JavaScript die een statisch typesysteem toevoegt.
+Volgens \textcite{Bierman2014} is TypeScript ontworpen als een extensie van JavaScript die een statisch typesysteem toevoegt.
 Om TypeScript-code te gebruiken, moet deze eerst gecompileerd worden naar JavaScript.
 TypeScript is een multiparadigm-programmeertaal. 
 Het ondersteunt verschillende programmeerstijlen zoals: functioneel, procedureel, objectgeoriënteerd, \dots.
 
 % Hoe maakt Angular gebruik van TypeScript?
 Angular gebruikt TypeScript op een objectgeoriënteerde manier.
-Een Angular-component is een TypeScript-klasse waar de ``@Component''-decorator boven de klasdeclaratie wordt meegegeven \autocite{Wilken2018}.
+Een Angular component is een TypeScript-klasse waar de ``@Component''-decorator boven de klasdeclaratie wordt meegegeven \autocite{Wilken2018}.
 % Hoe worden HTML en CSS binnen Angular gebruikt?
 Via deze decorator wordt de bedrijfslogica van de klasse gelinkt met de bijbehorende HTML en CSS.
 Codefragment \ref{cf:component-declaration} illustreert hoe deze syntax eruitziet.
@@ -90,7 +91,7 @@ Codefragment \ref{cf:component-declaration} illustreert hoe deze syntax eruitzie
 Angular gebruikt nog meerdere verschillende decorators, maar ``@Component'' is vrijwel de meest voorkomende.
 TypeScript en Angular zijn uitgebreide thema's.
 Hier hebben we de belangrijkste onderwerpen omschreven die nodig zijn om dit onderzoek te begrijpen.
-In de volgende sectie bespreken we welke manieren bestaan om dit soort code automatisch aan te passen.
+In de volgende sectie bespreken we welke manieren er bestaan om dit soort code automatisch aan te passen.
 
 \section{Automatisch refactoren}
 \label{ch:stand-van-zaken:refactoring}
@@ -102,7 +103,7 @@ Het doel van refactoren is om de interne structuur van een applicatie te verbete
 Concreet betekent ``verbeteren'' voor deze casus dat de applicatie up-to-date is en de conventies blijft volgen van de laatste nieuwe Angular-versie.
 
 % Welke manieren bestaan er?
-De studie door \textcite{Hodovychenko2025} vergelijkt de verschillende manieren om het refactoringproces te automatiseren.
+De studie door \textcite{Hodovychenko2025} vergelijkt verschillende gekende manieren om het refactoringproces te automatiseren.
 In hun studie worden de manieren onderverdeeld in de volgende categorieën:
 \begin{itemize}
   \item Toolgebaseerd: manuele of semi-automatische technieken ingebouwd in Integrated Development Environments (IDE's).
@@ -111,6 +112,7 @@ In hun studie worden de manieren onderverdeeld in de volgende categorieën:
 \end{itemize}
 De volgende secties van het onderzoek geven concrete voorbeelden voor elke categorie.
 Per voorbeeld worden inzichten gegeven in de werking en de voor- en nadelen.
+Achteraf wordt de beslissing genomen over welke manier het meest geschikt is om toe te passen in deze casus.
 
 \subsection{Zoek \& vervang}
 \label{ch:stand-van-zaken:refactoring:find-and-replace}
@@ -128,8 +130,9 @@ Het laat toe om naar complexe patronen in een tekst te zoeken.
 
 % Wat zijn de voordelen?
 Zoek- en vervangfuncties hebben meerdere voordelen.
+Het is goed gekend en gedocumenteerd.
 Deze functies worden in veel applicaties gebruikt, zoals webbrowsers, tekstverwerkers, IDE's, \dots.
-De meeste programmeertalen hebben functies om dit te implementeren, zowel tekst- als regex-gebaseerd.
+De meeste programmeertalen komen met functies om dit te implementeren, zowel tekst- als regex-gebaseerd.
 
 % Wat zijn de nadelen?
 Zoek- en vervangfuncties gebruiken op code is niet zonder nadelen.
@@ -173,8 +176,8 @@ En omdat language servers komen met code-diagnostiek, is het mogelijk om na een 
 Language servers zijn echter niet perfect.
 Ze hebben vat op de syntax, maar niet op de semantiek van de applicatie.
 Verder zijn we gelimiteerd aan de functies van de language server.
-Nieuwe functies implementeren, hoewel mogelijk, is niet praktisch.
-Hoewel het de facto standaard in code-editors en IDE's is, blijft dit een zeer niche domein.
+Hoewel het mogelijk is om hun functies uit te breiden, is dit in de praktijk niet evident.
+Het is een zeer niche domein, ondanks dat het de facto standaard is in code-editors en IDE's 
 Een grondige kennis van het LSP is nodig om een language server aan te spreken of uit te breiden.
 
 \subsection{Compiler}
@@ -214,18 +217,19 @@ Werken met een AST vraagt kennis van boomstructuren en een goede kennis van de n
 \label{ch:stand-van-zaken:refactoring:ai}
 
 % Waarom is dit relevant?
-Met de recente opkomst in populariteit van artificiële intelligentie (AI) zijn reeds verschillende tools ontwikkeld om deze technologie in te zetten in het schrijven van code.
+Met de recente opkomst in populariteit van artificiële intelligentie (AI) zijn reeds verschillende tools ontwikkeld om deze technologie in te zetten voor het schrijven van code.
 
 % Wat zijn de voordelen?
-Een studie door \textcite{Poluai2025} toont aan dat automatisch coderefactoren met AI gebruikt kunnen worden om de performantie van applicaties te verbeteren.
+Een studie door \textcite{Poluai2025} gebruikt AI om automatisch code te refactoren om de performantie van een applicatie te verbeteren.
 Het toont aan dat deze AI-tools vat hebben op zowel de syntax als de semantiek van een applicatie.
 Uit dezelfde studie blijkt dat het automatisatieproces correct was in 98\% van de gevallen.
 
 % Wat zijn de nadelen?
 AI-gebaseerd refactoren is veelbelovend, maar niet perfect.
-De studie door \textcite{Hodovychenko2025} identificeert enkele praktische problemen met AI.
+De studie door \textcite{Hodovychenko2025} identificeert enkele praktische problemen met deze aanpak.
 Om dit soort AI-tools te ontwikkelen, is een grote hoeveelheid kwalitatieve data nodig.
-Verder is er een probleem met transparantie; de interne werking kan niet geverifieerd worden.
+Het verzamelen en verifiëren van deze data is praktisch niet altijd haalbaar.
+Tenslotte is er een probleem met transparantie; de interne werking kan niet geverifieerd worden.
 
 \subsection{Gekende problemen}
 \label{ch:stand-van-zaken:refactoring:known-problems}
@@ -239,7 +243,7 @@ Dan nog is het een meerwaarde om deze bugs op voorhand te vermijden.
 
 De studie door \textcite{Di2020} onderzoekt wat de kans is dat een refactoringactie op objectgeoriënteerde applicaties een bug introduceert.
 Uit deze studie blijkt dat de meest voorkomende acties, zoals een methode of variabele van naam of type veranderen, de meeste kans hebben om nieuwe bugs te introduceren.
-Tenslotte blijkt dat elke actie een kans heeft om nieuwe bugs te introduceren.
+Verder blijkt dat elke actie een kans heeft om een nieuwe bug te introduceren.
 
 
 % \begin{figure}
