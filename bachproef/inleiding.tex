@@ -6,15 +6,16 @@
 \label{ch:inleiding}
 
 % Waar gaat het onderzoek over?
-Softwareframeworks zoals Angular vereenvoudigen het maken van dynamische webapplicaties.
-Zoals vele software krijgt Angular geregeld updates.
+Softwareframeworks vereenvoudigen het maken van dynamische webapplicaties.
+Het bedrijf Stater gebruikt voor deze toepassing het Angular framework.
+Net zoals de meeste software krijgt Angular geregeld updates.
 Deze updates komen met verschillende voordelen, zoals: nieuwe functionaliteiten, betere performantie, bugfixes, \dots.
 Het toepassen van deze updates is niet altijd even vanzelfsprekend.
-Soms dienen nieuwe functionaliteiten als vervanging voor oudere functionaliteiten.
-Dit zorgt ervoor dat de code die Angular aanspreekt ook moet veranderen.
+Nieuwe functionaliteiten dienen soms als vervanging voor oudere.
+Het gevolg hiervan is dat de broncode moet veranderen van de applicaties die Angular gebruiken.
 
 % Wat is de context?
-Het bedrijf Stater is een end-to-end dienstverlener voor zowel hypothecaire als consumentenkredieten.
+Stater is een end-to-end dienstverlener voor zowel hypothecaire als consumentenkredieten.
 Ze ondersteunen de kredietverstrekker voor de dienstverlening aan consumenten.
 Stater heeft intern meerdere applicaties die gebruikmaken van het Angular-framework.
 Specifiek gebruiken deze applicaties Angular versie 16 (v16).
@@ -24,24 +25,27 @@ Stater zou graag al deze applicaties updaten naar de meest recente versie, Angul
 \label{sec:probleemstelling}
 
 % Wat is het probleem?
-De sprong van 4 versies betekent wellicht dat er veel aanpassingen aan de broncode nodig zijn.
-Dit probleem vermeerdert zich met de grootte van de broncode en het aantal applicaties dat deze updates nodig heeft.
+De sprong van 4 versies betekent dat er wellicht veel aanpassingen aan de broncode nodig zijn.
+Dit probleem vermeerdert zich met de grootte van de broncode en nogmaals met het aantal applicaties dat deze updates nodig heeft.
 Het manueel uitvoeren van al deze veranderingen neemt veel tijd in beslag.
-Dit probleem is niet eenmalig.
+Tenslotte is dit geen eenmalig probleem.
 Angular krijgt volgens \textcite{Callaghan2023} een nieuwe versie om de 6 maanden.
+Het tijdig uitvoeren van deze updates is in de praktijk niet altijd mogelijk.
+De ontwikkelaars hebben meer verantwoordelijkheden dan enkel software te onderhouden.
+Ondertussen worden nieuwe applicaties ontworpen of worden huidige applicaties uitgebreid.
+Uiteraard kan dit soort onderhoud niet eeuwig uitgesteld worden.
+Software-updates zijn volgens \textcite{Vaniea2016} noodzakelijk om de cyberveiligheid van een applicatie te garanderen.
+De huidige versies van Angular zijn momenteel zonder veiligheidsrisico's, maar dit betekent niet dat er geen zijn.
+Cyberveiligheid is geen opgelost probleem.
+Het is daarom van belang om alles up-to-date te houden.
 
 % Waarom is dit een probleem?
 Al dit tezamen zorgt ervoor dat de onderhoudskosten snel oplopen.
 De studie door \textcite{Kaur2015} beweert dat het onderhouden van een softwareproject gemiddeld 60\% van de totale kostprijs in beslag neemt.
-Het tijdig uitvoeren van deze updates is in de praktijk niet altijd mogelijk.
-Buiten het onderhouden van software worden er nieuwe functies toegevoegd of wordt aan een andere applicatie gewerkt.
-Dit soort onderhoud kan ook niet eeuwig uitgesteld worden.
-Software-updates zijn volgens \textcite{Vaniea2016} noodzakelijk om de cyberveiligheid van een applicatie te garanderen.
-
 % Voor wie is dit een probleem?
 Om deze redenen is het vereenvoudigen van het updateproces best interessant.
 Voor de programmeurs die de updates toepassen, vermindert de werkdruk.
-Voor het bedrijf Stater betekent dit dat de onderhoudstijd/-kost voor hun applicaties lager kan liggen.
+En voor het bedrijf betekent dit dat de onderhoudstijd/-kosten voor hun applicaties lager kunnen liggen.
 
 \section{\IfLanguageName{dutch}{Onderzoeksvraag}{Research question}}%
 \label{sec:onderzoeksvraag}
@@ -77,7 +81,7 @@ Concreet betekend dit dat de updater aan de volgende criteria moet voldoen:
   \item De updater moet aanpasbaar zijn aan de uit te voeren update. 
     Het moet kunnen gebruikt worden bij de volgende update.
   \item De updater mag geen nieuwe bugs introduceren. 
-    Gegeven dat de configuratie correct is, mag het geen fouten maken.
+    Gegeven dat de configuratie correct is, mag het geen ongewenste fouten maken.
   \item De updater mag niet gekoppeld zijn aan Angular. 
     Dit zorgt ervoor dat de updater zelf niet geüpdatet moet worden bij een nieuwe Angular-versie.
   \item De updater stuurt geen informatie door aan derde partijen.
@@ -88,7 +92,7 @@ Concreet betekend dit dat de updater aan de volgende criteria moet voldoen:
 \label{sec:opzet-bachelorproef}
 
 % Hoe is de rest van de tekst opgebouwd?
-De rest van deze bachelorproef is als volgt opgebouwd:
+De rest van deze bachelorproef is opgebouwd als volgt:
 
 In Hoofdstuk~\ref{ch:stand-van-zaken} wordt een overzicht gegeven van de stand van zaken binnen het onderzoeksdomein, op basis van een literatuurstudie.
 Hier geven we een omschrijving van wat Angular is en hoe een Angular-project is opgebouwd.
