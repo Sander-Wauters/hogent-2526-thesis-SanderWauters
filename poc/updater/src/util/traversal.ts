@@ -58,8 +58,8 @@ export function lastInstanceInTree(node: Node, pattern: string): boolean {
 /**
  * Gets the n'th ancestor of a node.
  *
- * @param {Node} node - The root node.
- * @param {number} count - The distance of the ancestor to the root node.
+ * @param {Node} node - The current node.
+ * @param {number} count - The distance of the ancestor to the current node.
  */
 export function getAncestor(node: Node, count: number): Node | undefined {
   const parent = node.getParent();
