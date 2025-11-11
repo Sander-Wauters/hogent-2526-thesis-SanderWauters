@@ -297,10 +297,10 @@ De tekstrepresentatie van het type is simpelweg hoe het type gebruikt wordt in d
   \label{cf:has-type}
 \end{listing}
 
-% Hoe vinden we het type van het object dat de node aanspreekt?
-De laatste helperfunctie in codefragment~\ref{cf:accessedFrom} dient om na te gaan of een node toegankelijk is vanaf een bepaald type.
-Deze functie kijkt of de gegeven node aangesproken wordt vanuit een object.
-Indien dit zo is, vergelijken we het type van dit object via de functie in codefragment~\ref{cf:has-type}.
+% Hoe vinden we het type van het klasse dat de node aanspreekt?
+De laatste helperfunctie in codefragment~\ref{cf:accessed-from} dient om na te gaan of een node toegankelijk is vanaf een bepaald type.
+Deze functie kijkt of de gegeven node aangesproken wordt vanuit een klasse.
+Indien dit zo is, vergelijken we het type van de klasse via de functie in codefragment~\ref{cf:has-type}.
 
 \begin{listing}
   \begin{minted}{ts}
@@ -320,8 +320,148 @@ Indien dit zo is, vergelijken we het type van dit object via de functie in codef
   \label{cf:accessed-from}
 \end{listing}
 
+% Wat doen we met deze functies?
+Deze functies maken het mogelijk om een AST te doorlopen in enkele lijnen code en gericht code te detecteren.
+Wat volgt zijn enkele voorbeelden van hoe deze functies tezamen werken.
+De aanpassingen die uitgevoerd worden, komen uit de Angular update guide door \textcite{AngularUpdateGuide2025}.
+% Zijn er voorbeelden?
+Het eerste voorbeeld in codefragment~\ref{cf:sample-1} toont aan hoe we de methode van een klasse van naam veranderen.
+Als predicaat zoeken we de naam van de methode op om vervolgens de naam van de klasse te vergelijken.
+Indien een node aan het predicaat voldoet, vervangt het de tekst met de nieuwe naam van de methode.
+
+\begin{listing}
+  \begin{minted}{ts}
+    const project = loadProject();
+    project.getSourceFiles().forEach((file) =>
+      findNodes(
+        file,
+        (node) =>
+          lastInstanceInTree(node, "mutate") &&
+          accessedFrom(node, "WritableSignal"),
+        (node) => node.replaceWithText("update"),
+      ),
+    );
+    await saveProject(project);
+  \end{minted}
+  \caption[Updater voorbeeld 1]{Hernoemt alle instanties van de mutatemethode uit de WritableSignal-klasse met update.}
+  \label{cf:sample-1}
+\end{listing}
+
+% Wat kan het nog?
+De updater kan meer dan methodes van naam veranderen.
+Ook alleenstaande functies zijn mogelijk.
+Neem codefragment~\ref{cf:sample-2} als voorbeeld.
+Hier veranderen we alle instanties van de async-functie uit Angular met waitForAsync.
+TypeScript gebruikt async als sleutelwoord; deze instanties mogen niet mee veranderen.
+Door één lijn code toe te voegen, is het mogelijk om alle instanties van het async-sleutelwoord uit te filteren.
+
+\begin{listing}
+  \begin{minted}{ts}
+    const project = loadProject();
+    project.getSourceFiles().forEach((file) =>
+      findNodes(
+        file,
+        (node) =>
+          lastInstanceInTree(node, "async") &&
+          node.getKind() !== SyntaxKind.AsyncKeyword,
+        (node) => node.replaceWithText("waitForAsync"),
+      ),
+    );
+    await saveProject(project);
+  \end{minted}
+  \caption[Updater voorbeeld 2]{Hernoem alle instanties van de async-functie met waitForAsync.}
+  \label{cf:sample-2}
+\end{listing}
+
+% Zijn er variaties?
+Codefragment~\ref{cf:sample-3} toont een variatie op het vervangen van een alleenstaande functie.
+
+\begin{listing}
+  \begin{minted}{ts}
+    const project = loadProject();
+    project.getSourceFiles().forEach((file) =>
+      findNodes(
+        file,
+        (node) =>
+          lastInstanceInTree(node, "afterRender") &&
+          (!!inScopeOf(node, SyntaxKind.CallExpression) ||
+            !!inScopeOf(node, SyntaxKind.ImportDeclaration)),
+        (node) => node.replaceWithText("afterEveryRender"),
+      ),
+    );
+    await saveProject(project);
+  \end{minted}
+  \caption[Updater voorbeeld 3]{Hernoem alle instanties van de afterRender-functie en import met afterEveryRender.}
+  \label{cf:sample-3}
+\end{listing}
+
+% Wat als we kunnen automatiseren?
+Het is niet altijd mogelijk om de nodige aanpassingen te automatiseren.
+Dan nog kan het een meerwaarde zijn om deze op te sporen.
+Bijvoorbeeld, in één van de stappen in het updateproces moeten Angular componenten met de OnPush-verandering detectiestrategie nagekeken worden hoe ze interageren met templates.
+We weten op voorhand dat templates niet toegankelijk zijn voor de updater.
+Maar we kunnen wel verandering detectiestrategieën gaan opsporen.
+In codefragment~\ref{cf:sample-4} zoeken we alle componenten op met de OnPush-verandering detectiestrategie.
+Vervolgens geven we terug waar deze component zich bevindt binnen het project.
+
+\begin{listing}
+  \begin{minted}{ts}
+    const project = loadProject();
+    project.getSourceFiles().forEach((file) =>
+      findNodes(
+        file,
+        (node) =>
+          lastInstanceInTree(node, "OnPush") &&
+          accessedFrom(node, "ChangeDetectionStrategy") &&
+          !!inScopeOf(node, SyntaxKind.Decorator),
+        () => console.log(file.getBaseName(), file.getStartLineNumber()),
+      ),
+    );
+  \end{minted}
+  \caption[Updater voorbeeld 4]{Zoekt naar elke instantie van de OnPush-methode opgeroepen uit ChangeDetectionStrategy in de scope van een decorator.}
+  \label{cf:sample-4}
+\end{listing}
+
+% Is dit alles wat de updater kan?
+Dit waren enkele voorbeelden van hoe een updater met behulp van de helperfuncties ontwikkeld kan worden.
+De predicaten in deze voorbeelden zijn opzettelijk simpel gehouden.
+% Werkt dit op eender welke code?
+De specificiteit van een predicaat is afhankelijk van de complexiteit van het project en de manier waarop de broncode geschreven is.
+Verschillende bedrijven hanteren intern verschillende manieren om code te schrijven en te structureren.
+Hoewel deze voorbeelden perfect werken in de testomgeving van dit onderzoek, zullen ze niet bruikbaar zijn voor elk project in elk bedrijf.
+
 \subsection{Opzet testomgeving}
 \label{ch:proof-of-concept:opzet-testomgeving}
+
+% Wat is de test opgeving?
+Om de effectiviteit van de updater te meten, zet dit onderzoek een testomgeving op.
+De testomgeving is een applicatie gemaakt met Angular v16.
+Het bestaat uit verschillende klasse en componenten specifiek geschreven met code dat moet veranderen in de update naar v20.
+De applicatie is enkel syntactisch correct, verder heeft het geen doel.
+Dit wil zeggen dat het enkel moet kunnen compileren zonder fouten, meer niet.
+Er is bewust gekozen geen verdere semantiek aan de testomgeving te koppelen, omdat de huidige aanpak er geen rekening mee kan houden.
+
+% Waarvoor dient het?
+Dit onderzoek kiest ervoor om de effectiviteit van de updater te testen in een gecontroleerde omgeving om een totaalbeeld te krijgen van alle stappen.
+In de praktijk is het niet zeker of een Angular applicatie alle code gebruikt dat aangepast wordt in de updates.
+Het opzetten van een testomgeving geeft de mogelijkheid om een ruimer beeld te schetsen van wat mogelijk is met de updater.
+
+% Hoe werd het opgesteld?
+Het volgende proces wordt gehanteerd in het opstellen van de testapplicatie.
+We doorlopen de Angular update guide van \textcite{AngularUpdateGuide2025} en evalueren elke stap of deze in aanmerking komt voor automatisatie.
+Zoals eerder besproken zijn niet alle stappen aanpassingen aan TypeScript.
+Stappen die aan de volgende criteria voldoen, komen niet in aanmerking voor implementatie in de testapplicatie:
+\begin{itemize}
+  \item CLI-operaties; hier is geen nood aan een speciaal stuk code.
+  \item Veranderingen aan HTML-templates of JSON; dit zijn gekende limitaties van de updater.
+  \item Veranderingen aan functionaliteiten die na v16 toegevoegd zijn aan Angular.
+  \item Veranderingen aan de achterliggende werking van Angular. 
+  Er zijn een tal van stappen die vragen om de werking van de applicatie te controleren, omdat Angular op de achtergrond anders werkt.
+\end{itemize}
+Voor elke stap die overblijft wordt een nieuw bestand aangemaakt in de testapplicatie.
+Dit bestand bevat een codefragment waarvan we weten dat het geüpdatet moet worden.
+Per codefragment geven we minstens één stuk code mee dat gelijkaardig is aan de code die veranderd moet worden.
+Deze codefragmenten zijn semi-realistisch en volgen de Angular best-practices waar mogelijk.
 
 \subsection{Updater evaluatie}
 \label{ch:proof-of-concept:updater-evaluatie}
