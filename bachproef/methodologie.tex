@@ -30,7 +30,7 @@
 In dit hoofdstuk maakt het onderzoek een beslissing over hoe de updater ontwikkeld wordt.
 Deze beslissing is gebaseerd op de huidige stand van zaken en de noden van het bedrijf, zoals besproken in Hoofdstuk~\ref{sec:onderzoeksdoelstelling}.
 Vervolgens wordt een proof of concept voor de updater ontwikkeld, samen met een testomgeving.
-We bespreken de verschillende soorten aanpassingen die moeten gebeuren.
+We bespreken de verschillende soorten aanpassingen die moeten gebeuren om een Angular applicatie van v16 naar v20 te updaten.
 Geven een technisch overzicht van hoe de updater en testomgeving werkt.
 En tenslotte wordt de effectiviteit van de updater opgemeten op de testomgeving.
 
@@ -39,14 +39,14 @@ En tenslotte wordt de effectiviteit van de updater opgemeten op de testomgeving.
 
 % Hoe ziet de updater eruit?
 Op basis van de huidige stand van zaken en de noden van het bedrijf, kiest het onderzoek voor het volgende plan van aanpak.
-De updater wordt een collectie aan helperfuncties om een TypeScript command line applicatie te maken die onderliggend gebruikmaakt van zoek- en vervangfuncties op basis van regex in combinatie met de TypeScript compiler API.
-Met de hulp van deze functies kan de ontwikkelaar programmatisch een updater maken, specifiek voor de nodige aanpassingen.
+We ontwikkelen een collectie aan helperfuncties om een TypeScript command line applicatie te maken die onderliggend gebruikmaakt van zoek- en vervangfuncties op basis van regex in combinatie met de TypeScript compiler API.
+Met de hulp van deze functies kan een ontwikkelaar programmatisch een updater maken.
 
 % Waarom een collectie van helperfuncties?
 De nodige aanpassingen aan een applicatie zijn afhankelijk van de Angular versie.
 Deze kunnen complex of simpel zijn.
 Door de ontwikkelaar programmatisch de updater te laten configureren, is er een hoge flexibiliteit en uitbreidbaarheid van de updater.
-De helperfuncties zorgen voor een hoge abstractie, wat toelaat om snel nieuwe updates te automatiseren.
+De helperfuncties zorgen voor een extra abstractie laag, wat toelaat om snel nieuwe updates te automatiseren.
 Al dit geschreven in TypeScript, de programmeertaal waar de ontwikkelaars bekend mee zijn.
 
 % Waarom TypeScript compiler API?
@@ -54,6 +54,7 @@ Om dit te implementeren wordt van de TypeScript compiler API gebruikgemaakt.
 Door te programmeren op de compiler die normaal gebruikt wordt om de applicaties te compileren, krijgen we toegang tot dezelfde error detectie als de compiler.
 Dit zorgt ervoor dat we nieuwe bugs snel en accuraat kunnen opsporen.
 Verder is de interne werking, op basis van een AST, goed gedocumenteerd.
+Een basiskennis van boomstructuren is wel vereist om hiermee vlot aan de slag te gaan.
 Tenslotte zijn we niet rechtstreeks gekoppeld aan Angular, enkel aan de programmeertaal.
 
 % Waarom find & replace?
@@ -83,7 +84,7 @@ De categorieën zijn opgesteld als volgt:
   \item Veranderingen aan unittesten.
   Dit zijn aanpassingen aan de unittests die afhankelijk zijn van Angular.
   \item Veranderingen aan JSON.
-  Dit zijn aanpassingen aan JSON bestanden di de applicatie configureren.
+  Dit zijn aanpassingen aan JSON bestanden die de applicatie configureren.
   \item Uit te voeren commando's.
   Dit zijn commando's die uitgevoerd moeten worden in de command line.
   Meestal gaat dit om Angular packages of dependencies te updaten.
@@ -91,7 +92,7 @@ De categorieën zijn opgesteld als volgt:
   Dit zijn aanpassingen aan syntax die de werking van de applicatie niet aanpassen.
   \item Veranderingen aan semantiek.
   Dit zijn aanpassingen in de achterliggende werking van Angular.
-  En/of een verandering die ervoor zorgt dat de huidige werking van de applicatie moet veranderen.
+  En/of veranderingen die ervoor zorgen dat de huidige werking van de applicatie moet veranderen.
   \item Veranderingen die niet van toepassing zijn. 
   Dit zijn aanpassingen aan functies toegevoegd na v16. 
   Het is dus onmogelijk dat de applicaties binnen Stater hiervan gebruikmaken.
@@ -129,7 +130,7 @@ De parameters van deze functie specificeren twee callbackfuncties.
 De eerste is een predicaat dat nagaat of een node voldoet aan een bepaalde omschrijving.
 Indien dit waar is, wordt de tweede callbackfunctie opgeroepen, die vervolgens een bepaalde operatie uitvoert op deze node.
 De helperfunctie geeft het aantal nodes terug dat aan het predicaat voldoet.
-Dit maakt het mogelijk om deze functie als een predicaat te mee te geven.
+Dit maakt het mogelijk om deze functie als een predicaat mee te geven en zo de functie te nesten.
 
 \begin{listing}
   \begin{minted}{ts}
@@ -165,7 +166,7 @@ Dit maakt het mogelijk om deze functie als een predicaat te mee te geven.
 
 Codefragment~\ref{cf:get-ancestor} omschrijft een ander manier om de AST te navigeren.
 Hier doorlopen we de AST van een gegeven node terug naar de root van de AST.
-De functie roept zichzelf recursief op tot de gewenste diepte bereikt is of de node geen ouder bevat.
+De functie roept zichzelf recursief op tot de gewenste diepte bereikt is of de huidige node geen ouder bevat.
 
 \begin{listing}
   \begin{minted}{ts}
@@ -323,9 +324,9 @@ Indien dit zo is, vergelijken we het type van de klasse via de functie in codefr
 % Wat doen we met deze functies?
 Deze functies maken het mogelijk om een AST te doorlopen in enkele lijnen code en gericht code te detecteren.
 Wat volgt zijn enkele voorbeelden van hoe deze functies tezamen werken.
-De aanpassingen die uitgevoerd worden, komen uit de Angular update guide door \textcite{AngularUpdateGuide2025}.
+De aanpassingen die uitgevoerd worden, komen uit de Angular update handleidling door \textcite{AngularUpdateGuide2025}.
 % Zijn er voorbeelden?
-Het eerste voorbeeld in codefragment~\ref{cf:sample-1} toont aan hoe we de methode van een klasse van naam veranderen.
+Het eerste voorbeeld in codefragment~\ref{cf:sample-1} toont aan hoe we de methode van een bepaalde klasse van naam veranderen.
 Als predicaat zoeken we de naam van de methode op om vervolgens de naam van de klasse te vergelijken.
 Indien een node aan het predicaat voldoet, vervangt het de tekst met de nieuwe naam van de methode.
 
@@ -448,7 +449,7 @@ Het opzetten van een testomgeving geeft de mogelijkheid om een ruimer beeld te s
 
 % Hoe werd het opgesteld?
 Het volgende proces wordt gehanteerd in het opstellen van de testapplicatie.
-We doorlopen de Angular update guide van \textcite{AngularUpdateGuide2025} en evalueren elke stap of deze in aanmerking komt voor automatisatie.
+We doorlopen de Angular update handleidling van \textcite{AngularUpdateGuide2025} en evalueren elke stap of deze in aanmerking komt voor automatisatie.
 Zoals eerder besproken zijn niet alle stappen aanpassingen aan TypeScript.
 Stappen die aan de volgende criteria voldoen, komen niet in aanmerking voor implementatie in de testapplicatie:
 \begin{itemize}
@@ -461,6 +462,7 @@ Stappen die aan de volgende criteria voldoen, komen niet in aanmerking voor impl
 Voor elke stap die overblijft wordt een nieuw bestand aangemaakt in de testapplicatie.
 Dit bestand bevat een codefragment waarvan we weten dat het geüpdatet moet worden.
 Per codefragment geven we minstens één stuk code mee dat gelijkaardig is aan de code die veranderd moet worden.
+Dit dient als controle om na te gaan of de updater specifiek genoeg ingesteld is.
 Deze codefragmenten zijn semi-realistisch en volgen de Angular best-practices waar mogelijk.
 
 \subsection{Updater evaluatie}
