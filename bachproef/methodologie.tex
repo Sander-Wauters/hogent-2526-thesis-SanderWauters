@@ -468,3 +468,24 @@ Deze codefragmenten zijn semi-realistisch en volgen de Angular best-practices wa
 \subsection{Updater evaluatie}
 \label{ch:proof-of-concept:updater-evaluatie}
 
+% Hoe wordt de updater geëvalueerd?
+Dit onderzoek stelt een updater op voor de testapplicatie van Angular v16 tot v20 probeert te updaten.
+Buiten de updates uitvoeren zal deze updater optellen wat het kan en niet kan.
+Dit onderzoek kiest ervoor de resultaten in categorieën te verdelen om zo een beter zicht te krijgen op de voor- en nadelen van de gekozen aanpak.
+Elke stap in het updateproces wordt manueel gecategoriseerd in de categorieën besproken in hoofdstuk~\ref{ch:angular-aanpassingen}.
+Indien de stap vraagt om een verandering aan TypeScript, proberen we deze stap te detecteren en vervolgens te automatiseren.
+
+% Woe wordt detecteer-/automatiseerbaarheid geëvalueerd?
+Om een beter overzicht te krijgen van de capaciteiten van de updater worden detectie en automatisatie elk onderverdeeld in drie categorieën: niet, deels en volledig.
+Niet detecteer-/automatiseerbaar zijn aanpassingen die niet autonoom uitvoerbaar zijn.
+Dit kan zijn door de limitaties van de updater of de complexiteit van de aanpassing.
+Dit onderzoek beschouwt een aanpassing als te complex indien er nood is om meer dan één AST te doorlopen om de aanpassing te detecteren.
+Per TypeScript bestand behoort één AST.
+Indien er meer dan één AST doorlopen moet worden, betekent dit dat de aanpassing betrekking heeft op meerdere bestanden binnen de applicatie.
+Deels detecteer-/automatiseerbaar zijn aanpassingen die enkel deels autonoom uitvoerbaar zijn.
+Bijvoorbeeld een functie die een nieuwe naam en extra parameters krijgt.
+De naam kunnen we automatisch veranderen, maar de extra parameters moeten handmatig ingevuld worden, omdat ze afhankelijk zijn van de context.
+Daarom kunnen uit de automatisatie van deze aanpassingen compiler errors ontstaan.
+Volledig detecteer-/automatiseerbaar zijn aanpassingen die autonoom uitvoerbaar zijn.
+Hier kan de aanpassing volledig autonoom gedetecteerd en/of uitgevoerd worden zonder compiler errors te veroorzaken.
+
