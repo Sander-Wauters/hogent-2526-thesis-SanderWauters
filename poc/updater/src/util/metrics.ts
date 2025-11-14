@@ -254,36 +254,23 @@ function logStepTotals(totals: StepTotals, label: string) {
 
 export function logStepData(stepData: StepData[]) {
   const total: StepTotals = { ...EMPTY_STEP_TOTALS };
-
   const ts: StepTotals = { ...EMPTY_STEP_TOTALS };
-  const tsSyntax: StepTotals = { ...EMPTY_STEP_TOTALS };
-  const tsSemantics: StepTotals = { ...EMPTY_STEP_TOTALS };
-  const tsNoTest: StepTotals = { ...EMPTY_STEP_TOTALS };
-  const tsSyntaxNoTest: StepTotals = { ...EMPTY_STEP_TOTALS };
-  const tsSemanticNoTest: StepTotals = { ...EMPTY_STEP_TOTALS };
+  const template: StepTotals = { ...EMPTY_STEP_TOTALS };
+  const test: StepTotals = { ...EMPTY_STEP_TOTALS };
+  const json: StepTotals = { ...EMPTY_STEP_TOTALS };
+  const cli: StepTotals = { ...EMPTY_STEP_TOTALS };
+  const syntax: StepTotals = { ...EMPTY_STEP_TOTALS };
+  const semantics: StepTotals = { ...EMPTY_STEP_TOTALS };
 
   stepData.forEach((step) => {
     addTotals(step, total);
-
-    const onlyTs =
-      step.changeFlags & Change.IN_TYPESCRIPT &&
-      !(step.changeFlags & Change.NOT_APPLICABLE);
-    if (onlyTs) addTotals(step, ts);
-
-    const onlyTsSyntax = onlyTs && step.changeFlags & Change.TO_SYNTAX;
-    if (onlyTsSyntax) addTotals(step, tsSyntax);
-
-    const onlyTsSemantics = onlyTs && step.changeFlags & Change.TO_SEMANTICS;
-    if (onlyTsSemantics) addTotals(step, tsSemantics);
-
-    const onlyTsNoTest = onlyTs && !(step.changeFlags & Change.IN_TEST);
-    if (onlyTsNoTest) addTotals(step, tsNoTest);
-
-    const onlyTsSyntaxNoTest = onlyTsNoTest && onlyTsSyntax;
-    if (onlyTsSyntaxNoTest) addTotals(step, tsSyntaxNoTest);
-
-    const onlyTsSemanticsNoTest = onlyTsNoTest && onlyTsSemantics;
-    if (onlyTsSemanticsNoTest) addTotals(step, tsSemanticNoTest);
+    if (step.changeFlags & Change.IN_TYPESCRIPT) addTotals(step, ts);
+    if (step.changeFlags & Change.IN_TEMPLATE) addTotals(step, template);
+    if (step.changeFlags & Change.IN_TEST) addTotals(step, test);
+    if (step.changeFlags & Change.IN_JSON) addTotals(step, json);
+    if (step.changeFlags & Change.IN_CLI) addTotals(step, cli);
+    if (step.changeFlags & Change.TO_SYNTAX) addTotals(step, syntax);
+    if (step.changeFlags & Change.TO_SEMANTICS) addTotals(step, semantics);
   });
 
   console.log();
@@ -291,13 +278,15 @@ export function logStepData(stepData: StepData[]) {
   console.log();
   logStepTotals(ts, "TS");
   console.log();
-  // logStepTotals(tsSyntax, "TS syntax");
-  // console.log();
-  // logStepTotals(tsSemantics, "TS semantics");
-  // console.log();
-  // logStepTotals(tsNoTest, "TS no test");
-  // console.log();
-  // logStepTotals(tsSyntaxNoTest, "TS syntax no test");
-  // console.log();
-  // logStepTotals(tsSemanticNoTest, "TS semantics no test");
+  logStepTotals(template, "Template");
+  console.log();
+  logStepTotals(test, "Test");
+  console.log();
+  logStepTotals(json, "JSON");
+  console.log();
+  logStepTotals(cli, "CLI");
+  console.log();
+  logStepTotals(syntax, "Syntax");
+  console.log();
+  logStepTotals(semantics, "Semantics");
 }

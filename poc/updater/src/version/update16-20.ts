@@ -321,7 +321,7 @@ function step31(project: Project): StepData {
       (node) => {
         detection = Capability.FULLY;
         automation = Capability.PARTIALLY;
-        node.getParent()?.replaceWithText(`url: TODO`);
+        node.getParent()?.replaceWithText(`url: "TODO"`);
       },
     );
   });
