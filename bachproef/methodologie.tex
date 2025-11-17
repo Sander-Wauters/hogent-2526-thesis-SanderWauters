@@ -450,20 +450,49 @@ Het opzetten van een testomgeving geeft de mogelijkheid om een ruimer beeld te s
 % Hoe werd het opgesteld?
 Het volgende proces wordt gehanteerd in het opstellen van de testapplicatie.
 We doorlopen de Angular update handleidling van \textcite{AngularUpdateGuide2025} en evalueren elke stap of deze in aanmerking komt voor automatisatie.
-Zoals eerder besproken zijn niet alle stappen aanpassingen aan TypeScript.
-Stappen die aan de volgende criteria voldoen, komen niet in aanmerking voor implementatie in de testapplicatie:
-\begin{itemize}
-  \item CLI-operaties; hier is geen nood aan een speciaal stuk code.
-  \item Veranderingen aan HTML-templates of JSON; dit zijn gekende limitaties van de updater.
-  \item Veranderingen aan functionaliteiten die na v16 toegevoegd zijn aan Angular.
-  \item Veranderingen aan de achterliggende werking van Angular. 
-  Er zijn een tal van stappen die vragen om de werking van de applicatie te controleren, omdat Angular op de achtergrond anders werkt.
-\end{itemize}
-Voor elke stap die overblijft wordt een nieuw bestand aangemaakt in de testapplicatie.
-Dit bestand bevat een codefragment waarvan we weten dat het geüpdatet moet worden.
-Per codefragment geven we minstens één stuk code mee dat gelijkaardig is aan de code die veranderd moet worden.
+Zoals eerder besproken zijn niet alle stappen aanpassingen aan TypeScript bestanden.
+Verder is de aard van de verandering belangrijk.
+De updater kan syntax interpreteren, maar geen semantiek.
+Tabel~\ref{tab:opzet-testomgeving} geeft een overzicht van welke soort veranderingen in de testomgeving opgenomen worden.
+\begin{table}
+  \centering
+  \begin{tabular}{p{0.24\textwidth}|p{0.22\textwidth}|p{0.46\textwidth}}
+    \toprule
+    \textbf{Soort verandering} & \textbf{In testomgeving} & \textbf{Reden} \\
+    \midrule
+    \multicolumn{3}{c}{\textbf{Bestandstype waar de verandering plaatsvindt}} \\
+    \hline
+    In HTML/JSON                        & Nee & De updater heeft geen vat op HTML/JSON. \\
+    \hline
+    In TypeScript                       & Ja  & De updater is gemaakt om TypeScript syntax te interpreteren. We voorzien een codefragment waarvan we weten dat het geüpdatet moet worden. \\
+    \hline
+    In TypeScript \& HTML/JSON          & Ja  & De updater heeft geen vat op HTML/JSON maar wel op TypeScript. We voorzien een codefragment waarvan we weten dat het geüpdatet moet worden. \\
+    \hline
+    \multicolumn{3}{c}{\textbf{Aard van de verandering}} \\
+    \hline
+    Aan semantiek                       & Nee & De updater heeft geen vat op semantiek. Dit soort aanpassingen zijn afhankelijk van hoe een applicatie Angular gebruikt. \\
+    \hline
+    Aan syntax                          & Ja  & De updater is gemaakt om TypeScript syntax te interpreteren. We voorzien een codefragment waarvan we weten dat het geüpdatet moet worden. \\
+    \hline
+    Aan syntax \& semantiek             & Ja  & De updater heeft geen vat op semantiek, maar wel op de syntax. We voorzien een codefragment waarvan we weten dat het geüpdatet moet worden. \\
+    \hline
+    \multicolumn{3}{c}{\textbf{Randgevalen}} \\
+    \hline
+    CLI-operaties                       & Nee & Voor deze stappen is geen nood aan een speciaal stuk code. \\
+    \hline
+    Functionaliteiten toegevoegd na v16 & Nee & Het is onmogelijk dat deze functionaliteiten gebruikt worden in de applicaties van Stater. \\
+    \bottomrule
+  \end{tabular}
+  \caption[Opzet testomgeving]{
+    \label{tab:opzet-testomgeving}
+    Omschrijft welke stappen uit het updateproces al dan niet opgenomen worden in de testopgeving.
+    Een stap wordt opgenomen in de testomgeving indien deze voldoet aan het bestandstype en de aard van de verandering.
+  }
+\end{table}
+
+Alle codefragmenten zijn semi-realistisch en volgen de Angular best-practices waar mogelijk.
+Tenslotte geven we per codefragment minstens één stuk code mee dat gelijkaardig is aan de code die veranderd moet worden.
 Dit dient als controle om na te gaan of de updater specifiek genoeg ingesteld is.
-Deze codefragmenten zijn semi-realistisch en volgen de Angular best-practices waar mogelijk.
 
 \subsection{Updater evaluatie}
 \label{ch:proof-of-concept:updater-evaluatie}
