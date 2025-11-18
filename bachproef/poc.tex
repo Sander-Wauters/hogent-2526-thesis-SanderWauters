@@ -1,0 +1,319 @@
+%%=============================================================================
+%% Proof of concept
+%%=============================================================================
+
+\chapter{\IfLanguageName{dutch}{Proof of concept}{Methodology}}%
+\label{ch:proof-of-concept}
+
+% Wat gebeurt er in dit hoofdstuk?
+We beginnen met een omschrijving van de helperfuncties.
+Vervolgens geven we enkele voorbeelden van hoe deze functies samen gebruikt worden om een aanpassing aan broncode te automatiseren.
+
+% Hoe vinden we de juiste nodes?
+De eerste functie in codefragment~\ref{cf:find-nodes} helpt om de AST op een uniforme manier te navigeren.
+Het doorloopt de AST vanaf een gegeven node.
+Onderliggend gebruikt het een diepte eerst in orde zoek algoritme.
+De parameters van deze functie specificeren twee callbackfuncties.
+De eerste is een predicaat dat nagaat of een node voldoet aan een bepaalde omschrijving.
+Indien dit waar is, wordt de tweede callbackfunctie opgeroepen, die vervolgens een bepaalde operatie uitvoert op deze node.
+De helperfunctie geeft het aantal nodes terug dat aan het predicaat voldoet.
+Dit maakt het mogelijk om deze functie als een predicaat mee te geven en zo de functie te nesten.
+
+\begin{listing}
+  \begin{minted}{ts}
+    /**
+     * Finds the number of nodes that match the predicate in the given AST.
+     *
+     * @param {Node} root - The root node of the tree.
+     * @param {(node: Node) => boolean | number} predicate - Callback function that evaluates each node.
+     * @param {(node: Node) => void} onMatch - Callback function called if a node matches the predicate.
+     */
+    export function findNodes(
+      root: Node,
+      predicate: (node: Node) => boolean | number,
+      onMatch: (node: Node) => void,
+    ): number {
+      let matches = 0;
+      root.forEachDescendant((node) => {
+        if (predicate(node)) {
+          matches += 1;
+          onMatch(node);
+        }
+      });
+      return matches;
+    }
+  \end{minted}
+  \caption[Doorloop AST]
+    {
+      Helperfunctie die de AST vanaf een gegeven node doorloopt.
+      Op basis van de callbackfuncties kunnen gericht aanpassingen uitgevoerd worden op de AST.
+    }
+  \label{cf:find-nodes}
+\end{listing}
+
+Codefragment~\ref{cf:get-ancestor} omschrijft een ander manier om de AST te navigeren.
+Hier doorlopen we de AST van een gegeven node terug naar de root van de AST.
+De functie roept zichzelf recursief op tot de gewenste diepte bereikt is of de huidige node geen ouder bevat.
+
+\begin{listing}
+  \begin{minted}{ts}
+    /**
+     * Gets the n'th ancestor of a node.
+     *
+     * @param {Node} node - The current node.
+     * @param {number} count - The distance of the ancestor to the current node.
+     */
+    export function getAncestor(node: Node, count: number): Node | undefined {
+      const parent = node.getParent();
+      if (count <= 1 || !parent) return parent;
+      return getAncestor(parent, --count);
+    }
+  \end{minted}
+  \caption[Vind voorouder]{Helperfunctie die de n'de voorouder van een AST node teruggeeft.}
+  \label{cf:get-ancestor}
+\end{listing}
+
+% Hoe impelmentere we find & replace?
+De rest van de helperfuncties zijn predicaten voor codefragment~\ref{cf:find-nodes}.
+Startend met codefragment~\ref{cf:contains-pattern}.
+Deze helperfunctie gaat na of de tekstrepresentatie van een AST-node een gegeven regexpatroon bevat.
+De tekstrepresentatie van een node is simpelweg hoe een stuk code eruitziet in de broncode.
+Bijvoorbeeld, deze functie oproepen op de root node van een AST is hetzelfde als zoeken naar een patroon in het eigenlijke bestand.
+Wordt de functie opgeroepen op een node die een klassedeclaratie voorstelt, is dit hetzelfde als zoeken naar een patroon in deze klasse.
+Houd er rekening mee dat de tekstrepresentatie van een node ook de tekstrepresentatie bevat van alle kinderen.
+
+\begin{listing}
+  \begin{minted}{ts}
+    /**
+     * Checks if the text of a node contains a given pattern.
+     *
+     * @param {Node} node - The node to check.
+     * @param {string} pattern - The pattern to check against.
+     */
+    export function containsPattern(node: Node, pattern: string): boolean {
+      const matches = node.getText().match(pattern);
+      return matches !== null && matches.length > 0;
+    }
+  \end{minted}
+  \caption[Bevat patroon]
+    {
+      Helperfunctie die nagaat of een patroon terug te vinden is in de tekstrepresentatie van een AST-node.
+    }
+  \label{cf:contains-pattern}
+\end{listing}
+
+% Hoe vinden we de laatste instantie van een patroon?
+Codefragment~\ref{cf:last-instance-in-tree} is een extensie op functie~\ref{cf:contains-pattern}.
+Hier gaan we na of de gegeven node de laatste instantie van een patroon bevat in de AST.
+Concreet kijkt de functie of de huidige node, en geen enkele van de kinderen, het patroon bevat.
+
+\begin{listing}
+  \begin{minted}{ts}
+    /**
+     * Checks if a node contains the last occurance of a given string in it's own subtree.
+     *
+     * @param {Node} node - The node to check.
+     * @param {string} pattern - The pattern to check against.
+     */
+    export function lastInstanceInTree(node: Node, pattern: string): boolean {
+      const matchesCurrent = containsPattern(node, pattern);
+      const matchesChild = node.forEachChild((child) =>
+        containsPattern(child, pattern),
+      );
+      return matchesCurrent && !matchesChild;
+    }
+  \end{minted}
+  \caption[Bevat laatste instantie van patroon]
+    {
+      Helperfunctie die nagaat of een node de laatste instantie van een patroon bevat in de AST.
+    }
+  \label{cf:last-instance-in-tree}
+\end{listing}
+
+% Zijn er nog abstracte functies?
+Alle functies tot nu toe waren tamelijk abstract en kunnen voor meerdere doeleinden gebruikt worden.
+Nu volgen enkele functies die specifiek één doel hebben.
+% Hoe vinden we de scope van een node?
+De eerste van deze functies in codefragment~\ref{cf:in-scope-of} gaat na of een node in een bepaalde scope ligt.
+We doen dit door recursief het syntaxtype van de ouder te vergelijken tot een match is gevonden of de node geen ouder bevat.
+ts-morph evalueert het syntaxtype aan de hand van de ``SyntaxKind'' enumeratie.
+Voorbeelden van syntaxtype zijn: bestanden, importdeclaraties, klassedeclaraties, expressies, decorators, keywords, \dots.
+Als een node de syntaxtype matcht, dan wordt deze node teruggegeven.
+
+\begin{listing}
+  \begin{minted}{ts}
+    /**
+     * Checks if a node is in a certain scope.
+     * Returns the first node that matches the given scope, otherwise undefined.
+     *
+     * @param {Node} node - The node to check.
+     * @param {SyntaxKind} kind - The kind of the scope.
+     */
+    export function inScopeOf(node: Node, kind: SyntaxKind): Node | undefined {
+      const parent = node.getParent();
+      if (!parent) return undefined;
+      if (parent.getKind() === kind) return parent;
+      return inScopeOf(parent, kind);
+    }
+  \end{minted}
+  \caption[In scope van]{Helperfunctie die nagaat of een AST node in een bepaalde scope zit.}
+  \label{cf:in-scope-of}
+\end{listing}
+
+% Hoe vinden we het type van de node?
+Codefragment~\ref{cf:has-type} definieert een helperfunctie om het type van een node terug te vinden.
+Dit doen we door de tekstrepresentatie van het type te vergelijken met een gegeven regex patroon.
+De tekstrepresentatie van het type is simpelweg hoe het type gebruikt wordt in de broncode.
+
+\begin{listing}
+  \begin{minted}{ts}
+    /**
+     * Checks if the type of the node matches the given pattern.
+     *
+     * @param {Node} node - The node to check.
+     * @param {string} type - The pattern of the type.
+     */
+    export function hasType(node: Node, type: string): boolean {
+      const matches = node
+        .getType()
+        .getText(undefined, TypeFormatFlags.InTypeAlias)
+        .match(type);
+      return matches !== null && matches.length > 0;
+    }
+  \end{minted}
+  \caption[Heeft type]{Helperfunctie die nagaat of een AST node een bepaald type heeft.}
+  \label{cf:has-type}
+\end{listing}
+
+% Hoe vinden we het type van het klasse dat de node aanspreekt?
+De laatste helperfunctie in codefragment~\ref{cf:accessed-from} dient om na te gaan of een node toegankelijk is vanaf een bepaald type.
+Deze functie kijkt of de gegeven node aangesproken wordt vanuit een klasse.
+Indien dit zo is, vergelijken we het type van de klasse via de functie in codefragment~\ref{cf:has-type}.
+
+\begin{listing}
+  \begin{minted}{ts}
+    /**
+     * Checks if a node is accessed from a certain type.
+     *
+     * @param {Node} node - The node to check.
+     * @param {string} type - The pattern of the type.
+     */
+    export function accessedFrom(node: Node, type: string): boolean {
+      const accessProp = node.getParentIfKind(SyntaxKind.PropertyAccessExpression);
+      if (!accessProp) return false;
+      return hasType(accessProp.getExpression(), type);
+    }
+  \end{minted}
+  \caption[Opgeroepen vanuit]{Helperfunctie die nagaat of een AST node opgeroepen wordt vanuit een bepaald type.}
+  \label{cf:accessed-from}
+\end{listing}
+
+% Wat doen we met deze functies?
+Deze functies maken het mogelijk om een AST te doorlopen in enkele lijnen code en gericht code te detecteren.
+Wat volgt zijn enkele voorbeelden van hoe deze functies tezamen werken.
+De aanpassingen die uitgevoerd worden, komen uit de Angular update handleidling door \textcite{AngularUpdateGuide2025}.
+% Zijn er voorbeelden?
+Het eerste voorbeeld in codefragment~\ref{cf:sample-1} toont aan hoe we de methode van een bepaalde klasse van naam veranderen.
+Als predicaat zoeken we de naam van de methode op om vervolgens de naam van de klasse te vergelijken.
+Indien een node aan het predicaat voldoet, vervangt het de tekst met de nieuwe naam van de methode.
+
+\begin{listing}
+  \begin{minted}{ts}
+    const project = loadProject();
+    project.getSourceFiles().forEach((file) =>
+      findNodes(
+        file,
+        (node) =>
+          lastInstanceInTree(node, "mutate") &&
+          accessedFrom(node, "WritableSignal"),
+        (node) => node.replaceWithText("update"),
+      ),
+    );
+    await saveProject(project);
+  \end{minted}
+  \caption[Updater voorbeeld 1]{Hernoemt alle instanties van de mutatemethode uit de WritableSignal-klasse met update.}
+  \label{cf:sample-1}
+\end{listing}
+
+% Wat kan het nog?
+De updater kan meer dan methodes van naam veranderen.
+Ook alleenstaande functies zijn mogelijk.
+Neem codefragment~\ref{cf:sample-2} als voorbeeld.
+Hier veranderen we alle instanties van de async-functie uit Angular met waitForAsync.
+TypeScript gebruikt async als sleutelwoord; deze instanties mogen niet mee veranderen.
+Door één lijn code toe te voegen, is het mogelijk om alle instanties van het async-sleutelwoord uit te filteren.
+
+\begin{listing}
+  \begin{minted}{ts}
+    const project = loadProject();
+    project.getSourceFiles().forEach((file) =>
+      findNodes(
+        file,
+        (node) =>
+          lastInstanceInTree(node, "async") &&
+          node.getKind() !== SyntaxKind.AsyncKeyword,
+        (node) => node.replaceWithText("waitForAsync"),
+      ),
+    );
+    await saveProject(project);
+  \end{minted}
+  \caption[Updater voorbeeld 2]{Hernoem alle instanties van de async-functie met waitForAsync.}
+  \label{cf:sample-2}
+\end{listing}
+
+% Zijn er variaties?
+Codefragment~\ref{cf:sample-3} toont een variatie op het vervangen van een alleenstaande functie.
+
+\begin{listing}
+  \begin{minted}{ts}
+    const project = loadProject();
+    project.getSourceFiles().forEach((file) =>
+      findNodes(
+        file,
+        (node) =>
+          lastInstanceInTree(node, "afterRender") &&
+          (!!inScopeOf(node, SyntaxKind.CallExpression) ||
+            !!inScopeOf(node, SyntaxKind.ImportDeclaration)),
+        (node) => node.replaceWithText("afterEveryRender"),
+      ),
+    );
+    await saveProject(project);
+  \end{minted}
+  \caption[Updater voorbeeld 3]{Hernoem alle instanties van de afterRender-functie en import met afterEveryRender.}
+  \label{cf:sample-3}
+\end{listing}
+
+% Wat als we kunnen automatiseren?
+Het is niet altijd mogelijk om de nodige aanpassingen te automatiseren.
+Dan nog kan het een meerwaarde zijn om deze op te sporen.
+Bijvoorbeeld, in één van de stappen in het updateproces moeten Angular componenten met de OnPush-verandering detectiestrategie nagekeken worden hoe ze interageren met templates.
+We weten op voorhand dat templates niet toegankelijk zijn voor de updater.
+Maar we kunnen wel verandering detectiestrategieën gaan opsporen.
+In codefragment~\ref{cf:sample-4} zoeken we alle componenten op met de OnPush-verandering detectiestrategie.
+Vervolgens geven we terug waar deze component zich bevindt binnen het project.
+
+\begin{listing}
+  \begin{minted}{ts}
+    const project = loadProject();
+    project.getSourceFiles().forEach((file) =>
+      findNodes(
+        file,
+        (node) =>
+          lastInstanceInTree(node, "OnPush") &&
+          accessedFrom(node, "ChangeDetectionStrategy") &&
+          !!inScopeOf(node, SyntaxKind.Decorator),
+        () => console.log(file.getBaseName(), file.getStartLineNumber()),
+      ),
+    );
+  \end{minted}
+  \caption[Updater voorbeeld 4]{Zoekt naar elke instantie van de OnPush-methode opgeroepen uit ChangeDetectionStrategy in de scope van een decorator.}
+  \label{cf:sample-4}
+\end{listing}
+
+% Is dit alles wat de updater kan?
+Dit waren enkele voorbeelden van hoe een updater met behulp van de helperfuncties ontwikkeld kan worden.
+De predicaten in deze voorbeelden zijn opzettelijk simpel gehouden.
+% Werkt dit op eender welke code?
+De specificiteit van een predicaat is afhankelijk van de complexiteit van het project en de manier waarop de broncode geschreven is.
+Verschillende bedrijven hanteren intern verschillende manieren om code te schrijven en te structureren.
+Hoewel deze voorbeelden perfect werken in de testomgeving van dit onderzoek, zullen ze niet bruikbaar zijn voor elk project in elk bedrijf.
