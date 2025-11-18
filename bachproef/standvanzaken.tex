@@ -11,87 +11,192 @@ Ten slotte volgt een overzicht van verschillende gekende manieren om code automa
 \label{ch:stand-van-zaken:angular}
 
 % Wat is Angular?
-Angular, ook wel Angular2 genoemd, is een user interface (UI) framework ontwikkeld door Google in 2016 \autocite{Cincovic2019}.
-Het is open-source, gratis en wordt onderhouden door een diverse groep van ontwikkelaars.
-% Waarvoor dient het?
-Angular wordt gebruikt voor het maken van single-page webapplicaties die zowel client- als server-side gerenderd kunnen worden.
-% Hoe maakt het een UI?
-Voor het opbouwen van een UI in Angular worden ``componenten'' gebruikt.
-% Wat is een component in Angular?
-Een component binnen Angular wordt door \textcite{Kaufman2016} omschreven als een zelfstandig en herbruikbaar bouwblok.
-Componenten encapsuleren de bedrijfslogica, structuur en stijl van een deel van de UI.
-Het combineren van verschillende componenten laat toe om complexe UI's te maken.
+Angular, ook wel Angular 2 genoemd, is een user interface (UI) framework ontwikkeld door Google in 2016 \autocite{Cincovic2019}.
+Het is open-source onder de MIT-licentie en wordt onderhouden door een diverse groep van ontwikkelaars.
+% Wat is de relatie met AngularJS?
+Angular is de directe opvolger van AngularJS.
+Hoewel ze dezelfde naam delen, is Angular een volledig nieuw framework met een andere architectuur.
 
-% Hoe werkt het?
-Een component aanmaken met Angular kan enkel op één manier.
-Angular is een opinionated framework.
-\textcite{Parker2017} defineert een framework als opinionated als het de ontwikkelaar aanstuurt om op een specifieke manier te te werken.
+% Waarvoor dient het?
+Angular wordt gebruikt voor het ontwikkelen van dynamische single-page webapplicaties.
+De code van een Angular applicatie volgt een eenduidige structuur.
+Om deze reden wordt het omschreven als een opinionated framework.
+\textcite{Parker2017} definieert een framework als opinionated als het de ontwikkelaar aanstuurt om op een specifieke manier te werken.
 Opinionated frameworks houden zich aan strikte conventies die dicteren hoe een project is opgesteld en geschreven.
+Dit helpt de broncode van een applicatie consistent te houden.
+
 % Wat kan het?
-Het Angular-framework komt ingebouwd met verschillende functionaliteiten die de ontwikkeling van een applicatie aansturen \autocite{Wilken2018}.
-Zoals eerder besproken maakt Angular gebruik van componenten voor het bouwen van een UI.
-Verder komt het met functies die toelaten om unittests te schrijven voor deze componenten.
+Buiten UI-functies komt Angular met verschillende functionaliteiten die het ontwikkelingsproces ondersteunen \autocite{Wilken2018}.
+Het komt ingebouwd met een Hyper Text Transfer Protocol (HTTP) client voor een applicatie te verbinden met een backendservice over het internet.
 Hiernaast heeft Angular een collectie van Command Line Interface (CLI) tools die de ontwikkelaars helpt bij het maken van een applicatie, bijvoorbeeld het genereren van een blanco component met bijhorende testen in één commando.
-Verder komt het met een ingebouwde Hyper Text Transfer Protocol (HTTP) client voor een applicatie te verbinden met een backendservice over het internet.
+Tenslotte komt het met functies die toelaten om testen te schrijven voor de UI.
 
 % Hoe is een Angular-project gestructureerd?
 Angular is gebaseerd op TypeScript en gebruikt dit in combinatie met andere technologieën.
 In een Angular-project zijn de volgende bestanden terug te vinden:
 \begin{itemize}
   \item TypeScript: de TypeScript-programmeertaal wordt gebruikt voor de implementatie van de bedrijfslogica en testen.
-  \item HTML: HTML wordt gebruikt om de achterliggende structuur van de UI te omschrijven. 
-    In de context van Angular-componenten wordt hiernaar verwezen als een ``template''.
+  \item HTML: HTML wordt gebruikt om de structuur van de UI te omschrijven. 
   \item CSS: CSS wordt gebruikt om de visuele representatie van de UI te omschrijven
   \item JSON: JSON wordt gebruikt voor het configureren van Angular en TypeScript.
 \end{itemize}
+In de volgende secties van dit hoofdstuk bespreken we de werking van Angular in meer detail.
 
-% Wat is er speciaal aan Angular templates?
-HTML-templates hebben een unieke eigenschap, specifiek in Angular.
-Angular maakt het mogelijk om conditionele operaties zoals if-else en lussen te gebruiken in HTML-templates.
-Deze syntax en functie zijn normaal niet mogelijk in HTML.
-Dit laat Angular toe om complexere UI te maken.
-Maar dit betekent dat niet alle logica in TypeScript bestanden terug te vinden is.
+\subsection{TypeScript}
+\label{ch:stand-van-zaken:angular:typescript}
 
-\section{TypeScript}
-\label{ch:stand-van-zaken:typescript}
-
-% Waarom is dit relevant?
-Om de broncode van een Angular-applicatie te begrijpen, moeten we de taal kennen waarin deze geschreven is.
+% Hoe gebruikt Angular TypeScript?
+Het Angular framework gebruikt en is geschreven in TypeScript.
+Als gevolg neemt TypeScript het grootste deel van een Angular applicatie in.
 % Wat is TypeScript?
-TypeScript is een programmeertaal ontwikkeld door Microsoft in 2012.
-Volgens \textcite{Bierman2014} is TypeScript ontworpen als een extensie van JavaScript die een statisch typesysteem toevoegt.
-Om TypeScript-code te gebruiken, moet deze eerst gecompileerd worden naar JavaScript.
-TypeScript is een multiparadigm-programmeertaal. 
-Het ondersteunt verschillende programmeerstijlen zoals: functioneel, procedureel, objectgeoriënteerd, \dots.
+Zoals omschreven door \textcite{Bierman2014} is TypeScript een programmeertaal ontworpen door Microsoft in 2012.
+Het is een extensie van JavaScript die een statisch typesysteem toevoegt.
+Verder heeft het betere ondersteuning voor objectgeoriënteerd programmeren dan JavaScript.
+TypeScript is een multiparadigma-programmeertaal.
+Dit betekent dat het verschillende programmeerstijlen ondersteunt, zoals: functioneel, procedureel, objectgeoriënteerd, \dots.
+
+% Hoe is het anders dan JavaScript?
+TypeScript code is niet uitvoerbaar.
+Om een TypeScript applicatie uit te voeren, moet deze eerst gecompileerd worden.
+Angular voorziet een compiler TypeScript, met behulp van de TypeScript compiler, naar JavaScript.
+Volgens \textcite{Ramos2024} zijn twee verschillende manieren waarop een Angular applicatie gecompileerd kan worden.
+Just-in-Time (JIT) en Ahead-of-Time (AOT).
+JIT compileert de applicatie in de webbrowser tijdens runtime.
+AOT daarentegen compileert de applicatie op voorhand en stuurt de output naar de webbrowser.
+Deze studie focust op applicaties die AOT-gecompileerd zijn.
+Dit is de standaardmanier van werken sinds Angular v9.
 
 % Hoe maakt Angular gebruik van TypeScript?
 Angular gebruikt TypeScript op een objectgeoriënteerde manier.
-Een Angular component is een TypeScript-klasse waar de ``@Component''-decorator boven de klasdeclaratie wordt meegegeven \autocite{Wilken2018}.
-% Hoe worden HTML en CSS binnen Angular gebruikt?
-Via deze decorator wordt de bedrijfslogica van de klasse gelinkt met de bijbehorende HTML en CSS.
-Codefragment \ref{cf:component-declaration} illustreert hoe deze syntax eruitziet.
+Het is niet strikt objectgeoriënteerd.
+Angular komt naast klassen met een collectie aan losstaande functies.
+Een Angular applicatie bestaat voornamelijk uit klassen in combinatie met TypeScript decorators.
+\textcite{Martins2025} omschrijft decorators als een manier om extra data te koppelen aan een klasse.
+Decorators kunnen meegegeven worden aan methodes, members, properties of de klassedefinitie.
+Deze functie is niet uniek aan TypeScript; in Java noemt men dit annotaties en in C\# attributes.
+Angular maakt gebruik van verschillende decorators voor verschillende doeleinden.
+Welke decorators en hun werking worden in de volgende secties van dit hoofdstuk in meer detail omschreven.
 
-% Hoe ziet dit er uit?
-\begin{listing}
-  \begin{minted}{ts}
-    import { Component } from '@angular/core';
-    
-    @Component({
-      selector: 'my-component',
-      templateUrl: './my-component.html',
-      styleUrl: './my-component.css',
-    })
-    export class MyComponent {}
-  \end{minted}
-  \caption[Voorbeeld Angular component]{Voorbeeld van hoe een Angular component gedeclareerd wordt in TypeScript.}
-  \label{cf:component-declaration}
-\end{listing}
+\subsection{Componenten}
+\label{ch:stand-van-zaken:angular:componenten}
 
-% Moet ik nog iets weten?
-Angular gebruikt nog meerdere verschillende decorators, maar ``@Component'' is vrijwel de meest voorkomende.
-TypeScript en Angular zijn uitgebreide thema's.
-Hier hebben we de belangrijkste onderwerpen omschreven die nodig zijn om dit onderzoek te begrijpen.
-In de volgende sectie bespreken we welke manieren er bestaan om dit soort code automatisch aan te passen.
+% Welke architectuur gebruikt Angular?
+% Wat is een component?
+% Hoe is dit opgebouwd?
+
+\subsection{Templates}
+\label{ch:stand-van-zaken:angular:templates}
+
+% Wat is een template?
+% Wat is HTML?
+% Waarvoor dienen templates?
+
+\subsection{Data binding}
+\label{ch:stand-van-zaken:angular:data-binding}
+
+% Hoe communiceren componenten met templates?
+% Wat is data binding?
+% Wat is interpolation?
+% Wat is propery binding?
+% Wat is event binding?
+% Wat is two-way binding?
+
+\subsection{Dependency injection}
+\label{ch:stand-van-zaken:angular:dependency-injection}
+
+% Wat is dependency injection?
+% Hoe gebruikt Angular dependency injection?
+
+\subsection{Testen}
+\label{ch:stand-van-zaken:angular:testen}
+
+% Hoe wordt een Angular applicatie getest?
+
+%% \section{Angular}
+%% \label{ch:stand-van-zaken:angular}
+%% 
+%% % Wat is Angular?
+%% Angular, ook wel Angular2 genoemd, is een user interface (UI) framework ontwikkeld door Google in 2016 \autocite{Cincovic2019}.
+%% Het is open-source, gratis en wordt onderhouden door een diverse groep van ontwikkelaars.
+%% % Waarvoor dient het?
+%% Angular wordt gebruikt voor het maken van single-page webapplicaties die zowel client- als server-side gerenderd kunnen worden.
+%% % Hoe maakt het een UI?
+%% Voor het opbouwen van een UI in Angular worden ``componenten'' gebruikt.
+%% % Wat is een component in Angular?
+%% Een component binnen Angular wordt door \textcite{Kaufman2016} omschreven als een zelfstandig en herbruikbaar bouwblok.
+%% Componenten encapsuleren de bedrijfslogica, structuur en stijl van een deel van de UI.
+%% Het combineren van verschillende componenten laat toe om complexe UI's te maken.
+%% 
+%% % Hoe werkt het?
+%% Een component aanmaken met Angular kan enkel op één manier.
+%% Angular is een opinionated framework.
+%% \textcite{Parker2017} defineert een framework als opinionated als het de ontwikkelaar aanstuurt om op een specifieke manier te te werken.
+%% Opinionated frameworks houden zich aan strikte conventies die dicteren hoe een project is opgesteld en geschreven.
+%% % Wat kan het?
+%% Het Angular-framework komt ingebouwd met verschillende functionaliteiten die de ontwikkeling van een applicatie aansturen \autocite{Wilken2018}.
+%% Zoals eerder besproken maakt Angular gebruik van componenten voor het bouwen van een UI.
+%% Verder komt het met functies die toelaten om unittests te schrijven voor deze componenten.
+%% Hiernaast heeft Angular een collectie van Command Line Interface (CLI) tools die de ontwikkelaars helpt bij het maken van een applicatie, bijvoorbeeld het genereren van een blanco component met bijhorende testen in één commando.
+%% Verder komt het met een ingebouwde Hyper Text Transfer Protocol (HTTP) client voor een applicatie te verbinden met een backendservice over het internet.
+%% 
+%% % Hoe is een Angular-project gestructureerd?
+%% Angular is gebaseerd op TypeScript en gebruikt dit in combinatie met andere technologieën.
+%% In een Angular-project zijn de volgende bestanden terug te vinden:
+%% \begin{itemize}
+%%   \item TypeScript: de TypeScript-programmeertaal wordt gebruikt voor de implementatie van de bedrijfslogica en testen.
+%%   \item HTML: HTML wordt gebruikt om de achterliggende structuur van de UI te omschrijven. 
+%%     In de context van Angular-componenten wordt hiernaar verwezen als een ``template''.
+%%   \item CSS: CSS wordt gebruikt om de visuele representatie van de UI te omschrijven
+%%   \item JSON: JSON wordt gebruikt voor het configureren van Angular en TypeScript.
+%% \end{itemize}
+%% 
+%% % Wat is er speciaal aan Angular templates?
+%% HTML-templates hebben een unieke eigenschap, specifiek in Angular.
+%% Angular maakt het mogelijk om conditionele operaties zoals if-else en lussen te gebruiken in HTML-templates.
+%% Deze syntax en functie zijn normaal niet mogelijk in HTML.
+%% Dit laat Angular toe om complexere UI te maken.
+%% Maar dit betekent dat niet alle logica in TypeScript bestanden terug te vinden is.
+%% 
+%% \subsection{TypeScript}
+%% \label{ch:stand-van-zaken:angular:typescript}
+%% 
+%% % Waarom is dit relevant?
+%% Om de broncode van een Angular-applicatie te begrijpen, moeten we de taal kennen waarin deze geschreven is.
+%% % Wat is TypeScript?
+%% TypeScript is een programmeertaal ontwikkeld door Microsoft in 2012.
+%% Volgens \textcite{Bierman2014} is TypeScript ontworpen als een extensie van JavaScript die een statisch typesysteem toevoegt.
+%% Om TypeScript-code te gebruiken, moet deze eerst gecompileerd worden naar JavaScript.
+%% TypeScript is een multiparadigm-programmeertaal. 
+%% Het ondersteunt verschillende programmeerstijlen zoals: functioneel, procedureel, objectgeoriënteerd, \dots.
+%% 
+%% % Hoe maakt Angular gebruik van TypeScript?
+%% Angular gebruikt TypeScript op een objectgeoriënteerde manier.
+%% Een Angular component is een TypeScript-klasse waar de ``@Component''-decorator boven de klasdeclaratie wordt meegegeven \autocite{Wilken2018}.
+%% % Hoe worden HTML en CSS binnen Angular gebruikt?
+%% Via deze decorator wordt de bedrijfslogica van de klasse gelinkt met de bijbehorende HTML en CSS.
+%% Codefragment \ref{cf:component-declaration} illustreert hoe deze syntax eruitziet.
+%% 
+%% % Hoe ziet dit er uit?
+%% \begin{listing}
+%%   \begin{minted}{ts}
+%%     import { Component } from '@angular/core';
+%%     
+%%     @Component({
+%%       selector: 'my-component',
+%%       templateUrl: './my-component.html',
+%%       styleUrl: './my-component.css',
+%%     })
+%%     export class MyComponent {}
+%%   \end{minted}
+%%   \caption[Voorbeeld Angular component]{Voorbeeld van hoe een Angular component gedeclareerd wordt in TypeScript.}
+%%   \label{cf:component-declaration}
+%% \end{listing}
+%% 
+%% % Moet ik nog iets weten?
+%% Angular gebruikt nog meerdere verschillende decorators, maar ``@Component'' is vrijwel de meest voorkomende.
+%% TypeScript en Angular zijn uitgebreide thema's.
+%% Hier hebben we de belangrijkste onderwerpen omschreven die nodig zijn om dit onderzoek te begrijpen.
+%% In de volgende sectie bespreken we welke manieren er bestaan om dit soort code automatisch aan te passen.
 
 \section{Automatisch refactoren}
 \label{ch:stand-van-zaken:refactoring}
