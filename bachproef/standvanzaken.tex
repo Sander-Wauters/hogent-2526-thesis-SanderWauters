@@ -11,7 +11,7 @@ Ten slotte volgt een overzicht van verschillende gekende manieren om code automa
 \label{ch:stand-van-zaken:angular}
 
 % Wat is Angular?
-Angular, ook wel Angular 2 genoemd, is een user interface (UI) framework ontwikkeld door Google in 2016 \autocite{Cincovic2019}.
+Angular is een user interface (UI) framework ontwikkeld door Google in 2016 \autocite{Cincovic2019}.
 Het is open-source onder de MIT-licentie en wordt onderhouden door een diverse groep van ontwikkelaars.
 % Wat is de relatie met AngularJS?
 Angular is de directe opvolger van AngularJS.
@@ -81,122 +81,179 @@ Welke decorators en hun werking worden in de volgende secties van dit hoofdstuk 
 \label{ch:stand-van-zaken:angular:componenten}
 
 % Welke architectuur gebruikt Angular?
+Angular applicaties volgen een componentgebaseerde architectuur.
+Deze architectuur breekt een webpagina op in verschillende bouwblokken, genaamd componenten.
 % Wat is een component?
+Een component kan een klein deel van de UI vormen, zoals een knop of een invoerveld.
+Of het stelt een groot deel van de UI voor, zoals een navigatiebalk of een volledig formulier.
+Eén van de belangrijkste eigenschappen van een component is dat deze andere componenten kan bevatten.
+De compositie van meerdere componenten vormt uiteindelijk de webpagina die de eindgebruiker te zien krijgt.
+Een component encapsuleert het uiterlijk van een UI-element samen met de achterliggende logica.
+Voorbeelden van achterliggende logica zijn: valideren van input, data opvragen van een server, \dots.
+
 % Hoe is dit opgebouwd?
+In Angular zijn componenten TypeScript-klassen met de \mintinline{ts}{@Component} decorator.
+De \mintinline{ts}{@Component} decorator verwacht drie parameters.
+Een ``selector'' die de naam bepaalt van de component.
+Een ``template'' dat de structuur van de UI bepaalt.
+Dit kan ofwel een verwijzing zijn naar een HTML-bestand of een hardgecodeerde string met HTML-code.
+Tenslotte is er de ``style'' parameter die het uiterlijk van de UI bepaalt.
+Dit kan ofwel een verwijzing zijn naar een CSS-bestand of een hardgecodeerde string met CSS-code.
+Codefragment~\ref{cf:component-declaration} geeft een voorbeeld van hoe deze syntax eruitziet.
+\begin{listing}
+  \begin{minted}{ts}
+    import { Component } from '@angular/core';
+    
+    @Component({
+      selector: 'my-component',
+      templateUrl: './my-component.html',
+      styleUrl: './my-component.css',
+    })
+    export class MyComponent { ... }
+  \end{minted}
+  \caption[Voorbeeld Angular component]{Voorbeeld van hoe een Angular-component gedeclareerd wordt in TypeScript.}
+  \label{cf:component-declaration}
+\end{listing}
 
 \subsection{Templates}
 \label{ch:stand-van-zaken:angular:templates}
 
 % Wat is een template?
-% Wat is HTML?
-% Waarvoor dienen templates?
+Angular-componenten maken gebruik van templates om de structuur van de UI te definiëren.
+Templates zijn syntactisch gelijkaardig aan HTML, maar er zijn enkele verschillen.
+HTML is de standaardtechnologie die webbrowsers gebruiken om de structuur van een webpagina te interpreteren.
+Templates breiden de mogelijkheden van HTML uit met nieuwe syntax specifiek aan Angular.
+Om HTML dynamischer te maken, voorziet het de \mintinline{ts}{@if}, \mintinline{ts}{@else} en \mintinline{ts}{@for} syntax.
+Deze syntax is functioneel identiek aan hun TypeScript-equivalent.
+Codefragment~\ref{cf:conditionele-template} geeft een voorbeeld van hoe deze syntax eruitziet.
+\begin{listing}
+  \begin{minted}{html}
+    <h1>User profile</h1>
+    @if (isAdmin()) {  
+      <h2>Admin settings</h2>  
+      <!-- ... -->
+    } @else {  
+      <h2>User settings</h2>  
+      <ul>
+        @for (badge of badges(); track badge.id) {    
+          <li class="user-badge">{{badge.name}}</li>  
+        }
+      </ul>
+    }
+  \end{minted}
+  \caption[Voorbeeld conditionele template]{Voorbeeld van conditionele condities in Angular-templates.}
+  \label{cf:conditionele-template}
+\end{listing}
+Buiten conditionele syntax is er nieuwe syntax om data uit de component klasse te koppelen aan de template.
+Dit proces noemt men data binding.
 
 \subsection{Data binding}
 \label{ch:stand-van-zaken:angular:data-binding}
 
 % Hoe communiceren componenten met templates?
+Angular gebruikt data binding als manier om data uit te wisselen tussen TypeScript en HTML.
 % Wat is data binding?
-% Wat is interpolation?
-% Wat is propery binding?
-% Wat is event binding?
-% Wat is two-way binding?
+Data binding is een manier om een databron met een bestemming te verbinden.
+In de context van Angular is een TypeScript-klasse de databron en de template de bestemming.
+Conceptueel zijn er twee soorten van data binding: one-way binding en two-way binding.
+One-way binding zorgt dat een verandering aan de databron gesynchroniseerd wordt met de bestemming.
+Veranderingen in de bestemming daarentegen worden niet gereflecteerd in de databron.
+Two-way binding zorgt dat een verandering aan zowel de databron als de bestemming gereflecteerd wordt in de andere.
 
-\subsection{Dependency injection}
-\label{ch:stand-van-zaken:angular:dependency-injection}
+% Hoe gebruikt Angular data binding?
+Angular heeft vier verschillende soorten syntax voor data binding.
+% Wat is interpolatie?
+De eerste noemt ``interpolatie''.
+In de context van templates is interpolatie een manier om dynamische tekst te tonen.
+Het is one-way binding; de tekst kan via de UI niet aangepast worden.
+De syntax voor interpolatie is \mintinline{ts}{{{ }}}, bijvoorbeeld:\\ \mintinline{html+ng2}{<p>Welcome {{ name }}</p>}.
+
+% Wat is property binding?
+De tweede soort noemt ``property binding''.
+Property binding is een manier om dynamisch data aan een HTML-element of component mee te geven.
+Het is one-way binding; het HTML-element of component kan de data enkel lezen.
+De syntax voor propery binding is \mintinline{ts}{[ ]}, bijvoorbeeld:\\ \mintinline{html+ng2}{<button [disabled]="hasErrors()">Save</button>}.
+
+% Wat is event binding?
+De derde soort noemt ``event binding''.
+Hier is de data een referentie naar een functie.
+Deze functie wordt meegegeven aan een HTML-element of component.
+De bestemming van de functie roept de functie op als een bepaalde conditie bereikt is.
+Deze functie wordt om deze reden een ``event listener'' genoemd.
+Het is one-way binding; het HTML-element of component kan de functie enkel oproepen.
+De syntax voor event binding is \mintinline{ts}{( )}, bijvoorbeeld:\\ \mintinline{html+ng2}{<button (click)="saveChanges()">Save</button>}.
+
+% Wat is two-way binding?
+De laatste soort is two-way binding.
+Two-way binding is Angular is hetzelfde als property binding.
+Met het verschil dat het HTML-element of de component nu de data kan aanpassen.
+De syntax voor two-way binding is \mintinline{ts}{[( )]}, bijvoorbeeld:\\ \mintinline{html+ng2}{<input type="text" [(ngModel)]="firstName" />}.
+
+\subsection{Services}
+\label{ch:stand-van-zaken:angular:services}
+
+% Wat zijn services?
+Services zijn herbruikbare stukken code die gedeeld kunnen worden over meerdere componenten.
+Het zorgt ervoor dat verschillende componenten dezelfde logica delen.
+Dit maakt een applicatie modulair en zorgt ervoor dat code herbruikbaar blijft.
 
 % Wat is dependency injection?
-% Hoe gebruikt Angular dependency injection?
+Services worden door de ontwikkelaars van de applicatie gemaakt.
+Angular verbindt de services met de componenten door middel van dependency injection.
+\textcite{Razina2007} omschrijft dependency injection als een ontwerppatroon om van buitenaf logica aan een object mee te geven.
+Het zorgt voor een losse koppeling tussen objecten, waardoor de code modulair blijft.
+
+% Hoe ziet dit eruit?
+Angular injecteert services in componenten tijdens hun instantiatie.
+Om Angular dit voor ons te laten doen, moeten alle services de \mintinline{ts}{@Injectable} decorator hebben.
+Deze service wordt geinjecteert in een klasse via de constructor of de \mintinline{ts}{inject()} functie.
+Hoewel beide opties mogelijk zijn, wordt de \mintinline{ts}{inject()} functie als de standaardmanier beschouwd sinds Angular v18.
+Codefragment~\ref{cf:dependency-injection} geeft een voorbeeld van hoe dit eruit ziet.
+\begin{listing}
+  \begin{minted}{ts}
+    import { Injectable, Component, inject } from '@angular/core';
+
+    @Injectable({ providedIn: 'root' })
+    export class MyService { ... }
+
+    @Component({ ... })
+    export class MyComponent {
+      private service = inject(MyService);
+    }
+    
+  \end{minted}
+  \caption[Voorbeeld Angular dependency injection]{Voorbeeld van hoe een service in Angular gedeclareerd en geïnjecteerd wordt.}
+  \label{cf:dependency-injection}
+\end{listing}
 
 \subsection{Testen}
 \label{ch:stand-van-zaken:angular:testen}
 
 % Hoe wordt een Angular applicatie getest?
+Testen spelen een belangrijke rol in het ontwikkelingsproces.
+Testen, valideren en verifiëren dat een applicatie voldoet aan de eisen van de gebruiker \autocite{Jamil2016}.
+Er zijn verschillende vormen van testen, elk met een ander doel.
+In deze context zijn unit-testen de voornaamste.
+Angular komt ingebouwd met functionaliteiten om unit-testen te schrijven voor componenten.
+% Wat zijn unit-testen?
+\textcite{Olan2003} omschrijft unit-testen als een manier om een ``unit'' in isolatie te testen.
+In objectgeoriënteerde programmeertalen is een unit vaak een klasse.
+Unit-testen roepen de methodes van deze klasse automatisch één voor één aan en vergelijken de output.
+In Angular worden componenten als units beschouwd.
 
-%% \section{Angular}
-%% \label{ch:stand-van-zaken:angular}
-%% 
-%% % Wat is Angular?
-%% Angular, ook wel Angular2 genoemd, is een user interface (UI) framework ontwikkeld door Google in 2016 \autocite{Cincovic2019}.
-%% Het is open-source, gratis en wordt onderhouden door een diverse groep van ontwikkelaars.
-%% % Waarvoor dient het?
-%% Angular wordt gebruikt voor het maken van single-page webapplicaties die zowel client- als server-side gerenderd kunnen worden.
-%% % Hoe maakt het een UI?
-%% Voor het opbouwen van een UI in Angular worden ``componenten'' gebruikt.
-%% % Wat is een component in Angular?
-%% Een component binnen Angular wordt door \textcite{Kaufman2016} omschreven als een zelfstandig en herbruikbaar bouwblok.
-%% Componenten encapsuleren de bedrijfslogica, structuur en stijl van een deel van de UI.
-%% Het combineren van verschillende componenten laat toe om complexe UI's te maken.
-%% 
-%% % Hoe werkt het?
-%% Een component aanmaken met Angular kan enkel op één manier.
-%% Angular is een opinionated framework.
-%% \textcite{Parker2017} defineert een framework als opinionated als het de ontwikkelaar aanstuurt om op een specifieke manier te te werken.
-%% Opinionated frameworks houden zich aan strikte conventies die dicteren hoe een project is opgesteld en geschreven.
-%% % Wat kan het?
-%% Het Angular-framework komt ingebouwd met verschillende functionaliteiten die de ontwikkeling van een applicatie aansturen \autocite{Wilken2018}.
-%% Zoals eerder besproken maakt Angular gebruik van componenten voor het bouwen van een UI.
-%% Verder komt het met functies die toelaten om unittests te schrijven voor deze componenten.
-%% Hiernaast heeft Angular een collectie van Command Line Interface (CLI) tools die de ontwikkelaars helpt bij het maken van een applicatie, bijvoorbeeld het genereren van een blanco component met bijhorende testen in één commando.
-%% Verder komt het met een ingebouwde Hyper Text Transfer Protocol (HTTP) client voor een applicatie te verbinden met een backendservice over het internet.
-%% 
-%% % Hoe is een Angular-project gestructureerd?
-%% Angular is gebaseerd op TypeScript en gebruikt dit in combinatie met andere technologieën.
-%% In een Angular-project zijn de volgende bestanden terug te vinden:
-%% \begin{itemize}
-%%   \item TypeScript: de TypeScript-programmeertaal wordt gebruikt voor de implementatie van de bedrijfslogica en testen.
-%%   \item HTML: HTML wordt gebruikt om de achterliggende structuur van de UI te omschrijven. 
-%%     In de context van Angular-componenten wordt hiernaar verwezen als een ``template''.
-%%   \item CSS: CSS wordt gebruikt om de visuele representatie van de UI te omschrijven
-%%   \item JSON: JSON wordt gebruikt voor het configureren van Angular en TypeScript.
-%% \end{itemize}
-%% 
-%% % Wat is er speciaal aan Angular templates?
-%% HTML-templates hebben een unieke eigenschap, specifiek in Angular.
-%% Angular maakt het mogelijk om conditionele operaties zoals if-else en lussen te gebruiken in HTML-templates.
-%% Deze syntax en functie zijn normaal niet mogelijk in HTML.
-%% Dit laat Angular toe om complexere UI te maken.
-%% Maar dit betekent dat niet alle logica in TypeScript bestanden terug te vinden is.
-%% 
-%% \subsection{TypeScript}
-%% \label{ch:stand-van-zaken:angular:typescript}
-%% 
-%% % Waarom is dit relevant?
-%% Om de broncode van een Angular-applicatie te begrijpen, moeten we de taal kennen waarin deze geschreven is.
-%% % Wat is TypeScript?
-%% TypeScript is een programmeertaal ontwikkeld door Microsoft in 2012.
-%% Volgens \textcite{Bierman2014} is TypeScript ontworpen als een extensie van JavaScript die een statisch typesysteem toevoegt.
-%% Om TypeScript-code te gebruiken, moet deze eerst gecompileerd worden naar JavaScript.
-%% TypeScript is een multiparadigm-programmeertaal. 
-%% Het ondersteunt verschillende programmeerstijlen zoals: functioneel, procedureel, objectgeoriënteerd, \dots.
-%% 
-%% % Hoe maakt Angular gebruik van TypeScript?
-%% Angular gebruikt TypeScript op een objectgeoriënteerde manier.
-%% Een Angular component is een TypeScript-klasse waar de ``@Component''-decorator boven de klasdeclaratie wordt meegegeven \autocite{Wilken2018}.
-%% % Hoe worden HTML en CSS binnen Angular gebruikt?
-%% Via deze decorator wordt de bedrijfslogica van de klasse gelinkt met de bijbehorende HTML en CSS.
-%% Codefragment \ref{cf:component-declaration} illustreert hoe deze syntax eruitziet.
-%% 
-%% % Hoe ziet dit er uit?
-%% \begin{listing}
-%%   \begin{minted}{ts}
-%%     import { Component } from '@angular/core';
-%%     
-%%     @Component({
-%%       selector: 'my-component',
-%%       templateUrl: './my-component.html',
-%%       styleUrl: './my-component.css',
-%%     })
-%%     export class MyComponent {}
-%%   \end{minted}
-%%   \caption[Voorbeeld Angular component]{Voorbeeld van hoe een Angular component gedeclareerd wordt in TypeScript.}
-%%   \label{cf:component-declaration}
-%% \end{listing}
-%% 
-%% % Moet ik nog iets weten?
-%% Angular gebruikt nog meerdere verschillende decorators, maar ``@Component'' is vrijwel de meest voorkomende.
-%% TypeScript en Angular zijn uitgebreide thema's.
-%% Hier hebben we de belangrijkste onderwerpen omschreven die nodig zijn om dit onderzoek te begrijpen.
-%% In de volgende sectie bespreken we welke manieren er bestaan om dit soort code automatisch aan te passen.
+% Welk testing-frameworkt gebruikt Angular?
+Angular komt met CLI-tools om automatisch unit-testen te genereren.
+Achterliggend wordt het Jasmine-testing-framework gebruikt.
+Tijdens het opzetten van een Angular-project wordt Jasmine automatisch geconfigureerd.
+Het is echter mogelijk om een ander testing-framework te gebruiken.
+Startende vanaf Angular v20 is het Vitest-testing-framework de standaard.
+Jasmine is nog steeds volledig ondersteund en is wat gebruikt wordt in dit onderzoek.
+
+% Wat maakt Angular testen speciaal?
+Angular voorziet in speciale functies om unit-testen te schrijven voor componenten.
+Deze functies maken het mogelijk om meer dan alleen TypeScript-klassen te testen.
+Ze bootsen de werking van de applicatie in een webbrowser na.
+Het laat toe om templates en de data bindings te testen door interacties met de UI te simuleren.
 
 \section{Automatisch refactoren}
 \label{ch:stand-van-zaken:refactoring}
