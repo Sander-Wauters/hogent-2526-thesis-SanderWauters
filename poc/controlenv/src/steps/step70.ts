@@ -8,9 +8,9 @@ import { Route } from "@angular/router";
 })
 export class Step70 {
   test(route: Route) {
-    route.canActivate = ["canActivate"];
-    route.canMatch = ["canMatch"];
-    route.canDeactivate = ["canDeactivate"];
-    route.canActivateChild = ["canActivateChild"];
+    route.canActivate = [() => "canActivate"];
+    route.canMatch = [() => "canMatch"];
+    route.canDeactivate = [() => "canDeactivate"];
+    route.canActivateChild = [() => "canActivateChild"];
   }
 }

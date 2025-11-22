@@ -11,9 +11,9 @@ export class Step74 {
 
   makeRequest() {
     // Manually retrieve HttpClient instance from the injector
-    const http = this.injector.get("HttpClient");
+    const http = this.injector.get(HttpClient);
 
-    http.get("https://api.example.com/data").subscribe((data: Object) => {
+    http.get("https://api.example.com/data").subscribe((data) => {
       console.log("Received:", data);
     });
   }

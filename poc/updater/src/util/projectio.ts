@@ -10,15 +10,30 @@ import { exit } from "process";
 import { Project } from "ts-morph";
 
 /**
- * Loads in a project based on command line args.
+ * Loads in the test environment based on command line args.
  */
-export function loadProject(): Project {
+export function loadTestenv(): Project {
   const projectRoot = process.argv[2];
   if (!projectRoot) {
-    console.error(`No path to project provided, exiting...`);
+    console.error(`No path to testenv provided, exiting...`);
     exit(-1);
   }
-  console.debug(`Loading project at: ${projectRoot}`);
+  console.debug(`Loading testenv at: ${projectRoot}`);
+  return new Project({
+    tsConfigFilePath: `${projectRoot}/tsconfig.json`,
+  });
+}
+
+/**
+ * Loads in the control environmetn based on command line args.
+ */
+export function loadControlenv(): Project {
+  const projectRoot = process.argv[3];
+  if (!projectRoot) {
+    console.error(`No path to controlenv provided, exiting...`);
+    exit(-1);
+  }
+  console.debug(`Loading controlenv at: ${projectRoot}`);
   return new Project({
     tsConfigFilePath: `${projectRoot}/tsconfig.json`,
   });

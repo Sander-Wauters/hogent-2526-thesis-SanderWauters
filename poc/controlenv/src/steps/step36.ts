@@ -23,5 +23,7 @@ export class Step36 {
 
   toggleActive() {
     this._isActive = !this._isActive;
+    // Since we're using OnPush, we need to explicitly mark for check
+    this.cdr.markForCheck();
   }
 }

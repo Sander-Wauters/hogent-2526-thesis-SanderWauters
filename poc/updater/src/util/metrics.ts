@@ -6,6 +6,8 @@
  *
  *****************************************************************************/
 
+import { Project } from "ts-morph";
+
 export enum Capability {
   NOT,
   FULLY,
@@ -30,6 +32,7 @@ export interface StepData {
   automation: Capability;
   changeFlags: number;
   description: string;
+  changedFiles: string[];
 }
 
 interface StepTotals {
@@ -289,4 +292,46 @@ export function logStepData(stepData: StepData[]) {
   logStepTotals(syntax, "Syntax");
   console.log();
   logStepTotals(semantics, "Semantics");
+}
+
+export function validate(
+  testenv: Project,
+  controlenv: Project,
+  stepData: StepData[],
+) {
+  stepData.forEach((step, i) => {
+    const files = step.changedFiles;
+    if (step.automation === Capability.PARTIALLY && files.length < 1)
+      console.log(
+        `WARNING: step ${i + 1} is marked partially automatable but no files where changed`,
+      );
+    if (files.length < 1) return;
+    if (step.automation !== Capability.NOT && files.length > 1)
+      console.log(
+        `WARNING: changes in step ${i + 1} applied to more than once, should be all in the same file`,
+        files,
+      );
+
+    const testfile = testenv
+      .getSourceFiles()
+      .find((src) => src.getBaseName() === files[0]);
+    const controlfile = controlenv
+      .getSourceFiles()
+      .find((src) => src.getBaseName() === testfile?.getBaseName());
+
+    if (
+      step.automation === Capability.FULLY &&
+      controlfile?.getFullText() !== testfile?.getFullText()
+    )
+      console.log(
+        `WARNING: step ${i + 1} is marked fully automatable but the output does not match the control`,
+      );
+    if (
+      step.automation === Capability.NOT &&
+      controlfile?.getFullText() === testfile?.getFullText()
+    )
+      console.log(
+        `WARNING: step ${i + 1} is marked not automation but the output fully matches the control`,
+      );
+  });
 }

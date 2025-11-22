@@ -756,6 +756,7 @@ WARNING: changes in step 31 applied to more than once, should be all in the same
 WARNING: changes in step 32 applied to more than once, should be all in the same file [ 'step32.ts', 'step32.ts' ]
 WARNING: changes in step 57 applied to more than once, should be all in the same file [ 'step57.ts', 'step57.ts' ]
 WARNING: changes in step 73 applied to more than once, should be all in the same file [ 'step73.ts', 'step73.ts', 'step73.ts', 'step73.ts', 'step73.ts' ]
+WARNING: step 74 is marked not automation but the output fully matches the control
 
 | Type                    | #Total    | %Total    |
 | ----------------------- | --------- | --------- |

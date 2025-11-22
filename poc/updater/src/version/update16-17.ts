@@ -7,8 +7,14 @@
  *****************************************************************************/
 
 import { Project } from "ts-morph";
-import { loadProject, saveProject } from "../util/projectio.js";
-import { Capability, Change, logStepData, StepData } from "../util/metrics.js";
+import { loadControlenv, loadTestenv, saveProject } from "../util/projectio.js";
+import {
+  Capability,
+  Change,
+  logStepData,
+  StepData,
+  validate,
+} from "../util/metrics.js";
 import {
   accessedFrom,
   findNodes,
@@ -17,7 +23,8 @@ import {
   lastInstanceInTree,
 } from "../util/traversal.js";
 
-const project = loadProject();
+const project = loadTestenv();
+const control = loadControlenv();
 
 /******************************************************************************
  * Define steps.
@@ -26,6 +33,7 @@ const project = loadProject();
 function step05(project: Project): StepData {
   let detection = Capability.NOT;
   let automation = Capability.NOT;
+  let changedFiles: string[] = [];
   project.getSourceFiles().forEach((file) =>
     findNodes(
       file,
@@ -36,8 +44,9 @@ function step05(project: Project): StepData {
           getAncestor(node, 2)!,
           (node) => lastInstanceInTree(node, "useValue: true"),
           (node) => {
-            automation = Capability.PARTIALLY;
             node.replaceWithText("useValue: false");
+            automation = Capability.PARTIALLY;
+            changedFiles.push(file.getBaseName());
           },
         );
       },
@@ -47,6 +56,7 @@ function step05(project: Project): StepData {
     detection,
     automation,
     changeFlags: Change.IN_TYPESCRIPT | Change.TO_SYNTAX | Change.TO_SEMANTICS,
+    changedFiles,
     description:
       "Angular now automatically removes styles of destroyed components, which may impact your existing apps in cases you rely on leaked styles. To change this update the value of the REMOVE_STYLES_ON_COMPONENT_DESTROY provider to false.",
   };
@@ -55,6 +65,7 @@ function step05(project: Project): StepData {
 function step11(project: Project): StepData {
   let detection = Capability.NOT;
   let automation = Capability.NOT;
+  let changedFiles: string[] = [];
   project.getSourceFiles().forEach((file) =>
     findNodes(
       file,
@@ -63,8 +74,9 @@ function step11(project: Project): StepData {
         hasType(node, "AnimationDriver"),
       (node) => {
         detection = Capability.FULLY;
-        automation = Capability.FULLY;
         node.replaceWithText("NoopAnimationDriver");
+        automation = Capability.FULLY;
+        changedFiles.push(file.getBaseName());
       },
     ),
   );
@@ -72,6 +84,7 @@ function step11(project: Project): StepData {
     detection,
     automation,
     changeFlags: Change.IN_TYPESCRIPT | Change.TO_SYNTAX,
+    changedFiles,
     description:
       "Change references to AnimationDriver.NOOP to use NoopAnimationDriver because AnimationDriver.NOOP is now deprecated.",
   };
@@ -80,6 +93,7 @@ function step11(project: Project): StepData {
 function step13(project: Project): StepData {
   let detection = Capability.NOT;
   let automation = Capability.NOT;
+  let changedFiles: string[] = [];
   project.getSourceFiles().forEach((file) =>
     findNodes(
       file,
@@ -88,8 +102,9 @@ function step13(project: Project): StepData {
         accessedFrom(node, "WritableSignal"),
       (node) => {
         detection = Capability.FULLY;
-        automation = Capability.PARTIALLY;
         node.replaceWithText("update");
+        automation = Capability.PARTIALLY;
+        changedFiles.push(file.getBaseName());
       },
     ),
   );
@@ -97,6 +112,7 @@ function step13(project: Project): StepData {
     detection,
     automation,
     changeFlags: Change.IN_TYPESCRIPT | Change.TO_SYNTAX | Change.TO_SEMANTICS,
+    changedFiles,
     description:
       "Use update instead of mutate in Angular Signals. For example items.mutate(itemsArray => itemsArray.push(newItem)); will now be items.update(itemsArray => [itemsArray, …newItem]);",
   };
@@ -105,6 +121,7 @@ function step13(project: Project): StepData {
 function step14(project: Project): StepData {
   let detection = Capability.NOT;
   let automation = Capability.NOT;
+  let changedFiles: string[] = [];
   project.getSourceFiles().forEach((file) =>
     findNodes(
       file,
@@ -117,8 +134,9 @@ function step14(project: Project): StepData {
         ),
       (node) => {
         detection = Capability.PARTIALLY;
-        automation = Capability.PARTIALLY;
         node.getParent()!.replaceWithText("");
+        automation = Capability.PARTIALLY;
+        changedFiles.push(file.getBaseName());
       },
     ),
   );
@@ -126,6 +144,7 @@ function step14(project: Project): StepData {
     detection,
     automation,
     changeFlags: Change.IN_TYPESCRIPT | Change.TO_SYNTAX,
+    changedFiles,
     description:
       "To disable hydration use ngSkipHydration or remove the provideClientHydration call from the provider list since withNoDomReuse is no longer part of the public API.",
   };
@@ -141,6 +160,7 @@ metrics.push({
   detection: Capability.NOT,
   automation: Capability.FULLY,
   changeFlags: Change.IN_JSON | Change.IN_CLI,
+  changedFiles: [],
   description:
     "Make sure that you are using a supported version of node.js before you upgrade your application. Angular v17 supports node.js versions: v18.13.0 and newer",
 });
@@ -149,6 +169,7 @@ metrics.push({
   detection: Capability.NOT,
   automation: Capability.FULLY,
   changeFlags: Change.IN_JSON | Change.IN_CLI,
+  changedFiles: [],
   description:
     "Make sure that you are using a supported version of TypeScript before you upgrade your application. Angular v17 supports TypeScript version 5.2 or later.",
 });
@@ -157,6 +178,7 @@ metrics.push({
   detection: Capability.NOT,
   automation: Capability.FULLY,
   changeFlags: Change.IN_JSON | Change.IN_CLI,
+  changedFiles: [],
   description:
     "Make sure that you are using a supported version of Zone.js before you upgrade your application. Angular v17 supports Zone.js version 0.14.x or later.",
 });
@@ -165,6 +187,7 @@ metrics.push({
   detection: Capability.NOT,
   automation: Capability.FULLY,
   changeFlags: Change.IN_CLI,
+  changedFiles: [],
   description:
     "In the application's project directory, run ng update @angular/core@17 @angular/cli@17 to update your application to Angular v17.",
 });
@@ -174,6 +197,7 @@ metrics.push({
   detection: Capability.NOT,
   automation: Capability.NOT,
   changeFlags: Change.IN_TYPESCRIPT | Change.TO_SYNTAX,
+  changedFiles: [],
   description:
     "Make sure you configure setupTestingRouter, canceledNavigationResolution, paramsInheritanceStrategy, titleStrategy, urlUpdateStrategy, urlHandlingStrategy, and malformedUriErrorHandler in provideRouter or RouterModule.forRoot since these properties are now not part of the Router's public API",
 });
@@ -182,6 +206,7 @@ metrics.push({
   detection: Capability.NOT,
   automation: Capability.NOT,
   changeFlags: Change.IN_TYPESCRIPT | Change.IN_TEST | Change.TO_SEMANTICS,
+  changedFiles: [],
   description:
     "For dynamically instantiated components we now execute ngDoCheck during change detection if the component is marked as dirty. You may need to update your tests or logic within ngDoCheck for dynamically instantiated components.",
 });
@@ -190,6 +215,7 @@ metrics.push({
   detection: Capability.NOT,
   automation: Capability.NOT,
   changeFlags: Change.IN_TYPESCRIPT | Change.TO_SYNTAX | Change.TO_SEMANTICS,
+  changedFiles: [],
   description:
     "Handle URL parsing errors in the UrlSerializer.parse instead of malformedUriErrorHandler because it's now part of the public API surface.",
 });
@@ -198,6 +224,7 @@ metrics.push({
   detection: Capability.FULLY,
   automation: Capability.FULLY,
   changeFlags: Change.IN_TYPESCRIPT | Change.NOT_APPLICABLE | Change.TO_SYNTAX,
+  changedFiles: [],
   description:
     "Change Zone.js deep imports like zone.js/bundles/zone-testing.js and zone.js/dist/zone to zone.js and zone.js/testing.",
 });
@@ -206,6 +233,7 @@ metrics.push({
   detection: Capability.NOT,
   automation: Capability.NOT,
   changeFlags: Change.IN_TYPESCRIPT | Change.TO_SEMANTICS,
+  changedFiles: [],
   description:
     "You may need to adjust your router configuration to prevent infinite redirects after absolute redirects. In v17 we no longer prevent additional redirects after absolute redirects.",
 });
@@ -215,6 +243,7 @@ metrics.push({
   detection: Capability.NOT,
   automation: Capability.NOT,
   changeFlags: Change.IN_TEMPLATE | Change.TO_SEMANTICS,
+  changedFiles: [],
   description:
     "You may need to adjust the equality check for NgSwitch because now it defaults to stricter check with === instead of ==. Angular will log a warning message for the usages where you'd need to provide an adjustment.",
 });
@@ -225,10 +254,12 @@ metrics.push({
   detection: Capability.NOT,
   automation: Capability.NOT,
   changeFlags: Change.IN_TYPESCRIPT | Change.TO_SEMANTICS,
+  changedFiles: [],
   description:
     "If you want the child routes of loadComponent routes to inherit data from their parent specify the paramsInheritanceStrategy to always, which in v17 is now set to emptyOnly.",
 });
 
+validate(project, control, metrics);
 logStepData(metrics);
 
 await saveProject(project, true);
