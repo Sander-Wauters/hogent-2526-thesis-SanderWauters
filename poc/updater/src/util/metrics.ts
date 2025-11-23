@@ -33,6 +33,7 @@ export interface StepData {
   changeFlags: number;
   description: string;
   changedFiles: string[];
+  changeImplemented: boolean;
 }
 
 interface StepTotals {
@@ -300,38 +301,57 @@ export function validate(
   stepData: StepData[],
 ) {
   stepData.forEach((step, i) => {
-    const files = step.changedFiles;
-    if (step.automation === Capability.PARTIALLY && files.length < 1)
-      console.log(
-        `WARNING: step ${i + 1} is marked partially automatable but no files where changed`,
-      );
-    if (files.length < 1) return;
-    if (step.automation !== Capability.NOT && files.length > 1)
-      console.log(
-        `WARNING: changes in step ${i + 1} applied to more than once, should be all in the same file`,
-        files,
-      );
+    // No need to bother checking the control if there is no output.
+    if (step.changedFiles.length < 1) {
+      if (step.automation === Capability.FULLY && step.changeImplemented) {
+        console.log(
+          `WARNING: step ${i + 1} is marked fully automatable but no files where changed`,
+        );
+      } else if (
+        step.automation === Capability.PARTIALLY &&
+        step.changeImplemented
+      ) {
+        console.log(
+          `WARNING: step ${i + 1} is marked partially automatable but no files where changed`,
+        );
+      }
+      return;
+    }
 
+    // Some changes overlap so this is not considered fatal.
+    if (step.changedFiles.length > 1 && step.changeImplemented) {
+      console.log(
+        `WARNING: changes in step ${i + 1} applied more than once, check if the matching files fit the change`,
+        step.changedFiles,
+      );
+    }
+
+    // Compare the output with the control.
     const testfile = testenv
       .getSourceFiles()
-      .find((src) => src.getBaseName() === files[0]);
+      .find((src) => src.getBaseName() === step.changedFiles[0]);
     const controlfile = controlenv
       .getSourceFiles()
-      .find((src) => src.getBaseName() === testfile?.getBaseName());
+      .find((src) => src.getBaseName() === step.changedFiles[0]);
+    const matchesOutput =
+      controlfile?.getFullText() === testfile?.getFullText();
 
-    if (
-      step.automation === Capability.FULLY &&
-      controlfile?.getFullText() !== testfile?.getFullText()
-    )
+    // Validate against the expected result.
+    if (step.automation === Capability.FULLY && !matchesOutput) {
       console.log(
-        `WARNING: step ${i + 1} is marked fully automatable but the output does not match the control`,
+        `WARNING: step ${i + 1} is marked fully automatable but the first output does not match the control`,
       );
-    if (
-      step.automation === Capability.NOT &&
-      controlfile?.getFullText() === testfile?.getFullText()
-    )
+    }
+    if (step.automation === Capability.PARTIALLY && !matchesOutput) {
+      // Control is only partially updated.
       console.log(
-        `WARNING: step ${i + 1} is marked not automation but the output fully matches the control`,
+        `WARNING: step ${i + 1} is marked partially automatable but the first output does not match the control`,
       );
+    }
+    if (step.automation === Capability.NOT && matchesOutput) {
+      console.log(
+        `WARNING: step ${i + 1} is marked not automation but the first output fully matches the control`,
+      );
+    }
   });
 }

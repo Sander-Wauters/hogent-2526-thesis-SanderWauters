@@ -53,6 +53,7 @@ function step57(project: Project): StepData {
     automation,
     changeFlags: Change.IN_TYPESCRIPT | Change.TO_SYNTAX,
     changedFiles,
+    changeImplemented: true,
     description: "Rename the afterRender lifecycle hook to afterEveryRender",
   };
 }
@@ -106,6 +107,7 @@ function step70(project: Project): StepData {
     automation,
     changeFlags: Change.IN_TYPESCRIPT | Change.TO_SEMANTICS,
     changedFiles,
+    changeImplemented: true,
     description:
       "The any type is removed from the Route guard arrays (canActivate, canDeactivate, etc); ensure guards are functions, ProviderToken<T>, or (deprecated) strings. Refactor string guards to ProviderToken<T> or functions.",
   };
@@ -135,6 +137,7 @@ function step72(project: Project): StepData {
     automation,
     changeFlags: Change.IN_TYPESCRIPT | Change.IN_TEST | Change.TO_SYNTAX,
     changedFiles,
+    changeImplemented: true,
     description:
       "Replace all occurrences of the deprecated TestBed.get() method with TestBed.inject() in your Angular tests for dependency injection.",
   };
@@ -201,6 +204,7 @@ function step73(project: Project): StepData {
     automation,
     changeFlags: Change.IN_TYPESCRIPT | Change.IN_TEST | Change.TO_SYNTAX,
     changedFiles,
+    changeImplemented: true,
     description:
       "Remove InjectFlags enum and its usage from inject, Injector.get, EnvironmentInjector.get, and TestBed.inject calls. Use options like {optional: true} for inject or handle null for \*.get methods.",
   };
@@ -228,6 +232,7 @@ function step74(project: Project): StepData {
     automation,
     changeFlags: Change.IN_TYPESCRIPT | Change.TO_SEMANTICS,
     changedFiles,
+    changeImplemented: true,
     description:
       "Update injector.get() calls to use a specific ProviderToken<T> instead of relying on the removed any overload. If using string tokens (deprecated since v4), migrate them to ProviderToken<T>.",
   };
@@ -244,6 +249,7 @@ metrics.push({
   automation: Capability.FULLY,
   changeFlags: Change.IN_JSON | Change.IN_CLI,
   changedFiles: [],
+  changeImplemented: false,
   description:
     "In the application's project directory, run ng update @angular/core@20 @angular/cli@20 to update your application to Angular v20.",
 });
@@ -254,6 +260,7 @@ metrics.push({
   automation: Capability.NOT,
   changeFlags: Change.NOT_APPLICABLE,
   changedFiles: [],
+  changeImplemented: false,
   description:
     "Replace uses of TestBed.flushEffects() with TestBed.tick(), the closest equivalent to synchronously flush effects.",
 });
@@ -263,6 +270,7 @@ metrics.push({
   automation: Capability.NOT,
   changeFlags: Change.NOT_APPLICABLE,
   changedFiles: [],
+  changeImplemented: false,
   description:
     "Rename provideExperimentalCheckNoChangesForDebug to provideCheckNoChangesConfig. Note its behavior now applies to all checkNoChanges runs. The useNgZoneOnStable option is no longer available.",
 });
@@ -276,6 +284,7 @@ metrics.push({
     Change.IN_TEST |
     Change.TO_SEMANTICS,
   changedFiles: [],
+  changeImplemented: false,
   description:
     "Refactor application and test code to avoid relying on ng-reflect-\* attributes. If needed temporarily for migration, use provideNgReflectAttributes() from @angular/core in bootstrap providers to re-enable them in dev mode only.",
 });
@@ -285,6 +294,7 @@ metrics.push({
   automation: Capability.NOT,
   changeFlags: Change.IN_TYPESCRIPT | Change.TO_SEMANTICS,
   changedFiles: [],
+  changeImplemented: false,
   description:
     "Adjust code that directly calls functions returning RedirectFn. These functions can now also return an Observable or Promise; ensure your logic correctly handles these asynchronous return types.",
 });
@@ -294,6 +304,7 @@ metrics.push({
   automation: Capability.NOT,
   changeFlags: Change.NOT_APPLICABLE,
   changedFiles: [],
+  changeImplemented: false,
   description: "Rename the request property passed in resources to params.",
 });
 metrics.push({
@@ -302,6 +313,7 @@ metrics.push({
   automation: Capability.NOT,
   changeFlags: Change.NOT_APPLICABLE,
   changedFiles: [],
+  changeImplemented: false,
   description: "Rename the loader property passed in rxResources to stream.",
 });
 metrics.push({
@@ -310,6 +322,7 @@ metrics.push({
   automation: Capability.NOT,
   changeFlags: Change.NOT_APPLICABLE,
   changedFiles: [],
+  changeImplemented: false,
   description:
     "ResourceStatus is no longer an enum. Use the corresponding constant string values instead.",
 });
@@ -319,6 +332,7 @@ metrics.push({
   automation: Capability.NOT,
   changeFlags: Change.NOT_APPLICABLE,
   changedFiles: [],
+  changeImplemented: false,
   description:
     "Rename provideExperimentalZonelessChangeDetection to provideZonelessChangeDetection.",
 });
@@ -328,6 +342,7 @@ metrics.push({
   automation: Capability.NOT,
   changeFlags: Change.IN_TEMPLATE | Change.TO_SYNTAX,
   changedFiles: [],
+  changeImplemented: false,
   description:
     "If your templates use {{ in }} or in in expressions to refer to a component property named 'in', change it to {{ this.in }} or this.in as 'in' now refers to the JavaScript 'in' operator. If you're using in as a template reference, you'd have to rename the reference.",
 });
@@ -337,6 +352,7 @@ metrics.push({
   automation: Capability.NOT,
   changeFlags: Change.IN_TYPESCRIPT | Change.TO_SEMANTICS,
   changedFiles: [],
+  changeImplemented: false,
   description:
     "The type for the commands arrays passed to Router methods (createUrlTree, navigate, createUrlTreeFromSnapshot) have been updated to use readonly T[] since the array is not mutated. Code which extracts these types (e.g. with typeof) may need to be adjusted if it expects mutable arrays.",
 });
@@ -346,6 +362,7 @@ metrics.push({
   automation: Capability.NOT,
   changeFlags: Change.IN_TYPESCRIPT | Change.IN_TEST | Change.TO_SEMANTICS,
   changedFiles: [],
+  changeImplemented: false,
   description:
     "Review and update tests asserting on DOM elements involved in animations. Animations are now guaranteed to be flushed with change detection or ApplicationRef.tick, potentially altering previous test outcomes.",
 });
@@ -359,6 +376,7 @@ metrics.push({
     Change.IN_TEMPLATE |
     Change.TO_SEMANTICS,
   changedFiles: [],
+  changeImplemented: false,
   description:
     "In tests, uncaught errors in event listeners are now rethrown by default. Previously, these were only logged to the console by default. Catch them if intentional for the test case, or use rethrowApplicationErrors: false in configureTestingModule as a last resort.",
 });
@@ -369,6 +387,7 @@ metrics.push({
   automation: Capability.FULLY,
   changeFlags: Change.IN_JSON | Change.IN_CLI,
   changedFiles: [],
+  changeImplemented: false,
   description:
     "Ensure your Node.js version is at least 20.11.1 and not v18 or v22.0-v22.10 before upgrading to Angular v20. Check https://angular.dev/reference/versions for the full list of supported Node.js versions.",
 });
@@ -381,6 +400,7 @@ metrics.push({
   automation: Capability.FULLY,
   changeFlags: Change.IN_JSON | Change.IN_CLI,
   changedFiles: [],
+  changeImplemented: false,
   description:
     "Upgrade your project's TypeScript version to at least 5.8 before upgrading to Angular v20 to ensure compatibility.",
 });
@@ -390,6 +410,7 @@ metrics.push({
   automation: Capability.NOT,
   changeFlags: Change.IN_TYPESCRIPT | Change.IN_TEST | Change.TO_SEMANTICS,
   changedFiles: [],
+  changeImplemented: false,
   description:
     "Unhandled errors in subscriptions/promises of AsyncPipe are now directly reported to ErrorHandler. This may alter test outcomes; ensure tests correctly handle these reported errors.",
 });
@@ -399,6 +420,7 @@ metrics.push({
   automation: Capability.NOT,
   changeFlags: Change.NOT_APPLICABLE,
   changedFiles: [],
+  changeImplemented: false,
   description:
     "If relying on the return value of PendingTasks.run, refactor to use PendingTasks.add. Handle promise results/rejections manually, especially for SSR to prevent node process shutdown on unhandled rejections.",
 });
@@ -408,6 +430,7 @@ metrics.push({
   automation: Capability.NOT,
   changeFlags: Change.IN_TEMPLATE | Change.TO_SYNTAX,
   changedFiles: [],
+  changeImplemented: false,
   description:
     "If your templates use {{ void }} or void in expressions to refer to a component property named 'void', change it to {{ this.void }} or this.void as 'void' now refers to the JavaScript void operator.",
 });
@@ -417,6 +440,7 @@ metrics.push({
   automation: Capability.NOT,
   changeFlags: Change.IN_TEMPLATE | Change.TO_SYNTAX,
   changedFiles: [],
+  changeImplemented: false,
   description:
     "Review DatePipe usages. Using the Y (week-numbering year) formatter without also including w (week number) is now detected as suspicious. Use y (year) if that was the intent, or include w alongside Y.",
 });
@@ -426,6 +450,7 @@ metrics.push({
   automation: Capability.NOT,
   changeFlags: Change.IN_TEMPLATE | Change.TO_SYNTAX,
   changedFiles: [],
+  changeImplemented: false,
   description:
     "In templates parentheses are now always respected. This can lead to runtime breakages when nullish coalescing were nested in parathesis. eg (foo?.bar).baz will throw if foo is nullish as it would in native JavaScript.",
 });

@@ -54,6 +54,7 @@ function step19(project: Project): StepData {
     automation,
     changeFlags: Change.IN_TYPESCRIPT | Change.TO_SYNTAX,
     changedFiles,
+    changeImplemented: true,
     description: "Replace async from @angular/core with waitForAsync.",
   };
 }
@@ -81,6 +82,7 @@ function step20(project: Project): StepData {
     automation,
     changeFlags: Change.IN_TYPESCRIPT | Change.TO_SEMANTICS,
     changedFiles,
+    changeImplemented: true,
     description:
       "Remove calls to matchesElement because it's now not part of AnimationDriver.",
   };
@@ -135,6 +137,7 @@ function step21(project: Project): StepData {
     automation,
     changeFlags: Change.IN_TYPESCRIPT | Change.TO_SYNTAX,
     changedFiles,
+    changeImplemented: true,
     description:
       "Import StateKey and TransferState from @angular/core instead of @angular/platform-browser.",
   };
@@ -175,6 +178,7 @@ function step23(project: Project): StepData {
     automation,
     changeFlags: Change.IN_TYPESCRIPT | Change.TO_SEMANTICS,
     changedFiles,
+    changeImplemented: true,
     description:
       "Update the application to remove isPlatformWorkerUi and isPlatformWorkerApp since they were part of platform WebWorker which is now not part of Angular.",
   };
@@ -201,6 +205,7 @@ function step29(project: Project): StepData {
     automation,
     changeFlags: Change.IN_TYPESCRIPT | Change.TO_SYNTAX,
     changedFiles,
+    changeImplemented: true,
     description:
       "Remove dependencies of RESOURCE_CACHE_PROVIDER since it's no longer part of the Angular runtime.",
   };
@@ -249,6 +254,7 @@ function step31(project: Project): StepData {
     automation,
     changeFlags: Change.IN_TYPESCRIPT | Change.TO_SYNTAX,
     changedFiles,
+    changeImplemented: true,
     description:
       "Provide an absolute url instead of using useAbsoluteUrl and baseUrl from PlatformConfig.",
   };
@@ -278,6 +284,7 @@ function step32(project: Project): StepData {
     automation,
     changeFlags: Change.IN_TYPESCRIPT | Change.TO_SYNTAX,
     changedFiles,
+    changeImplemented: true,
     description:
       "Replace the usage of platformDynamicServer with platformServer. Also, add an import @angular/compiler.",
   };
@@ -306,6 +313,7 @@ function step33(project: Project): StepData {
     automation,
     changeFlags: Change.IN_TYPESCRIPT | Change.TO_SEMANTICS,
     changedFiles,
+    changeImplemented: true,
     description:
       "Remove all imports of ServerTransferStateModule from your application. It is no longer needed.",
   };
@@ -333,6 +341,7 @@ function step36(project: Project): StepData {
     automation,
     changeFlags: Change.IN_TYPESCRIPT | Change.TO_SEMANTICS,
     changedFiles,
+    changeImplemented: true,
     description:
       "For any components using OnPush change detection, ensure they are properly marked dirty to enable host binding updates.",
   };
@@ -349,6 +358,7 @@ metrics.push({
   automation: Capability.FULLY,
   changeFlags: Change.IN_JSON | Change.IN_CLI,
   changedFiles: [],
+  changeImplemented: false,
   description: "Update TypeScript to versions 5.4 or newer.",
 });
 metrics.push(step19(project));
@@ -360,6 +370,7 @@ metrics.push({
   automation: Capability.PARTIALLY,
   changeFlags: Change.IN_TYPESCRIPT | Change.TO_SEMANTICS,
   changedFiles: [],
+  changeImplemented: false,
   description:
     "Use includeRequestsWithAuthHeaders: true in withHttpTransferCache to opt-in of caching for HTTP requests that require authorization.",
 });
@@ -370,6 +381,7 @@ metrics.push({
   automation: Capability.NOT,
   changeFlags: Change.IN_TYPESCRIPT | Change.IN_TEST | Change.TO_SEMANTICS,
   changedFiles: [],
+  changeImplemented: false,
   description:
     "Tests may run additional rounds of change detection to fully reflect test state in the DOM. As a last resort, revert to the old behavior by adding provideZoneChangeDetection({ignoreChangesOutsideZone: true}) to the TestBed providers.",
 });
@@ -379,6 +391,7 @@ metrics.push({
   automation: Capability.NOT,
   changeFlags: Change.IN_TEMPLATE | Change.TO_SYNTAX,
   changedFiles: [],
+  changeImplemented: false,
   description:
     "Remove expressions that write to properties in templates that use [(ngModel)]",
 });
@@ -388,6 +401,7 @@ metrics.push({
   automation: Capability.NOT,
   changeFlags: Change.IN_TYPESCRIPT | Change.IN_TEST | Change.TO_SEMANTICS,
   changedFiles: [],
+  changeImplemented: false,
   description:
     "Remove calls to Testability methods increasePendingRequestCount, decreasePendingRequestCount, and getPendingRequestCount. This information is tracked by ZoneJS.",
 });
@@ -397,6 +411,7 @@ metrics.push({
   automation: Capability.NOT,
   changeFlags: Change.IN_TYPESCRIPT | Change.TO_SEMANTICS,
   changedFiles: [],
+  changeImplemented: false,
   description:
     "Move any environment providers that should be available to routed components from the component that defines the RouterOutlet to the providers of bootstrapApplication or the Route config.",
 });
@@ -406,6 +421,7 @@ metrics.push({
   automation: Capability.NOT,
   changeFlags: Change.IN_TYPESCRIPT | Change.TO_SEMANTICS,
   changedFiles: [],
+  changeImplemented: false,
   description:
     "When a guard returns a UrlTree as a redirect, the redirecting navigation will now use replaceUrl if the initial navigation was also using the replaceUrl option. If you prefer the previous behavior, configure the redirect using the new NavigationBehaviorOptions by returning a RedirectCommand with the desired options instead of UrlTree.",
 });
@@ -416,6 +432,7 @@ metrics.push({
   automation: Capability.NOT,
   changeFlags: Change.IN_TYPESCRIPT | Change.TO_SYNTAX | Change.TO_SEMANTICS,
   changedFiles: [],
+  changeImplemented: false,
   description:
     "In @angular/platform-server now pathname is always suffixed with / and the default ports for http: and https: respectively are 80 and 443.",
 });
@@ -428,6 +445,7 @@ metrics.push({
   automation: Capability.NOT,
   changeFlags: Change.IN_TYPESCRIPT | Change.TO_SEMANTICS,
   changedFiles: [],
+  changeImplemented: false,
   description:
     "Route.redirectTo can now include a function in addition to a string. Any code which reads Route objects directly and expects redirectTo to be a string may need to update to account for functions as well.",
 });
@@ -437,6 +455,7 @@ metrics.push({
   automation: Capability.NOT,
   changeFlags: Change.IN_TYPESCRIPT | Change.TO_SEMANTICS,
   changedFiles: [],
+  changeImplemented: false,
   description:
     "Route guards and resolvers can now return a RedirectCommand object in addition to a UrlTree and boolean. Any code which reads Route objects directly and expects only boolean or UrlTree may need to update to account for RedirectCommand as well.",
 });
@@ -447,6 +466,7 @@ metrics.push({
   automation: Capability.NOT,
   changeFlags: Change.IN_TYPESCRIPT | Change.TO_SEMANTICS,
   changedFiles: [],
+  changeImplemented: false,
   description:
     "Be aware that newly created views or views marked for check and reattached during change detection are now guaranteed to be refreshed in that same change detection cycle.",
 });
@@ -456,6 +476,7 @@ metrics.push({
   automation: Capability.NOT,
   changeFlags: Change.IN_TYPESCRIPT | Change.IN_TEST | Change.TO_SEMANTICS,
   changedFiles: [],
+  changeImplemented: false,
   description:
     "After aligning the semantics of ComponentFixture.whenStable and ApplicationRef.isStable, your tests may wait longer when using whenStable.",
 });
@@ -465,6 +486,7 @@ metrics.push({
   automation: Capability.NOT,
   changeFlags: Change.IN_TYPESCRIPT | Change.IN_TEST | Change.TO_SEMANTICS,
   changedFiles: [],
+  changeImplemented: false,
   description:
     "You may experience tests failures if you have tests that rely on change detection execution order when using ComponentFixture.autoDetect because it now executes change detection for fixtures within ApplicationRef.tick. For example, this will cause test fixture to refresh before any dialogs that it creates whereas this may have been the other way around in the past.",
 });

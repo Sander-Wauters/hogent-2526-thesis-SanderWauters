@@ -59,6 +59,7 @@ function step43(project: Project): StepData {
     automation,
     changeFlags: Change.IN_TYPESCRIPT | Change.TO_SYNTAX,
     changedFiles,
+    changeImplemented: true,
     description:
       "Replace usages of BrowserModule.withServerTransition() with injection of the APP_ID token to set the application id instead.",
   };
@@ -89,6 +90,7 @@ function step44(project: Project): StepData {
     automation,
     changeFlags: Change.IN_TYPESCRIPT | Change.TO_SEMANTICS,
     changedFiles,
+    changeImplemented: true,
     description: "The factories property in KeyValueDiffers has been removed.",
   };
 }
@@ -115,6 +117,7 @@ function step49(project: Project): StepData {
     automation,
     changeFlags: Change.IN_TYPESCRIPT | Change.IN_TEST | Change.TO_SEMANTICS,
     changedFiles,
+    changeImplemented: true,
     description:
       "Update tests using fakeAsync that rely on specific timing of zone coalescing and scheduling when a change happens outside the Angular zone (hybrid mode scheduling) as these timers are now affected by tick and flush.",
   };
@@ -145,6 +148,7 @@ function step52(project: Project): StepData {
     automation,
     changeFlags: Change.IN_TYPESCRIPT | Change.TO_SEMANTICS,
     changedFiles,
+    changeImplemented: true,
     description:
       "Migrate from using Router.errorHandler to withNavigationErrorHandler from provideRouter or errorHandler from RouterModule.forRoot.",
   };
@@ -176,6 +180,7 @@ function step53(project: Project): StepData {
     automation,
     changeFlags: Change.IN_TYPESCRIPT | Change.IN_TEST | Change.TO_SEMANTICS,
     changedFiles,
+    changeImplemented: true,
     description:
       "Update tests to handle errors thrown during ApplicationRef.tick by either triggering change detection synchronously or rejecting outstanding ComponentFixture.whenStable promises.",
   };
@@ -201,6 +206,7 @@ function step54(project: Project): StepData {
     automation,
     changeFlags: Change.IN_TYPESCRIPT | Change.TO_SEMANTICS,
     changedFiles,
+    changeImplemented: true,
     description:
       "Update usages of Resolve interface to include RedirectCommand in its return type.",
   };
@@ -228,6 +234,7 @@ function step55(project: Project): StepData {
     automation,
     changeFlags: Change.IN_TYPESCRIPT | Change.IN_TEST | Change.TO_SEMANTICS,
     changedFiles,
+    changeImplemented: true,
     description:
       "fakeAsync will flush pending timers by default. For tests that require the previous behavior, explicitly pass {flush: false} in the options parameter.",
   };
@@ -244,6 +251,7 @@ metrics.push({
   automation: Capability.FULLY,
   changeFlags: Change.IN_JSON | Change.IN_CLI,
   changedFiles: [],
+  changeImplemented: false,
   description:
     "In the application's project directory, run ng update @angular/core@19 @angular/cli@19 to update your application to Angular v19.",
 });
@@ -253,6 +261,7 @@ metrics.push({
   automation: Capability.NOT,
   changeFlags: Change.NOT_APPLICABLE,
   changedFiles: [],
+  changeImplemented: false,
   description: `Angular directives, components and pipes are now standalone by default. Specify "standalone: false" for declarations that are currently declared in an NgModule. The Angular CLI will automatically update your code to reflect that.`,
 });
 metrics.push({
@@ -261,6 +270,7 @@ metrics.push({
   automation: Capability.NOT,
   changeFlags: Change.IN_TEMPLATE | Change.TO_SYNTAX,
   changedFiles: [],
+  changeImplemented: false,
   description:
     "Remove this. prefix when accessing template reference variables. For example, refactor <div #foo></div>{{ this.foo }} to <div #foo></div>{{ foo }}",
 });
@@ -272,6 +282,7 @@ metrics.push({
   automation: Capability.NOT,
   changeFlags: Change.IN_JSON | Change.TO_SYNTAX,
   changedFiles: [],
+  changeImplemented: false,
   description: `In angular.json, replace the "name" option with "project" for the @angular/localize builder.`,
 });
 metrics.push({
@@ -280,6 +291,7 @@ metrics.push({
   automation: Capability.NOT,
   changeFlags: Change.NOT_APPLICABLE,
   changedFiles: [],
+  changeImplemented: false,
   description: "Rename ExperimentalPendingTasks to PendingTasks.",
 });
 metrics.push({
@@ -288,6 +300,7 @@ metrics.push({
   automation: Capability.FULLY,
   changeFlags: Change.IN_TYPESCRIPT | Change.IN_TEST | Change.TO_SEMANTICS,
   changedFiles: [],
+  changeImplemented: false,
   description:
     "Update tests that relied on the Promise timing of effects to use await whenStable() or call .detectChanges() to trigger effects. For effects triggered during change detection, ensure they don't depend on the application being fully rendered or consider using afterRenderEffect(). Tests using faked clocks may need to fast-forward/flush the clock.",
 });
@@ -297,6 +310,7 @@ metrics.push({
   automation: Capability.FULLY,
   changeFlags: Change.IN_JSON | Change.IN_CLI,
   changedFiles: [],
+  changeImplemented: false,
   description: "Upgrade to TypeScript version 5.5 or later.",
 });
 metrics.push(step49(project));
@@ -306,6 +320,7 @@ metrics.push({
   automation: Capability.NOT,
   changeFlags: Change.IN_TYPESCRIPT | Change.IN_TEMPLATE | Change.TO_SEMANTICS,
   changedFiles: [],
+  changeImplemented: false,
   description:
     "When using createComponent API and not passing content for the first ng-content, provide document.createTextNode('') as a projectableNode to prevent rendering the default fallback content.",
 });
@@ -315,6 +330,7 @@ metrics.push({
   automation: Capability.NOT,
   changeFlags: Change.IN_TYPESCRIPT | Change.IN_TEST | Change.TO_SEMANTICS,
   changedFiles: [],
+  changeImplemented: false,
   description:
     "Update tests that rely on specific timing or ordering of change detection around custom elements, as the timing may have changed due to the switch to the hybrid scheduler.",
 });

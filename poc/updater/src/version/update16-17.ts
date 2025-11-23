@@ -57,6 +57,7 @@ function step05(project: Project): StepData {
     automation,
     changeFlags: Change.IN_TYPESCRIPT | Change.TO_SYNTAX | Change.TO_SEMANTICS,
     changedFiles,
+    changeImplemented: true,
     description:
       "Angular now automatically removes styles of destroyed components, which may impact your existing apps in cases you rely on leaked styles. To change this update the value of the REMOVE_STYLES_ON_COMPONENT_DESTROY provider to false.",
   };
@@ -85,6 +86,7 @@ function step11(project: Project): StepData {
     automation,
     changeFlags: Change.IN_TYPESCRIPT | Change.TO_SYNTAX,
     changedFiles,
+    changeImplemented: true,
     description:
       "Change references to AnimationDriver.NOOP to use NoopAnimationDriver because AnimationDriver.NOOP is now deprecated.",
   };
@@ -113,6 +115,7 @@ function step13(project: Project): StepData {
     automation,
     changeFlags: Change.IN_TYPESCRIPT | Change.TO_SYNTAX | Change.TO_SEMANTICS,
     changedFiles,
+    changeImplemented: true,
     description:
       "Use update instead of mutate in Angular Signals. For example items.mutate(itemsArray => itemsArray.push(newItem)); will now be items.update(itemsArray => [itemsArray, …newItem]);",
   };
@@ -145,6 +148,7 @@ function step14(project: Project): StepData {
     automation,
     changeFlags: Change.IN_TYPESCRIPT | Change.TO_SYNTAX,
     changedFiles,
+    changeImplemented: true,
     description:
       "To disable hydration use ngSkipHydration or remove the provideClientHydration call from the provider list since withNoDomReuse is no longer part of the public API.",
   };
@@ -161,6 +165,7 @@ metrics.push({
   automation: Capability.FULLY,
   changeFlags: Change.IN_JSON | Change.IN_CLI,
   changedFiles: [],
+  changeImplemented: false,
   description:
     "Make sure that you are using a supported version of node.js before you upgrade your application. Angular v17 supports node.js versions: v18.13.0 and newer",
 });
@@ -170,6 +175,7 @@ metrics.push({
   automation: Capability.FULLY,
   changeFlags: Change.IN_JSON | Change.IN_CLI,
   changedFiles: [],
+  changeImplemented: false,
   description:
     "Make sure that you are using a supported version of TypeScript before you upgrade your application. Angular v17 supports TypeScript version 5.2 or later.",
 });
@@ -179,6 +185,7 @@ metrics.push({
   automation: Capability.FULLY,
   changeFlags: Change.IN_JSON | Change.IN_CLI,
   changedFiles: [],
+  changeImplemented: false,
   description:
     "Make sure that you are using a supported version of Zone.js before you upgrade your application. Angular v17 supports Zone.js version 0.14.x or later.",
 });
@@ -188,6 +195,7 @@ metrics.push({
   automation: Capability.FULLY,
   changeFlags: Change.IN_CLI,
   changedFiles: [],
+  changeImplemented: false,
   description:
     "In the application's project directory, run ng update @angular/core@17 @angular/cli@17 to update your application to Angular v17.",
 });
@@ -198,6 +206,7 @@ metrics.push({
   automation: Capability.NOT,
   changeFlags: Change.IN_TYPESCRIPT | Change.TO_SYNTAX,
   changedFiles: [],
+  changeImplemented: false,
   description:
     "Make sure you configure setupTestingRouter, canceledNavigationResolution, paramsInheritanceStrategy, titleStrategy, urlUpdateStrategy, urlHandlingStrategy, and malformedUriErrorHandler in provideRouter or RouterModule.forRoot since these properties are now not part of the Router's public API",
 });
@@ -207,6 +216,7 @@ metrics.push({
   automation: Capability.NOT,
   changeFlags: Change.IN_TYPESCRIPT | Change.IN_TEST | Change.TO_SEMANTICS,
   changedFiles: [],
+  changeImplemented: false,
   description:
     "For dynamically instantiated components we now execute ngDoCheck during change detection if the component is marked as dirty. You may need to update your tests or logic within ngDoCheck for dynamically instantiated components.",
 });
@@ -216,6 +226,7 @@ metrics.push({
   automation: Capability.NOT,
   changeFlags: Change.IN_TYPESCRIPT | Change.TO_SYNTAX | Change.TO_SEMANTICS,
   changedFiles: [],
+  changeImplemented: false,
   description:
     "Handle URL parsing errors in the UrlSerializer.parse instead of malformedUriErrorHandler because it's now part of the public API surface.",
 });
@@ -225,6 +236,7 @@ metrics.push({
   automation: Capability.FULLY,
   changeFlags: Change.IN_TYPESCRIPT | Change.NOT_APPLICABLE | Change.TO_SYNTAX,
   changedFiles: [],
+  changeImplemented: false,
   description:
     "Change Zone.js deep imports like zone.js/bundles/zone-testing.js and zone.js/dist/zone to zone.js and zone.js/testing.",
 });
@@ -234,6 +246,7 @@ metrics.push({
   automation: Capability.NOT,
   changeFlags: Change.IN_TYPESCRIPT | Change.TO_SEMANTICS,
   changedFiles: [],
+  changeImplemented: false,
   description:
     "You may need to adjust your router configuration to prevent infinite redirects after absolute redirects. In v17 we no longer prevent additional redirects after absolute redirects.",
 });
@@ -244,6 +257,7 @@ metrics.push({
   automation: Capability.NOT,
   changeFlags: Change.IN_TEMPLATE | Change.TO_SEMANTICS,
   changedFiles: [],
+  changeImplemented: false,
   description:
     "You may need to adjust the equality check for NgSwitch because now it defaults to stricter check with === instead of ==. Angular will log a warning message for the usages where you'd need to provide an adjustment.",
 });
@@ -255,6 +269,7 @@ metrics.push({
   automation: Capability.NOT,
   changeFlags: Change.IN_TYPESCRIPT | Change.TO_SEMANTICS,
   changedFiles: [],
+  changeImplemented: false,
   description:
     "If you want the child routes of loadComponent routes to inherit data from their parent specify the paramsInheritanceStrategy to always, which in v17 is now set to emptyOnly.",
 });
