@@ -92,7 +92,8 @@ Een component encapsuleert het uiterlijk van een UI-element samen met de achterl
 Voorbeelden van achterliggende logica zijn: valideren van input, data opvragen van een server, \dots.
 
 % Hoe is dit opgebouwd?
-In Angular zijn componenten TypeScript-klassen met de \mintinline{ts}{@Component} decorator.
+Het \textcite{AngularComponentsDocs2025} omschrijft de opbouw van een component als volgt.
+Componenten zijn TypeScript-klassen met de \mintinline{ts}{@Component} decorator.
 De \mintinline{ts}{@Component} decorator verwacht drie parameters.
 Een ``selector'' die de naam bepaalt van de component.
 Een ``template'' dat de structuur van de UI bepaalt.
@@ -119,10 +120,10 @@ Codefragment~\ref{cf:component-declaration} geeft een voorbeeld van hoe deze syn
 \label{ch:stand-van-zaken:angular:templates}
 
 % Wat is een template?
-Angular-componenten maken gebruik van templates om de structuur van de UI te definiëren.
+Angular-componenten maken gebruik van templates om de structuur van de UI te definiëren \autocite{AngularTemplatesDocs2025}.
 Templates zijn syntactisch gelijkaardig aan HTML, maar er zijn enkele verschillen.
 HTML is de standaardtechnologie die webbrowsers gebruiken om de structuur van een webpagina te interpreteren.
-Templates breiden de mogelijkheden van HTML uit met nieuwe syntax specifiek aan Angular.
+Volgens het \textcite{AngularControlFlowDocs2025} breiden template de mogelijkheden van HTML uit met nieuwe syntax specifiek aan Angular.
 Om HTML dynamischer te maken, voorziet het de \mintinline{ts}{@if}, \mintinline{ts}{@else} en \mintinline{ts}{@for} syntax.
 Deze syntax is functioneel identiek aan hun TypeScript-equivalent.
 Codefragment~\ref{cf:conditionele-template} geeft een voorbeeld van hoe deze syntax eruitziet.
@@ -153,7 +154,7 @@ Dit proces noemt men data binding.
 % Hoe communiceren componenten met templates?
 Angular gebruikt data binding als manier om data uit te wisselen tussen TypeScript en HTML.
 % Wat is data binding?
-Data binding is een manier om een databron met een bestemming te verbinden.
+Volgens \textcite{Ozdikililer2021} is data binding een manier om een databron met een bestemming te verbinden.
 In de context van Angular is een TypeScript-klasse de databron en de template de bestemming.
 Conceptueel zijn er twee soorten van data binding: one-way binding en two-way binding.
 One-way binding zorgt dat een verandering aan de databron gesynchroniseerd wordt met de bestemming.
@@ -163,19 +164,19 @@ Two-way binding zorgt dat een verandering aan zowel de databron als de bestemmin
 % Hoe gebruikt Angular data binding?
 Angular heeft vier verschillende soorten syntax voor data binding.
 % Wat is interpolatie?
-De eerste noemt ``interpolatie''.
+De eerste noemt ``interpolatie'' \autocite{AngularDataBindingDocs2025}.
 In de context van templates is interpolatie een manier om dynamische tekst te tonen.
 Het is one-way binding; de tekst kan via de UI niet aangepast worden.
 De syntax voor interpolatie is \mintinline{ts}{{{ }}}, bijvoorbeeld:\\ \mintinline{html+ng2}{<p>Welcome {{ name }}</p>}.
 
 % Wat is property binding?
-De tweede soort noemt ``property binding''.
+De tweede soort noemt ``property binding'' \autocite{AngularDataBindingDocs2025}.
 Property binding is een manier om dynamisch data aan een HTML-element of component mee te geven.
 Het is one-way binding; het HTML-element of component kan de data enkel lezen.
 De syntax voor propery binding is \mintinline{ts}{[ ]}, bijvoorbeeld:\\ \mintinline{html+ng2}{<button [disabled]="hasErrors()">Save</button>}.
 
 % Wat is event binding?
-De derde soort noemt ``event binding''.
+De derde soort noemt ``event binding'' \autocite{AngularEventListenersDocs2025}.
 Hier is de data een referentie naar een functie.
 Deze functie wordt meegegeven aan een HTML-element of component.
 De bestemming van de functie roept de functie op als een bepaalde conditie bereikt is.
@@ -184,7 +185,7 @@ Het is one-way binding; het HTML-element of component kan de functie enkel oproe
 De syntax voor event binding is \mintinline{ts}{( )}, bijvoorbeeld:\\ \mintinline{html+ng2}{<button (click)="saveChanges()">Save</button>}.
 
 % Wat is two-way binding?
-De laatste soort is two-way binding.
+De laatste soort is two-way binding \autocite{AngularTwoWayBindingDocs2025}.
 Two-way binding is Angular is hetzelfde als property binding.
 Met het verschil dat het HTML-element of de component nu de data kan aanpassen.
 De syntax voor two-way binding is \mintinline{ts}{[( )]}, bijvoorbeeld:\\ \mintinline{html+ng2}{<input type="text" [(ngModel)]="firstName" />}.
@@ -193,7 +194,7 @@ De syntax voor two-way binding is \mintinline{ts}{[( )]}, bijvoorbeeld:\\ \minti
 \label{ch:stand-van-zaken:angular:services}
 
 % Wat zijn services?
-Services zijn herbruikbare stukken code die gedeeld kunnen worden over meerdere componenten.
+Het \textcite{AngularDIDocs2025} omschrijft services als herbruikbare stukken code die gedeeld kunnen worden over meerdere componenten.
 Het zorgt ervoor dat verschillende componenten dezelfde logica delen.
 Dit maakt een applicatie modulair en zorgt ervoor dat code herbruikbaar blijft.
 
@@ -242,12 +243,11 @@ Unit-testen roepen de methodes van deze klasse automatisch één voor één aan 
 In Angular worden componenten als units beschouwd.
 
 % Welk testing-frameworkt gebruikt Angular?
-Angular komt met CLI-tools om automatisch unit-testen te genereren.
+Volgens het \textcite{AngularTestingDocs2025} komt Angular met CLI-tools om automatisch unit-testen te genereren.
 Achterliggend wordt het Jasmine-testing-framework gebruikt.
 Tijdens het opzetten van een Angular-project wordt Jasmine automatisch geconfigureerd.
 Het is echter mogelijk om een ander testing-framework te gebruiken.
-Startende vanaf Angular v20 is het Vitest-testing-framework de standaard.
-Jasmine is nog steeds volledig ondersteund en is wat gebruikt wordt in dit onderzoek.
+Dit onderzoek gaat uit dat het Jasmine-testing-framework gebruikt wordt sinds dit de standaard is.
 
 % Wat maakt Angular testen speciaal?
 Angular voorziet in speciale functies om unit-testen te schrijven voor componenten.
