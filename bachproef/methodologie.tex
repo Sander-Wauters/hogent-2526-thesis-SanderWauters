@@ -221,24 +221,25 @@ Om de correctheid van de updater te testen, stelt dit onderzoek een controleomge
 De controleomgeving is opgesteld door de testomgeving handmatig te updaten naar v20.
 We evalueren de updater door de output te vergelijken met de controleomgeving.
 Deze vergelijking gebeurt door alle TypeScript bestanden van beide projecten in te lezen en karakter per karakter te vergelijken.
-Tabel~\ref{tab:evaluatie-updater} geeft een overzicht van hoe de vergelijking in werking treedt.
+De updater in het proof of concept houdt bij welke bestanden aangepast werden en welk type automatisatie van toepassing is.
+Tabel~\ref{tab:evaluatie-updater} geeft een overzicht van wanneer de output van de updater correct is.
 \begin{table}
   \centering
-  \begin{tabular}{l|p{2.2cm}|p{2.2cm}|l}
+  \begin{tabular}{p{0.22\textwidth}|p{0.3\textwidth}|p{0.4\textwidth}}
     \toprule
-    & \multicolumn{3}{l}{\textbf{Toegewezen automatiseerbaarheid}} \\
+    \textbf{Conditie} & \textbf{Correcte indien} & \textbf{Reden} \\
     \hline
-    \textbf{Conditie} & \textbf{Volledig} & \textbf{Deels} & \textbf{Niet} \\
+    geen output            & Niet automatiseerbaar     & Er zijn geen veranderingen uitgevoerd. \\
     \hline
-    output = controle      & Waar & Fout & Fout \\
-    output \neq{} controle & Fout & Waar & Waar \\
+    output = controle      & Volledig automatiseerbaar & Er is een verandering en deze matcht de controle. \\
+    \hline
+    output \neq{} controle & Deels automatiseerbaar    & Er is een verandering, maar deze matcht niet volledig met de controle. \\
     \bottomrule
   \end{tabular}
   \caption[Evaluatie updater]{
     \label{tab:evaluatie-updater}
-    Omschrijft wanneer de output van de updater correct of foutief is.
-    De automatiseerbaarheid wordt tijdens het updateproces toegewezen per stap. 
-    Een stap is volledig of deels automatiseerbaar als we weten dat er code aangepast is.
+    Omschrijft wanneer de output van de updater correct is.
+    De updater in het proof of concept houdt bij welke bestanden aangepast werden en welk type automatisatie van toepassing is.
   }
 \end{table}
 
