@@ -33,7 +33,7 @@ We bespreken de verschillende soorten aanpassingen die moeten gebeuren om een An
 Vervolgens bespreken we de proof of concept.
 Hoe de updater geëvalueerd zal worden aan de hand van een testomgeving.
 Wat de updater kan en doet.
-En tenslotte de opstelling van deze testomgeving.
+En tenslotte bespreken we de evaluatie van de updater.
 In Hoofdstuk~\ref{ch:proof-of-concept} wordt de technische uitwerking van de updater in meer detail besproken.
 
 \section{Plan van aanpak}
@@ -41,36 +41,38 @@ In Hoofdstuk~\ref{ch:proof-of-concept} wordt de technische uitwerking van de upd
 
 % Hoe ziet de updater eruit?
 Op basis van de huidige stand van zaken en de noden van het bedrijf, kiest het onderzoek voor het volgende plan van aanpak.
-We ontwikkelen een collectie aan helperfuncties om een TypeScript command line applicatie te maken die onderliggend gebruikmaakt van zoek- en vervangfuncties op basis van regex in combinatie met de TypeScript compiler API.
-Met de hulp van deze functies kan een ontwikkelaar programmatisch een updater maken.
+We ontwikkelen een collectie aan helperfuncties om in TypeScript een command line applicatie te maken.
+Deze applicatie maakt onderliggend gebruik van zoek- en vervangfuncties op basis van regex in combinatie met de TypeScript compiler API.
+Met de hulp van deze functies kunnen we programmatisch een updater ontwerpen.
+
+% Waarom een CLI-applicatie?
+Angular komt reeds met CLI-tools; door de updater een CLI-applicatie te maken, past het in de huidige workflow.
+Verder geeft dit de mogelijkheid om alle commando's samen te voegen in en script om de updater op meerdere projecten te laten uitvoeren.
 
 % Waarom een collectie van helperfuncties?
 De nodige aanpassingen aan een applicatie zijn afhankelijk van de Angular versie.
-Deze kunnen complex of simpel zijn.
-Door de ontwikkelaar programmatisch de updater te laten configureren, is er een hoge flexibiliteit en uitbreidbaarheid van de updater.
-De helperfuncties zorgen voor een extra abstractie laag, wat toelaat om snel nieuwe updates te automatiseren.
-Al dit geschreven in TypeScript, de programmeertaal waar de ontwikkelaars bekend mee zijn.
+Dit maakt het praktisch onmogelijk om een ``one size fits all'' updater te maken die werkt op toekomstige versies.
+Voor de nieuwe versie zal dan ook een nieuwe updater geconfigureerd moeten worden.
+Door de updater programmatisch te configureren, is er een hoge flexibiliteit en uitbreidbaarheid.
+De helperfuncties zorgen voor een extra abstractielaag, wat toelaat om snel nieuwe updates te automatiseren.
+Als programmeertaal van de updater is voor TypeScript gekozen.
+Omdat dit dezelfde taal is die Angular gebruikt en per extensie de taal waar de ontwikkelaars bekend mee zijn.
 
 % Waarom TypeScript compiler API?
-Om dit te implementeren wordt van de TypeScript compiler API gebruikgemaakt.
+De implementatie van de helperfuncties gebruikt onderliggend de TypeScript compiler API.
 Door te programmeren op de compiler die normaal gebruikt wordt om de applicaties te compileren, krijgen we toegang tot dezelfde error detectie als de compiler.
 Dit zorgt ervoor dat we nieuwe bugs snel en accuraat kunnen opsporen.
 Verder is de interne werking, op basis van een AST, goed gedocumenteerd.
 Een basiskennis van boomstructuren is wel vereist om hiermee vlot aan de slag te gaan.
-Tenslotte zijn we niet rechtstreeks gekoppeld aan Angular, enkel aan de programmeertaal.
 
 % Waarom find & replace?
 Om de implementatie voor de ontwikkelaar te vereenvoudigen, wordt de TypeScript compiler API gebruikt in combinatie met zoek- en vervangfuncties op basis van regex.
-
-% Waarom een CLI-applicatie?
-Angular komt reeds met CLI-tools; door de updater een CLI-applicatie te maken, past het in de huidige workflow.
-Verder geeft dit de mogelijkheid om alle commando's samen te voegen in één script om de updater op meerdere projecten te laten uitvoeren.
 
 \section{Angular aanpassingen}
 \label{ch:angular-aanpassingen}
 
 % Wat moet er veranderen aan de code?
-Volgens de Angular update handleidling door \textcite{AngularUpdateGuide2025} zijn er in totaal 80 verschillende stappen nodig om een applicatie van v16 naar v20 te updaten.
+Volgens de Angular update handleidling door het \textcite{AngularUpdateGuide2025} zijn er in totaal 80 verschillende stappen nodig om een applicatie van v16 naar v20 te updaten.
 % Wat doen we hiermee?
 Dit onderzoek verdeelt deze stappen in verschillende ``categorieën''.
 % Waarom verdelen in categorieën?
@@ -121,7 +123,13 @@ Er is bewust gekozen geen verdere semantiek aan de testomgeving te koppelen, omd
 
 % Waarvoor dient het?
 Dit onderzoek kiest ervoor om de effectiviteit van de updater te testen in een gecontroleerde omgeving om een totaalbeeld te krijgen van alle stappen.
-In de praktijk is het niet zeker of een Angular applicatie alle code gebruikt dat aangepast wordt in de updates.
+Angular is een uitgebreid framework met verschillende functionaliteiten.
+In de praktijk is het niet zeker of een Angular applicatie al deze functionaliteiten gebruikt.
+Neem bijvoorbeeld animaties.
+Angular voorziet in functies om animaties toe te voegen aan de UI.
+Niet alle applicaties hebben dit nodig.
+Als er updates zijn aan deze functionaliteiten, zal de updater ze niet kunnen uitvoeren, omdat de functie in kwestie niet gebruikt wordt.
+De updater testen op een willekeurige applicatie kan een verkeerd beeld schetsen van wat mogelijk is.
 Het opzetten van een testomgeving geeft de mogelijkheid om een ruimer beeld te schetsen van wat mogelijk is met de updater.
 
 % Hoe werd het opgesteld?
@@ -205,8 +213,8 @@ Verder biedt het verschillende functies aan om een AST te navigeren en te manipu
 Onze helperfuncties vormen een extra laag hierbovenop.
 Het doel hiervan is om een eenvoudige syntax te creëren, specifiek naar de noden van de updater.
 
-\subsection{Evaluatie updater}
-\label{ch:opzet-proof-of-concept:evaluatie-updater}
+\subsection{Validatie updater}
+\label{ch:opzet-proof-of-concept:validatie-updater}
 
 % Hoe evalueren we de updater?
 Om de correctheid van de updater te testen, stelt dit onderzoek een controleomgeving op.

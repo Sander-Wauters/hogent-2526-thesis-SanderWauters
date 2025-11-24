@@ -13,7 +13,7 @@ Vervolgens geven we enkele voorbeelden van hoe deze functies samen gebruikt word
 % Hoe vinden we de juiste nodes?
 De eerste functie in codefragment~\ref{cf:find-nodes} helpt om de AST op een uniforme manier te navigeren.
 Het doorloopt de AST vanaf een gegeven node.
-Onderliggend gebruikt het een diepte eerst in orde zoek algoritme.
+Onderliggend gebruikt het een diepte-eerst-in-orde-zoekalgoritme.
 De parameters van deze functie specificeren twee callbackfuncties.
 De eerste is een predicaat dat nagaat of een node voldoet aan een bepaalde omschrijving.
 Indien dit waar is, wordt de tweede callbackfunctie opgeroepen, die vervolgens een bepaalde operatie uitvoert op deze node.
@@ -242,7 +242,7 @@ Ook alleenstaande functies zijn mogelijk.
 Neem codefragment~\ref{cf:sample-2} als voorbeeld.
 Hier veranderen we alle instanties van de async-functie uit Angular met waitForAsync.
 TypeScript gebruikt async als sleutelwoord; deze instanties mogen niet mee veranderen.
-Door één lijn code toe te voegen, is het mogelijk om alle instanties van het async-sleutelwoord uit te filteren.
+Door één lijn code toe te voegen, is het mogelijk om alle instanties van het async-sleutel\-woord uit te filteren.
 
 \begin{listing}
   \begin{minted}{ts}
@@ -287,10 +287,11 @@ Codefragment~\ref{cf:sample-3} toont een variatie op het vervangen van een allee
 % Wat als we kunnen automatiseren?
 Het is niet altijd mogelijk om de nodige aanpassingen te automatiseren.
 Dan nog kan het een meerwaarde zijn om deze op te sporen.
-Bijvoorbeeld, in één van de stappen in het updateproces moeten Angular componenten met de OnPush-verandering detectiestrategie nagekeken worden hoe ze interageren met templates.
+Bijvoorbeeld, in één van de stappen in het updateproces moeten Angular componenten met de OnPush-ver\-an\-der\-ing detectiestrategie nagekeken worden hoe ze interageren met templates.
 We weten op voorhand dat templates niet toegankelijk zijn voor de updater.
 Maar we kunnen wel verandering detectiestrategieën gaan opsporen.
-In codefragment~\ref{cf:sample-4} zoeken we alle componenten op met de OnPush-verandering detectiestrategie.
+
+In codefragment~\ref{cf:sample-4} zoeken we alle componenten op met de OnPush-ver\-an\-der\-ing detectiestrategie.
 Vervolgens geven we terug waar deze component zich bevindt binnen het project.
 
 \begin{listing}

@@ -9,7 +9,8 @@
 Softwareframeworks vereenvoudigen het maken van dynamische webapplicaties.
 Het bedrijf Stater gebruikt voor deze toepassing het Angular framework.
 Net zoals de meeste software krijgt Angular geregeld updates.
-Deze updates komen met verschillende voordelen, zoals: nieuwe functionaliteiten, betere performantie, bugfixes, \dots.
+Deze updates zijn noodzakelijk, omdat ze de cyberveiligheid verbeteren.
+Daarnaast brengen deze updates verschillende voordelen, zoals: nieuwe functionaliteiten, betere performantie, bugfixes, \dots.
 Het toepassen van deze updates is niet altijd even vanzelfsprekend.
 Nieuwe functionaliteiten dienen soms als vervanging voor oudere.
 Het gevolg hiervan is dat de broncode moet veranderen van de applicaties die Angular gebruiken.
@@ -26,7 +27,7 @@ Stater zou graag al deze applicaties updaten naar de meest recente versie, Angul
 
 % Wat is het probleem?
 De sprong van 4 versies betekent dat er wellicht veel aanpassingen aan de broncode nodig zijn.
-Dit probleem vermeerdert zich met de grootte van de broncode en nogmaals met het aantal applicaties dat deze updates nodig heeft.
+Dit probleem groeit met de grootte van de broncode en nogmaals met het aantal applicaties dat deze updates nodig heeft.
 Het manueel uitvoeren van al deze veranderingen neemt veel tijd in beslag.
 Tenslotte is dit geen eenmalig probleem.
 Angular krijgt volgens \textcite{Callaghan2023} een nieuwe versie om de 6 maanden.
@@ -36,8 +37,8 @@ Ondertussen worden nieuwe applicaties ontworpen of worden huidige applicaties ui
 Uiteraard kan dit soort onderhoud niet eeuwig uitgesteld worden.
 Software-updates zijn volgens \textcite{Vaniea2016} noodzakelijk om de cyberveiligheid van een applicatie te garanderen.
 De huidige versies van Angular zijn momenteel zonder veiligheidsrisico's, maar dit betekent niet dat er geen zijn.
-Cyberveiligheid is geen opgelost probleem.
-Het is daarom van belang om alles up-to-date te houden.
+Er bestaat altijd een kans dat een nieuw risico gevonden wordt.
+Het is daarom van belang om alles regelmatig up-to-date te houden.
 
 % Waarom is dit een probleem?
 Al dit tezamen zorgt ervoor dat de onderhoudskosten snel oplopen.
@@ -74,12 +75,12 @@ Buiten de functionele requirements van de updater zal dit onderzoek proberen rek
 Dit houdt in dat de gekozen implementatie rekening houdt met de huidige doelgroepen en de middelen/noden van het bedrijf.
 
 % Wat zijn de criteria voor succes?
-Concreet betekend dit dat de updater aan de volgende criteria moet voldoen:
+Concreet betekent dit dat de updater aan de volgende criteria moet voldoen:
 \begin{itemize}
   \item De updater is van de ontwikkelaars voor de ontwikkelaars. 
     De bedoeling is dat de persoon die de update uitvoert de updater kan instellen.
   \item De updater moet aanpasbaar zijn aan de uit te voeren update. 
-    Het moet kunnen gebruikt worden bij de volgende update.
+    Het moet hergebruikt kunnen worden bij de volgende update.
   \item De updater mag geen nieuwe bugs introduceren. 
     Gegeven dat de configuratie correct is, mag het geen ongewenste fouten maken.
   \item De updater mag niet gekoppeld zijn aan Angular. 
