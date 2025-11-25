@@ -124,7 +124,7 @@ Angular-componenten maken gebruik van templates om de structuur van de UI te def
 Templates zijn syntactisch gelijkaardig aan HTML, maar er zijn enkele verschillen.
 HTML is de standaardtechnologie die webbrowsers gebruiken om de structuur van een webpagina te interpreteren.
 Volgens het \textcite{AngularControlFlowDocs2025} breiden template de mogelijkheden van HTML uit met nieuwe syntax specifiek aan Angular.
-Om HTML dynamischer te maken, voorziet het de \mintinline{ts}{@if}, \mintinline{ts}{@else} en \mintinline{ts}{@for} syntax.
+Om HTML dynamischer te maken, voorziet het de \mintinline{ts}{@if}, \mintinline{ts}{@else}, \mintinline{ts}{@for} en \mintinline{ts}{@switch} syntax.
 Deze syntax is functioneel identiek aan hun TypeScript-equivalent.
 Codefragment~\ref{cf:conditionele-template} geeft een voorbeeld van hoe deze syntax eruitziet.
 \begin{listing}
@@ -258,7 +258,62 @@ Het laat toe om templates en de data bindings te testen door interacties met de 
 \subsection{Aanpassingen tussen v16 en v20}
 \label{ch:stand-van-zaken:angular:aanpassingen-tussen-v16-en-v20}
 
-TODO
+Volgens het \textcite{AngularReleasesDocs2025} streeft Angular ernaar een leading-edge en stabiel framework te zijn.
+Het framework evolueert continu en probeert up-to-date te blijven met de rest van het webecosysteem.
+Om dit doel te bereiken krijgt Angular om de 6 maanden een nieuwe ``major'' versie.
+
+Angular-versies worden omschreven in drie delen: ``major'', ``minor'' en ``patch'' \textcite{AngularReleasesDocs2025}.
+Patches zijn bugfixes aan de achterliggende werking van Angular.
+Bij deze updates is er geen ondersteuning van de ontwikkelaar nodig.
+Minor updates voegen nieuwe ``kleine'' functionaliteiten toe.
+Hierbij is het de ontwikkelaar die beslist of deze functionaliteiten toegepast worden in zijn applicaties.
+Tenslotte zijn er de major updates.
+Major updates voegen nieuwe ``grote'' functionaliteiten toe.
+Deze updates verwachten in de meeste gevallen extra input.
+Dit kan in de vorm van code refactoren, extra testen uitvoeren, nieuwe API's leren, \dots.
+
+Dit onderzoek focust op de major updates.
+Alle verwijzingen naar Angular versies verwijzen naar de major updates.
+
+Voor we beginnen met de omschrijving van de verschillen tussen Anguler v16 en v20 zijn er nog enkele elementen waar men zich van bewust moet zijn.
+Nieuwe Angular-versies zijn tijdsgebonden en komen uit om de 6 maanden \autocite{AngularReleasesDocs2025}.
+
+Versies zijn niet gebonden aan het aantal of de samenhorendheid van de aanpassingen, zoals bij andere frameworks het geval is.
+De aanpassingen per versie hebben effect op verschillende aspecten van het framework.
+Een nieuwe versie kan komen met veranderingen aan bijvoorbeeld: testen, CLI-tools, template-syntax, animations, \dots.
+Het een aanpassing zijn aan de dependencies van Angular, zoals ondersteuning voor een nieuwere versie van TypeScript.
+
+Tenslotte zijn niet alle aanpassingen aan Angular zichtbaar in onze code.
+Dit zijn bijvoorbeeld security- of performantie-updates.
+Zoals eerder vermeld vallen deze aanpassingen niet onder major updates, maar onder minor updates of patches.
+Hier is het belangrijk om te vermelden dat bij een nieuwe major update sommige functionaliteiten niet meer ondersteund worden.
+Verder worden deze functies verwijderd uit het framework op het moment dat een stabiele vervanging beschikbaar is.
+Het is belangrijk om op termijn naar de nieuwe functies over te schakelen, omdat deze security-updates blijven krijgen.
+
+Om een Angular-applicatie te updaten, voorziet het \textcite{AngularUpdateGuide2025} een handleiding om het proces te ondersteunen.
+Deze handleiding focust exclusief op aanpassingen die een ontwikkelaar moet uitvoeren op zijn applicaties.
+Het gaat hier vooral over verouderde of verwijderde functies vervangen.
+De Angular-updatehandleiding vormt de basis van welke aanpassingen onderzocht worden.
+Om een applicatie van v16 naar v20 te updaten, zijn volgens deze handleiding 80 verschillende stappen nodig.
+Hieronder volgt een kleine opsomming van deze stappen:
+\begin{itemize}
+  \item Bij elke nieuwe versie verwacht Angular dat de laatste nieuwe versie van Node.js aanwezig is.
+  \item Bij elke nieuwe versie verwacht Angular dat de applicatie de laatste nieuwe versie van TypeScript gebruikt.
+  \item Bij elke nieuwe versie moet een commando uitgevoerd worden om de Angular ``core''- en ``cli''-afhankelijkheden te updaten.
+  \item Verschillende functies veranderen van naam.
+  \item Verschillende functies worden vervangen door andere functies.
+  \item Verschillende functies worden verwijderd, omdat Angular hun functionaliteiten als standaard toepast.
+  \item Verschillende functies moeten uit andere bestanden geïmporteerd worden.
+  \item Verschillende functies geven nieuwe types terug.
+  \item Verschillende functies krijgen nieuwe of andere parameters.
+  \item Door een verandering aan de achterliggende werking van het testing-framework moeten testen die bepaalde functies aanspreken herzien worden.
+  \item In v17 worden gelijkheidstesten in templates strikter. De werking moet overal nagegaan worden.
+  \item In v18 is er een aanpassing aan de werking van two-way binding in bepaalde randgevallen.
+  \item In v18 verandert de manier waarop Angular-applicaties van pagina veranderen.
+  \item In v19 is er een aanpassing aan de werking van interpolatie in bepaalde randgevallen.
+  \item In v20 is er een aanpassing aan de werking van interpolatie in bepaalde randgevallen.
+  \item \dots
+\end{itemize}
 
 \section{Automatisch refactoren}
 \label{ch:stand-van-zaken:refactoring}
