@@ -17,23 +17,45 @@
 \section{Test resultaten}
 \label{ch:test-resultaten}
 
+Kruistabel \ref{tab:resultaten-deel-1} en \ref{tab:resultaten-deel-2} tonen de resultaten van de updater uitgevoerd op de testomgeving.
+Elke kolom bevat zowel een absolute als een relatieve waarde.
+De relatieve waarde is relatief tegenover de eerste rij in de kolom genaamd \emph{\#Stappen}.
+Uit het totaal van de 80 uit te voeren stappen blijkt dat 27,5\% volledig en 10\% deels automatiseerbaar is.
+Dit is is lager dan het verwachte resultaten van 65\%.
+\medskip
+
+Eén van de factoren die een rol speelt in de automatiseerbaarheid is de aard van de aanpassing.
+De updater is gelimiteerd in het opsporen van semantische aanpassingen.
+In de updat van v16 naar v20 waren er meer stappen met impact op semantiek dan op syntax.
+Uit de stappen met impact op semantiek was amper 2,63\% automatiseerbaar.
+Dit kan verklaren waarom de totale automatiseerbaarheid lager ligt dan verwacht.
+De totale automatiseerbaarheid had hoger kunnen liggen indien er meer syntaktische aanpassingen waren.
+\medskip
+
+Tenslotte willen we de aandacht leggen op de kolom \emph{Testen}.
+Het blijkt dat 20\% van alle mogelijke stappen in deze update impact heeft op testen.
+87,5\% hiervan zijn aanpassingen aan semantiek.
+Dit wil zeggen dat er een verandering is in de achterliggende werking.
+Testen zijn belangrijk om de werking van onze applicaties te waarborgen.
+Als de update de testen aanpast, is het mogelijk dat deze niet meer betrouwbaar zijn.
+
 % | Type                    | #Total    | %Total    | #TS       | %TS       | #Test     | %Test     | #Syntax   | %Syntax   | #Semantics   | %Semantics   | #Template   | %Template   | #JSON     | %JSON     | #CLI      | %CLI      |
 % | ----------------------- | --------- | --------- | --------- | --------- | --------- | --------- | --------- | --------- | ------------ | ------------ | ----------- | ----------- | --------- | --------- | --------- | --------- |
-% | #Steps                  | 80        | 100.00%   | 50        | 100.00%   | 16        | 100.00%   | 24        | 100.00%   | 38           | 100.00%      | 10          | 100.00%     | 12        | 100.00%   | 12        | 100.00%   |
-% | Fully automatable       | 22        | 27.50%    | 10        | 20.00%    | 3         | 18.75%    | 9         | 37.50%    | 1            | 2.63%        | 0           | 0.00%       | 11        | 91.67%    | 12        | 100.00%   |
-% | Partially automatable   | 8         | 10.00%    | 8         | 16.00%    | 0         | 0.00%     | 5         | 20.83%    | 5            | 13.16%       | 0           | 0.00%       | 0         | 0.00%     | 0         | 0.00%     |
-% | Not automatable         | 50        | 62.50%    | 32        | 64.00%    | 13        | 81.25%    | 10        | 41.67%    | 32           | 84.21%       | 10          | 100.00%     | 1         | 8.33%     | 0         | 0.00%     |
-% | Fully detectable        | 24        | 30.00%    | 24        | 48.00%    | 6         | 37.50%    | 12        | 50.00%    | 13           | 34.21%       | 0           | 0.00%       | 0         | 0.00%     | 0         | 0.00%     |
-% | Partially detectable    | 5         | 6.25%     | 5         | 10.00%    | 0         | 0.00%     | 2         | 8.33%     | 4            | 10.53%       | 1           | 10.00%      | 0         | 0.00%     | 0         | 0.00%     |
-% | Not detectable          | 51        | 63.75%    | 21        | 42.00%    | 10        | 62.50%    | 10        | 41.67%    | 21           | 55.26%       | 9           | 90.00%      | 12        | 100.00%   | 12        | 100.00%   |
-% | Change in TypeScript    | 50        | 62.50%    | 50        | 100.00%   | 16        | 100.00%   | 17        | 70.83%    | 37           | 97.37%       | 3           | 30.00%      | 0         | 0.00%     | 0         | 0.00%     |
-% | Change in template      | 10        | 12.50%    | 3         | 6.00%     | 2         | 12.50%    | 6         | 25.00%    | 4            | 10.53%       | 10          | 100.00%     | 0         | 0.00%     | 0         | 0.00%     |
-% | Change in test          | 16        | 20.00%    | 16        | 32.00%    | 16        | 100.00%   | 2         | 8.33%     | 14           | 36.84%       | 2           | 20.00%      | 0         | 0.00%     | 0         | 0.00%     |
-% | Change in JSON          | 12        | 15.00%    | 0         | 0.00%     | 0         | 0.00%     | 1         | 4.17%     | 0            | 0.00%        | 0           | 0.00%       | 12        | 100.00%   | 11        | 91.67%    |
-% | Change in CLI           | 12        | 15.00%    | 0         | 0.00%     | 0         | 0.00%     | 0         | 0.00%     | 0            | 0.00%        | 0           | 0.00%       | 11        | 91.67%    | 12        | 100.00%   |
-% | Change not applicable   | 10        | 12.50%    | 0         | 0.00%     | 0         | 0.00%     | 0         | 0.00%     | 0            | 0.00%        | 0           | 0.00%       | 0         | 0.00%     | 0         | 0.00%     |
-% | Change to syntax        | 24        | 30.00%    | 17        | 34.00%    | 2         | 12.50%    | 24        | 100.00%   | 4            | 10.53%       | 6           | 60.00%      | 1         | 8.33%     | 0         | 0.00%     |
-% | Change to semantics     | 38        | 47.50%    | 37        | 74.00%    | 14        | 87.50%    | 4         | 16.67%    | 38           | 100.00%      | 4           | 40.00%      | 0         | 0.00%     | 0         | 0.00%     |
+% | #Steps                  | 80        | 100,00%   | 50        | 100,00%   | 16        | 100,00%   | 24        | 100,00%   | 38           | 100,00%      | 10          | 100,00%     | 12        | 100,00%   | 12        | 100,00%   |
+% | Fully automatable       | 22        | 27,50%    | 10        | 20,00%    | 3         | 18,75%    | 9         | 37,50%    | 1            | 2,63%        | 0           | 0,00%       | 11        | 91,67%    | 12        | 100,00%   |
+% | Partially automatable   | 8         | 10,00%    | 8         | 16,00%    | 0         | 0,00%     | 5         | 20,83%    | 5            | 13,16%       | 0           | 0,00%       | 0         | 0,00%     | 0         | 0,00%     |
+% | Not automatable         | 50        | 62,50%    | 32        | 64,00%    | 13        | 81,25%    | 10        | 41,67%    | 32           | 84,21%       | 10          | 100,00%     | 1         | 8,33%     | 0         | 0,00%     |
+% | Fully detectable        | 24        | 30,00%    | 24        | 48,00%    | 6         | 37,50%    | 12        | 50,00%    | 13           | 34,21%       | 0           | 0,00%       | 0         | 0,00%     | 0         | 0,00%     |
+% | Partially detectable    | 5         | 6,25%     | 5         | 10,00%    | 0         | 0,00%     | 2         | 8,33%     | 4            | 10,53%       | 1           | 10,00%      | 0         | 0,00%     | 0         | 0,00%     |
+% | Not detectable          | 51        | 63,75%    | 21        | 42,00%    | 10        | 62,50%    | 10        | 41,67%    | 21           | 55,26%       | 9           | 90,00%      | 12        | 100,00%   | 12        | 100,00%   |
+% | Change in TypeScript    | 50        | 62,50%    | 50        | 100,00%   | 16        | 100,00%   | 17        | 70,83%    | 37           | 97,37%       | 3           | 30,00%      | 0         | 0,00%     | 0         | 0,00%     |
+% | Change in template      | 10        | 12,50%    | 3         | 6,00%     | 2         | 12,50%    | 6         | 25,00%    | 4            | 10,53%       | 10          | 100,00%     | 0         | 0,00%     | 0         | 0,00%     |
+% | Change in test          | 16        | 20,00%    | 16        | 32,00%    | 16        | 100,00%   | 2         | 8,33%     | 14           | 36,84%       | 2           | 20,00%      | 0         | 0,00%     | 0         | 0,00%     |
+% | Change in JSON          | 12        | 15,00%    | 0         | 0,00%     | 0         | 0,00%     | 1         | 4,17%     | 0            | 0,00%        | 0           | 0,00%       | 12        | 100,00%   | 11        | 91,67%    |
+% | Change in CLI           | 12        | 15,00%    | 0         | 0,00%     | 0         | 0,00%     | 0         | 0,00%     | 0            | 0,00%        | 0           | 0,00%       | 11        | 91,67%    | 12        | 100,00%   |
+% | Change not applicable   | 10        | 12,50%    | 0         | 0,00%     | 0         | 0,00%     | 0         | 0,00%     | 0            | 0,00%        | 0           | 0,00%       | 0         | 0,00%     | 0         | 0,00%     |
+% | Change to syntax        | 24        | 30,00%    | 17        | 34,00%    | 2         | 12,50%    | 24        | 100,00%   | 4            | 10,53%       | 6           | 60,00%      | 1         | 8,33%     | 0         | 0,00%     |
+% | Change to semantics     | 38        | 47,50%    | 37        | 74,00%    | 14        | 87,50%    | 4         | 16,67%    | 38           | 100,00%      | 4           | 40,00%      | 0         | 0,00%     | 0         | 0,00%     |
 
 \begin{table}
   \centering
@@ -41,31 +63,31 @@
     \toprule
     \textbf{Categorie} & \multicolumn{2}{c|}{\textbf{Totaal}} & \multicolumn{2}{c|}{\textbf{TypeScript}} & \multicolumn{2}{c|}{\textbf{Testen}} & \multicolumn{2}{c|}{\textbf{Syntax}} & \multicolumn{2}{c}{\textbf{Semantiek}} \\
     \hline
-    \textbf{\#Stappen}  & 80 & 100.00\%  & 50 & 100.00\%  & 16 & 100.00\% & 24 & 100.00\%  & 38 & 100.00\% \\
+    \textbf{\#Stappen}  & 80 & 100,00\%  & 50 & 100,00\%  & 16 & 100,00\% & 24 & 100,00\%  & 38 & 100,00\% \\
     \hline                                                      
     \multicolumn{11}{c}{\textbf{Automatiseerbaar}} \\                     
     \hline                                                      
-    \textbf{Volledig}   & 22 &  27.50\%  & 10 &  20.00\%  & 3  &  18.75\% & 9  &  37.50\%  & 1  &   2.63\% \\
-    \textbf{Deels}      & 8  &  10.00\%  & 8  &  16.00\%  & 0  &   0.00\% & 5  &  20.83\%  & 5  &  13.16\% \\
-    \textbf{Niet}       & 50 &  62.50\%  & 32 &  64.00\%  & 13 &  81.25\% & 10 &  41.67\%  & 32 &  84.21\% \\
+    \textbf{Volledig}   & 22 &  27,50\%  & 10 &  20,00\%  & 3  &  18,75\% & 9  &  37,50\%  & 1  &   2,63\% \\
+    \textbf{Deels}      & 8  &  10,00\%  & 8  &  16,00\%  & 0  &   0,00\% & 5  &  20,83\%  & 5  &  13,16\% \\
+    \textbf{Niet}       & 50 &  62,50\%  & 32 &  64,00\%  & 13 &  81,25\% & 10 &  41,67\%  & 32 &  84,21\% \\
     \hline                                                      
     \multicolumn{11}{c}{\textbf{Detecteerbaar}} \\                        
     \hline                                                       
-    \textbf{Volledig}   & 24 &   30.00\%  & 24 &  48.00\%  & 6  &  37.50\% & 12 &  50.00\%  & 13 &  34.21\% \\
-    \textbf{Deels}      & 5  &   6.25\%  & 5  &  10.00\%  & 0  &   0.00\% & 2  &   8.33\%  & 4  &  10.53\% \\
-    \textbf{Niet}       & 51 &  63.75\%  & 21 &  42.00\%  & 10 &  62.50\% & 10 &  41.67\%  & 21 &  55.26\% \\
+    \textbf{Volledig}   & 24 &   30,00\%  & 24 &  48,00\%  & 6  &  37,50\% & 12 &  50,00\%  & 13 &  34,21\% \\
+    \textbf{Deels}      & 5  &    6,25\%  & 5  &  10,00\%  & 0  &   0,00\% & 2  &   8,33\%  & 4  &  10,53\% \\
+    \textbf{Niet}       & 51 &   63,75\%  & 21 &  42,00\%  & 10 &  62,50\% & 10 &  41,67\%  & 21 &  55,26\% \\
     \hline                                                      
     \multicolumn{11}{c}{\textbf{Verandering}} \\                          
     \hline                                                      
-    \textbf{TypeScript} & 50 &  62.50\%  & 50 & 100.00\%  & 16 & 100.00\% & 17 &  70.83\%  & 37 &  97.37\% \\
-    \textbf{Template}   & 10 &  12.50\%  & 3  &   6.00\%  & 2  &  12.50\% & 6  &  25.00\%  & 4  &  10.53\% \\
-    \textbf{Testen}     & 16 &  20.00\%  & 16 &  32.00\%  & 16 & 100.00\% & 2  &   8.33\%  & 14 &  36.84\% \\
-    \textbf{JSON}       & 12 &  15.00\%  & 0  &   0.00\%  & 0  &   0.00\% & 1  &   4.17\%  & 0  &   0.00\% \\
-    \textbf{CLI}        & 12 &  15.00\%  & 0  &   0.00\%  & 0  &   0.00\% & 0  &   0.00\%  & 0  &   0.00\% \\
-    \textbf{n.v.t.}     & 10 &  12.50\%  & 0  &   0.00\%  & 0  &   0.00\% & 0  &   0.00\%  & 0  &   0.00\% \\
+    \textbf{TypeScript} & 50 &  62,50\%  & 50 & 100,00\%  & 16 & 100,00\% & 17 &  70,83\%  & 37 &  97,37\% \\
+    \textbf{Template}   & 10 &  12,50\%  & 3  &   6,00\%  & 2  &  12,50\% & 6  &  25,00\%  & 4  &  10,53\% \\
+    \textbf{Testen}     & 16 &  20,00\%  & 16 &  32,00\%  & 16 & 100,00\% & 2  &   8,33\%  & 14 &  36,84\% \\
+    \textbf{JSON}       & 12 &  15,00\%  & 0  &   0,00\%  & 0  &   0,00\% & 1  &   4,17\%  & 0  &   0,00\% \\
+    \textbf{CLI}        & 12 &  15,00\%  & 0  &   0,00\%  & 0  &   0,00\% & 0  &   0,00\%  & 0  &   0,00\% \\
+    \textbf{n.v.t.}     & 10 &  12,50\%  & 0  &   0,00\%  & 0  &   0,00\% & 0  &   0,00\%  & 0  &   0,00\% \\
     \hline                                                      
-    \textbf{Syntax}     & 24 &  30.00\%  & 17 &  34.00\%  & 2  &  12.50\% & 24 & 100.00\%  & 4  &  10.53\% \\
-    \textbf{Semantiek}  & 38 &  47.50\%  & 37 &  74.00\%  & 14 &  87.50\% & 4  &  16.67\%  & 38 & 100.00\% \\
+    \textbf{Syntax}     & 24 &  30,00\%  & 17 &  34,00\%  & 2  &  12,50\% & 24 & 100,00\%  & 4  &  10,53\% \\
+    \textbf{Semantiek}  & 38 &  47,50\%  & 37 &  74,00\%  & 14 &  87,50\% & 4  &  16,67\%  & 38 & 100,00\% \\
     \bottomrule
   \end{tabular}
   \caption[Resultaten deel 1]{\label{tab:resultaten-deel-1}Deel 1 van de resultaten van de updater uitgevoerd op de testomgeving.}
@@ -77,37 +99,67 @@
     \toprule
     \textbf{Categorie} & \multicolumn{2}{c|}{\textbf{Totaal}} & \multicolumn{2}{c|}{\textbf{Templates}} & \multicolumn{2}{c|}{\textbf{JSON}} & \multicolumn{2}{c}{\textbf{CLI}} \\
     \hline
-    \textbf{\#Stappen}   & 80 & 100.00\% & 10 & 100.00\% & 12 & 100.00\% & 12 & 100.00\% \\
+    \textbf{\#Stappen}   & 80 & 100,00\% & 10 & 100,00\% & 12 & 100,00\% & 12 & 100,00\% \\
     \hline                                                                     
     \multicolumn{9}{c}{\textbf{Automatiseerbaar}} \\                                    
     \hline                                                                     
-    \textbf{Volledig}    & 22 &  27.50\% & 0  &   0.00\% & 11 &  91.67\% & 12 & 100.00\% \\
-    \textbf{Deels}       & 8  &  10.00\% & 0  &   0.00\% & 0  &   0.00\% & 0  &   0.00\% \\
-    \textbf{Niet}        & 50 &  62.50\% & 10 & 100.00\% & 1  &   8.33\% & 0  &   0.00\% \\
+    \textbf{Volledig}    & 22 &  27,50\% & 0  &   0,00\% & 11 &  91,67\% & 12 & 100,00\% \\
+    \textbf{Deels}       & 8  &  10,00\% & 0  &   0,00\% & 0  &   0,00\% & 0  &   0,00\% \\
+    \textbf{Niet}        & 50 &  62,50\% & 10 & 100,00\% & 1  &   8,33\% & 0  &   0,00\% \\
     \hline                                                                     
     \multicolumn{9}{c}{\textbf{Detecteerbaar}} \\                                       
     \hline                                                                     
-    \textbf{Volledig}    & 24 &  30.00\% & 0  &   0.00\% & 0  &   0.00\% & 0  &   0.00\% \\
-    \textbf{Deels}       & 5  &   6.25\% & 1  &  10.00\% & 0  &   0.00\% & 0  &   0.00\% \\
-    \textbf{Niet}        & 51 &  63.75\% & 9  &  90.00\% & 12 & 100.00\% & 12 & 100.00\% \\
+    \textbf{Volledig}    & 24 &  30,00\% & 0  &   0,00\% & 0  &   0,00\% & 0  &   0,00\% \\
+    \textbf{Deels}       & 5  &   6,25\% & 1  &  10,00\% & 0  &   0,00\% & 0  &   0,00\% \\
+    \textbf{Niet}        & 51 &  63,75\% & 9  &  90,00\% & 12 & 100,00\% & 12 & 100,00\% \\
     \hline                                                                     
     \multicolumn{9}{c}{\textbf{Verandering}} \\                                         
     \hline                                                                     
-    \textbf{TypeScript}  & 50 &  62.50\% & 3  &  30.00\% & 0  &   0.00\% & 0  &   0.00\% \\
-    \textbf{Templates}   & 10 &  12.50\% & 10 & 100.00\% & 0  &   0.00\% & 0  &   0.00\% \\
-    \textbf{Testen}      & 16 &  20.00\% & 2  &  20.00\% & 0  &   0.00\% & 0  &   0.00\% \\
-    \textbf{JSON}        & 12 &  15.00\% & 0  &   0.00\% & 12 & 100.00\% & 11 &  91.67\% \\
-    \textbf{CLI}         & 12 &  15.00\% & 0  &   0.00\% & 11 &  91.67\% & 12 & 100.00\% \\
-    \textbf{n.v.t.}      & 10 &  12.50\% & 0  &   0.00\% & 0  &   0.00\% & 0  &   0.00\% \\
+    \textbf{TypeScript}  & 50 &  62,50\% & 3  &  30,00\% & 0  &   0,00\% & 0  &   0,00\% \\
+    \textbf{Templates}   & 10 &  12,50\% & 10 & 100,00\% & 0  &   0,00\% & 0  &   0,00\% \\
+    \textbf{Testen}      & 16 &  20,00\% & 2  &  20,00\% & 0  &   0,00\% & 0  &   0,00\% \\
+    \textbf{JSON}        & 12 &  15,00\% & 0  &   0,00\% & 12 & 100,00\% & 11 &  91,67\% \\
+    \textbf{CLI}         & 12 &  15,00\% & 0  &   0,00\% & 11 &  91,67\% & 12 & 100,00\% \\
+    \textbf{n.v.t.}      & 10 &  12,50\% & 0  &   0,00\% & 0  &   0,00\% & 0  &   0,00\% \\
     \hline                                                                     
-    \textbf{Syntax}      & 24 &  30.00\% & 6  &  60.00\% & 1  &   8.33\% & 0  &   0.00\% \\
-    \textbf{Semantiek}   & 38 &  47.50\% & 4  &  40.00\% & 0  &   0.00\% & 0  &   0.00\% \\
+    \textbf{Syntax}      & 24 &  30,00\% & 6  &  60,00\% & 1  &   8,33\% & 0  &   0,00\% \\
+    \textbf{Semantiek}   & 38 &  47,50\% & 4  &  40,00\% & 0  &   0,00\% & 0  &   0,00\% \\
     \bottomrule
   \end{tabular}
   \caption[Resultaten deel 2]{\label{tab:resultaten-deel-2}Deel 2 van de resultaten van de updater uitgevoerd op de testomgeving.}
 \end{table}
 
+\section{Besluit}
+\label{ch:besluit}
 
+De testresultaten tonen aan dat de updater een meerwaarde biedt in de ondersteuning van het updateproces.
+Ondanks dat het verwachte resultaat niet bereikt is, was het nog steeds mogelijk om een vierde van alle aanpassingen automatisch uit te voeren.
+De hoge flexibiliteit van deze aanpak maakt het mogelijk voor de updater te herconfigureren voor toekomstige updates.
+Bovendien is de updater niet gelimiteerd aan het uitvoeren van Angular-updates.
+Dezelfde manier van werken kan toegepast worden om meer algemene refactoringen uit te voeren.
+Verder kan men de updater configureren om op andere TypeScript-applicaties te werken.
+\medskip
 
-\lipsum[76-80]
+Onze aanpak is gericht op het updaten van meerdere enterprise-applicaties.
+We zien in dat dit onderzoek niet in alle gevallen een meerwaarde biedt.
+De reële tijdswinst van deze aanpak is afhankelijk van hoe de updater gebruikt wordt en door wie.
+De updater configureren om één lijn code aan te passen in één enkele applicatie is contraproductief.
+Om het meeste uit de updater te halen, moet de tijd voor de updater te configureren kleiner zijn dan de tijd om de update handmatig uit te voeren.
+Deze rekensom is afhankelijk van verschillende variabelen.
+Voornamelijk de kennis en ervaring van de persoon die de updater configureert.
+Iemand met een diepe kennis over de code van het bedrijf zal deze som beter kunnen inschatten dan iemand zonder deze kennis.
+
+\section{Verder onderzoek}
+\label{ch:verder-onderzoek}
+
+In de stand van zaken hebben we verschillende automatisatietechnieken besproken.
+Een vergelijking van deze technieken voor toepassing in andere casussen kan best interessant zijn.
+Wanneer zou een integratie met een language server, of met AI, gepast zijn bijvoorbeeld?
+\medskip
+
+Tijdens het schrijven van dit onderzoek is Angular v21 uitgekomen.
+Deze versie komt met nieuwe tools om AI beter te integreren in het ontwikkelingsproces.
+Voornamelijk beweren ze dat het AI toelaat om de nieuwste functionaliteiten te gebruiken.
+Dit was één van de redenen dat AI niet gekozen werd in dit onderzoek.
+Deze tools zijn momenteel nog experimenteel, maar kunnen veelbelovend zijn.
 
