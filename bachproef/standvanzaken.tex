@@ -2,9 +2,10 @@
 \label{ch:stand-van-zaken}
 
 % Welke termen en technologiën moet iemand kennen voor het onderzoek te snappen?
-In dit hoofdstuk bespreken we de verschillende technologieën die betrekking hebben op dit onderzoek.
+In dit hoofdstuk bespreken we de verschillende technologieën die betrekking hebben op het onderzoek.
 Deze literatuurstudie start met een omschrijving van het Angular-framework en hoe een Angular-project gestructureerd is.
-Vervolgens wordt uitleg gegeven over de TypeScript-programmeertaal, specifiek hoe Angular deze gebruikt.
+Vervolgens overlopen we hoe dat Angular gebruikt maakt van de TypeScript-programmeertaal.
+We geven een kort overzicht van de nodige veranderingen tussen Angular v16 en v20.
 Ten slotte volgt een overzicht van verschillende gekende manieren om code automatisch aan te passen.
 
 \section{Angular}
@@ -16,6 +17,7 @@ Het is open-source onder de MIT-licentie en wordt onderhouden door een diverse g
 % Wat is de relatie met AngularJS?
 Angular is de directe opvolger van AngularJS.
 Hoewel ze dezelfde naam delen, is Angular een volledig nieuw framework met een andere architectuur.
+\medskip
 
 % Waarvoor dient het?
 Angular wordt gebruikt voor het ontwikkelen van dynamische single-page webapplicaties.
@@ -24,12 +26,15 @@ Om deze reden wordt het omschreven als een opinionated framework.
 \textcite{Parker2017} definieert een framework als opinionated als het de ontwikkelaar aanstuurt om op een specifieke manier te werken.
 Opinionated frameworks houden zich aan strikte conventies die dicteren hoe een project is opgesteld en geschreven.
 Dit helpt de broncode van een applicatie consistent te houden.
+\medskip
 
 % Wat kan het?
 Buiten UI-functies komt Angular met verschillende functionaliteiten die het ontwikkelingsproces ondersteunen \autocite{Wilken2018}.
 Het komt ingebouwd met een Hyper Text Transfer Protocol (HTTP) client voor een applicatie te verbinden met een backendservice over het internet.
-Hiernaast heeft Angular een collectie van Command Line Interface (CLI) tools die de ontwikkelaars helpt bij het maken van een applicatie, bijvoorbeeld het genereren van een blanco component met bijhorende testen in één commando.
+Hiernaast heeft Angular een collectie van Command Line Interface (CLI) tools die de ontwikkelaars helpt bij het maken van een applicatie.
+Bijvoorbeeld, het genereren van een blanco component met bijhorende testen in één commando.
 Tenslotte komt het met functies die toelaten om testen te schrijven voor de UI.
+\medskip
 
 % Hoe is een Angular-project gestructureerd?
 Angular is gebaseerd op TypeScript en gebruikt dit in combinatie met andere technologieën.
@@ -54,26 +59,30 @@ Het is een extensie van JavaScript die een statisch typesysteem toevoegt.
 Verder heeft het betere ondersteuning voor objectgeoriënteerd programmeren dan JavaScript.
 TypeScript is een multiparadigma-programmeertaal.
 Dit betekent dat het verschillende programmeerstijlen ondersteunt, zoals: functioneel, procedureel, objectgeoriënteerd, \dots.
+\medskip
 
 % Hoe is het anders dan JavaScript?
 TypeScript code is niet uitvoerbaar.
 Om een TypeScript applicatie uit te voeren, moet deze eerst gecompileerd worden.
-Angular voorziet een compiler TypeScript, met behulp van de TypeScript compiler, naar JavaScript.
+Angular voorziet een compiler om TypeScript naar JavaScript te compileren.
+Hiervoor maakt Angular achterliggend gebruik van de TypeScript compiler.
 Volgens \textcite{Ramos2024} zijn twee verschillende manieren waarop een Angular applicatie gecompileerd kan worden.
 Just-in-Time (JIT) en Ahead-of-Time (AOT).
 JIT compileert de applicatie in de webbrowser tijdens runtime.
 AOT daarentegen compileert de applicatie op voorhand en stuurt de output naar de webbrowser.
 Deze studie focust op applicaties die AOT-gecompileerd zijn.
 Dit is de standaardmanier van werken sinds Angular v9.
+\medskip
 
 % Hoe maakt Angular gebruik van TypeScript?
 Angular gebruikt TypeScript op een objectgeoriënteerde manier.
-Het is niet strikt objectgeoriënteerd.
+Het is echter niet strikt objectgeoriënteerd.
 Angular komt naast klassen met een collectie aan losstaande functies.
 Een Angular applicatie bestaat voornamelijk uit klassen in combinatie met TypeScript decorators.
 \textcite{Martins2025} omschrijft decorators als een manier om extra data te koppelen aan een klasse.
 Decorators kunnen meegegeven worden aan methodes, members, properties of de klassedefinitie.
-Deze functie is niet uniek aan TypeScript; in Java noemt men dit annotaties en in C\# attributes.
+Deze functie is niet uniek aan TypeScript.
+In Java noemt men dit annotaties en in C\# attributes.
 Angular maakt gebruik van verschillende decorators voor verschillende doeleinden.
 Welke decorators en hun werking worden in de volgende secties van dit hoofdstuk in meer detail omschreven.
 
@@ -81,24 +90,25 @@ Welke decorators en hun werking worden in de volgende secties van dit hoofdstuk 
 \label{ch:stand-van-zaken:angular:componenten}
 
 % Welke architectuur gebruikt Angular?
-Angular applicaties volgen een componentgebaseerde architectuur.
+Angular applicaties volgen een componentgebaseerde architectuur \autocite{AngularArchitectureDocs2025}.
 Deze architectuur breekt een webpagina op in verschillende bouwblokken, genaamd componenten.
 % Wat is een component?
 Een component kan een klein deel van de UI vormen, zoals een knop of een invoerveld.
-Of het stelt een groot deel van de UI voor, zoals een navigatiebalk of een volledig formulier.
+Of het stelt een groot deel van de UI voor, zoals een navigatiebalk of een formulier.
 Eén van de belangrijkste eigenschappen van een component is dat deze andere componenten kan bevatten.
 De compositie van meerdere componenten vormt uiteindelijk de webpagina die de eindgebruiker te zien krijgt.
 Een component encapsuleert het uiterlijk van een UI-element samen met de achterliggende logica.
 Voorbeelden van achterliggende logica zijn: valideren van input, data opvragen van een server, \dots.
+\medskip
 
 % Hoe is dit opgebouwd?
 Het \textcite{AngularComponentsDocs2025} omschrijft de opbouw van een component als volgt.
-Componenten zijn TypeScript-klassen met de \mintinline{ts}{@Component} decorator.
+Componenten zijn TypeScript-klassen met een \mintinline{ts}{@Component} decorator.
 De \mintinline{ts}{@Component} decorator verwacht drie parameters.
-Een ``selector'' die de naam bepaalt van de component.
-Een ``template'' dat de structuur van de UI bepaalt.
+Een \emph{selector} die de naam bepaalt van de component.
+Een \emph{template} dat de structuur van de UI bepaalt.
 Dit kan ofwel een verwijzing zijn naar een HTML-bestand of een hardgecodeerde string met HTML-code.
-Tenslotte is er de ``style'' parameter die het uiterlijk van de UI bepaalt.
+Tenslotte is er de \emph{style} parameter die het uiterlijk van de UI bepaalt.
 Dit kan ofwel een verwijzing zijn naar een CSS-bestand of een hardgecodeerde string met CSS-code.
 Codefragment~\ref{cf:component-declaration} geeft een voorbeeld van hoe deze syntax eruitziet.
 \begin{listing}
@@ -160,29 +170,36 @@ Conceptueel zijn er twee soorten van data binding: one-way binding en two-way bi
 One-way binding zorgt dat een verandering aan de databron gesynchroniseerd wordt met de bestemming.
 Veranderingen in de bestemming daarentegen worden niet gereflecteerd in de databron.
 Two-way binding zorgt dat een verandering aan zowel de databron als de bestemming gereflecteerd wordt in de andere.
+\medskip
 
 % Hoe gebruikt Angular data binding?
 Angular heeft vier verschillende soorten syntax voor data binding.
-% Wat is interpolatie?
-De eerste noemt ``interpolatie'' \autocite{AngularDataBindingDocs2025}.
-In de context van templates is interpolatie een manier om dynamische tekst te tonen.
-Het is one-way binding; de tekst kan via de UI niet aangepast worden.
-De syntax voor interpolatie is \mintinline{ts}{{{ }}}, bijvoorbeeld:\\ \mintinline{html+ng2}{<p>Welcome {{ name }}</p>}.
+% Wat is interpolation?
+De eerste noemt \emph{interpolation} \autocite{AngularDataBindingDocs2025}.
+In de context van templates is interpolation een manier om dynamische tekst te tonen.
+Het is one-way binding.
+De tekst kan via de UI niet aangepast worden.
+De syntax voor interpolation is \mintinline{ts}{{{ }}}, bijvoorbeeld:\\ \mintinline{html+ng2}{<p>Welcome {{ name }}</p>}.
+\medskip
 
 % Wat is property binding?
-De tweede soort noemt ``property binding'' \autocite{AngularDataBindingDocs2025}.
-Property binding is een manier om dynamisch data aan een HTML-element of component mee te geven.
-Het is one-way binding; het HTML-element of component kan de data enkel lezen.
+De tweede soort noemt \emph{property binding} \autocite{AngularDataBindingDocs2025}.
+Property binding is een manier om dynamisch data aan een HTML-element of een andere component mee te geven.
+Het is one-way binding
+Het HTML-element of de andere component kan de data enkel lezen.
 De syntax voor propery binding is \mintinline{ts}{[ ]}, bijvoorbeeld:\\ \mintinline{html+ng2}{<button [disabled]="hasErrors()">Save</button>}.
+\medskip
 
 % Wat is event binding?
-De derde soort noemt ``event binding'' \autocite{AngularEventListenersDocs2025}.
+De derde soort noemt \emph{event binding} \autocite{AngularEventListenersDocs2025}.
 Hier is de data een referentie naar een functie.
 Deze functie wordt meegegeven aan een HTML-element of component.
 De bestemming van de functie roept de functie op als een bepaalde conditie bereikt is.
-Deze functie wordt om deze reden een ``event listener'' genoemd.
-Het is one-way binding; het HTML-element of component kan de functie enkel oproepen.
+Deze functie wordt om deze reden een \emph{event listener} genoemd.
+Het is one-way binding
+Het HTML-element of component kan de functie enkel oproepen.
 De syntax voor event binding is \mintinline{ts}{( )}, bijvoorbeeld:\\ \mintinline{html+ng2}{<button (click)="saveChanges()">Save</button>}.
+\medskip
 
 % Wat is two-way binding?
 De laatste soort is two-way binding \autocite{AngularTwoWayBindingDocs2025}.
@@ -197,12 +214,14 @@ De syntax voor two-way binding is \mintinline{ts}{[( )]}, bijvoorbeeld:\\ \minti
 Het \textcite{AngularDIDocs2025} omschrijft services als herbruikbare stukken code die gedeeld kunnen worden over meerdere componenten.
 Het zorgt ervoor dat verschillende componenten dezelfde logica delen.
 Dit maakt een applicatie modulair en zorgt ervoor dat code herbruikbaar blijft.
+\medskip
 
 % Wat is dependency injection?
 Services worden door de ontwikkelaars van de applicatie gemaakt.
 Angular verbindt de services met de componenten door middel van dependency injection.
 \textcite{Razina2007} omschrijft dependency injection als een ontwerppatroon om van buitenaf logica aan een object mee te geven.
 Het zorgt voor een losse koppeling tussen objecten, waardoor de code modulair blijft.
+\medskip
 
 % Hoe ziet dit eruit?
 Angular injecteert services in componenten tijdens hun instantiatie.
@@ -237,10 +256,11 @@ Er zijn verschillende vormen van testen, elk met een ander doel.
 In deze context zijn unit-testen de voornaamste.
 Angular komt ingebouwd met functionaliteiten om unit-testen te schrijven voor componenten.
 % Wat zijn unit-testen?
-\textcite{Olan2003} omschrijft unit-testen als een manier om een ``unit'' in isolatie te testen.
+\textcite{Olan2003} omschrijft unit-testen als een manier om een \emph{unit} in isolatie te testen.
 In objectgeoriënteerde programmeertalen is een unit vaak een klasse.
 Unit-testen roepen de methodes van deze klasse automatisch één voor één aan en vergelijken de output.
 In Angular worden componenten als units beschouwd.
+\medskip
 
 % Welk testing-frameworkt gebruikt Angular?
 Volgens het \textcite{AngularTestingDocs2025} komt Angular met CLI-tools om automatisch unit-testen te genereren.
@@ -248,6 +268,7 @@ Achterliggend wordt het Jasmine-testing-framework gebruikt.
 Tijdens het opzetten van een Angular-project wordt Jasmine automatisch geconfigureerd.
 Het is echter mogelijk om een ander testing-framework te gebruiken.
 Dit onderzoek gaat uit dat het Jasmine-testing-framework gebruikt wordt sinds dit de standaard is.
+\medskip
 
 % Wat maakt Angular testen speciaal?
 Angular voorziet in speciale functies om unit-testen te schrijven voor componenten.
@@ -255,51 +276,45 @@ Deze functies maken het mogelijk om meer dan alleen TypeScript-klassen te testen
 Ze bootsen de werking van de applicatie in een webbrowser na.
 Het laat toe om templates en de data bindings te testen door interacties met de UI te simuleren.
 
-\subsection{Aanpassingen tussen v16 en v20}
-\label{ch:stand-van-zaken:angular:aanpassingen-tussen-v16-en-v20}
+\subsection{Versies}
+\label{ch:stand-van-zaken:angular:versies}
 
 Volgens het \textcite{AngularReleasesDocs2025} streeft Angular ernaar een leading-edge en stabiel framework te zijn.
 Het framework evolueert continu en probeert up-to-date te blijven met de rest van het webecosysteem.
-Om dit doel te bereiken krijgt Angular om de 6 maanden een nieuwe ``major'' versie.
+Om dit doel te bereiken krijgt Angular om de 6 maanden een nieuwe \emph{major} versie.
+\medskip
 
-Angular-versies worden omschreven in drie delen: ``major'', ``minor'' en ``patch'' \textcite{AngularReleasesDocs2025}.
+Angular-versies worden omschreven in drie delen: \emph{major}, \emph{minor} en \emph{patch} \autocite{AngularReleasesDocs2025}.
 Patches zijn bugfixes aan de achterliggende werking van Angular.
-Bij deze updates is er geen ondersteuning van de ontwikkelaar nodig.
-Minor updates voegen nieuwe ``kleine'' functionaliteiten toe.
-Hierbij is het de ontwikkelaar die beslist of deze functionaliteiten toegepast worden in zijn applicaties.
+Bij deze updates is er geen tussenkomst van de ontwikkelaar nodig.
+Minor updates voegen nieuwe \emph{kleine} functionaliteiten toe.
+Hierbij is het de ontwikkelaar die beslist of deze functionaliteiten toegepast worden in zijn of haar applicaties.
 Tenslotte zijn er de major updates.
-Major updates voegen nieuwe ``grote'' functionaliteiten toe.
+Major updates voegen nieuwe \emph{grote} functionaliteiten toe.
 Deze updates verwachten in de meeste gevallen extra input.
-Dit kan in de vorm van code refactoren, extra testen uitvoeren, nieuwe API's leren, \dots.
+Dit komt in de vorm van code refactoren, extra testen uitvoeren, nieuwe API's leren, \dots.
+\medskip
 
 Dit onderzoek focust op de major updates.
 Alle verwijzingen naar Angular versies verwijzen naar de major updates.
 
-Voor we beginnen met de omschrijving van de verschillen tussen Anguler v16 en v20 zijn er nog enkele elementen waar men zich van bewust moet zijn.
-Nieuwe Angular-versies zijn tijdsgebonden en komen uit om de 6 maanden \autocite{AngularReleasesDocs2025}.
-
-Versies zijn niet gebonden aan het aantal of de samenhorendheid van de aanpassingen, zoals bij andere frameworks het geval is.
-De aanpassingen per versie hebben effect op verschillende aspecten van het framework.
-Een nieuwe versie kan komen met veranderingen aan bijvoorbeeld: testen, CLI-tools, template-syntax, animations, \dots.
-Het een aanpassing zijn aan de dependencies van Angular, zoals ondersteuning voor een nieuwere versie van TypeScript.
-
-Tenslotte zijn niet alle aanpassingen aan Angular zichtbaar in onze code.
-Dit zijn bijvoorbeeld security- of performantie-updates.
-Zoals eerder vermeld vallen deze aanpassingen niet onder major updates, maar onder minor updates of patches.
-Hier is het belangrijk om te vermelden dat bij een nieuwe major update sommige functionaliteiten niet meer ondersteund worden.
-Verder worden deze functies verwijderd uit het framework op het moment dat een stabiele vervanging beschikbaar is.
-Het is belangrijk om op termijn naar de nieuwe functies over te schakelen, omdat deze security-updates blijven krijgen.
+\subsection{Aanpassingen tussen v16 en v20}
+\label{ch:stand-van-zaken:angular:aanpassingen-tussen-v16-en-v20}
 
 Om een Angular-applicatie te updaten, voorziet het \textcite{AngularUpdateGuide2025} een handleiding om het proces te ondersteunen.
-Deze handleiding focust exclusief op aanpassingen die een ontwikkelaar moet uitvoeren op zijn applicaties.
-Het gaat hier vooral over verouderde of verwijderde functies vervangen.
-De Angular-updatehandleiding vormt de basis van welke aanpassingen onderzocht worden.
+Deze handleiding focust exclusief op aanpassingen die een ontwikkelaar \emph{moet} uitvoeren op zijn applicaties.
+Het gaat hier vooral over het vervangen van verouderde of verwijderde functies.
+Enkel de noodzakelijke aanpassingen zijn hier opgelijst.
+De aanpassingen die we onderzoeken zijn hierdoor gebaseerd op deze handleiding.
+\medskip
+
+Hieruit formuleren we het volgende antwoord op de deelvraag: hoeveel veranderingen moeten uitgevoerd worden om Angular van v16 naar v20 te updaten?
 Om een applicatie van v16 naar v20 te updaten, zijn volgens deze handleiding 80 verschillende stappen nodig.
 Hieronder volgt een kleine opsomming van deze stappen:
 \begin{itemize}
   \item Bij elke nieuwe versie verwacht Angular dat de laatste nieuwe versie van Node.js aanwezig is.
   \item Bij elke nieuwe versie verwacht Angular dat de applicatie de laatste nieuwe versie van TypeScript gebruikt.
-  \item Bij elke nieuwe versie moet een commando uitgevoerd worden om de Angular ``core''- en ``cli''-afhankelijkheden te updaten.
+  \item Bij elke nieuwe versie moet een commando uitgevoerd worden om de Angular \emph{core}- en \emph{cli}-afhankelijkheden te updaten.
   \item Verschillende functies veranderen van naam.
   \item Verschillende functies worden vervangen door andere functies.
   \item Verschillende functies worden verwijderd, omdat Angular hun functionaliteiten als standaard toepast.
@@ -310,22 +325,47 @@ Hieronder volgt een kleine opsomming van deze stappen:
   \item In v17 worden gelijkheidstesten in templates strikter. De werking moet overal nagegaan worden.
   \item In v18 is er een aanpassing aan de werking van two-way binding in bepaalde randgevallen.
   \item In v18 verandert de manier waarop Angular-applicaties van pagina veranderen.
-  \item In v19 is er een aanpassing aan de werking van interpolatie in bepaalde randgevallen.
-  \item In v20 is er een aanpassing aan de werking van interpolatie in bepaalde randgevallen.
+  \item In v19 is er een aanpassing aan de werking van interpolation in bepaalde randgevallen.
+  \item In v20 is er een aanpassing aan de werking van interpolation in bepaalde randgevallen.
   \item \dots
 \end{itemize}
 
-\section{Noodzaak van de update}
-\label{ch:stand-van-zaken:noodzaak-van-de-update}
+\subsection{Waarom updaten?}
+\label{ch:stand-van-zaken:waarom-updaten}
+
+Angular-versies zijn tijdsgebonden en komen uit om de 6 maanden \autocite{AngularReleasesDocs2025}.
+Versies zijn niet gebonden aan het aantal of de samenhorendheid van de aanpassingen, zoals bij andere frameworks het geval is.
+De aanpassingen per versie hebben effect op verschillende aspecten van het framework.
+Een nieuwe versie kan komen met veranderingen aan bijvoorbeeld: testen, CLI-tools, template-syntax, animations, \dots.
+Het kan ook een aanpassing zijn aan de dependencies van Angular, zoals ondersteuning voor een nieuwere versie van TypeScript.
+\medskip
+
+Niet alle aanpassingen aan Angular zijn zichtbaar in onze code.
+Dit zijn bijvoorbeeld security- of performantie-updates.
+Zoals eerder vermeld vallen deze aanpassingen niet onder major updates, maar onder minor updates of patches.
+Hier is het belangrijk om te vermelden dat sommige functionaliteiten niet meer ondersteund worden bij een nieuwe major update.
+Deze functies worden verwijderd uit het framework op het moment dat een stabiele vervanging beschikbaar is.
+Het is belangrijk om op termijn naar de nieuwe functies over te schakelen, omdat deze security-updates blijven krijgen.
+\medskip
+
+Oudere versies van Angular worden niet meer onderhouden.
+Tijdens het schrijven van dit onderzoek worden v2 to en met v17 niet ondersteunt \autocite{AngularReleasesDocs2025}.
+Om de betrouwbaarheid van onze applicatie te kunnen garanderen is dus van belang om tijdig over te schakelen naar de nieuwste versie.
 
 \section{Automatisch refactoren}
 \label{ch:stand-van-zaken:refactoring}
+
+In dit hoofdstuk zoeken we een antwoord op de deelvraag: welke manieren bestaan er om code automatisch aan te passen zonder ongewenste veranderingen uit te voeren?
+Voor dat we hierop kunnen antwoorden, moeten we eerst het concept van \emph{code aanpassen} beter definiëren.
+In deze context spreken we over refactoren.
+\medskip
 
 % Wat is refactoren?
 Refactoren, zoals omschreven door \textcite{Kaur2016}, is het proces om de broncode van een applicatie aan te passen zonder de functie te veranderen.
 Het doel van refactoren is om de interne structuur van een applicatie te verbeteren.
 % Wat betekend dit voor deze casus?
-Concreet betekent ``verbeteren'' voor deze casus dat de applicatie up-to-date is en de conventies blijft volgen van de laatste nieuwe Angular-versie.
+Concreet betekent \emph{verbeteren} voor deze casus dat de applicatie up-to-date is en de conventies blijft volgen van de laatste nieuwe versie van Angular.
+\medskip
 
 % Welke manieren bestaan er?
 De studie door \textcite{Hodovychenko2025} vergelijkt verschillende gekende manieren om het refactoringproces te automatiseren.
@@ -336,8 +376,22 @@ In hun studie worden de manieren onderverdeeld in de volgende categorieën:
   \item AI-gebaseerd: machine- of deep learning-modellen.
 \end{itemize}
 De volgende secties van het onderzoek geven concrete voorbeelden voor elke categorie.
-Per voorbeeld worden inzichten gegeven in de werking en de voor- en nadelen.
+Per voorbeeld worden inzichten gegeven in de werking, samen met de voor- en nadelen.
 Achteraf wordt de beslissing genomen over welke manier het meest geschikt is om toe te passen in deze casus.
+\medskip
+
+\subsection{Syntax vs semantiek}
+\label{ch:stand-van-zaken:refactoring:syntax-vs-semantiek}
+
+Voordat we de verschillende refactoringtechnieken bespreken, is het belangrijk om het verschil tussen syntax en semantiek te begrijpen.
+\textcite{Schmidt1996} omschrijft syntax als het uiterlijk van de programmeertaal.
+Het bepaalt de structuur en volgorde van verklaringen.
+Semantiek daarentegen omschrijft de betekenis achter deze structuur.
+Het bepaalt wat het doel is van een stuk code.
+\medskip
+
+Beide concepten zijn belangrijk in het begrijpen van hoe een applicatie werkt, en of deze \emph{correct} werkt.
+Als gevolg is het belangrijk om de automatisatietechnieken hierop af te toetsen.
 
 \subsection{Zoek \& vervang}
 \label{ch:stand-van-zaken:refactoring:find-and-replace}
@@ -345,6 +399,7 @@ Achteraf wordt de beslissing genomen over welke manier het meest geschikt is om 
 % Waarom is dit relevant?
 Eén van de simpelste vormen van toolgebaseerd refactoren is de zoek- en vervangfunctie.
 Zoals de naam het zegt, zoekt dit naar instanties van een bepaalde sequentie van karakters in een tekst om deze vervolgens te vervangen.
+\medskip
 
 % Wat is find & replace?
 De simpelste vorm zoekt op basis van een woord of een vaste sequentie van karakters.
@@ -357,19 +412,17 @@ Het laat toe om naar complexe patronen in een tekst te zoeken.
 Zoek- en vervangfuncties hebben meerdere voordelen.
 Het is goed gekend en gedocumenteerd.
 Deze functies worden in veel applicaties gebruikt, zoals webbrowsers, tekstverwerkers, IDE's, \dots.
-De meeste programmeertalen komen met functies om dit te implementeren, zowel tekst- als regex-gebaseerd.
+En de meeste programmeertalen komen met functies om dit te implementeren, zowel tekst- als regex-gebaseerd.
+\medskip
 
 % Wat zijn de nadelen?
 Zoek- en vervangfuncties gebruiken op code is niet zonder nadelen.
 Omdat het enkel zoekt op tekst, heeft het geen vat op de syntax of de semantiek van de programmeertaal.
-% Wat is syntax?
-De syntax omschrijft de structuur en volgorde van verklaringen in de programmeertaal.
-% Wat is semantiek?
-De semantiek daarentegen omschrijft de betekenis achter deze structuur en verklaringen.
 % Wat heeft dit te maken met de nadelen?
 Hierdoor is het mogelijk om ongewenste aanpassingen uit te voeren op de broncode.
-Bijvoorbeeld: stel dat er twee klassen zijn met de naam A en B, en dat beide een methode foo bevatten.
-Als we alle instanties van de methode foo in klasse A willen veranderen naar bar met behulp van zoek- en vervangfuncties, zullen alle instanties van foo in klasse B ook vervangen worden.
+Bijvoorbeeld: stel dat er twee klassen zijn met de naam \emph{A} en \emph{B}, en dat beide een methode \emph{foo} bevatten.
+Als we alle instanties van de methode \emph{foo} in klasse \emph{A} willen veranderen naar \emph{bar} met behulp van zoek- en vervangfuncties, zullen alle instanties van \emph{foo} in klasse \emph{B} ook vervangen worden.
+\medskip
 
 % Zijn er nog nadelen?
 Hoewel het theoretisch mogelijk zou zijn om een reguliere expressie te schrijven die met deze specifieke syntax rekening houdt, zijn hier verschillende praktische problemen mee.
@@ -381,28 +434,33 @@ Uit de studie door \textcite{Michael2019} blijkt dat regexes moeilijk leesbaar, 
 % Wat is een LSP?
 Het Language Server Protocol (LSP) is een open protocol ontwikkeld door Microsoft voor Visual Studio Code.
 Code editors en IDE's gebruiken LSP's om te communiceren met een language server \autocite{Bork2023}.
-Een language server is een programma dat programmeertaalspecifieke functionaliteiten aanbiedt, zoals: automatisch aanvullen van code, code-diagnostiek, code-navigatie, \dots.
+Een language server is een programma dat programmeertaalspecifieke functionaliteiten aanbiedt.
+Dit kan in de vorm van het automatisch aanvullen van code, code-diagnostiek, code-navigatie, \dots.
 % Waarom is dit relevant?
 Sinds de ontwikkeling van het LSP is het de facto standaard geworden om deze functies te implementeren in code-editors en IDE's.
+\medskip
 
 % Wat is het LSP gebaseerd refactoren?
 Voor dit onderzoek zijn de TypeScript en Angular language servers relevant.
 % Wat kan de TypeScript LSP?
-Volgens de \textcite{TypeScriptLS2025} biedt de TypeScript language server functies aan die broncode aanpassen, zoals: verwijderen van ongebruikte variabelen, organiseren van imports, verwijderen van ongebruikte imports, \dots.
+Volgens de \textcite{TypeScriptLS2025} biedt de TypeScript language server functies aan die broncode aanpassen.
+Het kan ongebruikte variabelen verwijderen, imports organiseren, ongebruikte imports verwijderen, \dots.
 % Wat kan de Angular LSP?
-De Angular language server focust volgens de \textcite{AngularLS2025} op automatisch aanvullen en diagnostiek voor Angular-specifieke syntax in HTML.
+De Angular language server focust volgens de \textcite{AngularLS2025} op automatisch aanvullen en diagnostiek voor template syntax.
+\medskip
 
 % Wat zijn de voordelen?
 Het voordeel van language servers is dat ze vat hebben op de specifieke syntax van de programmeertaal.
 In combinatie met een zoek- en vervangfunctie kunnen we gericht code aanpassen.
 En omdat language servers komen met code-diagnostiek, is het mogelijk om na een verandering direct fouten in de syntax op te sporen.
+\medskip
 
 % Wat zijn de nadelen?
 Language servers zijn echter niet perfect.
 Ze hebben vat op de syntax, maar niet op de semantiek van de applicatie.
 Verder zijn we gelimiteerd aan de functies van de language server.
 Hoewel het mogelijk is om hun functies uit te breiden, is dit in de praktijk niet evident.
-Het is een zeer niche domein, ondanks dat het de facto standaard is in code-editors en IDE's 
+Het is een zeer niche domein, ondanks dat het de facto standaard is in code-editors en IDE's.
 Een grondige kennis van het LSP is nodig om een language server aan te spreken of uit te breiden.
 
 \subsection{Compiler}
@@ -411,7 +469,7 @@ Een grondige kennis van het LSP is nodig om een language server aan te spreken o
 % Wat is compiler-gebaseerd refactoren?
 De studie door \textcite{Wright2013} presenteert een tool voor het refactoren van grote C++ broncodes bij Google.
 % Hoe werkt dit?
-Deze tool maakt gebruik van de Clang C++ compiler om broncode om te zetten naar een Abstract Syntax Tree (AST) en zo de code te doorlopen met vat op de syntax.
+Deze tool maakt gebruik van de Clang C++ compiler om broncode om te zetten naar een Abstract Syntax Tree (AST) om zo de code te doorlopen.
 Een AST, als omschreven door \textcite{Sun2023}, is een datastructuur die de structuur en syntax van een stuk code weergeeft.
 Dezelfde bron noemt ATS's een fundamentele eigenschap van code.
 Om deze reden wordt deze datastructuur vaak gebruikt om codegerelateerde problemen op te lossen.
@@ -427,34 +485,39 @@ Figuur \ref{fig:ast-preview} geeft een vereenvoudigde representatie van hoe een 
 Herinner dat Angular gebaseerd is op TypeScript en dat TypeScript gecompileerd moet worden.
 De TypeScript compiler kan programmatisch aangesproken worden met de TypeScript compiler API.
 Een studie door \textcite{Reid2023} gebruikt de TypeScript compiler voor het opsporen van foutieve code-elementen, met positieve resultaten.
+\medskip
 
 % Wat zijn de voordelen?
 Net zoals LSP's heeft de compiler vat op de syntax van de programmeertaal.
 Op het vlak van correctheid is dit één van de meest betrouwbare opties.
 Verder is de werking van AST's goed gedocumenteerd.
 Tenslotte bestaan er voor TypeScript verschillende packages die helpen met het opstellen en doorlopen van een AST.
+\medskip
 
 % Wat zijn de nadelen?
 Maar net zoals LSP's heeft de compiler geen vat op de semantiek van de applicatie.
-Werken met een AST vraagt kennis van boomstructuren en een goede kennis van de nuances van de syntax.
+Verder is er kennis van boomstructuren en de nuances van de syntax vereist om te kunnen werken met een AST.
 
 \subsection{Artificiële intelligentie}
 \label{ch:stand-van-zaken:refactoring:ai}
 
 % Waarom is dit relevant?
 Met de recente opkomst in populariteit van artificiële intelligentie (AI) zijn reeds verschillende tools ontwikkeld om deze technologie in te zetten voor het schrijven van code.
-
 % Wat zijn de voordelen?
 Een studie door \textcite{Poluai2025} gebruikt AI om automatisch code te refactoren om de performantie van een applicatie te verbeteren.
 Het toont aan dat deze AI-tools vat hebben op zowel de syntax als de semantiek van een applicatie.
 Uit dezelfde studie blijkt dat het automatisatieproces correct was in 98\% van de gevallen.
+\medskip
 
 % Wat zijn de nadelen?
 AI-gebaseerd refactoren is veelbelovend, maar niet perfect.
 De studie door \textcite{Hodovychenko2025} identificeert enkele praktische problemen met deze aanpak.
-Om dit soort AI-tools te ontwikkelen, is een grote hoeveelheid kwalitatieve data nodig.
+Om dit soort AI-tools te ontwikkelen, is een grote hoeveelheid betrouwbare data nodig.
 Het verzamelen en verifiëren van deze data is praktisch niet altijd haalbaar.
-Tenslotte is er een probleem met transparantie; de interne werking kan niet geverifieerd worden.
+Refactoringdata voor oude update verzamelen is mogelijk.
+Maar bij gloednieuwe updates is er nog geen data.
+Tenslotte is er geen garantie op de correctheid van de output.
+Een ongewenste aanpassing kan grote gevolgen hebben op de integriteit van de applicatie.
 
 \subsection{Gekende problemen}
 \label{ch:stand-van-zaken:refactoring:known-problems}
@@ -465,11 +528,13 @@ Bij het aanpassen van software bestaat altijd het risico dat er nieuwe bugs onts
 Het is niet altijd even evident om dit op te sporen.
 Indien een applicatie over voldoende testen beschikt, kunnen bugs snel opgespoord worden.
 Dan nog is het een meerwaarde om deze bugs op voorhand te vermijden.
+\medskip
 
-De studie door \textcite{Di2020} onderzoekt wat de kans is dat een refactoringactie op objectgeoriënteerde applicaties een bug introduceert.
-Uit deze studie blijkt dat de meest voorkomende acties, zoals een methode of variabele van naam of type veranderen, de meeste kans hebben om nieuwe bugs te introduceren.
-Verder blijkt dat elke actie een kans heeft om een nieuwe bug te introduceren.
-
+De studie door \textcite{Di2020} onderzoekt de kans dat een bepaalde refactoringactie een nieuwe bug introduceert in objectgeoriënteerde applicaties.
+Uit deze studie blijkt dat acties zoals een methode of variabele van naam of type veranderen de meeste kans hebben om nieuwe bugs te introduceren.
+Volgens dezelfde bron zijn dit de acties die het meeste voorkomen tijdens refactoring.
+Extra attentie is nodig bij het automatiseren van deze acties.
+Dit beantwoordt onze deelvraag: wat zijn statistisch gezien de meest voorkomende problemen bij het updaten van code?
 
 % \begin{figure}
 %   \centering
