@@ -28,63 +28,74 @@
 
 % Wat gebeurt er in dit hoofdstuk?
 In dit hoofdstuk maakt het onderzoek een beslissing over hoe de updater ontwikkeld wordt.
-Deze beslissing is gebaseerd op de huidige stand van zaken en de noden van het bedrijf, zoals besproken in Hoofdstuk~\ref{sec:onderzoeksdoelstelling}.
-We bespreken de verschillende soorten aanpassingen die moeten gebeuren om een Angular applicatie van v16 naar v20 te updaten.
+Deze beslissing is gebaseerd op de huidige stand van zaken in combinatie met de onderzoeksdoelstellingen.
+We bespreken de verschillende soorten aanpassingen die moeten gebeuren om een Angular-applicatie van v16 naar v20 te updaten.
 Vervolgens bespreken we de proof of concept.
 Hoe de updater geëvalueerd zal worden aan de hand van een testomgeving.
 Wat de updater kan en doet.
-En tenslotte bespreken we de evaluatie van de updater.
-In Hoofdstuk~\ref{ch:proof-of-concept} wordt de technische uitwerking van de updater in meer detail besproken.
+En tenslotte bespreken we de validatie van de resultaten.
+In Hoofdstuk~\ref{ch:proof-of-concept} wordt de technische uitwerking van de updater in meer detail toegelicht.
 
 \section{Plan van aanpak}
 \label{ch:plan-van-aanpak}
 
-% Hoe ziet de updater eruit?
-Op basis van de huidige stand van zaken en de noden van het bedrijf, kiest het onderzoek voor het volgende plan van aanpak.
-We ontwikkelen een collectie aan helperfuncties om in TypeScript een command line applicatie te maken.
-Deze applicatie maakt onderliggend gebruik van zoek- en vervangfuncties op basis van regex in combinatie met de TypeScript compiler API.
-Met de hulp van deze functies kunnen we programmatisch een updater ontwerpen.
+We beginnen met de automatisatietechnieken uit de stand van zaken af te toetsen op de onderzoeksdoelstellingen.
+Zoek- \& vervangfuncties zijn simpel te gebruiken, maar hebben een te grote kans om nieuwe bugs te introduceren.
+Language-servers kunnen meer context geven en komen met error-detectie.
+Dit onderzoek observeert een praktisch probleem met deze aanpak.
+Uit onze observaties blijkt dat er weinig tot geen documentatie is over hoe de TypeScript- of Angular-Language-Servers werken.
+Dit kan de implementatie moeizaam maken.
+Compiler-tooling geeft dezelfde functies en is goed gedocumenteerd.
+Verder toont de studie door \textcite{Wright2013} aan dat deze aanpak werkt op grote schaal.
+AI heeft de grootste kans op succes, maar er zijn praktische problemen.
+Verzamelen van data kan problematisch zijn en er is geen garantie op succes.
+\medskip
 
-% Waarom een CLI-applicatie?
-Angular komt reeds met CLI-tools; door de updater een CLI-applicatie te maken, past het in de huidige workflow.
-Verder geeft dit de mogelijkheid om alle commando's samen te voegen in en script om de updater op meerdere projecten te laten uitvoeren.
-
-% Waarom een collectie van helperfuncties?
-De nodige aanpassingen aan een applicatie zijn afhankelijk van de Angular versie.
-Dit maakt het praktisch onmogelijk om een ``one size fits all'' updater te maken die werkt op toekomstige versies.
-Voor de nieuwe versie zal dan ook een nieuwe updater geconfigureerd moeten worden.
-Door de updater programmatisch te configureren, is er een hoge flexibiliteit en uitbreidbaarheid.
-De helperfuncties zorgen voor een extra abstractielaag, wat toelaat om snel nieuwe updates te automatiseren.
-Als programmeertaal van de updater is voor TypeScript gekozen.
-Omdat dit dezelfde taal is die Angular gebruikt en per extensie de taal waar de ontwikkelaars bekend mee zijn.
-
-% Waarom TypeScript compiler API?
-De implementatie van de helperfuncties gebruikt onderliggend de TypeScript compiler API.
-Door te programmeren op de compiler die normaal gebruikt wordt om de applicaties te compileren, krijgen we toegang tot dezelfde error detectie als de compiler.
+Op basis van deze evaluatie kiest dit onderzoek om verder te gaan met zoek- \& vervangfuncties in combinatie met compiler-tooling.
+Voor compiler-tooling gebruiken we de TypeScript Compiler API.
+Deze API laat toe om op de TypeScript Compiler te programmeren.
+Het grote voordeel hiervan is dat we toegang krijgen tot dezelfde error-detectie als de compiler.
 Dit zorgt ervoor dat we nieuwe bugs snel en accuraat kunnen opsporen.
 Verder is de interne werking, op basis van een AST, goed gedocumenteerd.
-Een basiskennis van boomstructuren is wel vereist om hiermee vlot aan de slag te gaan.
+\medskip
 
-% Waarom find & replace?
-Om de implementatie voor de ontwikkelaar te vereenvoudigen, wordt de TypeScript compiler API gebruikt in combinatie met zoek- en vervangfuncties op basis van regex.
+De updater moet ingezet kunnen worden voor toekomstige updates.
+Het probleem hiermee is dat we ons moeten voorbereiden op nieuwe aanpassingen.
+Dit vereist een flexibele configuratie.
+Aangezien het doelpubliek programmeurs zijn, stellen we voor om de updater programmatisch te configureren.
+Een programmatische configuratie geeft ons flexibiliteit en uitbreidbaarheid.
+Als programmeertaal kiezen we voor TypeScript.
+Angular gebruikt dit reeds, dus het is gekend door de programmeurs.
+Om de integratie met de TypeScript Compiler API te vereenvoudigen, ontwikkelen we een collectie aan helperfuncties.
+Deze helperfuncties zorgen voor een extra abstractielaag.
+Het doel hiervan is om snel nieuwe updates te kunnen automatiseren.
+\medskip
 
-\section{Angular aanpassingen}
-\label{ch:angular-aanpassingen}
+Een programmatische configuratie betekent dat de updater bij elke aanpassing gecompileerd moet worden.
+Dit klinkt als een complex proces, maar in werkelijkheid betekent dit één extra commando uitvoeren.
+De updater zal compileren naar een CLI-applicatie.
+Bij het uitvoeren van een Angular-update moeten er sowieso al commando's uitgevoerd worden.
+Door de updater een CLI-applicatie te maken, past deze in de huidige workflow.
+Verder geeft dit ons de mogelijkheid om alle commando's samen te voegen in een script om de updater op meerdere projecten te laten uitvoeren.
+
+\section{Soorten aanpassingen}
+\label{ch:soorten-aanpassingen}
 
 % Wat moet er veranderen aan de code?
 Volgens de Angular update handleidling door het \textcite{AngularUpdateGuide2025} zijn er in totaal 80 verschillende stappen nodig om een applicatie van v16 naar v20 te updaten.
 % Wat doen we hiermee?
-Dit onderzoek verdeelt deze stappen in verschillende ``categorieën''.
+Dit onderzoek verdeelt deze stappen in verschillende \emph{categorieën}.
 % Waarom verdelen in categorieën?
 Deze onderverdeling geeft een beter overzicht van wat veranderd moet worden aan een Angular v16 applicatie.
-Tenslotte geeft deze onderverdeling in combinatie met de resultaten van de updater een beter inzicht in waar de updater meer geschikt voor is.
+Verder geeft deze onderverdeling een genuanceerd inzicht in de resultaten van de updater.
+Het laat ons toe de sterktes en zwaktes van onze aanpak beter in kaart te brengen.
 % Wat zijn de categorieën?
 De categorieën zijn opgesteld als volgt:
 \begin{itemize}
   \item Veranderingen aan TypeScript.
   Dit is het grootste deel van alle aanpassingen.
-  \item Veranderingen aan HTML templates.
-  Dit zijn aanpassingen aan Angular specifieke code in HTML templates.
+  \item Veranderingen aan templates.
+  Dit zijn aanpassingen aan Angular specifieke code in templates.
   \item Veranderingen aan unittesten.
   Dit zijn aanpassingen aan de unittests die afhankelijk zijn van Angular.
   \item Veranderingen aan JSON.
@@ -103,9 +114,9 @@ De categorieën zijn opgesteld als volgt:
 \end{itemize}
 
 % Kan een stap meerdere categorieën hebben?
-Buiten de veranderingen dat niet van toepassing zijn, zijn deze categorieën niet wederzijds exclusief.
+Buiten de veranderingen die niet van toepassing zijn, zijn deze categorieën wederzijds inclusief.
 In één stap kunnen meerdere categorieën van toepassing zijn.
-Een verandering kan impact hebben op zowel TypeScript als HTML, syntax als semantiek, \dots.
+Een verandering kan impact hebben op zowel TypeScript als templates, syntax als semantiek, \dots.
 
 \section{Opzet proof of concept}
 \label{ch:opzet-proof-of-concept}
@@ -113,15 +124,7 @@ Een verandering kan impact hebben op zowel TypeScript als HTML, syntax als seman
 \subsection{Opzet testomgeving}
 \label{ch:opzet-proof-of-concept:opzet-testomgeving}
 
-% Wat is de test opgeving?
-Om de effectiviteit van de updater te meten, zet dit onderzoek een testomgeving op.
-De testomgeving is een applicatie gemaakt met Angular v16.
-Het bestaat uit verschillende klasse en componenten specifiek geschreven met code dat moet veranderen in de update naar v20.
-De applicatie is enkel syntactisch correct, verder heeft het geen doel.
-Dit wil zeggen dat het enkel moet kunnen compileren zonder fouten, meer niet.
-Er is bewust gekozen geen verdere semantiek aan de testomgeving te koppelen, omdat de huidige aanpak er geen rekening mee kan houden.
-
-% Waarvoor dient het?
+% Waarvoor dient de testomgeving?
 Dit onderzoek kiest ervoor om de effectiviteit van de updater te testen in een gecontroleerde omgeving om een totaalbeeld te krijgen van alle stappen.
 Angular is een uitgebreid framework met verschillende functionaliteiten.
 In de praktijk is het niet zeker of een Angular applicatie al deze functionaliteiten gebruikt.
@@ -129,8 +132,18 @@ Neem bijvoorbeeld animaties.
 Angular voorziet in functies om animaties toe te voegen aan de UI.
 Niet alle applicaties hebben dit nodig.
 Als er updates zijn aan deze functionaliteiten, zal de updater ze niet kunnen uitvoeren, omdat de functie in kwestie niet gebruikt wordt.
-De updater testen op een willekeurige applicatie kan een verkeerd beeld schetsen van wat mogelijk is.
+De updater testen op een willekeurige applicatie kan hierdoor een verkeerd beeld schetsen van wat mogelijk is.
 Het opzetten van een testomgeving geeft de mogelijkheid om een ruimer beeld te schetsen van wat mogelijk is met de updater.
+\medskip
+
+% Wat is de test opgeving?
+Om de effectiviteit van de updater te meten, zet dit onderzoek een testomgeving op.
+De testomgeving is een applicatie gemaakt met Angular v16.
+Het bestaat uit verschillende klassen en componenten specifiek geschreven met code dat moet veranderen in de update naar v20.
+De applicatie is enkel syntactisch correct, verder heeft het geen doel.
+Dit wil zeggen dat het enkel moet kunnen compileren zonder fouten, meer niet.
+Er is bewust gekozen geen verdere semantiek aan de testomgeving te koppelen, omdat de huidige aanpak er geen rekening mee kan houden.
+\medskip
 
 % Hoe werd het opgesteld?
 Het volgende proces wordt gehanteerd in het opstellen van de testapplicatie.
@@ -139,6 +152,12 @@ Zoals eerder besproken zijn niet alle stappen aanpassingen aan TypeScript bestan
 Verder is de aard van de verandering belangrijk.
 De updater kan syntax interpreteren, maar geen semantiek.
 Tabel~\ref{tab:opzet-testomgeving} geeft een overzicht van welke soort veranderingen in de testomgeving opgenomen worden.
+Voor elke opgenomen verandering voorzien we een codefragment dat geüpdatet moet worden.
+Alle codefragmenten zijn semi-realistisch en volgen de Angular best-practices waar mogelijk.
+Tenslotte geven we per codefragment minstens één stuk code mee dat gelijkaardig is aan de code die veranderd moet worden.
+Dit dient als controle om na te gaan of de updater specifiek genoeg ingesteld is.
+\medskip
+
 \begin{table}
   \centering
   \begin{tabular}{p{0.24\textwidth}|p{0.22\textwidth}|p{0.46\textwidth}}
@@ -174,33 +193,49 @@ Tabel~\ref{tab:opzet-testomgeving} geeft een overzicht van welke soort veranderi
     Een stap wordt opgenomen in de testomgeving indien deze voldoet aan het bestandstype en de aard van de verandering.
   }
 \end{table}
-Voor elke verandering opgenomen in de testomgeving voorzien we een codefragment dat geüpdatet moet worden.
-Alle codefragmenten zijn semi-realistisch en volgen de Angular best-practices waar mogelijk.
-Tenslotte geven we per codefragment minstens één stuk code mee dat gelijkaardig is aan de code die veranderd moet worden.
-Dit dient als controle om na te gaan of de updater specifiek genoeg ingesteld is.
 
 \subsection{Opzet updater}
 \label{ch:opzet-proof-of-concept:opzet-updater}
 
 % Hoe wordt de updater geëvalueerd?
 Dit onderzoek stelt een updater op die de testapplicatie van Angular v16 tot v20 autonoom tracht te updaten waar mogelijk.
-Buiten de updates uitvoeren zal deze updater bijhouden wat het kan en niet kan.
-Elke stap in het updateproces wordt manueel gecategoriseerd volgens de categorieën besproken in Hoofdstuk~\ref{ch:angular-aanpassingen}.
+Buiten het uitvoeren van de updates zal deze updater bijhouden wat het kan en niet kan.
+Elke stap in het updateproces wordt manueel gecategoriseerd volgens de categorieën besproken in Hoofdstuk~\ref{ch:soorten-aanpassingen}.
 De updater probeert voor elk codefragment in de testapplicatie de nodige aanpassingen te detecteren en vervolgens te automatiseren.
+\medskip
 
 % Woe wordt detecteer-/automatiseerbaarheid geëvalueerd?
-Om een beter overzicht te krijgen van de capaciteiten van de updater worden detectie en automatisatie elk onderverdeeld in drie categorieën: niet, deels en volledig.
-Niet detecteer-/automatiseerbaar zijn aanpassingen die niet autonoom uitvoerbaar zijn.
-Dit kan zijn door de limitaties van de updater of de complexiteit van de aanpassing.
-Dit onderzoek beschouwt een aanpassing als te complex indien er nood is om meer dan één AST te doorlopen om de aanpassing te detecteren.
-Per TypeScript bestand behoort één AST.
-Indien er meer dan één AST doorlopen moet worden, betekent dit dat de aanpassing betrekking heeft op meerdere bestanden binnen de applicatie.
-Deels detecteer-/automatiseerbaar zijn aanpassingen die enkel deels autonoom uitvoerbaar zijn.
-Bijvoorbeeld een functie die een nieuwe naam en extra parameters krijgt.
-De naam kunnen we automatisch veranderen, maar de extra parameters moeten handmatig ingevuld worden, omdat ze afhankelijk zijn van de context.
-Daarom kunnen uit de automatisatie van deze aanpassingen compiler errors ontstaan.
-Volledig detecteer-/automatiseerbaar zijn aanpassingen die autonoom uitvoerbaar zijn.
-Hier kan de aanpassing volledig autonoom gedetecteerd en/of uitgevoerd worden zonder compiler errors te veroorzaken.
+Om een beter inzicht te krijgen in de capaciteiten van de updater worden detectie en automatisatie elk onderverdeeld in drie categorieën: niet, deels en volledig.
+Tabel~\ref{tab:capaciteiten-updater} geeft een overzicht van wat dit concreet inhoudt.
+\medskip
+\begin{table}
+  \centering
+  \begin{tabular}{p{0.2\textwidth}|p{0.75\textwidth}}
+    \toprule
+    \multicolumn{2}{c}{\textbf{Detecteer-/automatiseerbaarheid}} \\
+    \hline
+    \textbf{Categorie} & \textbf{Omschrijving} \\
+    \hline
+    \textbf{Niet} & Deze aanpassingen zijn niet autonoom uitvoerbaar.
+    Dit kan zijn door de limitaties van de updater of de complexiteit van de aanpassing.
+    Dit onderzoek beschouwt een aanpassing als te complex indien er nood is om meer dan één AST te doorlopen om de aanpassing te detecteren.
+    Per TypeScript-bestand behoort één AST.
+    Indien er meer dan één AST doorlopen moet worden, betekent dit dat de aanpassing betrekking heeft op meerdere bestanden binnen de applicatie. \\
+    \hline
+    \textbf{Deels} & Deze aanpassingen zijn deels autonoom uitvoerbaar.
+    Bijvoorbeeld een functie die een nieuwe naam en extra parameters krijgt.
+    De naam kunnen we automatisch veranderen, maar de extra parameters moeten handmatig ingevuld worden, omdat ze afhankelijk zijn van de context.
+    Het is mogelijk dat uit de automatisatie van deze aanpassingen compiler errors ontstaan. \\
+    \hline
+    \textbf{Volledig} & Deze aanpassingen zijn volledig autonoom uitvoerbaar.
+    Hier kan de aanpassing volledig autonoom gedetecteerd en/of uitgevoerd worden zonder compiler errors te veroorzaken. \\
+    \bottomrule
+  \end{tabular}
+  \caption[Capaciteiten updater]{
+    \label{tab:capaciteiten-updater}
+    Omschrijft hoe de capaciteiten van de updater onderverdeeld worden.
+  }
+\end{table}
 
 % Hoe maken we de updater?
 Om de updater te maken, voorziet het onderzoek verschillende helperfuncties om de implementatie te vereenvoudigen.
@@ -223,6 +258,8 @@ We evalueren de updater door de output te vergelijken met de controleomgeving.
 Deze vergelijking gebeurt door alle TypeScript bestanden van beide projecten in te lezen en karakter per karakter te vergelijken.
 De updater in het proof of concept houdt bij welke bestanden aangepast werden en welk type automatisatie van toepassing is.
 Tabel~\ref{tab:evaluatie-updater} geeft een overzicht van wanneer de output van de updater correct is.
+\medskip
+
 \begin{table}
   \centering
   \begin{tabular}{p{0.22\textwidth}|p{0.3\textwidth}|p{0.4\textwidth}}
