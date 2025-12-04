@@ -33,16 +33,51 @@
 % Wie zijn bachelorproef in het Nederlands schrijft, kan dit negeren, de inhoud
 % wordt niet in het document ingevoegd.
 
-\IfLanguageName{english}{%
-\selectlanguage{dutch}
-\chapter*{Samenvatting}
-\lipsum[1-4]
-\selectlanguage{english}
-}{}
+% \IfLanguageName{english}{%
+% \selectlanguage{dutch}
+% \chapter*{Samenvatting}
+% \lipsum[1-4]
+% \selectlanguage{english}
+% }{}
 
 %%---------- Samenvatting -----------------------------------------------------
 % De samenvatting in de hoofdtaal van het document
 
 \chapter*{\IfLanguageName{dutch}{Samenvatting}{Abstract}}
 
-\lipsum[1-4]
+% - inleiding + kaderen thema
+Het Angular-framework vereenvoudigt het ontwikkelingsproces voor het bouwen van dynamische webapplicaties.
+Zoals bij de meeste software ontvangt Angular regelmatig updates.
+Deze updates zijn noodzakelijk, omdat ze de cyberveiligheid verbeteren.
+Het toepassen van dergelijke updates is echter niet altijd vanzelfsprekend.
+% - probleemstelling
+Angular verwijdert verouderde functionaliteiten uit het framework.
+Daardoor moet de broncode van Angular-applicaties aangepast worden.
+Dit type updates vindt om de 6 maanden plaats.
+Bij meerdere enterprise-applicaties kan de benodigde tijd voor dit updateproces snel oplopen.
+Het bedrijf Stater ervaart dit probleem.
+Stater is een end-to-end dienstverlener voor zowel hypothecaire als consumentenkredieten.
+Zij willen al hun applicaties updaten van Angular v16 naar v20.
+De sprong van vier versies betekent dat er vermoedelijk veel aanpassingen in de broncode nodig zijn.
+\medskip
+
+% - (centrale) onderzoeksvraag
+Om deze reden wil dit onderzoek achterhalen in welke mate de automatisering van het updateproces van Angular v16 naar v20, over meerdere applicaties, de onderhoudstijd voor ontwikkelaars kan verlagen.
+% - onderzoeksdoelstelling
+Om hierop een antwoord te formuleren, ontwikkelt dit onderzoek een applicatie om het updateproces tee ondersteunen.
+Deze applicatie, de \emph{updater}, fungeert als proof of concept.
+% - methodologie
+Voor de implementatie van de updater maken we gebruik van zoek- en vervangfuncties in combinatie met de TypeScript Compiler API.
+De updater kan programmatisch geconfigureerd worden.
+Dit biedt aanzienlijke flexibiliteit, waardoor de updater ook bij toekomstige aanpassingen inzetbaar blijft.
+\medskip
+
+% - resultaten (beperk tot de belangrijkste, relevant voor de onderzoeksvraag)
+Met onze aanpak is het mogelijk om een kwart van alle nodigde wijzigingen in de update van v16 naar v20 te automatiseren.
+Daarnaast zijn we niet beperkt tot aanpassingen in Angular.
+Onze aanpak werkt op alle TypeScript-code binnen een project.
+% - conclusies, aanbevelingen, beperkingen
+De voornaamste beperking van de updater is het uitvoeren van wijzigingen aan logic.
+Aanpassingen die inzicht vereisen in de werking van de applicatie vormen hierbij een uitdaging.
+Om de updater optimaal te benutten, is het aangewezen om enkel syntactische aanpassingen te automatiseren.
+
