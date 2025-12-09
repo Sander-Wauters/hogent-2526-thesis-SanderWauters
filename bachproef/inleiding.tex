@@ -32,6 +32,8 @@ Dit probleem groeit met de grootte van de broncode en nogmaals met het aantal ap
 Het manueel uitvoeren van al deze veranderingen neemt veel tijd in beslag.
 Tenslotte is dit geen eenmalig probleem.
 Angular krijgt volgens \textcite{Callaghan2023} een nieuwe versie om de 6 maanden.
+\medskip
+
 Het tijdig uitvoeren van deze updates is in de praktijk niet altijd mogelijk.
 De ontwikkelaars hebben meer verantwoordelijkheden dan enkel software te onderhouden.
 Ondertussen worden nieuwe applicaties ontworpen of worden huidige applicaties uitgebreid.
@@ -58,7 +60,7 @@ Op basis van de bovenstaande probleemstelling is de volgende onderzoeksvraag gef
 % Wat zijn de deelvragen?
 Om deze onderzoeksvraag te beantwoorden, zijn de volgende deelvragen opgesteld:
 \begin{itemize}
-  \item Hoeveel veranderingen moeten uitgevoerd worden om Angular van v16 naar v20 te updaten?
+  \item Welk veranderingen moeten uitgevoerd worden om Angular van v16 naar v20 te updaten?
   \item Welke manieren bestaan er om code automatisch aan te passen zonder ongewenste veranderingen uit te voeren?
   \item Welke manier om code automatisch aan te passen is het meest geschikt om in deze casus toe te passen?
   \item Wat zijn statistisch gezien de meest voorkomende problemen bij het updaten van code?
@@ -81,7 +83,7 @@ Concreet betekent dit dat de updater aan de volgende criteria moet voldoen:
   \item De updater is van de ontwikkelaars voor de ontwikkelaars. 
     De bedoeling is dat de persoon die de update uitvoert de updater kan instellen.
   \item De updater moet aanpasbaar zijn aan de uit te voeren update. 
-    Het moet hergebruikt kunnen worden bij de volgende update.
+    Het moet herbruikbaar zijn bij toekomstige updates.
   \item De updater mag geen nieuwe bugs introduceren. 
     Gegeven dat de configuratie correct is, mag het geen ongewenste fouten maken.
   \item De updater mag niet gekoppeld zijn aan Angular. 
@@ -106,11 +108,10 @@ De methodologie begint met het toelichten van de gekozen refactoringtechnieken u
 Hierna volgt een korte oplijsting van welke veranderingen concreet uitgevoerd moeten worden om een Angular-applicatie van v16 naar v20 te updaten.
 Vervolgens wordt als proof of concept de updater uitgewerkt op basis van de gekozen technieken.
 Tegelijk wordt een gecontroleerde omgeving gemaakt die dient om de effectiviteit van de updater te testen.
-Tenslotte geven we de resultaten van de updater.
 \medskip
 
-In Hoofdstuk~\ref{ch:conclusie}, tenslotte, wordt de conclusie gegeven en een antwoord geformuleerd op de onderzoeksvragen.
-Alle deelvragen worden beantwoord.
+In Hoofdstuk~\ref{ch:conclusie}, tenslotte, geven we de resultaten van de updater.
+Op basis van deze resultaten geven we een conclusie en formuleren we een antwoord op de onderzoeksvraag.
 Om het onderzoek af te ronden, worden enkele nieuwe inzichten gegeven. 
 Deze kunnen dienen als aanzet tot verder onderzoek.
 

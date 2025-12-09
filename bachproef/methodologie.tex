@@ -51,7 +51,7 @@ AI heeft de grootste kans op succes, maar er zijn praktische problemen.
 Verzamelen van data kan problematisch zijn en er is geen garantie op succes.
 \medskip
 
-Op basis van deze evaluatie kiest dit onderzoek om verder te gaan met zoek- \& vervangfuncties in combinatie met compiler-tooling.
+Dit onderzoek om verder te gaan met zoek- \& vervangfuncties in combinatie met compiler-tooling.
 Voor compiler-tooling gebruiken we de TypeScript Compiler API.
 Deze API laat toe om op de TypeScript Compiler te programmeren.
 Het grote voordeel hiervan is dat we toegang krijgen tot dezelfde error-detectie als de compiler.
@@ -74,7 +74,7 @@ Het doel hiervan is om snel nieuwe updates te kunnen automatiseren.
 Een programmatische configuratie betekent dat de updater bij elke aanpassing gecompileerd moet worden.
 Dit klinkt als een complex proces, maar in werkelijkheid betekent dit één extra commando uitvoeren.
 De updater zal compileren naar een CLI-applicatie.
-Bij het uitvoeren van een Angular-update moeten er sowieso al commando's uitgevoerd worden.
+Bij het uitvoeren van een Angular-update moeten er commando's uitgevoerd worden.
 Door de updater een CLI-applicatie te maken, past deze in de huidige workflow.
 Verder geeft dit ons de mogelijkheid om alle commando's samen te voegen in een script om de updater op meerdere projecten te laten uitvoeren.
 
@@ -254,7 +254,7 @@ Het doel hiervan is om een eenvoudige syntax te creëren, specifiek naar de node
 % Hoe evalueren we de updater?
 Om de correctheid van de updater te testen, stelt dit onderzoek een controleomgeving op.
 De controleomgeving is opgesteld door de testomgeving handmatig te updaten naar v20.
-We evalueren de updater door de output te vergelijken met de controleomgeving.
+We valideren de updater door de output te vergelijken met de controleomgeving.
 Deze vergelijking gebeurt door alle TypeScript bestanden van beide projecten in te lezen en karakter per karakter te vergelijken.
 De updater in het proof of concept houdt bij welke bestanden aangepast werden en welk type automatisatie van toepassing is.
 Tabel~\ref{tab:evaluatie-updater} geeft een overzicht van wanneer de output van de updater correct is.

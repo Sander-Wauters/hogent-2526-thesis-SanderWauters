@@ -37,13 +37,12 @@ Tenslotte komt het met functies die toelaten om testen te schrijven voor de UI.
 \medskip
 
 % Hoe is een Angular-project gestructureerd?
-Angular is gebaseerd op TypeScript en gebruikt dit in combinatie met andere technologieën.
-In een Angular-project zijn de volgende bestanden terug te vinden:
+Angular is gebaseerd op TypeScript en gebruikt dit in combinatie met andere technologieën:
 \begin{itemize}
-  \item TypeScript: de TypeScript-programmeertaal wordt gebruikt voor de implementatie van de bedrijfslogica en testen.
-  \item HTML: HTML wordt gebruikt om de structuur van de UI te omschrijven. 
-  \item CSS: CSS wordt gebruikt om de visuele representatie van de UI te omschrijven
-  \item JSON: JSON wordt gebruikt voor het configureren van Angular en TypeScript.
+  \item De TypeScript-programmeertaal wordt gebruikt voor de implementatie van de bedrijfslogica en testen.
+  \item HTML wordt gebruikt om de structuur van de UI te omschrijven. 
+  \item CSS wordt gebruikt om de visuele representatie van de UI te omschrijven
+  \item JSON wordt gebruikt voor het configureren van Angular en TypeScript.
 \end{itemize}
 In de volgende secties van dit hoofdstuk bespreken we de werking van Angular in meer detail.
 
@@ -135,7 +134,7 @@ Templates zijn syntactisch gelijkaardig aan HTML, maar er zijn enkele verschille
 HTML is de standaardtechnologie die webbrowsers gebruiken om de structuur van een webpagina te interpreteren.
 Volgens het \textcite{AngularControlFlowDocs2025} breiden template de mogelijkheden van HTML uit met nieuwe syntax specifiek aan Angular.
 Om HTML dynamischer te maken, voorziet het de \mintinline{ts}{@if}, \mintinline{ts}{@else}, \mintinline{ts}{@for} en \mintinline{ts}{@switch} syntax.
-Deze syntax is functioneel identiek aan hun TypeScript-equivalent.
+De werking is functioneel identiek aan hun TypeScript-equivalent.
 Codefragment~\ref{cf:conditionele-template} geeft een voorbeeld van hoe deze syntax eruitziet.
 \begin{listing}
   \begin{minted}{html}
@@ -152,7 +151,7 @@ Codefragment~\ref{cf:conditionele-template} geeft een voorbeeld van hoe deze syn
       </ul>
     }
   \end{minted}
-  \caption[Voorbeeld conditionele template]{Voorbeeld van conditionele condities in Angular-templates.}
+  \caption[Voorbeeld conditionele template]{Voorbeeld van conditionele syntax in Angular-templates.}
   \label{cf:conditionele-template}
 \end{listing}
 Buiten conditionele syntax is er nieuwe syntax om data uit de component klasse te koppelen aan de template.
@@ -162,7 +161,7 @@ Dit proces noemt men data binding.
 \label{ch:stand-van-zaken:angular:data-binding}
 
 % Hoe communiceren componenten met templates?
-Angular gebruikt data binding als manier om data uit te wisselen tussen TypeScript en HTML.
+Angular gebruikt data binding als manier om data uit te wisselen tussen TypeScript en templates.
 % Wat is data binding?
 Volgens \textcite{Ozdikililer2021} is data binding een manier om een databron met een bestemming te verbinden.
 In de context van Angular is een TypeScript-klasse de databron en de template de bestemming.
@@ -185,7 +184,7 @@ De syntax voor interpolation is \mintinline{ts}{{{ }}}, bijvoorbeeld:\\ \mintinl
 % Wat is property binding?
 De tweede soort noemt \emph{property binding} \autocite{AngularDataBindingDocs2025}.
 Property binding is een manier om dynamisch data aan een HTML-element of een andere component mee te geven.
-Het is one-way binding
+Het is one-way binding.
 Het HTML-element of de andere component kan de data enkel lezen.
 De syntax voor propery binding is \mintinline{ts}{[ ]}, bijvoorbeeld:\\ \mintinline{html+ng2}{<button [disabled]="hasErrors()">Save</button>}.
 \medskip
@@ -196,7 +195,7 @@ Hier is de data een referentie naar een functie.
 Deze functie wordt meegegeven aan een HTML-element of component.
 De bestemming van de functie roept de functie op als een bepaalde conditie bereikt is.
 Deze functie wordt om deze reden een \emph{event listener} genoemd.
-Het is one-way binding
+Het is one-way binding.
 Het HTML-element of component kan de functie enkel oproepen.
 De syntax voor event binding is \mintinline{ts}{( )}, bijvoorbeeld:\\ \mintinline{html+ng2}{<button (click)="saveChanges()">Save</button>}.
 \medskip
@@ -211,7 +210,7 @@ De syntax voor two-way binding is \mintinline{ts}{[( )]}, bijvoorbeeld:\\ \minti
 \label{ch:stand-van-zaken:angular:services}
 
 % Wat zijn services?
-Het \textcite{AngularDIDocs2025} omschrijft services als herbruikbare stukken code die gedeeld kunnen worden over meerdere componenten.
+Het \textcite{AngularDIDocs2025} omschrijft \emph{services} als herbruikbare stukken code die gedeeld kunnen worden over meerdere componenten.
 Het zorgt ervoor dat verschillende componenten dezelfde logica delen.
 Dit maakt een applicatie modulair en zorgt ervoor dat code herbruikbaar blijft.
 \medskip
@@ -226,7 +225,7 @@ Het zorgt voor een losse koppeling tussen objecten, waardoor de code modulair bl
 % Hoe ziet dit eruit?
 Angular injecteert services in componenten tijdens hun instantiatie.
 Om Angular dit voor ons te laten doen, moeten alle services de \mintinline{ts}{@Injectable} decorator hebben.
-Deze service wordt geinjecteert in een klasse via de constructor of de \mintinline{ts}{inject()} functie.
+Deze services worden geinjecteert in een klasse via de constructor of de \mintinline{ts}{inject()} functie.
 Hoewel beide opties mogelijk zijn, wordt de \mintinline{ts}{inject()} functie als de standaardmanier beschouwd sinds Angular v18.
 Codefragment~\ref{cf:dependency-injection} geeft een voorbeeld van hoe dit eruit ziet.
 \begin{listing}
@@ -308,7 +307,7 @@ Enkel de noodzakelijke aanpassingen zijn hier opgelijst.
 De aanpassingen die we onderzoeken zijn hierdoor gebaseerd op deze handleiding.
 \medskip
 
-Hieruit formuleren we het volgende antwoord op de deelvraag: hoeveel veranderingen moeten uitgevoerd worden om Angular van v16 naar v20 te updaten?
+Hieruit formuleren we het volgende antwoord op de deelvraag: welke veranderingen moeten uitgevoerd worden om Angular van v16 naar v20 te updaten?
 Om een applicatie van v16 naar v20 te updaten, zijn volgens deze handleiding 80 verschillende stappen nodig.
 Hieronder volgt een kleine opsomming van deze stappen:
 \begin{itemize}
@@ -317,16 +316,15 @@ Hieronder volgt een kleine opsomming van deze stappen:
   \item Bij elke nieuwe versie moet een commando uitgevoerd worden om de Angular \emph{core}- en \emph{cli}-afhankelijkheden te updaten.
   \item Verschillende functies veranderen van naam.
   \item Verschillende functies worden vervangen door andere functies.
-  \item Verschillende functies worden verwijderd, omdat Angular hun functionaliteiten als standaard toepast.
+  \item Verschillende functies worden verwijderd, omdat Angular nieuwe functionaliteiten als standaard toepast.
   \item Verschillende functies moeten uit andere bestanden geïmporteerd worden.
   \item Verschillende functies geven nieuwe objecten terug.
   \item Verschillende functies krijgen nieuwe of andere parameters.
   \item Door een verandering aan de achterliggende werking van het testing-framework moeten testen die bepaalde functies aanspreken herzien worden.
-  \item In v17 worden gelijkheidstesten in templates strikter. De werking moet overal nagegaan worden.
+  \item In v17 worden condities in templates strikter geëvalueerd. De werking moet overal nagegaan worden.
   \item In v18 is er een aanpassing aan de werking van two-way binding in bepaalde randgevallen.
   \item In v18 verandert de manier waarop Angular-applicaties van pagina veranderen.
-  \item In v19 is er een aanpassing aan de werking van interpolation in bepaalde randgevallen.
-  \item In v20 is er een aanpassing aan de werking van interpolation in bepaalde randgevallen.
+  \item In v19 en v20 is er een aanpassing aan de werking van interpolation in bepaalde randgevallen.
   \item \dots
 \end{itemize}
 
@@ -349,7 +347,7 @@ Het is belangrijk om op termijn naar de nieuwe functies over te schakelen, omdat
 \medskip
 
 Oudere versies van Angular worden niet meer onderhouden.
-Tijdens het schrijven van dit onderzoek worden v2 to en met v17 niet ondersteunt \autocite{AngularReleasesDocs2025}.
+Tijdens het schrijven van dit onderzoek worden v2 tot en met v17 niet ondersteunt \autocite{AngularReleasesDocs2025}.
 Om de betrouwbaarheid van onze applicatie te kunnen garanderen is dus van belang om tijdig over te schakelen naar de nieuwste versie.
 
 \section{Automatisch refactoren}
@@ -378,7 +376,23 @@ In hun studie worden de manieren onderverdeeld in de volgende categorieën:
 De volgende secties van het onderzoek geven concrete voorbeelden voor elke categorie.
 Per voorbeeld worden inzichten gegeven in de werking, samen met de voor- en nadelen.
 Achteraf wordt de beslissing genomen over welke manier het meest geschikt is om toe te passen in deze casus.
+
+\subsection{Gekende problemen}
+\label{ch:stand-van-zaken:refactoring:known-problems}
+
+% Wat zijn de gekende problemen bij refactoren?
+Een applicatie refactoren is niet zonder risico's.
+Bij het aanpassen van software bestaat altijd het risico dat er nieuwe bugs ontstaan.
+Het is niet altijd even evident om dit op te sporen.
+Indien een applicatie over voldoende testen beschikt, kunnen bugs snel opgespoord worden.
+Dan nog is het een meerwaarde om deze bugs op voorhand te vermijden.
 \medskip
+
+De studie door \textcite{Di2020} onderzoekt de kans dat een bepaalde refactoringactie een nieuwe bug introduceert in objectgeoriënteerde applicaties.
+Uit deze studie blijkt dat acties zoals een methode of variabele van naam of type veranderen de meeste kans hebben om nieuwe bugs te introduceren.
+Volgens dezelfde bron zijn dit de acties die het meeste voorkomen tijdens refactoring.
+Extra attentie is nodig bij het automatiseren van deze acties.
+Dit beantwoordt onze deelvraag: wat zijn statistisch gezien de meest voorkomende problemen bij het updaten van code?
 
 \subsection{Syntax vs semantiek}
 \label{ch:stand-van-zaken:refactoring:syntax-vs-semantiek}
@@ -484,7 +498,7 @@ Figuur \ref{fig:ast-preview} geeft een vereenvoudigde representatie van hoe een 
 % Waarom is dit relevant?
 Herinner dat Angular gebaseerd is op TypeScript en dat TypeScript gecompileerd moet worden.
 De TypeScript compiler kan programmatisch aangesproken worden met de TypeScript compiler API.
-Een studie door \textcite{Reid2023} gebruikt de TypeScript compiler voor het opsporen van foutieve code-elementen, met positieve resultaten.
+Een studie door \textcite{Reid2023} gebruikt deze API voor het opsporen van foutieve code-elementen, met positieve resultaten.
 \medskip
 
 % Wat zijn de voordelen?
@@ -513,28 +527,11 @@ Uit dezelfde studie blijkt dat het automatisatieproces correct was in 98\% van d
 AI-gebaseerd refactoren is veelbelovend, maar niet perfect.
 De studie door \textcite{Hodovychenko2025} identificeert enkele praktische problemen met deze aanpak.
 Om dit soort AI-tools te ontwikkelen, is een grote hoeveelheid betrouwbare data nodig.
-Het verzamelen en verifiëren van deze data is praktisch niet altijd haalbaar.
+Het verzamelen en verifiëren van deze data is niet altijd praktisch haalbaar.
 Refactoringdata voor oude update verzamelen is mogelijk.
 Maar bij gloednieuwe updates is er nog geen data.
 Tenslotte is er geen garantie op de correctheid van de output.
 Een ongewenste aanpassing kan grote gevolgen hebben op de integriteit van de applicatie.
-
-\subsection{Gekende problemen}
-\label{ch:stand-van-zaken:refactoring:known-problems}
-
-% Wat zijn de gekende problemen bij refactoren?
-Een applicatie refactoren is niet zonder risico's.
-Bij het aanpassen van software bestaat altijd het risico dat er nieuwe bugs ontstaan.
-Het is niet altijd even evident om dit op te sporen.
-Indien een applicatie over voldoende testen beschikt, kunnen bugs snel opgespoord worden.
-Dan nog is het een meerwaarde om deze bugs op voorhand te vermijden.
-\medskip
-
-De studie door \textcite{Di2020} onderzoekt de kans dat een bepaalde refactoringactie een nieuwe bug introduceert in objectgeoriënteerde applicaties.
-Uit deze studie blijkt dat acties zoals een methode of variabele van naam of type veranderen de meeste kans hebben om nieuwe bugs te introduceren.
-Volgens dezelfde bron zijn dit de acties die het meeste voorkomen tijdens refactoring.
-Extra attentie is nodig bij het automatiseren van deze acties.
-Dit beantwoordt onze deelvraag: wat zijn statistisch gezien de meest voorkomende problemen bij het updaten van code?
 
 % \begin{figure}
 %   \centering

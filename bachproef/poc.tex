@@ -25,7 +25,7 @@ Dit maakt het mogelijk om deze functie als een predicaat mee te geven en zo de f
 
 Codefragment~\ref{cf:get-ancestor} omschrijft een ander manier om de AST te navigeren.
 Hier doorlopen we de AST van een gegeven node terug naar de root van de AST.
-De functie roept zichzelf recursief op tot de gewenste diepte bereikt is of de huidige node geen ouder bevat.
+De functie roept zichzelf recursief op tot de gewenste diepte of de root bereikt is.
 \medskip
 
 % Hoe impelmentere we find & replace?
@@ -100,14 +100,14 @@ Alle functies tot nu toe waren tamelijk abstract en kunnen voor meerdere doelein
 Wat volgt zijn enkele functies die specifiek één doel hebben.
 % Hoe vinden we de scope van een node?
 De eerste van deze functies in codefragment~\ref{cf:in-scope-of} gaat na of een node in een bepaalde scope ligt.
-We doen dit door recursief het syntaxtype van de ouder te vergelijken tot een match is gevonden of de node geen ouder bevat.
+We doen dit door recursief het syntaxtype van de ouder te vergelijken tot een match is gevonden of de root node bereikt is.
 ts-morph evalueert het syntaxtype aan de hand van de \emph{SyntaxKind} enumeratie.
 Voorbeelden van syntaxtype zijn: bestanden, importdeclaraties, klassedeclaraties, expressies, decorators, keywords, \dots.
 Als een node de syntaxtype matcht, dan wordt deze node teruggegeven.
 \medskip
 
 % Hoe vinden we het type van de node?
-Codefragment~\ref{cf:has-type} definieert een helperfunctie om het type van een node terug te vinden.
+Codefragment~\ref{cf:has-type} definieert een helperfunctie om het type van een node te vergelijken.
 Dit doen we door de tekstrepresentatie van het type te vergelijken met een gegeven regex patroon.
 De tekstrepresentatie van het type is simpelweg hoe het type gebruikt wordt in de broncode.
 \medskip
@@ -199,7 +199,7 @@ Het is niet altijd mogelijk om de nodige aanpassingen te automatiseren.
 Dan nog kan het een meerwaarde zijn om deze op te sporen.
 Bijvoorbeeld, in één van de stappen in het updateproces moeten Angular componenten met de OnPush-ver\-an\-der\-ing detectiestrategie nagekeken worden hoe ze interageren met templates.
 We weten op voorhand dat templates niet toegankelijk zijn voor de updater.
-Maar we kunnen wel verandering detectiestrategieën gaan opsporen.
+Maar we kunnen wel verandering detectiestrategieën gaan opsporen in TypeScript.
 In codefragment~\ref{cf:sample-3} zoeken we alle componenten op met de OnPush-ver\-an\-der\-ing detectiestrategie.
 Vervolgens geven we terug waar deze component zich bevindt binnen het project.
 \medskip
@@ -228,7 +228,7 @@ Of deze even goed zullen werken in de praktijk is afhankelijk van het project.
     );
     await saveProject(project);
   \end{minted}
-  \caption[Updater voorbeeld 1]{Hernoemt alle instanties van de mutatemethode uit de WritableSignal-klasse met update.}
+  \caption[Updater voorbeeld 1]{Hernoemt alle instanties van de mutate-methode uit de WritableSignal-klasse met update.}
   \label{cf:sample-1}
 \end{listing}
 
