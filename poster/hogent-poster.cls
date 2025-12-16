@@ -249,7 +249,19 @@
 
 \usepackage{multicol} % This is so we can have multiple columns of text side-by-side
 \columnsep=100pt % This is the amount of white space between the columns in the poster
-\columnseprule=3pt % This is the thickness of the black line between the columns in the poster
+\columnseprule=0pt % This is the thickness of the black line between the columns in the poster
+
+\usepackage[chapter,outputdir=../output]{minted}
+\usemintedstyle{solarized-light}
+
+%% Formatting for minted environments.
+\setminted{%
+    autogobble,
+    frame=lines,
+    breaklines,
+    linenos,
+    tabsize=4
+}
 
 %% -----------------------------------------------------------------------------
 %% Titel
@@ -269,9 +281,11 @@
   \fi
   \endgroup
 
+  \begin{multicols}{2}
+
   \begingroup
   \bigskip
-  \raggedright\huge\textbf{\@author}
+  \raggedright\Large \@author
 
   \if\@email\@empty\else
     \medskip
@@ -292,9 +306,21 @@
   \endgroup
 
   \begingroup
-  \bigskip
   \raggedright\Large\@institution
+
+  \if\@specialisation\@empty\else
+    \raggedright\Large Keuzerichting: \@specialisation
+  \fi
   \endgroup
+
+  \begingroup
+  \if\@keywords\@empty\else
+    \medskip
+    \raggedright\Large Sleutelwoorden: \@keywords
+  \fi
+  \endgroup
+
+  \end{multicols}
 
   \bigskip
 }
@@ -318,19 +344,23 @@
 \savebox{\logopart}{\includegraphics[height=7cm]{logopart}}
 
 % First page footer
-\fancypagestyle{plain}{%
+\fancypagestyle{plain}{
   %\newgeometry{bottom=\wd\logopart}
-  \fancyhf{}%
-  \fancyfoot[L]{}%
-  \fancyfoot[C]{}
-  \fancyfoot[R]{%
+  \fancyhf{}
+  \fancyfoot[L]{
     \begin{tikzpicture}[remember picture, overlay]
-      \node [anchor=south east, shift={(-\the\wd\logopart, \the\wd\logopart)}, inner sep=0, outer sep=0] (logo) at (current page.south east)%
-      {%
-        \includegraphics[height=\the\ht\logopart]{hogent_logo}%
-      };%
+      \node [anchor=south west, shift={(\the\wd\logopart, \the\wd\logopart)}, inner sep=0, outer sep=0] (logo) at (current page.south west)
+      {
+        % \includegraphics[height=\the\ht\logopart]{hogent_logo}%
+        \if\@projectrepo\@empty\else
+          \medskip
+          \raggedright\Large Broncode: \url{\@projectrepo}
+        \fi
+      };
     \end{tikzpicture}
-  }%
+  }
+  \fancyfoot[C]{}
+  \fancyfoot[R]{}
 }
 
 %%============================================================================
@@ -376,6 +406,8 @@
 \setlength\belowdisplayshortskip{13pt plus 7pt minus 6pt}
 \setlength\belowdisplayskip\abovedisplayskip
 
+\setlength{\parindent}{0cm}
+
 \normalsize
 
 \AtBeginDocument{
@@ -410,7 +442,7 @@
 
 %% Section headers
 \titleformat{\section}
-{\Large\titlefont}
+{\LARGE\titlefont}
 {\bfseries\thesection.\ }
 {0pt}
 {\bfseries\color{title}}
@@ -433,45 +465,4 @@
 {1.8pt}
 {\bfseries}
 \titlespacing{\subsubsection}{0pt}{.5\baselineskip}{3pt}
-
-%% -----------------------------------------------------------------------------
-%% Abstract
-
-\renewenvironment{abstract}
-{%
-  \bigskip\bigskip
-  \addtolength{\leftmargin}{1em}
-
-  \begin{center}
-    {\Large\titlefont\abstractname}
-  \end{center}
-  \list{}{%
-    \setlength{\leftmargin}{2cm}
-    \setlength{\rightmargin}{\leftmargin}}%
-  \item\relax\normalfont\itshape
-}{%
-
-  \if\@specialisation\@empty\else
-    \medskip
-    \normalfont\noindent\if@english Specialisation: \else Keuzerichting: \fi
-    \@specialisation
-  \fi
-
-  \if\@keywords\@empty\else
-    \medskip
-    \normalfont\noindent\if@english Keywords: \else Sleutelwoorden: \fi
-    \@keywords
-  \fi
-
-  \if\@projectrepo\@empty\else
-    \medskip
-    \normalfont\noindent\if@english Source code: \else Broncode: \fi
-    \url{\@projectrepo}
-  \fi
-  \endlist
-
-  \bigskip
-}
-
-\endinput
 %% End of file `hogent-poster.cls'.
