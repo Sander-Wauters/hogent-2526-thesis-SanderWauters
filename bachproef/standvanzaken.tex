@@ -221,15 +221,8 @@ Services worden door de ontwikkelaars van de applicatie gemaakt.
 Angular verbindt de services met de componenten door middel van dependency injection.
 \textcite{Razina2007} omschrijft dependency injection als een ontwerppatroon om van buitenaf logica aan een object mee te geven.
 Het zorgt voor een losse koppeling tussen objecten, waardoor de code modulair blijft.
-\medskip
 
-% Hoe ziet dit eruit?
-Angular injecteert services in componenten tijdens hun instantiatie.
-Om Angular dit voor ons te laten doen, moeten alle services de \mintinline{ts}{@Injectable} decorator hebben.
-Deze services worden geïnjecteerd in een klasse via de constructor of de \mintinline{ts}{inject()} functie.
-Hoewel beide opties mogelijk zijn, wordt de \mintinline{ts}{inject()} functie als de standaardmanier beschouwd sinds Angular v18.
-Codefragment~\ref{cf:dependency-injection} geeft een voorbeeld van hoe dit eruit ziet.
-\begin{listing}
+\begin{listing}[!htb]
   \begin{minted}{ts}
     import { Injectable, Component, inject } from '@angular/core';
 
@@ -240,11 +233,17 @@ Codefragment~\ref{cf:dependency-injection} geeft een voorbeeld van hoe dit eruit
     export class MyComponent {
       private service = inject(MyService);
     }
-    
   \end{minted}
   \caption[Voorbeeld Angular dependency injection]{Voorbeeld van hoe een service in Angular gedeclareerd en geïnjecteerd wordt.}
   \label{cf:dependency-injection}
 \end{listing}
+
+% Hoe ziet dit eruit?
+Angular injecteert services in componenten tijdens hun instantiatie.
+Om Angular dit voor ons te laten doen, moeten alle services de \mintinline{ts}{@Injectable} decorator hebben.
+Deze services worden geïnjecteerd in een klasse via de constructor of de \mintinline{ts}{inject()} functie.
+Hoewel beide opties mogelijk zijn, wordt de \mintinline{ts}{inject()} functie als de standaardmanier beschouwd sinds Angular v18.
+Codefragment~\ref{cf:dependency-injection} geeft een voorbeeld van hoe dit eruit ziet.
 
 \subsection{Testen}
 \label{ch:stand-van-zaken:angular:testen}
