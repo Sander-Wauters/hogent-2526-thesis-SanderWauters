@@ -101,7 +101,7 @@ Voorbeelden van achterliggende logica zijn: valideren van input, data opvragen v
 \medskip
 
 % Hoe is dit opgebouwd?
-Het \textcite{AngularComponentsDocs2025} omschrijft de opbouw van een component als volgt.
+Het \textcite{AngularComponentsDocs2025} omschrijft de opbouw van een component.
 Componenten zijn TypeScript-klassen met een \mintinline{ts}{@Component} decorator.
 De \mintinline{ts}{@Component} decorator verwacht drie parameters.
 Een \emph{selector} die de naam bepaalt van de component.
@@ -110,7 +110,7 @@ Dit kan ofwel een verwijzing zijn naar een HTML-bestand of een hardgecodeerde st
 Tenslotte is er de \emph{style} parameter die het uiterlijk van de UI bepaalt.
 Dit kan ofwel een verwijzing zijn naar een CSS-bestand of een hardgecodeerde string met CSS-code.
 Codefragment~\ref{cf:component-declaration} geeft een voorbeeld van hoe deze syntax eruitziet.
-\begin{listing}
+\begin{listing}[!htb]
   \begin{minted}{ts}
     import { Component } from '@angular/core';
     
@@ -136,7 +136,9 @@ Volgens het \textcite{AngularControlFlowDocs2025} breiden template de mogelijkhe
 Om HTML dynamischer te maken, voorziet het de \mintinline{ts}{@if}, \mintinline{ts}{@else}, \mintinline{ts}{@for} en \mintinline{ts}{@switch} syntax.
 De werking is functioneel identiek aan hun TypeScript-equivalent.
 Codefragment~\ref{cf:conditionele-template} geeft een voorbeeld van hoe deze syntax eruitziet.
-\begin{listing}
+Buiten conditionele syntax is er nieuwe syntax om data uit de component klasse te koppelen aan de template.
+Dit proces noemt men data binding.
+\begin{listing}[!htb]
   \begin{minted}{html}
     <h1>User profile</h1>
     @if (isAdmin()) {  
@@ -154,8 +156,6 @@ Codefragment~\ref{cf:conditionele-template} geeft een voorbeeld van hoe deze syn
   \caption[Voorbeeld conditionele template]{Voorbeeld van conditionele syntax in Angular-templates.}
   \label{cf:conditionele-template}
 \end{listing}
-Buiten conditionele syntax is er nieuwe syntax om data uit de component klasse te koppelen aan de template.
-Dit proces noemt men data binding.
 
 \subsection{Data binding}
 \label{ch:stand-van-zaken:angular:data-binding}
@@ -164,11 +164,12 @@ Dit proces noemt men data binding.
 Angular gebruikt data binding als manier om data uit te wisselen tussen TypeScript en templates.
 % Wat is data binding?
 Volgens \textcite{Ozdikililer2021} is data binding een manier om een databron met een bestemming te verbinden.
-In de context van Angular is een TypeScript-klasse de databron en de template de bestemming.
+In Angular vormt de TypeScript-klasse de databron, waarbij de template de bestemming is.
 Conceptueel zijn er twee soorten van data binding: one-way binding en two-way binding.
 One-way binding zorgt dat een verandering aan de databron gesynchroniseerd wordt met de bestemming.
 Veranderingen in de bestemming daarentegen worden niet gereflecteerd in de databron.
-Two-way binding zorgt dat een verandering aan zowel de databron als de bestemming gereflecteerd wordt in de andere.
+Two-way binding synchroniseert de databron met de bestemming in beide richtingen.
+Een verandering in de ene wordt gereflecteerd in de andere.
 \medskip
 
 % Hoe gebruikt Angular data binding?
@@ -183,7 +184,7 @@ De syntax voor interpolation is \mintinline{ts}{{{ }}}, bijvoorbeeld:\\ \mintinl
 
 % Wat is property binding?
 De tweede soort noemt \emph{property binding} \autocite{AngularDataBindingDocs2025}.
-Property binding is een manier om dynamisch data aan een HTML-element of een andere component mee te geven.
+Property binding is een manier om dynamisch data aan een HTML-element of een andere component door te geven.
 Het is one-way binding.
 Het HTML-element of de andere component kan de data enkel lezen.
 De syntax voor propery binding is \mintinline{ts}{[ ]}, bijvoorbeeld:\\ \mintinline{html+ng2}{<button [disabled]="hasErrors()">Save</button>}.
@@ -225,7 +226,7 @@ Het zorgt voor een losse koppeling tussen objecten, waardoor de code modulair bl
 % Hoe ziet dit eruit?
 Angular injecteert services in componenten tijdens hun instantiatie.
 Om Angular dit voor ons te laten doen, moeten alle services de \mintinline{ts}{@Injectable} decorator hebben.
-Deze services worden geinjecteert in een klasse via de constructor of de \mintinline{ts}{inject()} functie.
+Deze services worden geïnjecteerd in een klasse via de constructor of de \mintinline{ts}{inject()} functie.
 Hoewel beide opties mogelijk zijn, wordt de \mintinline{ts}{inject()} functie als de standaardmanier beschouwd sinds Angular v18.
 Codefragment~\ref{cf:dependency-injection} geeft een voorbeeld van hoe dit eruit ziet.
 \begin{listing}
@@ -347,7 +348,7 @@ Het is belangrijk om op termijn naar de nieuwe functies over te schakelen, omdat
 \medskip
 
 Oudere versies van Angular worden niet meer onderhouden.
-Tijdens het schrijven van dit onderzoek worden v2 tot en met v17 niet ondersteunt \autocite{AngularReleasesDocs2025}.
+Tijdens het schrijven van dit onderzoek worden v2 tot en met v17 niet verder ondersteund \autocite{AngularReleasesDocs2025}.
 Om de betrouwbaarheid van onze applicatie te kunnen garanderen is dus van belang om tijdig over te schakelen naar de nieuwste versie.
 
 \section{Automatisch refactoren}
