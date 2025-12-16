@@ -20,7 +20,7 @@ import {
   findNodes,
   getAncestor,
   hasType,
-  lastInstanceInTree,
+  deepestInstanceOf,
 } from "../util/traversal.js";
 
 const project = loadTestenv();
@@ -38,7 +38,7 @@ function step43(project: Project): StepData {
     findNodes(
       file,
       (node) =>
-        lastInstanceInTree(node, "withServerTransition") &&
+        deepestInstanceOf(node, "withServerTransition") &&
         findNodes(
           getAncestor(node, 3)!,
           (ancestor) => hasType(ancestor, "BrowserModule"),
@@ -73,7 +73,7 @@ function step44(project: Project): StepData {
     findNodes(
       file,
       (node) =>
-        lastInstanceInTree(node, "factories") &&
+        deepestInstanceOf(node, "factories") &&
         findNodes(
           getAncestor(node, 3)!,
           (ancestor) => hasType(ancestor, "KeyValueDiffers"),
@@ -103,7 +103,7 @@ function step49(project: Project): StepData {
     findNodes(
       file,
       (node) =>
-        lastInstanceInTree(node, "fakeAsync") &&
+        deepestInstanceOf(node, "fakeAsync") &&
         node.getKind() == SyntaxKind.Identifier &&
         node.getParent()?.getKind() === SyntaxKind.CallExpression,
       () => {
@@ -131,7 +131,7 @@ function step52(project: Project): StepData {
     findNodes(
       file,
       (node) =>
-        lastInstanceInTree(node, "errorHandler") &&
+        deepestInstanceOf(node, "errorHandler") &&
         findNodes(
           getAncestor(node, 3)!,
           (ancestor) => hasType(ancestor, "Router"),
@@ -162,7 +162,7 @@ function step53(project: Project): StepData {
     findNodes(
       file,
       (node) =>
-        lastInstanceInTree(node, "tick") &&
+        deepestInstanceOf(node, "tick") &&
         node.getParent()?.getKind() == SyntaxKind.CallExpression &&
         findNodes(
           getAncestor(node, 3)!,
@@ -194,7 +194,7 @@ function step54(project: Project): StepData {
     findNodes(
       file,
       (node) =>
-        lastInstanceInTree(node, "resolve") && accessedFrom(node, "Resolve"),
+        deepestInstanceOf(node, "resolve") && accessedFrom(node, "Resolve"),
       () => {
         detection = Capability.FULLY;
         changedFiles.push(file.getBaseName());
@@ -220,7 +220,7 @@ function step55(project: Project): StepData {
     findNodes(
       file,
       (node) =>
-        lastInstanceInTree(node, "fakeAsync") &&
+        deepestInstanceOf(node, "fakeAsync") &&
         node.getKind() === SyntaxKind.Identifier &&
         node.getParent()?.getKind() === SyntaxKind.CallExpression,
       () => {

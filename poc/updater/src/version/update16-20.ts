@@ -21,7 +21,7 @@ import {
   getAncestor,
   hasType,
   inScopeOf,
-  lastInstanceInTree,
+  deepestInstanceOf,
 } from "../util/traversal.js";
 
 const project = loadTestenv();
@@ -38,11 +38,11 @@ function step05(project: Project): StepData {
   project.getSourceFiles().forEach((file) =>
     findNodes(
       file,
-      (node) => lastInstanceInTree(node, "REMOVE_STYLES_ON_COMPONENT_DESTROY"),
+      (node) => deepestInstanceOf(node, "REMOVE_STYLES_ON_COMPONENT_DESTROY"),
       (node) => {
         findNodes(
           getAncestor(node, 2)!,
-          (node) => lastInstanceInTree(node, "useValue: true"),
+          (node) => deepestInstanceOf(node, "useValue: true"),
           (node) => {
             detection = Capability.PARTIALLY;
             node.replaceWithText("useValue: false");
@@ -72,7 +72,7 @@ function step11(project: Project): StepData {
     findNodes(
       file,
       (node) =>
-        lastInstanceInTree(node, "AnimationDriver.NOOP") &&
+        deepestInstanceOf(node, "AnimationDriver.NOOP") &&
         hasType(node, "AnimationDriver"),
       (node) => {
         detection = Capability.FULLY;
@@ -101,7 +101,7 @@ function step13(project: Project): StepData {
     findNodes(
       file,
       (node) =>
-        lastInstanceInTree(node, "mutate") &&
+        deepestInstanceOf(node, "mutate") &&
         accessedFrom(node, "WritableSignal"),
       (node) => {
         detection = Capability.FULLY;
@@ -130,10 +130,10 @@ function step14(project: Project): StepData {
     findNodes(
       file,
       (node) =>
-        lastInstanceInTree(node, "provideClientHydration") &&
+        deepestInstanceOf(node, "provideClientHydration") &&
         findNodes(
           getAncestor(node, 3)!,
-          (node) => lastInstanceInTree(node, "providers"),
+          (node) => deepestInstanceOf(node, "providers"),
           () => {},
         ),
       (node) => {
@@ -163,7 +163,7 @@ function step19(project: Project): StepData {
     findNodes(
       file,
       (node) =>
-        lastInstanceInTree(node, "async") &&
+        deepestInstanceOf(node, "async") &&
         node.getKind() !== SyntaxKind.AsyncKeyword,
       (node) => {
         detection = Capability.FULLY;
@@ -191,7 +191,7 @@ function step20(project: Project): StepData {
     findNodes(
       file,
       (node) =>
-        lastInstanceInTree(node, "matchesElement") &&
+        deepestInstanceOf(node, "matchesElement") &&
         accessedFrom(node, "AnimationDriver"),
       (node) => {
         detection = Capability.FULLY;
@@ -220,13 +220,13 @@ function step21(project: Project): StepData {
     findNodes(
       file,
       (node) =>
-        lastInstanceInTree(node, "StateKey") &&
+        deepestInstanceOf(node, "StateKey") &&
         !!inScopeOf(node, SyntaxKind.ImportDeclaration),
       (node) =>
         findNodes(
           getAncestor(node, 4)!,
           (node) =>
-            lastInstanceInTree(node, `"@angular/platform-browser"`) &&
+            deepestInstanceOf(node, `"@angular/platform-browser"`) &&
             !!inScopeOf(node, SyntaxKind.ImportDeclaration),
           (node) => {
             detection = Capability.FULLY;
@@ -239,13 +239,13 @@ function step21(project: Project): StepData {
     findNodes(
       file,
       (node) =>
-        lastInstanceInTree(node, "TransferState") &&
+        deepestInstanceOf(node, "TransferState") &&
         !!inScopeOf(node, SyntaxKind.ImportDeclaration),
       (node) =>
         findNodes(
           getAncestor(node, 4)!,
           (node) =>
-            lastInstanceInTree(node, `"@angular/platform-browser"`) &&
+            deepestInstanceOf(node, `"@angular/platform-browser"`) &&
             !!inScopeOf(node, SyntaxKind.ImportDeclaration),
           (node) => {
             detection = Capability.FULLY;
@@ -275,7 +275,7 @@ function step23(project: Project): StepData {
     findNodes(
       file,
       (node) =>
-        lastInstanceInTree(node, "isPlatformWorkerUi") &&
+        deepestInstanceOf(node, "isPlatformWorkerUi") &&
         node.getParent()?.getKind() === SyntaxKind.CallExpression,
       (node) => {
         detection = Capability.FULLY;
@@ -287,7 +287,7 @@ function step23(project: Project): StepData {
     findNodes(
       file,
       (node) =>
-        lastInstanceInTree(node, "isPlatformWorkerApp") &&
+        deepestInstanceOf(node, "isPlatformWorkerApp") &&
         node.getParent()?.getKind() === SyntaxKind.CallExpression,
       (node) => {
         detection = Capability.FULLY;
@@ -315,7 +315,7 @@ function step29(project: Project): StepData {
   project.getSourceFiles().forEach((file) =>
     findNodes(
       file,
-      (node) => lastInstanceInTree(node, "...RESOURCE_CACHE_PROVIDER"),
+      (node) => deepestInstanceOf(node, "...RESOURCE_CACHE_PROVIDER"),
       (node) => {
         detection = Capability.FULLY;
         node.replaceWithText("");
@@ -343,7 +343,7 @@ function step31(project: Project): StepData {
     findNodes(
       file,
       (node) =>
-        lastInstanceInTree(node, "useAbsoluteUrl") &&
+        deepestInstanceOf(node, "useAbsoluteUrl") &&
         findNodes(
           getAncestor(node, 3)!,
           (ancestor) => hasType(ancestor, "PlatformConfig"),
@@ -359,7 +359,7 @@ function step31(project: Project): StepData {
     findNodes(
       file,
       (node) =>
-        lastInstanceInTree(node, "baseUrl") &&
+        deepestInstanceOf(node, "baseUrl") &&
         findNodes(
           getAncestor(node, 3)!,
           (ancestor) => hasType(ancestor, "PlatformConfig"),
@@ -392,7 +392,7 @@ function step32(project: Project): StepData {
     findNodes(
       file,
       (node) =>
-        lastInstanceInTree(node, "platformDynamicServer") &&
+        deepestInstanceOf(node, "platformDynamicServer") &&
         (!!inScopeOf(node, SyntaxKind.CallExpression) ||
           !!inScopeOf(node, SyntaxKind.ImportDeclaration)),
       (node) => {
@@ -422,7 +422,7 @@ function step33(project: Project): StepData {
     findNodes(
       file,
       (node) =>
-        lastInstanceInTree(node, "ServerTransferStateModule") &&
+        deepestInstanceOf(node, "ServerTransferStateModule") &&
         !inScopeOf(node, SyntaxKind.ImportDeclaration),
       (node) => {
         detection = Capability.FULLY;
@@ -451,7 +451,7 @@ function step36(project: Project): StepData {
     findNodes(
       file,
       (node) =>
-        lastInstanceInTree(node, "OnPush") &&
+        deepestInstanceOf(node, "OnPush") &&
         accessedFrom(node, "ChangeDetectionStrategy") &&
         !!inScopeOf(node, SyntaxKind.Decorator),
       () => {
@@ -479,7 +479,7 @@ function step43(project: Project): StepData {
     findNodes(
       file,
       (node) =>
-        lastInstanceInTree(node, "withServerTransition") &&
+        deepestInstanceOf(node, "withServerTransition") &&
         findNodes(
           getAncestor(node, 3)!,
           (ancestor) => hasType(ancestor, "BrowserModule"),
@@ -514,7 +514,7 @@ function step44(project: Project): StepData {
     findNodes(
       file,
       (node) =>
-        lastInstanceInTree(node, "factories") &&
+        deepestInstanceOf(node, "factories") &&
         findNodes(
           getAncestor(node, 3)!,
           (ancestor) => hasType(ancestor, "KeyValueDiffers"),
@@ -544,7 +544,7 @@ function step49(project: Project): StepData {
     findNodes(
       file,
       (node) =>
-        lastInstanceInTree(node, "fakeAsync") &&
+        deepestInstanceOf(node, "fakeAsync") &&
         node.getKind() == SyntaxKind.Identifier &&
         node.getParent()?.getKind() === SyntaxKind.CallExpression,
       () => {
@@ -572,7 +572,7 @@ function step52(project: Project): StepData {
     findNodes(
       file,
       (node) =>
-        lastInstanceInTree(node, "errorHandler") &&
+        deepestInstanceOf(node, "errorHandler") &&
         findNodes(
           getAncestor(node, 3)!,
           (ancestor) => hasType(ancestor, "Router"),
@@ -604,7 +604,7 @@ function step53(project: Project): StepData {
     findNodes(
       file,
       (node) =>
-        lastInstanceInTree(node, "tick") &&
+        deepestInstanceOf(node, "tick") &&
         node.getParent()?.getKind() == SyntaxKind.CallExpression &&
         findNodes(
           getAncestor(node, 3)!,
@@ -636,7 +636,7 @@ function step54(project: Project): StepData {
     findNodes(
       file,
       (node) =>
-        lastInstanceInTree(node, "resolve") && accessedFrom(node, "Resolve"),
+        deepestInstanceOf(node, "resolve") && accessedFrom(node, "Resolve"),
       () => {
         detection = Capability.FULLY;
         changedFiles.push(file.getBaseName());
@@ -662,7 +662,7 @@ function step55(project: Project): StepData {
     findNodes(
       file,
       (node) =>
-        lastInstanceInTree(node, "fakeAsync") &&
+        deepestInstanceOf(node, "fakeAsync") &&
         node.getKind() === SyntaxKind.Identifier &&
         node.getParent()?.getKind() === SyntaxKind.CallExpression,
       () => {
@@ -690,7 +690,7 @@ function step57(project: Project): StepData {
     findNodes(
       file,
       (node) =>
-        lastInstanceInTree(node, "afterRender") &&
+        deepestInstanceOf(node, "afterRender") &&
         (node.getParent()?.getKind() === SyntaxKind.CallExpression ||
           !!inScopeOf(node, SyntaxKind.ImportDeclaration)),
       (node) => {
@@ -719,7 +719,7 @@ function step70(project: Project): StepData {
     findNodes(
       file,
       (node) =>
-        lastInstanceInTree(node, "canActivate") && accessedFrom(node, "Route"),
+        deepestInstanceOf(node, "canActivate") && accessedFrom(node, "Route"),
       () => {
         detection = Capability.FULLY;
         changedFiles.push(file.getBaseName());
@@ -728,8 +728,7 @@ function step70(project: Project): StepData {
     findNodes(
       file,
       (node) =>
-        lastInstanceInTree(node, "canDeactivate") &&
-        accessedFrom(node, "Route"),
+        deepestInstanceOf(node, "canDeactivate") && accessedFrom(node, "Route"),
       () => {
         detection = Capability.FULLY;
         changedFiles.push(file.getBaseName());
@@ -738,7 +737,7 @@ function step70(project: Project): StepData {
     findNodes(
       file,
       (node) =>
-        lastInstanceInTree(node, "canMatch") && accessedFrom(node, "Route"),
+        deepestInstanceOf(node, "canMatch") && accessedFrom(node, "Route"),
       () => {
         detection = Capability.FULLY;
         changedFiles.push(file.getBaseName());
@@ -747,7 +746,7 @@ function step70(project: Project): StepData {
     findNodes(
       file,
       (node) =>
-        lastInstanceInTree(node, "canActivateChild") &&
+        deepestInstanceOf(node, "canActivateChild") &&
         accessedFrom(node, "Route"),
       () => {
         detection = Capability.FULLY;
@@ -774,7 +773,7 @@ function step72(project: Project): StepData {
     findNodes(
       file,
       (node) =>
-        lastInstanceInTree(node, "get") &&
+        deepestInstanceOf(node, "get") &&
         !!inScopeOf(node, SyntaxKind.CallExpression) &&
         accessedFrom(node, "TestBed"),
       (node) => {
@@ -803,7 +802,7 @@ function step73(project: Project): StepData {
   project.getSourceFiles().forEach((file) => {
     findNodes(
       file,
-      (node) => lastInstanceInTree(node, "InjectFlags.Default"),
+      (node) => deepestInstanceOf(node, "InjectFlags.Default"),
       (node) => {
         detection = Capability.FULLY;
         node.replaceWithText("{}"); // Hacky way to ensure that there are not trailing comma's.
@@ -813,7 +812,7 @@ function step73(project: Project): StepData {
     );
     findNodes(
       file,
-      (node) => lastInstanceInTree(node, "InjectFlags.Host"),
+      (node) => deepestInstanceOf(node, "InjectFlags.Host"),
       (node) => {
         detection = Capability.FULLY;
         node.replaceWithText("{ host: true }");
@@ -823,7 +822,7 @@ function step73(project: Project): StepData {
     );
     findNodes(
       file,
-      (node) => lastInstanceInTree(node, "InjectFlags.Self"),
+      (node) => deepestInstanceOf(node, "InjectFlags.Self"),
       (node) => {
         detection = Capability.FULLY;
         node.replaceWithText("{ self: true }");
@@ -833,7 +832,7 @@ function step73(project: Project): StepData {
     );
     findNodes(
       file,
-      (node) => lastInstanceInTree(node, "InjectFlags.SkipSelf"),
+      (node) => deepestInstanceOf(node, "InjectFlags.SkipSelf"),
       (node) => {
         detection = Capability.FULLY;
         node.replaceWithText("{ skipSelf: true }");
@@ -843,7 +842,7 @@ function step73(project: Project): StepData {
     );
     findNodes(
       file,
-      (node) => lastInstanceInTree(node, "InjectFlags.Optional"),
+      (node) => deepestInstanceOf(node, "InjectFlags.Optional"),
       (node) => {
         detection = Capability.FULLY;
         node.replaceWithText("{ optional: true }");
@@ -871,7 +870,7 @@ function step74(project: Project): StepData {
     findNodes(
       file,
       (node) =>
-        lastInstanceInTree(node, "get") &&
+        deepestInstanceOf(node, "get") &&
         !!inScopeOf(node, SyntaxKind.CallExpression) &&
         accessedFrom(node, "Injector"),
       () => {

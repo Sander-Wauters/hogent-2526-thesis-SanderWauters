@@ -20,7 +20,7 @@ import {
   findNodes,
   getAncestor,
   hasType,
-  lastInstanceInTree,
+  deepestInstanceOf,
 } from "../util/traversal.js";
 
 const project = loadTestenv();
@@ -37,12 +37,12 @@ function step05(project: Project): StepData {
   project.getSourceFiles().forEach((file) =>
     findNodes(
       file,
-      (node) => lastInstanceInTree(node, "REMOVE_STYLES_ON_COMPONENT_DESTROY"),
+      (node) => deepestInstanceOf(node, "REMOVE_STYLES_ON_COMPONENT_DESTROY"),
       (node) => {
         detection = Capability.PARTIALLY;
         findNodes(
           getAncestor(node, 2)!,
-          (node) => lastInstanceInTree(node, "useValue: true"),
+          (node) => deepestInstanceOf(node, "useValue: true"),
           (node) => {
             node.replaceWithText("useValue: false");
             automation = Capability.PARTIALLY;
@@ -71,7 +71,7 @@ function step11(project: Project): StepData {
     findNodes(
       file,
       (node) =>
-        lastInstanceInTree(node, "AnimationDriver.NOOP") &&
+        deepestInstanceOf(node, "AnimationDriver.NOOP") &&
         hasType(node, "AnimationDriver"),
       (node) => {
         detection = Capability.FULLY;
@@ -100,7 +100,7 @@ function step13(project: Project): StepData {
     findNodes(
       file,
       (node) =>
-        lastInstanceInTree(node, "mutate") &&
+        deepestInstanceOf(node, "mutate") &&
         accessedFrom(node, "WritableSignal"),
       (node) => {
         detection = Capability.FULLY;
@@ -129,10 +129,10 @@ function step14(project: Project): StepData {
     findNodes(
       file,
       (node) =>
-        lastInstanceInTree(node, "provideClientHydration") &&
+        deepestInstanceOf(node, "provideClientHydration") &&
         findNodes(
           getAncestor(node, 3)!,
-          (node) => lastInstanceInTree(node, "providers"),
+          (node) => deepestInstanceOf(node, "providers"),
           () => {},
         ),
       (node) => {

@@ -47,7 +47,7 @@ export function containsPattern(node: Node, pattern: string): boolean {
  * @param {Node} node - The node to check.
  * @param {string} pattern - The pattern to check against.
  */
-export function lastInstanceInTree(node: Node, pattern: string): boolean {
+export function deepestInstanceOf(node: Node, pattern: string): boolean {
   const matchesCurrent = containsPattern(node, pattern);
   const matchesChild = node.forEachChild((child) =>
     containsPattern(child, pattern),

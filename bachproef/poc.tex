@@ -89,9 +89,9 @@ Dit betekent ook dat de tekstrepresentatie van een node de tekst bevat van alle 
   \label{cf:contains-pattern}
 \end{listing}
 
-% Hoe vinden we de laatste instantie van een patroon?
-Codefragment~\ref{cf:last-instance-in-tree} is een extensie op functie~\ref{cf:contains-pattern}.
-Hier gaan we na of de gegeven node de laatste instantie van een patroon bevat in de AST.
+% Hoe vinden we de diepste instantie van een patroon?
+Codefragment~\ref{cf:deepest-instance-of} is een extensie op functie~\ref{cf:contains-pattern}.
+Hier gaan we na of de gegeven node de diepste instantie van een patroon bevat in de AST.
 Concreet kijkt de functie of de huidige node, en geen enkele van de kinderen, het patroon bevat.
 \medskip
 
@@ -120,7 +120,7 @@ Indien dit zo is, vergelijken we het type van de klasse via de functie in codefr
 
 \begin{listing}
   \begin{minted}{ts}
-    export function lastInstanceInTree(node: Node, pattern: string): boolean {
+    export function deepestInstanceOf(node: Node, pattern: string): boolean {
       const matchesCurrent = containsPattern(node, pattern);
       const matchesChild = node.forEachChild((child) =>
         containsPattern(child, pattern),
@@ -128,11 +128,11 @@ Indien dit zo is, vergelijken we het type van de klasse via de functie in codefr
       return matchesCurrent && !matchesChild;
     }
   \end{minted}
-  \caption[Bevat laatste instantie van patroon]
+  \caption[Bevat diepste instantie van patroon]
     {
-      Helperfunctie die nagaat of een node de laatste instantie van een patroon bevat in de AST.
+      Helperfunctie die nagaat of een node de diepste instantie van een patroon bevat in de AST.
     }
-  \label{cf:last-instance-in-tree}
+  \label{cf:deepest-instance-of}
 \end{listing}
 
 \begin{listing}
@@ -221,7 +221,7 @@ Of deze even goed zullen werken in de praktijk is afhankelijk van het project.
       findNodes(
         file,
         (node) =>
-          lastInstanceInTree(node, "mutate") &&
+          deepestInstanceOf(node, "mutate") &&
           accessedFrom(node, "WritableSignal"),
         (node) => node.replaceWithText("update"),
       ),
@@ -239,7 +239,7 @@ Of deze even goed zullen werken in de praktijk is afhankelijk van het project.
       findNodes(
         file,
         (node) =>
-          lastInstanceInTree(node, "async") &&
+          deepestInstanceOf(node, "async") &&
           node.getKind() !== SyntaxKind.AsyncKeyword,
         (node) => node.replaceWithText("waitForAsync"),
       ),
@@ -257,7 +257,7 @@ Of deze even goed zullen werken in de praktijk is afhankelijk van het project.
       findNodes(
         file,
         (node) =>
-          lastInstanceInTree(node, "OnPush") &&
+          deepestInstanceOf(node, "OnPush") &&
           accessedFrom(node, "ChangeDetectionStrategy") &&
           !!inScopeOf(node, SyntaxKind.Decorator),
         () => console.log(file.getBaseName(), file.getStartLineNumber()),

@@ -21,7 +21,7 @@ import {
   getAncestor,
   hasType,
   inScopeOf,
-  lastInstanceInTree,
+  deepestInstanceOf,
 } from "../util/traversal.js";
 
 const project = loadTestenv();
@@ -39,7 +39,7 @@ function step19(project: Project): StepData {
     findNodes(
       file,
       (node) =>
-        lastInstanceInTree(node, "async") &&
+        deepestInstanceOf(node, "async") &&
         node.getKind() !== SyntaxKind.AsyncKeyword,
       (node) => {
         detection = Capability.FULLY;
@@ -67,7 +67,7 @@ function step20(project: Project): StepData {
     findNodes(
       file,
       (node) =>
-        lastInstanceInTree(node, "matchesElement") &&
+        deepestInstanceOf(node, "matchesElement") &&
         accessedFrom(node, "AnimationDriver"),
       (node) => {
         detection = Capability.FULLY;
@@ -96,13 +96,13 @@ function step21(project: Project): StepData {
     findNodes(
       file,
       (node) =>
-        lastInstanceInTree(node, "StateKey") &&
+        deepestInstanceOf(node, "StateKey") &&
         !!inScopeOf(node, SyntaxKind.ImportDeclaration),
       (node) =>
         findNodes(
           getAncestor(node, 4)!,
           (node) =>
-            lastInstanceInTree(node, `"@angular/platform-browser"`) &&
+            deepestInstanceOf(node, `"@angular/platform-browser"`) &&
             !!inScopeOf(node, SyntaxKind.ImportDeclaration),
           (node) => {
             detection = Capability.FULLY;
@@ -115,13 +115,13 @@ function step21(project: Project): StepData {
     findNodes(
       file,
       (node) =>
-        lastInstanceInTree(node, "TransferState") &&
+        deepestInstanceOf(node, "TransferState") &&
         !!inScopeOf(node, SyntaxKind.ImportDeclaration),
       (node) =>
         findNodes(
           getAncestor(node, 4)!,
           (node) =>
-            lastInstanceInTree(node, `"@angular/platform-browser"`) &&
+            deepestInstanceOf(node, `"@angular/platform-browser"`) &&
             !!inScopeOf(node, SyntaxKind.ImportDeclaration),
           (node) => {
             detection = Capability.FULLY;
@@ -151,7 +151,7 @@ function step23(project: Project): StepData {
     findNodes(
       file,
       (node) =>
-        lastInstanceInTree(node, "isPlatformWorkerUi") &&
+        deepestInstanceOf(node, "isPlatformWorkerUi") &&
         node.getParent()?.getKind() === SyntaxKind.CallExpression,
       (node) => {
         detection = Capability.FULLY;
@@ -163,7 +163,7 @@ function step23(project: Project): StepData {
     findNodes(
       file,
       (node) =>
-        lastInstanceInTree(node, "isPlatformWorkerApp") &&
+        deepestInstanceOf(node, "isPlatformWorkerApp") &&
         node.getParent()?.getKind() === SyntaxKind.CallExpression,
       (node) => {
         detection = Capability.FULLY;
@@ -191,7 +191,7 @@ function step29(project: Project): StepData {
   project.getSourceFiles().forEach((file) =>
     findNodes(
       file,
-      (node) => lastInstanceInTree(node, "...RESOURCE_CACHE_PROVIDER"),
+      (node) => deepestInstanceOf(node, "...RESOURCE_CACHE_PROVIDER"),
       (node) => {
         detection = Capability.FULLY;
         node.replaceWithText("");
@@ -219,7 +219,7 @@ function step31(project: Project): StepData {
     findNodes(
       file,
       (node) =>
-        lastInstanceInTree(node, "useAbsoluteUrl") &&
+        deepestInstanceOf(node, "useAbsoluteUrl") &&
         findNodes(
           getAncestor(node, 3)!,
           (ancestor) => hasType(ancestor, "PlatformConfig"),
@@ -235,7 +235,7 @@ function step31(project: Project): StepData {
     findNodes(
       file,
       (node) =>
-        lastInstanceInTree(node, "baseUrl") &&
+        deepestInstanceOf(node, "baseUrl") &&
         findNodes(
           getAncestor(node, 3)!,
           (ancestor) => hasType(ancestor, "PlatformConfig"),
@@ -268,7 +268,7 @@ function step32(project: Project): StepData {
     findNodes(
       file,
       (node) =>
-        lastInstanceInTree(node, "platformDynamicServer") &&
+        deepestInstanceOf(node, "platformDynamicServer") &&
         (!!inScopeOf(node, SyntaxKind.CallExpression) ||
           !!inScopeOf(node, SyntaxKind.ImportDeclaration)),
       (node) => {
@@ -298,7 +298,7 @@ function step33(project: Project): StepData {
     findNodes(
       file,
       (node) =>
-        lastInstanceInTree(node, "ServerTransferStateModule") &&
+        deepestInstanceOf(node, "ServerTransferStateModule") &&
         !inScopeOf(node, SyntaxKind.ImportDeclaration),
       (node) => {
         detection = Capability.FULLY;
@@ -327,7 +327,7 @@ function step36(project: Project): StepData {
     findNodes(
       file,
       (node) =>
-        lastInstanceInTree(node, "OnPush") &&
+        deepestInstanceOf(node, "OnPush") &&
         accessedFrom(node, "ChangeDetectionStrategy") &&
         !!inScopeOf(node, SyntaxKind.Decorator),
       () => {

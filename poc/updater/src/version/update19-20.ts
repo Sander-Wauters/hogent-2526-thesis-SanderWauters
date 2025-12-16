@@ -19,7 +19,7 @@ import {
   accessedFrom,
   findNodes,
   inScopeOf,
-  lastInstanceInTree,
+  deepestInstanceOf,
 } from "../util/traversal.js";
 
 const project = loadTestenv();
@@ -37,7 +37,7 @@ function step57(project: Project): StepData {
     findNodes(
       file,
       (node) =>
-        lastInstanceInTree(node, "afterRender") &&
+        deepestInstanceOf(node, "afterRender") &&
         (node.getParent()?.getKind() === SyntaxKind.CallExpression ||
           !!inScopeOf(node, SyntaxKind.ImportDeclaration)),
       (node) => {
@@ -66,7 +66,7 @@ function step70(project: Project): StepData {
     findNodes(
       file,
       (node) =>
-        lastInstanceInTree(node, "canActivate") && accessedFrom(node, "Route"),
+        deepestInstanceOf(node, "canActivate") && accessedFrom(node, "Route"),
       () => {
         detection = Capability.FULLY;
         changedFiles.push(file.getBaseName());
@@ -75,8 +75,7 @@ function step70(project: Project): StepData {
     findNodes(
       file,
       (node) =>
-        lastInstanceInTree(node, "canDeactivate") &&
-        accessedFrom(node, "Route"),
+        deepestInstanceOf(node, "canDeactivate") && accessedFrom(node, "Route"),
       () => {
         detection = Capability.FULLY;
         changedFiles.push(file.getBaseName());
@@ -85,7 +84,7 @@ function step70(project: Project): StepData {
     findNodes(
       file,
       (node) =>
-        lastInstanceInTree(node, "canMatch") && accessedFrom(node, "Route"),
+        deepestInstanceOf(node, "canMatch") && accessedFrom(node, "Route"),
       () => {
         detection = Capability.FULLY;
         changedFiles.push(file.getBaseName());
@@ -94,7 +93,7 @@ function step70(project: Project): StepData {
     findNodes(
       file,
       (node) =>
-        lastInstanceInTree(node, "canActivateChild") &&
+        deepestInstanceOf(node, "canActivateChild") &&
         accessedFrom(node, "Route"),
       () => {
         detection = Capability.FULLY;
@@ -121,7 +120,7 @@ function step72(project: Project): StepData {
     findNodes(
       file,
       (node) =>
-        lastInstanceInTree(node, "get") &&
+        deepestInstanceOf(node, "get") &&
         !!inScopeOf(node, SyntaxKind.CallExpression) &&
         accessedFrom(node, "TestBed"),
       (node) => {
@@ -150,7 +149,7 @@ function step73(project: Project): StepData {
   project.getSourceFiles().forEach((file) => {
     findNodes(
       file,
-      (node) => lastInstanceInTree(node, "InjectFlags.Default"),
+      (node) => deepestInstanceOf(node, "InjectFlags.Default"),
       (node) => {
         detection = Capability.FULLY;
         node.replaceWithText("{}"); // Hacky way to ensure that there are not trailing comma's.
@@ -160,7 +159,7 @@ function step73(project: Project): StepData {
     );
     findNodes(
       file,
-      (node) => lastInstanceInTree(node, "InjectFlags.Host"),
+      (node) => deepestInstanceOf(node, "InjectFlags.Host"),
       (node) => {
         detection = Capability.FULLY;
         automation = Capability.FULLY;
@@ -170,7 +169,7 @@ function step73(project: Project): StepData {
     );
     findNodes(
       file,
-      (node) => lastInstanceInTree(node, "InjectFlags.Self"),
+      (node) => deepestInstanceOf(node, "InjectFlags.Self"),
       (node) => {
         detection = Capability.FULLY;
         automation = Capability.FULLY;
@@ -180,7 +179,7 @@ function step73(project: Project): StepData {
     );
     findNodes(
       file,
-      (node) => lastInstanceInTree(node, "InjectFlags.SkipSelf"),
+      (node) => deepestInstanceOf(node, "InjectFlags.SkipSelf"),
       (node) => {
         detection = Capability.FULLY;
         automation = Capability.FULLY;
@@ -190,7 +189,7 @@ function step73(project: Project): StepData {
     );
     findNodes(
       file,
-      (node) => lastInstanceInTree(node, "InjectFlags.Optional"),
+      (node) => deepestInstanceOf(node, "InjectFlags.Optional"),
       (node) => {
         detection = Capability.FULLY;
         automation = Capability.FULLY;
@@ -218,7 +217,7 @@ function step74(project: Project): StepData {
     findNodes(
       file,
       (node) =>
-        lastInstanceInTree(node, "get") &&
+        deepestInstanceOf(node, "get") &&
         !!inScopeOf(node, SyntaxKind.CallExpression) &&
         accessedFrom(node, "Injector"),
       () => {
