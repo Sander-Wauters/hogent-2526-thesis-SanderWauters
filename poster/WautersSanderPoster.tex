@@ -29,10 +29,16 @@
 \maketitle
 
 \begin{multicols}{2}
+\begin{large}
 
 \section*{Samenvatting}
 
-Applicatie ontworpen voor een Angular applicatie van v16 naar v20 te updaten.
+Applicatie ontwikkeld om de update van Angular-applicaties te ondersteunen.
+Getest om een Angular v16 applicatie te updaten naar v20.
+De evaluatie toont aan dat ongeveer 25\% van alle nodige de aanpassingen automatisch kon worden uitgevoerd.
+Deze aanpak is bruikbaar voor het refactoren van verschillende TypeScript-applicaties.
+Programmatische configuratie zorgt voor een hoge flexibiliteit.
+De oplossing is gebaseerd op de TypeScript-compiler en gebruikt dezelfde foutdetectie.
 
 \section*{Introductie}
 
@@ -54,7 +60,21 @@ De sprong van vier versies betekent dat er vermoedelijk veel aanpassingen in de 
 
 \section*{Methodologie}
 
+Deze studie begon met een literatuurstudie naar gekende methodes om code automatisch aan te passen.
+De beslissing werd gemaakt om een \emph{updater} te maken op basis van de TypeScript Compiler API.
+Door de TypeScript-compiler programmatisch aan te spreken en te kopellen aan zoek- en vervangfuncties was hetmogelijk om gericht code op te sporen en te veranderen.
+\medskip
+
+Een collectie aan helperfuncties zijn ontwikkeld voor de implementatie te vereenvoudigen.
+De updater wordt programmatische ingesteld.
+Dit geeft ons een hoge flexibiliteit waaroor deze werkwijze bij verschillende soorten aanpassingen bruikbaar is.
+De updater zelf is een simpel commandline applicatie.
+Het kan op deze manier op meerdere projecten opgeroepen worden.
+Het codeframent toont hoe we alle instanties van een functie gericht van naam kunnen veranderen doorheen meerdere applicaties.
+
+\bigskip
 \begin{center}
+  \begin{normalsize}
   \begin{minted}{ts}
     const project = loadProject();
     project.getSourceFiles().forEach((file) =>
@@ -68,15 +88,16 @@ De sprong van vier versies betekent dat er vermoedelijk veel aanpassingen in de 
     );
     await saveProject(project);
   \end{minted}
+  \end{normalsize}
 \end{center}
+
+\columnbreak
 
 \section*{Onderzoeksvragen}
 
-\textbf{Hoofdvraag}:
-
 In welke mate kan de automatisering van het updateproces van Angular v16 naar v20, bij meerdere applicaties, de onderhoudstijd voor de ontwikkelaars verlagen?
 
-\textbf{Deelvragen}:
+Deelvragen:
 \begin{itemize}
   \item Welke veranderingen moeten uitgevoerd worden om Angular van v16 naar v20 te updaten?
   \item Welke manieren bestaan er om code automatisch aan te passen zonder ongewenste veranderingen uit te voeren?
@@ -93,7 +114,9 @@ Bovendien is de updater niet gelimiteerd aan het uitvoeren van Angular-updates.
 Dezelfde manier van werken kan toegepast worden om meer algemene refactoringen uit te voeren.
 Verder kan men de updater configureren om op andere TypeScript-applicaties te werken.
 
+\bigskip
 \begin{center}
+  \begin{normalsize}
   \captionsetup{type=table}
   \begin{tabular}{l*{5}{|lr}}
     \toprule
@@ -114,6 +137,8 @@ Verder kan men de updater configureren om op andere TypeScript-applicaties te we
     \textbf{Niet}       & 51 &   63,75\%  & 21 &  42,00\%  & 10 &  62,50\% & 10 &  41,67\%  & 21 &  55,26\% \\
     \bottomrule
   \end{tabular}
+  \caption*{Resultaten van de updater om een Angular-applicatie te updaten van v16 naar v20.}
+  \end{normalsize}
 \end{center}
 
 \section*{Toekomstig onderzoek}
@@ -129,6 +154,7 @@ Voornamelijk beweren ze dat het AI toelaat om de nieuwste functionaliteiten te g
 Dit was één van de redenen dat AI niet gekozen werd in dit onderzoek.
 Deze tools zijn momenteel nog experimenteel, maar kunnen veelbelovend zijn.
 
+\end{large}
 \end{multicols}
 \end{document}
 

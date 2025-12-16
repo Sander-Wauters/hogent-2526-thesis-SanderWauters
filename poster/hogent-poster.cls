@@ -260,7 +260,8 @@
     frame=lines,
     breaklines,
     linenos,
-    tabsize=4
+    tabsize=4,
+    framesep=5mm
 }
 
 %% -----------------------------------------------------------------------------
