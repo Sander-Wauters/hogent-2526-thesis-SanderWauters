@@ -34,7 +34,7 @@ Startend met codefragment~\ref{cf:contains-pattern}.
 Deze functie gaat na of de tekstrepresentatie van een node een gegeven regexpatroon bevat.
 De tekstrepresentatie van een node is simpelweg hoe een stuk code eruitziet in de broncode.
 Bijvoorbeeld, deze functie oproepen op de root node van een AST is hetzelfde als zoeken naar een patroon in het eigenlijke bestand.
-De functie opgeroepen op een node die een klassedeclaratie voorstelt is hetzelfde als zoeken naar een patroon in deze klasse.
+De functie oproepen op een node die een klassedeclaratie voorstelt is hetzelfde als zoeken naar een patroon in deze klasse.
 Dit betekent ook dat de tekstrepresentatie van een node de tekst bevat van alle kinderen.
 \medskip
 
@@ -92,7 +92,7 @@ Dit betekent ook dat de tekstrepresentatie van een node de tekst bevat van alle 
 % Hoe vinden we de diepste instantie van een patroon?
 Codefragment~\ref{cf:deepest-instance-of} is een extensie op functie~\ref{cf:contains-pattern}.
 Hier gaan we na of de gegeven node de diepste instantie van een patroon bevat in de AST.
-Concreet kijkt de functie of de huidige node, en geen enkele van de kinderen, het patroon bevat.
+Concreet controleert de functie of de huidige node, en geen enkele van de kinderen, het patroon bevat.
 \medskip
 
 % Zijn er nog abstracte functies?
@@ -176,7 +176,7 @@ Indien dit zo is, vergelijken we het type van de klasse via de functie in codefr
 
 % Wat doen we met deze functies?
 Deze functies maken het mogelijk om een AST te doorlopen in enkele lijnen code en gericht code te detecteren.
-Wat volgt zijn enkele voorbeelden van hoe deze functies tezamen werken.
+Wat volgt zijn enkele voorbeelden van hoe deze functies samen werken.
 De aanpassingen die uitgevoerd worden, komen uit de Angular update handleidling door \textcite{AngularUpdateGuide2025}.
 % Zijn er voorbeelden?
 Het eerste voorbeeld in codefragment~\ref{cf:sample-1} toont aan hoe we de methode van een bepaalde klasse van naam veranderen.
@@ -201,7 +201,8 @@ Bijvoorbeeld, in één van de stappen in het updateproces moeten Angular compone
 We weten op voorhand dat templates niet toegankelijk zijn voor de updater.
 Maar we kunnen wel verandering detectiestrategieën gaan opsporen in TypeScript.
 In codefragment~\ref{cf:sample-3} zoeken we alle componenten op met de OnPush-ver\-an\-der\-ing detectiestrategie.
-Vervolgens geven we terug waar deze component zich bevindt binnen het project.
+Vervolgens tonen we de locatie van deze component binnen het project.
+Dit tonen we aan via de bestandsnaam, gevolgd door het lijnnummer in de code.
 \medskip
 
 % Is dit alles wat de updater kan?

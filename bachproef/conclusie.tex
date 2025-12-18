@@ -30,7 +30,7 @@ De updater is gelimiteerd in het opsporen van semantische aanpassingen.
 In de update van v16 naar v20 waren er meer stappen met impact op semantiek dan op syntax.
 Uit de stappen met impact op semantiek was amper 2,63\% automatiseerbaar.
 Dit kan verklaren waarom de totale automatiseerbaarheid lager ligt dan verwacht.
-De totale automatiseerbaarheid had hoger kunnen liggen indien er meer syntaktische aanpassingen waren.
+De totale automatiseerbaarheid had hoger kunnen liggen indien er meer syntactische aanpassingen waren.
 \medskip
 
 Tenslotte willen we de aandacht leggen op de kolom \emph{Testen}.
@@ -155,6 +155,30 @@ Om het meeste uit de updater te halen, moet de tijd voor de updater te configure
 Deze rekensom is afhankelijk van verschillende variabelen.
 Voornamelijk de kennis en ervaring van de persoon die de updater configureert.
 Iemand met een diepe kennis over de code van het bedrijf zal deze som beter kunnen inschatten dan iemand zonder deze kennis.
+\medskip
+
+In totaal waren er 80 verschillende soorten aanpassingen nodig om een Angular-applicatie van v16 naar v20 te updaten.
+Zoals omschreven in Hoofdstuk~\ref{ch:stand-van-zaken:angular:aanpassingen-tussen-v16-en-v20} \& \ref{ch:soorten-aanpassingen} hadden deze aanpassingen betrekking op verschillende aspecten van het framework.
+\medskip
+
+Er bestaan meerdere manieren om code automatisch aan te passen.
+Dit kan via tools ingebouwd in IDE's, algoritmes om fouten op te sporen of aan te passen, en machine- of deep learning-modellen.
+Voor elke manier zijn er verschillende implementaties beschikbaar.
+In dit onderzoek legden we de nadruk op de meest voorkomende: zoek- \& vervang, language-servers en compiler-tooling.
+\medskip
+
+Zoek- \& vervangfuncties in combinatie met compiler-tooling zijn gekozen als de meest geschikte manier om in deze casus toe te passen.
+Dit onderzoek heeft hiervoor gekozen vanwege de hoge kans op een succesvolle implementatie en de betrouwbaarheid van de output.
+Zoek- \& vervangfuncties zijn welbekend en simpel om mee te werken en te implementeren.
+Om hun tekortkomingen te compenseren, werd compiler-tooling gebruikt via de TypeScript Compiler API.
+Meerdere studies tonen aan dat compiler-tooling werkt op grote schaal.
+Verder geeft het ons dezelfde errordetectie van de compiler, waardoor we op een betrouwbare manier bugs kunnen opsporen.
+\medskip
+
+In Hoofdstuk~\ref{ch:stand-van-zaken:refactoring:known-problems} bespreken we kort wat de gekende problemen waren bij het refactoren van code.
+In de context van onze aanpak kunnen we zeggen dat aanpassingen aan semantiek problematisch zijn om te refactoren.
+Er is zowel kennis nodig van de werking van Angular als van de applicaties die Angular gebruiken.
+In de update van v16 naar v20 blijkt dat 47,50\% van alle aanpassingen betrekking heeft op de achterliggende semantiek van Angular.
 
 \section{Verder onderzoek}
 \label{ch:verder-onderzoek}
