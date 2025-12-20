@@ -21,10 +21,10 @@ Kruistabel \ref{tab:resultaten-deel-1} en \ref{tab:resultaten-deel-2} tonen de r
 Alle rijen buiten \emph{n.v.t.} onder \emph{Verandering} zijn wederzijds inclusief, zoals besproken in Hoofdstuk~\ref{ch:soorten-aanpassingen}.
 Elke kolom bevat zowel een absolute als een relatieve waarde.
 De relatieve waarde is relatief tegenover de eerste rij in de kolom genaamd \emph{\#Stappen}.
-Uit het totaal van de 80 uit te voeren stappen blijkt dat 27,5\% volledig en 10\% deels automatiseerbaar is.
-Dit is is lager dan het verwachte resultaten van 65\%.
 \medskip
 
+Uit het totaal van de 80 uit te voeren stappen blijkt dat 27,5\% volledig en 10\% deels automatiseerbaar is.
+Dit is is lager dan het verwachte resultaten van 65\%.
 Eén van de factoren die een rol speelt in de automatiseerbaarheid is de aard van de aanpassing.
 De updater is gelimiteerd in het opsporen van semantische aanpassingen.
 In de update van v16 naar v20 waren er meer stappen met impact op semantiek dan op syntax.
@@ -136,12 +136,13 @@ Als de update de testen aanpast, is het mogelijk dat deze niet meer betrouwbaar 
   }
 \end{table}
 
+\clearpage
 \section{Besluit}
 \label{ch:besluit}
 
 De testresultaten tonen aan dat de updater een meerwaarde biedt in de ondersteuning van het updateproces.
 Ondanks dat het verwachte resultaat niet bereikt is, was het nog steeds mogelijk om een vierde van alle aanpassingen automatisch uit te voeren.
-De hoge flexibiliteit van deze aanpak maakt het mogelijk voor de updater te herconfigureren voor toekomstige updates.
+De hoge flexibiliteit van onze aanpak maakt het mogelijk voor de updater te herconfigureren voor toekomstige updates.
 Bovendien is de updater niet gelimiteerd aan het uitvoeren van Angular-updates.
 Dezelfde manier van werken kan toegepast worden om meer algemene refactoringen uit te voeren.
 Verder kan men de updater configureren om op andere TypeScript-applicaties te werken.
@@ -159,6 +160,7 @@ Iemand met een diepe kennis over de code van het bedrijf zal deze som beter kunn
 
 In totaal waren er 80 verschillende soorten aanpassingen nodig om een Angular-applicatie van v16 naar v20 te updaten.
 Zoals omschreven in Hoofdstuk~\ref{ch:stand-van-zaken:angular:aanpassingen-tussen-v16-en-v20} \& \ref{ch:soorten-aanpassingen} hadden deze aanpassingen betrekking op verschillende aspecten van het framework.
+Verder hebben we een onderscheiding kunnen maken tussen het soort aanpassingen, syntactisch of semantisch.
 \medskip
 
 Er bestaan meerdere manieren om code automatisch aan te passen.
@@ -175,10 +177,11 @@ Meerdere studies tonen aan dat compiler-tooling werkt op grote schaal.
 Verder geeft het ons dezelfde errordetectie van de compiler, waardoor we op een betrouwbare manier bugs kunnen opsporen.
 \medskip
 
-In Hoofdstuk~\ref{ch:stand-van-zaken:refactoring:known-problems} bespreken we kort wat de gekende problemen waren bij het refactoren van code.
+In Hoofdstuk~\ref{ch:stand-van-zaken:refactoring:known-problems} besproken we kort wat de gekende problemen waren bij het refactoren van code.
 In de context van onze aanpak kunnen we zeggen dat aanpassingen aan semantiek problematisch zijn om te refactoren.
 Er is zowel kennis nodig van de werking van Angular als van de applicaties die Angular gebruiken.
 In de update van v16 naar v20 blijkt dat 47,50\% van alle aanpassingen betrekking heeft op de achterliggende semantiek van Angular.
+Zelfs als een aanpassing betrekking heeft op zowel syntax als semantiek, blijkt dit moeilijk te automatiseren.
 
 \section{Verder onderzoek}
 \label{ch:verder-onderzoek}
