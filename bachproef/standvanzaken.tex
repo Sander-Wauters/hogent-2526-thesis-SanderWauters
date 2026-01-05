@@ -4,7 +4,7 @@
 % Welke termen en technologiën moet iemand kennen voor het onderzoek te snappen?
 In dit hoofdstuk bespreken we de verschillende technologieën die betrekking hebben op het onderzoek.
 Deze literatuurstudie start met een omschrijving van het Angular framework en hoe een Angular-project gestructureerd is.
-Vervolgens overlopen we hoe dat Angular gebruikt maakt van de TypeScript-programmeertaal.
+Vervolgens overlopen we hoe Angular gebruik maakt van de TypeScript-programmeertaal.
 We geven een kort overzicht van de nodige veranderingen tussen Angular v16 en v20.
 Ten slotte volgt een overzicht van verschillende gekende manieren om code automatisch aan te passen.
 
@@ -65,7 +65,7 @@ TypeScript code is niet uitvoerbaar.
 Om een TypeScript applicatie uit te voeren, moet deze eerst gecompileerd worden.
 Angular voorziet een compiler om TypeScript naar JavaScript te compileren.
 Hiervoor maakt Angular achterliggend gebruik van de TypeScript compiler.
-Volgens \textcite{Ramos2024} zijn twee verschillende manieren waarop een Angular applicatie gecompileerd kan worden.
+Volgens \textcite{Ramos2024} zijn er twee verschillende manieren waarop een Angular applicatie gecompileerd kan worden.
 Just-in-Time (JIT) en Ahead-of-Time (AOT).
 JIT compileert de applicatie in de webbrowser tijdens runtime.
 AOT daarentegen compileert de applicatie op voorhand en stuurt de output naar de webbrowser.
@@ -187,7 +187,7 @@ De tweede soort noemt \emph{property binding} \autocite{AngularDataBindingDocs20
 Property binding is een manier om dynamisch data aan een HTML-element of een andere component door te geven.
 Het is one-way binding.
 Het HTML-element of de andere component kan de data enkel lezen.
-De syntax voor propery binding is \mintinline{ts}{[ ]}, bijvoorbeeld:\\ \mintinline{html+ng2}{<button [disabled]="hasErrors()">Save</button>}.
+De syntax voor property binding is \mintinline{ts}{[ ]}, bijvoorbeeld:\\ \mintinline{html+ng2}{<button [disabled]="hasErrors()">Save</button>}.
 \medskip
 
 % Wat is event binding?
@@ -266,7 +266,7 @@ Volgens het \textcite{AngularTestingDocs2025} komt Angular met CLI-tools om auto
 Achterliggend wordt het Jasmine-testing-framework gebruikt.
 Tijdens het opzetten van een Angular-project wordt Jasmine automatisch geconfigureerd.
 Het is echter mogelijk om een ander testing-framework te gebruiken.
-Dit onderzoek gaat uit dat het Jasmine-testing-framework gebruikt wordt sinds dit de standaard is.
+Dit onderzoek gaat ervan uit dat het Jasmine-testing-framework gebruikt wordt sinds dit de standaard is.
 \medskip
 
 % Wat maakt Angular testen speciaal?
@@ -333,7 +333,7 @@ Hieronder volgt een kleine opsomming van deze stappen:
 \label{ch:stand-van-zaken:waarom-updaten}
 
 Angular-versies zijn tijdsgebonden en komen uit om de 6 maanden \autocite{AngularReleasesDocs2025}.
-Versies zijn niet gebonden aan het aantal of de samenhorendheid van de aanpassingen, zoals bij andere frameworks het geval is.
+Versies zijn niet gebonden aan het aantal of de samenhorigheid van de aanpassingen, zoals bij andere frameworks het geval is.
 De aanpassingen per versie hebben effect op verschillende aspecten van het framework.
 Een nieuwe versie kan komen met veranderingen aan bijvoorbeeld: testen, CLI-tools, template-syntax, animations, \dots.
 Het kan ook een aanpassing zijn aan de dependencies van Angular, zoals ondersteuning voor een nieuwere versie van TypeScript.
@@ -349,13 +349,13 @@ Het is belangrijk om op termijn naar de nieuwe functies over te schakelen, omdat
 
 Oudere versies van Angular worden niet meer onderhouden.
 Tijdens het schrijven van dit onderzoek worden v2 tot en met v17 niet verder ondersteund \autocite{AngularReleasesDocs2025}.
-Om de betrouwbaarheid van onze applicatie te kunnen garanderen is dus van belang om tijdig over te schakelen naar de nieuwste versie.
+Om de betrouwbaarheid van onze applicatie te kunnen garanderen is het dus van belang om tijdig over te schakelen naar de nieuwste versie.
 
 \section{Automatisch refactoren}
 \label{ch:stand-van-zaken:refactoring}
 
 In dit hoofdstuk zoeken we een antwoord op de deelvraag: welke manieren bestaan er om code automatisch aan te passen zonder ongewenste veranderingen uit te voeren?
-Voor dat we hierop kunnen antwoorden, moeten we eerst het concept van \emph{code aanpassen} beter definiëren.
+Voordat we hierop kunnen antwoorden, moeten we eerst het concept van \emph{code aanpassen} beter definiëren.
 In deze context spreken we over refactoren.
 \medskip
 
@@ -486,7 +486,7 @@ De studie door \textcite{Wright2013} presenteert een tool voor het refactoren va
 % Hoe werkt dit?
 Deze tool maakt gebruik van de Clang C++ compiler om broncode om te zetten naar een Abstract Syntax Tree (AST) om zo de code te doorlopen.
 Een AST, als omschreven door \textcite{Sun2023}, is een datastructuur die de structuur en syntax van een stuk code weergeeft.
-Dezelfde bron noemt ATS's een fundamentele eigenschap van code.
+Dezelfde bron noemt AST's een fundamentele eigenschap van code.
 Om deze reden wordt deze datastructuur vaak gebruikt om codegerelateerde problemen op te lossen.
 Figuur \ref{fig:ast-preview} geeft een vereenvoudigde representatie van hoe een AST van een stuk TypeScript code eruit ziet.
 
