@@ -51,7 +51,7 @@ AI heeft de grootste kans op succes, maar er zijn praktische problemen.
 Verzamelen van data kan problematisch zijn en er is geen garantie op succes.
 \medskip
 
-Dit onderzoek beslist om verder te gaan met zoek- \& vervangfuncties in combinatie met compiler-tooling.
+Op basis hiervan kiezen we ervoor om verder te gaan met zoek- \& vervangfuncties in combinatie met compiler-tooling.
 Voor compiler-tooling gebruiken we de TypeScript Compiler API.
 Deze API laat toe om op de TypeScript Compiler te programmeren.
 Het grote voordeel hiervan is dat we toegang krijgen tot dezelfde error-detectie als de compiler.
@@ -60,10 +60,11 @@ Verder is de interne werking, op basis van een AST, goed gedocumenteerd.
 \medskip
 
 De updater moet ingezet kunnen worden voor toekomstige updates.
-Het probleem hiermee is dat we ons moeten voorbereiden op nieuwe aanpassingen.
+Het probleem hierbij is dat we ons moeten voorbereiden op nieuwe aanpassingen.
 Dit vereist een flexibele configuratie.
 Aangezien het doelpubliek programmeurs zijn, stellen we voor om de updater programmatisch te configureren.
 Een programmatische configuratie geeft ons flexibiliteit en uitbreidbaarheid.
+Met een programmatische configuratie bedoelen we dat de updater hard-coded is.
 Als programmeertaal kiezen we voor TypeScript.
 Angular gebruikt dit reeds, dus het is gekend door de programmeurs.
 Om de integratie met de TypeScript Compiler API te vereenvoudigen, ontwikkelen we een collectie aan helperfuncties.
@@ -82,7 +83,7 @@ Verder geeft dit ons de mogelijkheid om alle commando's samen te voegen in een s
 \label{ch:soorten-aanpassingen}
 
 % Wat moet er veranderen aan de code?
-Volgens de Angular update handleidling door het \textcite{AngularUpdateGuide2025} zijn er in totaal 80 verschillende stappen nodig om een applicatie van v16 naar v20 te updaten.
+Volgens de Angular update handleiding door het \textcite{AngularUpdateGuide2025} zijn er in totaal 80 verschillende stappen nodig om een applicatie van v16 naar v20 te updaten.
 % Wat doen we hiermee?
 Dit onderzoek verdeelt deze stappen in verschillende \emph{categorieën}.
 % Waarom verdelen in categorieën?
@@ -106,15 +107,14 @@ De categorieën zijn opgesteld als volgt:
   \item Veranderingen aan syntax.
   Dit zijn aanpassingen aan syntax die de werking van de applicatie niet aanpassen.
   \item Veranderingen aan semantiek.
-  Dit zijn aanpassingen in de achterliggende werking van Angular.
-  En/of veranderingen die ervoor zorgen dat de huidige werking van de applicatie moet veranderen.
+  Dit zijn aanpassingen in de achterliggende werking van Angular en/of veranderingen die ervoor zorgen dat de huidige werking van de applicatie moet veranderen.
   \item Veranderingen die niet van toepassing zijn. 
   Dit zijn aanpassingen aan functies toegevoegd na v16. 
   Het is dus onmogelijk dat de applicaties binnen Stater hiervan gebruikmaken.
 \end{itemize}
 
 % Kan een stap meerdere categorieën hebben?
-Buiten de veranderingen die niet van toepassing zijn, zijn deze categorieën wederzijds inclusief.
+Buiten de veranderingen die niet van toepassing zijn, zijn deze categorieën overlappend.
 In één stap kunnen meerdere categorieën van toepassing zijn.
 Een verandering kan impact hebben op zowel TypeScript als templates, syntax als semantiek, \dots.
 
@@ -128,6 +128,7 @@ Een verandering kan impact hebben op zowel TypeScript als templates, syntax als 
 Dit onderzoek kiest ervoor om de effectiviteit van de updater te testen in een gecontroleerde omgeving om een totaalbeeld te krijgen van alle stappen.
 Angular is een uitgebreid framework met verschillende functionaliteiten.
 In de praktijk is het niet zeker of een Angular applicatie al deze functionaliteiten gebruikt.
+Verder weten we niet op voorhand welke functionaliteiten juist gebruikt worden.
 Neem bijvoorbeeld animaties.
 Angular voorziet in functies om animaties toe te voegen aan de UI.
 Niet alle applicaties hebben dit nodig.
@@ -139,7 +140,7 @@ Het opzetten van een testomgeving geeft de mogelijkheid om een ruimer beeld te s
 % Wat is de test opgeving?
 Om de effectiviteit van de updater te meten, zet dit onderzoek een testomgeving op.
 De testomgeving is een applicatie gemaakt met Angular v16.
-Het bestaat uit verschillende klassen en componenten specifiek geschreven met code dat moet veranderen in de update naar v20.
+Het bestaat uit verschillende klassen en componenten specifiek geschreven met code die moet veranderen in de update naar v20.
 De applicatie is enkel syntactisch correct, verder heeft het geen doel.
 Dit wil zeggen dat het enkel moet kunnen compileren zonder fouten, meer niet.
 Er is bewust gekozen geen verdere semantiek aan de testomgeving te koppelen, omdat de huidige aanpak er geen rekening mee kan houden.
@@ -147,14 +148,13 @@ Er is bewust gekozen geen verdere semantiek aan de testomgeving te koppelen, omd
 
 % Hoe werd het opgesteld?
 Het volgende proces wordt gehanteerd in het opstellen van de testapplicatie.
-We doorlopen de Angular update handleidling van \textcite{AngularUpdateGuide2025} en evalueren elke stap of deze in aanmerking komt voor automatisatie.
-Zoals eerder besproken zijn niet alle stappen aanpassingen aan TypeScript bestanden.
+We doorlopen de Angular update handleiding van het \textcite{AngularUpdateGuide2025} en evalueren elke stap of deze in aanmerking komt voor automatisatie.
 Verder is de aard van de verandering belangrijk.
 De updater kan syntax interpreteren, maar geen semantiek.
 Tabel~\ref{tab:opzet-testomgeving} geeft een overzicht van welke soort veranderingen in de testomgeving opgenomen worden.
 Voor elke opgenomen verandering voorzien we een codefragment dat geüpdatet moet worden.
 Alle codefragmenten zijn semi-realistisch en volgen de Angular best-practices waar mogelijk.
-Tenslotte geven we per codefragment minstens één stuk code mee dat gelijkaardig is aan de code die veranderd moet worden.
+Ten slotte geven we per codefragment minstens één stuk code mee dat gelijkaardig is aan de code die veranderd moet worden.
 Dit dient als controle om na te gaan of de updater specifiek genoeg ingesteld is.
 \medskip
 
@@ -180,7 +180,7 @@ Dit dient als controle om na te gaan of de updater specifiek genoeg ingesteld is
     \hline
     Aan syntax \& semantiek             & Ja  & De updater heeft geen vat op semantiek, maar wel op de syntax. We voorzien een codefragment waarvan we weten dat het geüpdatet moet worden. \\
     \hline
-    \multicolumn{3}{c}{\textbf{Randgevalen}} \\
+    \multicolumn{3}{c}{\textbf{Randgevallen}} \\
     \hline
     CLI-operaties                       & Nee & Voor deze stappen is geen nood aan een speciaal stuk code. \\
     \hline
@@ -189,7 +189,7 @@ Dit dient als controle om na te gaan of de updater specifiek genoeg ingesteld is
   \end{tabular}
   \caption[Opzet testomgeving]{
     \label{tab:opzet-testomgeving}
-    Omschrijft welke stappen uit het updateproces al dan niet opgenomen worden in de testopgeving.
+    Omschrijft welke stappen uit het updateproces al dan niet opgenomen worden in de testomgeving.
     Een stap wordt opgenomen in de testomgeving indien deze voldoet aan het bestandstype en de aard van de verandering.
   }
 \end{table}
@@ -205,7 +205,7 @@ De updater probeert voor elk codefragment in de testapplicatie de nodige aanpass
 \medskip
 
 % Woe wordt detecteer-/automatiseerbaarheid geëvalueerd?
-Om een beter inzicht te krijgen in de capaciteiten van de updater worden detectie en automatisatie elk onderverdeeld in drie categorieën: niet, deels en volledig.
+Om een beter inzicht te krijgen in de capaciteiten van de updater worden detectie en automatisatie elk onderverdeeld in drie categorieën: niet, gedeeltelijk en volledig.
 Tabel~\ref{tab:capaciteiten-updater} geeft een overzicht van wat dit concreet inhoudt.
 \medskip
 
@@ -219,11 +219,11 @@ Tabel~\ref{tab:capaciteiten-updater} geeft een overzicht van wat dit concreet in
     \hline
     \textbf{Niet} & Deze aanpassingen zijn niet autonoom uitvoerbaar.
     Dit kan zijn door de limitaties van de updater of de complexiteit van de aanpassing.
-    Dit onderzoek beschouwt een aanpassing als te complex indien er nood is om meer dan één AST te doorlopen om de aanpassing te detecteren.
+    Dit onderzoek beschouwt een aanpassing als te complex indien het nodig is om meer dan één AST te doorlopen om de aanpassing te detecteren.
     Per TypeScript-bestand behoort één AST.
     Indien er meer dan één AST doorlopen moet worden, betekent dit dat de aanpassing betrekking heeft op meerdere bestanden binnen de applicatie. \\
     \hline
-    \textbf{Deels} & Deze aanpassingen zijn deels autonoom uitvoerbaar.
+    \textbf{Gedeeltelijk} & Deze aanpassingen zijn gedeeltelijk autonoom uitvoerbaar.
     Bijvoorbeeld een functie die een nieuwe naam en extra parameters krijgt.
     De naam kunnen we automatisch veranderen, maar de extra parameters moeten handmatig ingevuld worden, omdat ze afhankelijk zijn van de context.
     Het is mogelijk dat uit de automatisatie van deze aanpassingen compiler errors ontstaan. \\
@@ -267,11 +267,11 @@ Tabel~\ref{tab:evaluatie-updater} geeft een overzicht van wanneer de output van 
     \toprule
     \textbf{Conditie} & \textbf{Correcte indien} & \textbf{Reden} \\
     \hline
-    geen output            & Niet automatiseerbaar     & Er zijn geen veranderingen uitgevoerd. \\
+    geen output            & Niet automatiseerbaar         & Er zijn geen veranderingen uitgevoerd. \\
     \hline
-    output = controle      & Volledig automatiseerbaar & Er is een verandering en deze matcht de controle. \\
+    output = controle      & Volledig automatiseerbaar     & Er is een verandering en deze matcht de controle. \\
     \hline
-    output \neq{} controle & Deels automatiseerbaar    & Er is een verandering, maar deze matcht niet volledig met de controle. \\
+    output \neq{} controle & Gedeeltelijk automatiseerbaar & Er is een verandering, maar deze matcht niet volledig met de controle. \\
     \bottomrule
   \end{tabular}
   \caption[Evaluatie updater]{
