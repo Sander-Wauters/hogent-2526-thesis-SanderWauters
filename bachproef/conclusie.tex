@@ -18,13 +18,13 @@
 \label{ch:test-resultaten}
 
 Kruistabel \ref{tab:resultaten-deel-1} en \ref{tab:resultaten-deel-2} tonen de resultaten van de updater uitgevoerd op de testomgeving.
-Alle rijen buiten \emph{n.v.t.} onder \emph{Verandering} zijn wederzijds inclusief, zoals besproken in Hoofdstuk~\ref{ch:soorten-aanpassingen}.
+Alle rijen buiten \emph{n.v.t.} onder \emph{Verandering} zijn overlappend, zoals besproken in hoofdstuk~\ref{ch:soorten-aanpassingen}.
 Elke kolom bevat zowel een absolute als een relatieve waarde.
-De relatieve waarde is relatief tegenover de eerste rij in de kolom genaamd \emph{\#Stappen}.
+De relatieve waarde is berekend ten opzichte van de eerste rij in de kolom genaamd \emph{\#Stappen}.
 \medskip
 
 Uit het totaal van de 80 uit te voeren stappen blijkt dat 27,5\% volledig en 10\% gedeeltelijk automatiseerbaar is.
-Dit is lager dan het verwachte resultaat van 65\%.
+Dit is lager dan het verwachte resultaat van 65\% uit het onderzoeksvoorstel, zie hoofdstuk~\ref{ch:onderzoeksvoorstel}.
 Eén van de factoren die een rol speelt in de automatiseerbaarheid is de aard van de aanpassing.
 De updater is gelimiteerd in het opsporen van semantische aanpassingen.
 In de update van v16 naar v20 waren er meer stappen met impact op semantiek dan op syntax.
@@ -93,7 +93,7 @@ Als de update de testen aanpast, is het mogelijk dat deze niet meer betrouwbaar 
   \end{tabular}
   \caption[Resultaten deel 1]{
     \label{tab:resultaten-deel-1}Deel 1 van de resultaten van de updater uitgevoerd op de testomgeving.
-    Alle rijen buiten \emph{n.v.t.} onder \emph{Verandering} zijn wederzijds inclusief, zoals besproken in Hoofdstuk~\ref{ch:soorten-aanpassingen}.
+    Alle rijen buiten \emph{n.v.t.} onder \emph{Verandering} zijn overlappend, zoals besproken in hoofdstuk~\ref{ch:soorten-aanpassingen}.
   }
 \end{table}
 
@@ -132,7 +132,7 @@ Als de update de testen aanpast, is het mogelijk dat deze niet meer betrouwbaar 
   \end{tabular}
   \caption[Resultaten deel 2]{
     \label{tab:resultaten-deel-2}Deel 2 van de resultaten van de updater uitgevoerd op de testomgeving.
-    Alle rijen buiten \emph{n.v.t.} onder \emph{Verandering} zijn wederzijds inclusief, zoals besproken in Hoofdstuk~\ref{ch:soorten-aanpassingen}.
+    Alle rijen buiten \emph{n.v.t.} onder \emph{Verandering} zijn overlappend, zoals besproken in hoofdstuk~\ref{ch:soorten-aanpassingen}.
   }
 \end{table}
 
@@ -142,7 +142,7 @@ Als de update de testen aanpast, is het mogelijk dat deze niet meer betrouwbaar 
 
 De testresultaten tonen aan dat de updater een meerwaarde biedt in de ondersteuning van het updateproces.
 Ondanks dat het verwachte resultaat niet bereikt is, was het nog steeds mogelijk om een vierde van alle aanpassingen automatisch uit te voeren.
-De hoge flexibiliteit van onze aanpak maakt het mogelijk voor de updater te herconfigureren voor toekomstige updates.
+De hoge flexibiliteit van onze aanpak maakt het mogelijk om de updater te herconfigureren voor toekomstige updates.
 Bovendien is de updater niet gelimiteerd aan het uitvoeren van Angular-updates.
 Dezelfde manier van werken kan toegepast worden om meer algemene refactoringen uit te voeren.
 Verder kan men de updater configureren om op andere TypeScript-applicaties te werken.
@@ -159,14 +159,14 @@ Iemand met een diepe kennis over de code van het bedrijf zal deze som beter kunn
 \medskip
 
 In totaal waren er 80 verschillende soorten aanpassingen nodig om een Angular-applicatie van v16 naar v20 te updaten.
-Zoals omschreven in Hoofdstuk~\ref{ch:stand-van-zaken:angular:aanpassingen-tussen-v16-en-v20} \& \ref{ch:soorten-aanpassingen} hadden deze aanpassingen betrekking op verschillende aspecten van het framework.
+Zoals omschreven in hoofdstuk~\ref{ch:stand-van-zaken:angular:aanpassingen-tussen-v16-en-v20} \& \ref{ch:soorten-aanpassingen} hadden deze aanpassingen betrekking op verschillende aspecten van het framework.
 Verder hebben we een onderscheid kunnen maken tussen het soort aanpassingen, syntactisch of semantisch.
 \medskip
 
 Er bestaan meerdere manieren om code automatisch aan te passen.
 Dit kan via tools ingebouwd in IDE's, algoritmes om fouten op te sporen of aan te passen, en machine- of deep learning-modellen.
 Voor elke manier zijn er verschillende implementaties beschikbaar.
-In dit onderzoek legden we de nadruk op de meest voorkomende: zoek- \& vervang, language-servers en compiler-tooling.
+In dit onderzoek legden we de nadruk op de meest voorkomende: zoek- \& vervangfuncties, language-servers en compiler-tooling.
 \medskip
 
 Zoek- \& vervangfuncties in combinatie met compiler-tooling zijn gekozen als de meest geschikte manier om in deze casus toe te passen.
@@ -177,7 +177,7 @@ Meerdere studies tonen aan dat compiler-tooling werkt op grote schaal.
 Verder geeft het ons dezelfde errordetectie van de compiler, waardoor we op een betrouwbare manier bugs kunnen opsporen.
 \medskip
 
-In Hoofdstuk~\ref{ch:stand-van-zaken:refactoring:known-problems} besproken we kort wat de gekende problemen waren bij het refactoren van code.
+In hoofdstuk~\ref{ch:stand-van-zaken:refactoring:known-problems} bespraken we kort wat de gekende problemen waren bij het refactoren van code.
 In de context van onze aanpak kunnen we zeggen dat aanpassingen aan semantiek problematisch zijn om te refactoren.
 Er is zowel kennis nodig van de werking van Angular als van de applicaties die Angular gebruiken.
 In de update van v16 naar v20 blijkt dat 47,50\% van alle aanpassingen betrekking heeft op de achterliggende semantiek van Angular.
@@ -187,13 +187,13 @@ Zelfs als een aanpassing betrekking heeft op zowel syntax als semantiek, blijkt 
 \label{ch:verder-onderzoek}
 
 In de stand van zaken hebben we verschillende automatisatietechnieken besproken.
-Een vergelijking van deze technieken voor toepassing in andere casussen kan best interessant zijn.
+Een vergelijking van deze technieken voor toepassing in andere casussen kan waardevol zijn.
 Wanneer zou een integratie met een language server, of met AI, gepast zijn bijvoorbeeld?
 \medskip
 
 Tijdens het schrijven van dit onderzoek is Angular v21 uitgekomen.
 Deze versie komt met nieuwe tools om AI beter te integreren in het ontwikkelingsproces.
-Voornamelijk beweren ze dat het AI toelaat om de nieuwste functionaliteiten te gebruiken.
+Voornamelijk beweert het \textcite{AngularV21Announcement2025} dat het AI toelaat om de nieuwste functionaliteiten te gebruiken.
 Dit was één van de redenen dat AI niet gekozen werd in dit onderzoek.
 Deze tools zijn momenteel nog experimenteel, maar kunnen veelbelovend zijn.
 

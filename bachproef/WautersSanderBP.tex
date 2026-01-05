@@ -48,7 +48,6 @@
 % Other packages not already included can be imported here
 
 %%---------- Document metadata -------------------------------------------------
-% TODO: Replace this with your own information
 \author{Wauters Sander}
 \supervisor{Mevr. I. Malfait}
 \cosupervisor{Dhr. P. De Seranno}
@@ -149,13 +148,35 @@
 \appendix
 
 \chapter{Onderzoeksvoorstel}
+\label{ch:onderzoeksvoorstel}
 
 Het onderwerp van deze bachelorproef is gebaseerd op een onderzoeksvoorstel dat vooraf werd beoordeeld door de promotor. Dat voorstel is opgenomen in deze bijlage.
 
-%% TODO: 
-%\section*{Samenvatting}
+\section*{Samenvatting}
 
 % Kopieer en plak hier de samenvatting (abstract) van je onderzoeksvoorstel.
+
+% Wat is het thema?
+Een applicatie updaten naar een nieuwe versie van een softwareframework kan veel tijd in beslag nemen, zeker als de applicatie meerdere versies achterloopt.
+Hetzelfde updateproces vervolgens herhalen over meerdere applicaties zorgt ervoor dat de onderhoudstijd snel toeneemt.
+% Wat is de onderzoeksvraag?
+Het doel van dit onderzoek is om de update van het Angular-webframework van versie 16 naar versie 20 in meerdere applicaties te automatiseren, met als doel de onderhoudstijd voor de ontwikkelaars te verlagen.
+% Wat is het probleem? 
+Framework updates kunnen de performantie en veiligheid van de applicatie verbeteren.
+Het is daarom belangrijk om deze tijdig uit te voeren.
+Deze updates zijn niet altijd even simpel om toe te passen, zeker als deze gepaard gaan met veranderingen aan de broncode van de applicatie.
+In grotere broncodes neemt het proces om alle veranderingen systematisch aan te brengen veel tijd in beslag.
+% Wat gaat er gebeuren in dit onderzoek?
+Dit onderzoek start met het maken van een oplijsting van alle nodige aanpassingen tussen Angular versie 16 en versie 20.
+Vervolgens worden de verschillende manieren om aanpassingen automatisch uit te voeren onderzocht.
+% Hoe gaat het onderzoek uitgevoerd worden?
+Op basis hiervan wordt een proof of concept ontwikkeld die het updateproces zal automatiseren waar mogelijk.
+Deze proof of concept wordt getest in een gecontroleerde omgeving.
+% Wat is denk je dat het resultaat is van het onderzoek?
+De effectiviteit wordt beoordeeld aan de hand van het aantal nodige veranderingen die het automatisatieproces correct kan opsporen en uitvoeren ten opzichte van het totaal aantal uit te voeren aanpassingen.
+Dit onderzoek verwacht dat het 65\% van alle nodige veranderingen kan automatiseren.
+% Wat hebben we aan het resultaat?
+Het automatisatieproces zal naar verwachting de nodige tijd om de applicaties te updaten verminderen.
 
 % Verwijzing naar het bestand met de inhoud van het onderzoeksvoorstel
 \input{../voorstel/voorstel-inhoud}
