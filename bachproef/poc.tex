@@ -23,14 +23,14 @@ De functie geeft het aantal nodes terug dat aan het predicaat voldoet.
 Dit maakt het mogelijk om deze functie als een predicaat mee te geven en zo de functie te nesten.
 \medskip
 
-Codefragment~\ref{cf:get-ancestor} omschrijft een ander manier om de AST te navigeren.
+Codefragment~\ref{cf:get-ancestor} omschrijft een andere manier om de AST te navigeren.
 Hier doorlopen we de AST van een gegeven node terug naar de root van de AST.
 De functie roept zichzelf recursief op tot de gewenste diepte of de root bereikt is.
 \medskip
 
 % Hoe impelmentere we find & replace?
 De rest van de helperfuncties zijn predicaten voor codefragment~\ref{cf:find-nodes}.
-Startend met codefragment~\ref{cf:contains-pattern}.
+We beginnen met codefragment~\ref{cf:contains-pattern}.
 Deze functie gaat na of de tekstrepresentatie van een node een gegeven regexpatroon bevat.
 De tekstrepresentatie van een node is simpelweg hoe een stuk code eruitziet in de broncode.
 Bijvoorbeeld, deze functie oproepen op de root node van een AST is hetzelfde als zoeken naar een patroon in het eigenlijke bestand.
@@ -71,7 +71,7 @@ Dit betekent ook dat de tekstrepresentatie van een node de tekst bevat van alle 
       return getAncestor(parent, --count);
     }
   \end{minted}
-  \caption[Vind voorouder]{Helperfunctie die de n'de voorouder van een AST node teruggeeft.}
+  \caption[Vind voorouder]{Helperfunctie die de n-de voorouder van een AST node teruggeeft.}
   \label{cf:get-ancestor}
 \end{listing}
 
@@ -103,7 +103,7 @@ De eerste van deze functies in codefragment~\ref{cf:in-scope-of} gaat na of een 
 We doen dit door recursief het syntaxtype van de ouder te vergelijken tot een match is gevonden of de root node bereikt is.
 ts-morph evalueert het syntaxtype aan de hand van de \emph{SyntaxKind} enumeratie.
 Voorbeelden van syntaxtype zijn: bestanden, importdeclaraties, klassedeclaraties, expressies, decorators, keywords, \dots.
-Als een node de syntaxtype matcht, dan wordt deze node teruggegeven.
+Als een node aan het syntaxtype matcht, dan wordt deze node teruggegeven.
 \medskip
 
 % Hoe vinden we het type van de node?
@@ -202,7 +202,7 @@ We weten op voorhand dat templates niet toegankelijk zijn voor de updater.
 Maar we kunnen wel verandering detectiestrategieën gaan opsporen in TypeScript.
 In codefragment~\ref{cf:sample-3} zoeken we alle componenten op met de OnPush-ver\-an\-der\-ing detectiestrategie.
 Vervolgens tonen we de locatie van deze component binnen het project.
-Dit tonen we aan via de bestandsnaam, gevolgd door het lijnnummer in de code.
+Dit tonen we via de bestandsnaam, gevolgd door het lijnnummer in de code.
 \medskip
 
 % Is dit alles wat de updater kan?
