@@ -3,7 +3,7 @@
 
 % Welke termen en technologiën moet iemand kennen voor het onderzoek te snappen?
 In dit hoofdstuk bespreken we de verschillende technologieën die betrekking hebben op het onderzoek.
-Deze literatuurstudie start met een omschrijving van het Angular-framework en hoe een Angular-project gestructureerd is.
+Deze literatuurstudie start met een omschrijving van het Angular framework en hoe een Angular-project gestructureerd is.
 Vervolgens overlopen we hoe dat Angular gebruikt maakt van de TypeScript-programmeertaal.
 We geven een kort overzicht van de nodige veranderingen tussen Angular v16 en v20.
 Ten slotte volgt een overzicht van verschillende gekende manieren om code automatisch aan te passen.
@@ -20,7 +20,7 @@ Hoewel ze dezelfde naam delen, is Angular een volledig nieuw framework met een a
 \medskip
 
 % Waarvoor dient het?
-Angular wordt gebruikt voor het ontwikkelen van dynamische single-page webapplicaties.
+Angular wordt gebruikt voor het ontwikkelen van dynamische webapplicaties.
 De code van een Angular applicatie volgt een eenduidige structuur.
 Om deze reden wordt het omschreven als een opinionated framework.
 \textcite{Parker2017} definieert een framework als opinionated als het de ontwikkelaar aanstuurt om op een specifieke manier te werken.
@@ -53,7 +53,7 @@ In de volgende secties van dit hoofdstuk bespreken we de werking van Angular in 
 Het Angular framework gebruikt en is geschreven in TypeScript.
 Als gevolg neemt TypeScript het grootste deel van een Angular applicatie in.
 % Wat is TypeScript?
-Zoals omschreven door \textcite{Bierman2014} is TypeScript een programmeertaal ontworpen door Microsoft in 2012.
+Zoals omschreven door \textcite{Bierman2014} is TypeScript een programmeertaal ontwikkeld door Microsoft in 2012.
 Het is een extensie van JavaScript die een statisch typesysteem toevoegt.
 Verder heeft het betere ondersteuning voor objectgeoriënteerd programmeren dan JavaScript.
 TypeScript is een multiparadigma-programmeertaal.
@@ -203,7 +203,7 @@ De syntax voor event binding is \mintinline{ts}{( )}, bijvoorbeeld:\\ \mintinlin
 
 % Wat is two-way binding?
 De laatste soort is two-way binding \autocite{AngularTwoWayBindingDocs2025}.
-Two-way binding is Angular is hetzelfde als property binding.
+Two-way binding in Angular is hetzelfde als property binding.
 Met het verschil dat het HTML-element of de component nu de data kan aanpassen.
 De syntax voor two-way binding is \mintinline{ts}{[( )]}, bijvoorbeeld:\\ \mintinline{html+ng2}{<input type="text" [(ngModel)]="firstName" />}.
 
@@ -321,7 +321,8 @@ Hieronder volgt een kleine opsomming van deze stappen:
   \item Verschillende functies geven nieuwe objecten terug.
   \item Verschillende functies krijgen nieuwe of andere parameters.
   \item Door een verandering aan de achterliggende werking van het testing-framework moeten testen die bepaalde functies aanspreken herzien worden.
-  \item In v17 worden condities in templates strikter geëvalueerd. De werking moet overal nagegaan worden.
+  \item In v17 worden conditionele uitdrukkingen in templates strikter geëvalueerd. De werking moet overal nagegaan worden. 
+    Dit kan redelijk wat impact hebben op de user interface.
   \item In v18 is er een aanpassing aan de werking van two-way binding in bepaalde randgevallen.
   \item In v18 verandert de manier waarop Angular-applicaties van pagina veranderen.
   \item In v19 en v20 is er een aanpassing aan de werking van interpolation in bepaalde randgevallen.

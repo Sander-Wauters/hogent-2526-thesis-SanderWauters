@@ -34,15 +34,15 @@
 \section*{Samenvatting}
 
 Applicatie ontwikkeld om de update van Angular-applicaties te ondersteunen.
-Getest om een Angular v16 applicatie te updaten naar v20.
-De evaluatie toont aan dat ongeveer 25\% van alle nodige de aanpassingen automatisch kon worden uitgevoerd.
+Getest door een Angular v16-applicatie te updaten naar v20.
+De evaluatie toont aan dat meer dan 25\% van alle nodige aanpassingen automatiseerbaar is.
 Deze aanpak is bruikbaar voor het refactoren van verschillende TypeScript-applicaties.
 Programmatische configuratie zorgt voor een hoge flexibiliteit.
-De oplossing is gebaseerd op de TypeScript-compiler en gebruikt dezelfde foutdetectie.
+De oplossing is gebaseerd op de TypeScript-compiler voor een betrouwbare error detectie.
 
 \section*{Introductie}
 
-Het Angular-framework vereenvoudigt het ontwikkelingsproces voor het bouwen van dynamische webapplicaties.
+Het Angular framework vereenvoudigt het ontwikkelingsproces voor het bouwen van dynamische webapplicaties.
 Zoals bij de meeste software ontvangt Angular regelmatig updates.
 Deze updates zijn noodzakelijk, omdat ze de cyberveiligheid verbeteren.
 Het toepassen van dergelijke updates is echter niet altijd vanzelfsprekend.
@@ -50,27 +50,26 @@ Het toepassen van dergelijke updates is echter niet altijd vanzelfsprekend.
 
 % - probleemstelling
 Angular verwijdert verouderde functionaliteiten uit het framework.
-Daardoor moet de broncode van Angular-applicaties aangepast worden.
-Dit type updates vindt om de 6 maanden plaats.
+Daardoor moet de broncode van een Angular-applicatie aangepast worden tijdens de update.
+Deze soort updates vinden plaats om de 6 maanden.
 Bij meerdere enterprise-applicaties kan de benodigde tijd voor dit updateproces snel oplopen.
 Het bedrijf Stater ervaart dit probleem.
 Stater is een end-to-end dienstverlener voor zowel hypothecaire als consumentenkredieten.
-Zij willen al hun applicaties updaten van Angular v16 naar v20.
+Ze moeten al hun applicaties updaten van Angular v16 naar v20.
 De sprong van vier versies betekent dat er vermoedelijk veel aanpassingen in de broncode nodig zijn.
 
 \section*{Methodologie}
 
 Deze studie begon met een literatuurstudie naar gekende methodes om code automatisch aan te passen.
-De beslissing werd gemaakt om een \emph{updater} te maken op basis van de TypeScript Compiler API.
-Door de TypeScript-compiler programmatisch aan te spreken en te kopellen aan zoek- en vervangfuncties was hetmogelijk om gericht code op te sporen en te veranderen.
+De beslissing werd genomen om een \emph{updater} te maken op basis van de TypeScript Compiler API.
+Door de TypeScript-compiler programmatisch aan te spreken en te koppelen aan zoek- en vervangfuncties was het mogelijk om gericht code op te sporen en te veranderen.
 \medskip
 
-Een collectie aan helperfuncties zijn ontwikkeld voor de implementatie te vereenvoudigen.
-De updater wordt programmatische ingesteld.
-Dit geeft ons een hoge flexibiliteit waaroor deze werkwijze bij verschillende soorten aanpassingen bruikbaar is.
-De updater zelf is een simpel commandline applicatie.
-Het kan op deze manier op meerdere projecten opgeroepen worden.
-Het codeframent toont hoe we alle instanties van een functie gericht van naam kunnen veranderen doorheen meerdere applicaties.
+Een collectie aan helperfuncties is ontwikkeld om de implementatie te vereenvoudigen.
+Door een programmatische instelling behalen we een hoge flexibiliteit met de updater.
+De updater zelf is een commandline-applicatie.
+Op deze manier kan het op meerdere projecten opgeroepen worden.
+Het volgende codefragment toont een voorbeeld van hoe we alle instanties van een functie gericht van naam kunnen veranderen doorheen meerdere applicaties.
 
 \bigskip
 \begin{center}
@@ -108,11 +107,11 @@ Deelvragen:
 \section*{Conclusies}
 
 De testresultaten tonen aan dat de updater een meerwaarde biedt in de ondersteuning van het updateproces.
-Ondanks dat het verwachte resultaat niet bereikt is, was het nog steeds mogelijk om een vierde van alle aanpassingen automatisch uit te voeren.
-De hoge flexibiliteit van deze aanpak maakt het mogelijk voor de updater te herconfigureren voor toekomstige updates.
+Het is mogelijk om een vierde van alle aanpassingen automatisch uit te voeren.
+De hoge flexibiliteit van onze aanpak maakt het mogelijk om de updater te herconfigureren voor toekomstige updates.
 Bovendien is de updater niet gelimiteerd aan het uitvoeren van Angular-updates.
 Dezelfde manier van werken kan toegepast worden om meer algemene refactoringen uit te voeren.
-Verder kan men de updater configureren om op andere TypeScript-applicaties te werken.
+Verder kan men de updater gebruiken op andere TypeScript-applicaties.
 
 \bigskip
 \begin{center}
@@ -143,7 +142,7 @@ Verder kan men de updater configureren om op andere TypeScript-applicaties te we
 
 \section*{Toekomstig onderzoek}
 
-In de stand van zaken hebben we verschillende automatisatietechnieken besproken.
+Dit onderzoek focust op één van meerdere automatisatietechnieken.
 Een vergelijking van deze technieken voor toepassing in andere casussen kan best interessant zijn.
 Wanneer zou een integratie met een language server, of met AI, gepast zijn bijvoorbeeld?
 \medskip
@@ -151,7 +150,6 @@ Wanneer zou een integratie met een language server, of met AI, gepast zijn bijvo
 Tijdens het schrijven van dit onderzoek is Angular v21 uitgekomen.
 Deze versie komt met nieuwe tools om AI beter te integreren in het ontwikkelingsproces.
 Voornamelijk beweren ze dat het AI toelaat om de nieuwste functionaliteiten te gebruiken.
-Dit was één van de redenen dat AI niet gekozen werd in dit onderzoek.
 Deze tools zijn momenteel nog experimenteel, maar kunnen veelbelovend zijn.
 
 \end{large}

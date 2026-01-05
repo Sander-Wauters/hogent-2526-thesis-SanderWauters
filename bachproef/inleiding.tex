@@ -13,13 +13,13 @@ Deze updates zijn noodzakelijk, omdat ze de cyberveiligheid verbeteren.
 Daarnaast brengen deze updates verschillende voordelen, zoals: nieuwe functionaliteiten, betere performantie, bugfixes, \dots.
 Het toepassen van deze updates is niet altijd even vanzelfsprekend.
 Nieuwe functionaliteiten dienen soms als vervanging voor oudere.
-Het gevolg hiervan is dat de broncode moet veranderen van de applicaties die Angular gebruiken.
+Het gevolg hiervan is dat de broncode van applicaties die Angular gebruiken moet veranderen.
 \medskip
 
 % Wat is de context?
 Stater is een end-to-end dienstverlener voor zowel hypothecaire als consumentenkredieten.
-Ze ondersteunen de kredietverstrekker voor de dienstverlening aan consumenten.
-Stater heeft intern meerdere applicaties die gebruikmaken van het Angular-framework.
+Ze verzorgt namens de kredietverstrekker de volledige dienstverlening aan de klanten van deze kredietverstrekkers.
+Stater heeft intern meerdere applicaties die gebruikmaken van het Angular framework.
 Specifiek gebruiken deze applicaties Angular versie 16 (v16).
 Stater zou graag al deze applicaties updaten naar de meest recente versie, Angular versie 20 (v20).
 
@@ -28,14 +28,14 @@ Stater zou graag al deze applicaties updaten naar de meest recente versie, Angul
 
 % Wat is het probleem?
 De sprong van 4 versies betekent dat er wellicht veel aanpassingen aan de broncode nodig zijn.
-Dit probleem groeit met de grootte van de broncode en nogmaals met het aantal applicaties dat deze updates nodig heeft.
+Dit probleem groeit met de grootte van de broncode en verder met het aantal applicaties dat deze updates nodig heeft.
 Het manueel uitvoeren van al deze veranderingen neemt veel tijd in beslag.
 Tenslotte is dit geen eenmalig probleem.
 Angular krijgt volgens \textcite{Callaghan2023} een nieuwe versie om de 6 maanden.
 \medskip
 
 Het tijdig uitvoeren van deze updates is in de praktijk niet altijd mogelijk.
-De ontwikkelaars hebben meer verantwoordelijkheden dan enkel software te onderhouden.
+De ontwikkelaars hebben ook andere taken dan enkel software te onderhouden.
 Ondertussen worden nieuwe applicaties ontworpen of worden huidige applicaties uitgebreid.
 Uiteraard kan dit soort onderhoud niet eeuwig uitgesteld worden.
 Software-updates zijn volgens \textcite{Vaniea2016} noodzakelijk om de cyberveiligheid van een applicatie te garanderen.
@@ -45,10 +45,10 @@ Het is daarom van belang om alles regelmatig up-to-date te houden.
 \medskip
 
 % Waarom is dit een probleem?
-Al dit tezamen zorgt ervoor dat de onderhoudskosten snel oplopen.
+Dit alles tezamen zorgt ervoor dat de onderhoudskosten snel oplopen.
 De studie door \textcite{Kaur2015} beweert dat het onderhouden van een softwareproject gemiddeld 60\% van de totale kostprijs in beslag neemt.
 % Voor wie is dit een probleem?
-Om deze redenen is het vereenvoudigen van het updateproces best interessant.
+Om deze redenen is het vereenvoudigen van het updateproces waardevol.
 Voor de programmeurs die de updates toepassen, vermindert de werkdruk.
 En voor het bedrijf betekent dit dat de onderhoudstijd/-kosten voor hun applicaties lager kunnen liggen.
 
@@ -60,7 +60,7 @@ Op basis van de bovenstaande probleemstelling is de volgende onderzoeksvraag gef
 % Wat zijn de deelvragen?
 Om deze onderzoeksvraag te beantwoorden, zijn de volgende deelvragen opgesteld:
 \begin{itemize}
-  \item Welk veranderingen moeten uitgevoerd worden om Angular van v16 naar v20 te updaten?
+  \item Welke veranderingen moeten uitgevoerd worden om Angular van v16 naar v20 te updaten?
   \item Welke manieren bestaan er om code automatisch aan te passen zonder ongewenste veranderingen uit te voeren?
   \item Welke manier om code automatisch aan te passen is het meest geschikt om in deze casus toe te passen?
   \item Wat zijn statistisch gezien de meest voorkomende problemen bij het updaten van code?
@@ -81,12 +81,12 @@ Dit houdt in dat de gekozen implementatie rekening houdt met de huidige doelgroe
 Concreet betekent dit dat de updater aan de volgende criteria moet voldoen:
 \begin{itemize}
   \item De updater is van de ontwikkelaars voor de ontwikkelaars. 
-    De bedoeling is dat de persoon die de update uitvoert de updater kan instellen.
+    De bedoeling is dat de updater gebruikt wordt door de persoon die de update uitvoert.
   \item De updater moet aanpasbaar zijn aan de uit te voeren update. 
     Het moet herbruikbaar zijn bij toekomstige updates.
   \item De updater mag geen nieuwe bugs introduceren. 
     Gegeven dat de configuratie correct is, mag het geen ongewenste fouten maken.
-  \item De updater mag niet gekoppeld zijn aan Angular. 
+  \item De updater mag niet gebaseerd zijn op Angular. 
     Dit zorgt ervoor dat de updater zelf niet geüpdatet moet worden bij een nieuwe Angular-versie.
   \item De updater stuurt geen informatie door aan derde partijen.
     Het bedrijf bevindt zich in de financiële sector, waardoor confidentialiteit een prioriteit is.
@@ -98,19 +98,24 @@ Concreet betekent dit dat de updater aan de volgende criteria moet voldoen:
 % Hoe is de rest van de tekst opgebouwd?
 De rest van deze bachelorproef is opgebouwd als volgt:
 
-In Hoofdstuk~\ref{ch:stand-van-zaken} wordt een overzicht gegeven van de stand van zaken binnen het onderzoeksdomein, op basis van een literatuurstudie.
+In hoofdstuk~\ref{ch:stand-van-zaken} wordt een overzicht gegeven van de stand van zaken binnen het onderzoeksdomein, op basis van een literatuurstudie.
 Hier geven we een omschrijving van wat Angular is en hoe een Angular-project is opgebouwd.
 Verder overlopen we wat refactoring is en welke manieren reeds bestaan om dit te automatiseren.
 \medskip
 
-In Hoofdstuk~\ref{ch:methodologie} wordt de methodologie toegelicht en worden de gebruikte onderzoekstechnieken besproken om een antwoord te kunnen formuleren op de onderzoeksvragen.
+In hoofdstuk~\ref{ch:methodologie} wordt de methodologie toegelicht en worden de gebruikte onderzoekstechnieken besproken om een antwoord te kunnen formuleren op de onderzoeksvragen.
 De methodologie begint met het toelichten van de gekozen refactoringtechnieken uit de literatuurstudie.
 Hierna volgt een korte oplijsting van welke veranderingen concreet uitgevoerd moeten worden om een Angular-applicatie van v16 naar v20 te updaten.
 Vervolgens wordt als proof of concept de updater uitgewerkt op basis van de gekozen technieken.
 Tegelijk wordt een gecontroleerde omgeving gemaakt die dient om de effectiviteit van de updater te testen.
 \medskip
 
-In Hoofdstuk~\ref{ch:conclusie}, tenslotte, geven we de resultaten van de updater.
+In hoofdstuk~\ref{ch:proof-of-concept} omschrijven we de uitwerking van de gekozen methodologie.
+Hier gaan we dieper in op de code achter de updater.
+Verder worden enkele voorbeelden gegeven van hoe de updater een aanpassing kan automatiseren.
+\medskip
+
+In hoofdstuk~\ref{ch:conclusie}, tenslotte, geven we de resultaten van de updater.
 Op basis van deze resultaten geven we een conclusie en formuleren we een antwoord op de onderzoeksvraag.
 Om het onderzoek af te ronden, worden enkele nieuwe inzichten gegeven. 
 Deze kunnen dienen als aanzet tot verder onderzoek.
