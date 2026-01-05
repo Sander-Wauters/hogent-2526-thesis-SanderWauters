@@ -34,7 +34,7 @@ Vervolgens bespreken we de proof of concept.
 Hoe de updater geëvalueerd zal worden aan de hand van een testomgeving.
 Wat de updater kan en doet.
 En tenslotte bespreken we de validatie van de resultaten.
-In Hoofdstuk~\ref{ch:proof-of-concept} wordt de technische uitwerking van de updater in meer detail toegelicht.
+In hoofdstuk~\ref{ch:proof-of-concept} wordt de technische uitwerking van de updater in meer detail toegelicht.
 
 \section{Plan van aanpak}
 \label{ch:plan-van-aanpak}
@@ -62,9 +62,8 @@ Verder is de interne werking, op basis van een AST, goed gedocumenteerd.
 De updater moet ingezet kunnen worden voor toekomstige updates.
 Het probleem hierbij is dat we ons moeten voorbereiden op nieuwe aanpassingen.
 Dit vereist een flexibele configuratie.
-Aangezien het doelpubliek programmeurs zijn, stellen we voor om de updater programmatisch te configureren.
-Een programmatische configuratie geeft ons flexibiliteit en uitbreidbaarheid.
-Met een programmatische configuratie bedoelen we dat de updater hard-coded is.
+Aangezien het doelpubliek programmeurs zijn, stellen we voor om de updater programmatisch op te stellen.
+Dit geeft ons een hoge flexibiliteit en uitbreidbaarheid.
 Als programmeertaal kiezen we voor TypeScript.
 Angular gebruikt dit reeds, dus het is gekend door de programmeurs.
 Om de integratie met de TypeScript Compiler API te vereenvoudigen, ontwikkelen we een collectie aan helperfuncties.
@@ -72,7 +71,7 @@ Deze helperfuncties zorgen voor een extra abstractielaag.
 Het doel hiervan is om snel nieuwe updates te kunnen automatiseren.
 \medskip
 
-Een programmatische configuratie betekent dat de updater bij elke aanpassing gecompileerd moet worden.
+De updater zelf zal bij elke aanpassing gehercompileerd moeten worden.
 Dit klinkt als een complex proces, maar in werkelijkheid betekent dit één extra commando uitvoeren.
 De updater zal compileren naar een CLI-applicatie.
 Bij het uitvoeren van een Angular-update moeten er commando's uitgevoerd worden.
@@ -200,7 +199,7 @@ Dit dient als controle om na te gaan of de updater specifiek genoeg ingesteld is
 % Hoe wordt de updater geëvalueerd?
 Dit onderzoek stelt een updater op die de testapplicatie van Angular v16 tot v20 autonoom tracht te updaten waar mogelijk.
 Buiten het uitvoeren van de updates zal deze updater bijhouden wat het kan en niet kan.
-Elke stap in het updateproces wordt manueel gecategoriseerd volgens de categorieën besproken in Hoofdstuk~\ref{ch:soorten-aanpassingen}.
+Elke stap in het updateproces wordt manueel gecategoriseerd volgens de categorieën besproken in hoofdstuk~\ref{ch:soorten-aanpassingen}.
 De updater probeert voor elk codefragment in de testapplicatie de nodige aanpassingen te detecteren en vervolgens te automatiseren.
 \medskip
 
