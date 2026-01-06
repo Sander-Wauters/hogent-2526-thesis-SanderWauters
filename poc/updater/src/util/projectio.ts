@@ -43,21 +43,22 @@ export function loadControlenv(): Project {
  * Save all changes made to the AST of the project.
  *
  * @param {Project} project - The project to save.
- * @param {boolean} force - Try to save changes regardless of errors.
+ * @param {boolean} errorThreshold - The amount of permitted errors.
  */
 export async function saveProject(
   project: Project,
-  force: boolean = false,
+  errorThreshold: number = 16,
 ): Promise<boolean> {
   console.debug(`Checking for errors...`);
   const diagnostics = project.getPreEmitDiagnostics();
   console.log(`Errors: ${diagnostics.length}`);
 
-  if (diagnostics.length) {
+  if (diagnostics.length)
     console.error(project.formatDiagnosticsWithColorAndContext(diagnostics));
-    if (force) await project.save();
-    return false;
+
+  if (diagnostics.length <= errorThreshold) {
+    await project.save();
+    return true;
   }
-  await project.save();
-  return true;
+  return false;
 }

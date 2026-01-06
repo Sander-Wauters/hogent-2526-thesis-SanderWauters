@@ -511,4 +511,4 @@ project.getSourceFiles().forEach((file) =>
   ),
 );
 
-await saveProject(project, true);
+await saveProject(project);

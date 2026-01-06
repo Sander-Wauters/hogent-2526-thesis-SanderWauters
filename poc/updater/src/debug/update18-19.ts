@@ -342,4 +342,4 @@ metrics.push(step55(project));
 validate(project, control, metrics);
 logStepData(metrics);
 
-await saveProject(project, true);
+await saveProject(project, Number.MAX_VALUE);

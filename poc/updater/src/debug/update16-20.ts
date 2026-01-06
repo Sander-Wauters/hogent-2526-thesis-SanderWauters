@@ -1475,4 +1475,4 @@ metrics.push({
 validate(project, control, metrics);
 logStepData(metrics);
 
-await saveProject(project, true);
+await saveProject(project, Number.MAX_VALUE);
