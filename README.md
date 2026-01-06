@@ -14,6 +14,7 @@ If you just want to view the documents as a `pdf`, check out the `output` direct
 - `output/`: Contains the compiled LaTeX documents.
 - `poc/`: Contains the code for the proof of concept.
 - `poc/__testenv__/`: Contains the code for the test environment. **NEVER** run the updater on this, make a copy of this directory and run the updater on that.
+- `poc/controlenv/`: Contains the code for the control environment. **NEVER** run the updater on this.
 - `poc/updater/`: Contains the code for the updater.
 - `poster/`: Contains the LaTeX files for the thesis poster.
 - `voorstel/`: Contains the LaTeX files for the thesis proposal.

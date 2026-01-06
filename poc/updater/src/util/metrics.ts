@@ -55,6 +55,8 @@ interface StepTotals {
   numChangesInCli: number;
   numChangesToSyntax: number;
   numChangesToSemantics: number;
+
+  numChanges: number;
 }
 
 const EMPTY_STEP_TOTALS: StepTotals = {
@@ -76,6 +78,8 @@ const EMPTY_STEP_TOTALS: StepTotals = {
   numChangesInCli: 0,
   numChangesToSyntax: 0,
   numChangesToSemantics: 0,
+
+  numChanges: 0,
 };
 
 function addTotals(step: StepData, total: StepTotals) {
@@ -102,6 +106,8 @@ function addTotals(step: StepData, total: StepTotals) {
 
   total.numChangesToSyntax += step.changeFlags & Change.TO_SYNTAX ? 1 : 0;
   total.numChangesToSemantics += step.changeFlags & Change.TO_SEMANTICS ? 1 : 0;
+
+  total.numChanges += step.changedFiles.length;
 }
 
 function logStepTotals(totals: StepTotals, label: string) {
@@ -253,6 +259,16 @@ function logStepTotals(totals: StepTotals, label: string) {
       .toFixed(2)
       .concat("%")
       .padEnd(pad, " "),
+  );
+  console.log(
+    `|-----------------------|%s|%s|`,
+    "".padEnd(pad + 2, "-"),
+    "".padEnd(pad + 2, "-"),
+  );
+  console.log(
+    `| Number of changes     | %s | %s |`,
+    totals.numChanges.toString().padEnd(pad, " "),
+    "??".concat("%").padEnd(pad, " "),
   );
 }
 

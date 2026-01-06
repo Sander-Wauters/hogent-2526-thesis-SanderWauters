@@ -261,7 +261,7 @@ Of deze even goed zullen werken in de praktijk is afhankelijk van het project.
           deepestInstanceOf(node, "OnPush") &&
           accessedFrom(node, "ChangeDetectionStrategy") &&
           !!inScopeOf(node, SyntaxKind.Decorator),
-        () => console.log(file.getBaseName(), file.getStartLineNumber()),
+        () => console.log(file.getBaseName(), node.getStartLineNumber()),
       ),
     );
   \end{minted}

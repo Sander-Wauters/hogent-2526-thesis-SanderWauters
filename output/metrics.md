@@ -25,6 +25,8 @@ WARNING: changes in step 14 applied more than once, check if the matching files 
 |-----------------------|---------|---------|
 | Change to syntax      | 7       | 46.67%  |
 | Change to semantics   | 7       | 46.67%  |
+|-----------------------|---------|---------|
+| Number of changes     | 5       | ??%     |
 
 | Type                  | #TS     | %TS     |
 |-----------------------|---------|---------|
@@ -47,6 +49,8 @@ WARNING: changes in step 14 applied more than once, check if the matching files 
 |-----------------------|---------|---------|
 | Change to syntax      | 7       | 70.00%  |
 | Change to semantics   | 6       | 60.00%  |
+|-----------------------|---------|---------|
+| Number of changes     | 5       | ??%     |
 
 | Type                  | #Template | %Template |
 |-----------------------|-----------|-----------|
@@ -69,6 +73,8 @@ WARNING: changes in step 14 applied more than once, check if the matching files 
 |-----------------------|-----------|-----------|
 | Change to syntax      | 0         | 0.00%     |
 | Change to semantics   | 1         | 100.00%   |
+|-----------------------|-----------|-----------|
+| Number of changes     | 0         | ??%       |
 
 | Type                  | #Test   | %Test   |
 |-----------------------|---------|---------|
@@ -91,6 +97,8 @@ WARNING: changes in step 14 applied more than once, check if the matching files 
 |-----------------------|---------|---------|
 | Change to syntax      | 0       | 0.00%   |
 | Change to semantics   | 1       | 100.00% |
+|-----------------------|---------|---------|
+| Number of changes     | 0       | ??%     |
 
 | Type                  | #JSON   | %JSON   |
 |-----------------------|---------|---------|
@@ -113,6 +121,8 @@ WARNING: changes in step 14 applied more than once, check if the matching files 
 |-----------------------|---------|---------|
 | Change to syntax      | 0       | 0.00%   |
 | Change to semantics   | 0       | 0.00%   |
+|-----------------------|---------|---------|
+| Number of changes     | 0       | ??%     |
 
 | Type                  | #CLI    | %CLI    |
 |-----------------------|---------|---------|
@@ -135,6 +145,8 @@ WARNING: changes in step 14 applied more than once, check if the matching files 
 |-----------------------|---------|---------|
 | Change to syntax      | 0       | 0.00%   |
 | Change to semantics   | 0       | 0.00%   |
+|-----------------------|---------|---------|
+| Number of changes     | 0       | ??%     |
 
 | Type                  | #Syntax | %Syntax |
 |-----------------------|---------|---------|
@@ -157,6 +169,8 @@ WARNING: changes in step 14 applied more than once, check if the matching files 
 |-----------------------|---------|---------|
 | Change to syntax      | 7       | 100.00% |
 | Change to semantics   | 3       | 42.86%  |
+|-----------------------|---------|---------|
+| Number of changes     | 5       | ??%     |
 
 | Type                  | #Semantics | %Semantics |
 |-----------------------|------------|------------|
@@ -179,6 +193,8 @@ WARNING: changes in step 14 applied more than once, check if the matching files 
 |-----------------------|------------|------------|
 | Change to syntax      | 3          | 42.86%     |
 | Change to semantics   | 7          | 100.00%    |
+|-----------------------|------------|------------|
+| Number of changes     | 2          | ??%        |
 Checking for errors...
 Errors: 3
 
@@ -213,6 +229,8 @@ WARNING: changes in step 15 applied more than once, check if the matching files 
 |-----------------------|---------|---------|
 | Change to syntax      | 7       | 31.82%  |
 | Change to semantics   | 15      | 68.18%  |
+|-----------------------|---------|---------|
+| Number of changes     | 14      | ??%     |
 
 | Type                  | #TS     | %TS     |
 |-----------------------|---------|---------|
@@ -235,6 +253,8 @@ WARNING: changes in step 15 applied more than once, check if the matching files 
 |-----------------------|---------|---------|
 | Change to syntax      | 6       | 30.00%  |
 | Change to semantics   | 15      | 75.00%  |
+|-----------------------|---------|---------|
+| Number of changes     | 14      | ??%     |
 
 | Type                  | #Template | %Template |
 |-----------------------|-----------|-----------|
@@ -257,6 +277,8 @@ WARNING: changes in step 15 applied more than once, check if the matching files 
 |-----------------------|-----------|-----------|
 | Change to syntax      | 1         | 100.00%   |
 | Change to semantics   | 0         | 0.00%     |
+|-----------------------|-----------|-----------|
+| Number of changes     | 0         | ??%       |
 
 | Type                  | #Test   | %Test   |
 |-----------------------|---------|---------|
@@ -279,6 +301,8 @@ WARNING: changes in step 15 applied more than once, check if the matching files 
 |-----------------------|---------|---------|
 | Change to syntax      | 0       | 0.00%   |
 | Change to semantics   | 4       | 100.00% |
+|-----------------------|---------|---------|
+| Number of changes     | 0       | ??%     |
 
 | Type                  | #JSON   | %JSON   |
 |-----------------------|---------|---------|
@@ -301,6 +325,8 @@ WARNING: changes in step 15 applied more than once, check if the matching files 
 |-----------------------|---------|---------|
 | Change to syntax      | 0       | 0.00%   |
 | Change to semantics   | 0       | 0.00%   |
+|-----------------------|---------|---------|
+| Number of changes     | 0       | ??%     |
 
 | Type                  | #CLI    | %CLI    |
 |-----------------------|---------|---------|
@@ -323,6 +349,8 @@ WARNING: changes in step 15 applied more than once, check if the matching files 
 |-----------------------|---------|---------|
 | Change to syntax      | 0       | 0.00%   |
 | Change to semantics   | 0       | 0.00%   |
+|-----------------------|---------|---------|
+| Number of changes     | 0       | ??%     |
 
 | Type                  | #Syntax | %Syntax |
 |-----------------------|---------|---------|
@@ -345,6 +373,8 @@ WARNING: changes in step 15 applied more than once, check if the matching files 
 |-----------------------|---------|---------|
 | Change to syntax      | 7       | 100.00% |
 | Change to semantics   | 1       | 14.29%  |
+|-----------------------|---------|---------|
+| Number of changes     | 9       | ??%     |
 
 | Type                  | #Semantics | %Semantics |
 |-----------------------|------------|------------|
@@ -367,6 +397,8 @@ WARNING: changes in step 15 applied more than once, check if the matching files 
 |-----------------------|------------|------------|
 | Change to syntax      | 1          | 6.67%      |
 | Change to semantics   | 15         | 100.00%    |
+|-----------------------|------------|------------|
+| Number of changes     | 5          | ??%        |
 Checking for errors...
 Errors: 7
 
@@ -400,6 +432,8 @@ WARNING: changes in step 16 applied more than once, check if the matching files 
 |-----------------------|---------|---------|
 | Change to syntax      | 3       | 18.75%  |
 | Change to semantics   | 9       | 56.25%  |
+|-----------------------|---------|---------|
+| Number of changes     | 11      | ??%     |
 
 | Type                  | #TS     | %TS     |
 |-----------------------|---------|---------|
@@ -422,6 +456,8 @@ WARNING: changes in step 16 applied more than once, check if the matching files 
 |-----------------------|---------|---------|
 | Change to syntax      | 1       | 10.00%  |
 | Change to semantics   | 9       | 90.00%  |
+|-----------------------|---------|---------|
+| Number of changes     | 11      | ??%     |
 
 | Type                  | #Template | %Template |
 |-----------------------|-----------|-----------|
@@ -444,6 +480,8 @@ WARNING: changes in step 16 applied more than once, check if the matching files 
 |-----------------------|-----------|-----------|
 | Change to syntax      | 1         | 50.00%    |
 | Change to semantics   | 1         | 50.00%    |
+|-----------------------|-----------|-----------|
+| Number of changes     | 0         | ??%       |
 
 | Type                  | #Test   | %Test   |
 |-----------------------|---------|---------|
@@ -466,6 +504,8 @@ WARNING: changes in step 16 applied more than once, check if the matching files 
 |-----------------------|---------|---------|
 | Change to syntax      | 0       | 0.00%   |
 | Change to semantics   | 5       | 100.00% |
+|-----------------------|---------|---------|
+| Number of changes     | 6       | ??%     |
 
 | Type                  | #JSON   | %JSON   |
 |-----------------------|---------|---------|
@@ -488,6 +528,8 @@ WARNING: changes in step 16 applied more than once, check if the matching files 
 |-----------------------|---------|---------|
 | Change to syntax      | 1       | 33.33%  |
 | Change to semantics   | 0       | 0.00%   |
+|-----------------------|---------|---------|
+| Number of changes     | 0       | ??%     |
 
 | Type                  | #CLI    | %CLI    |
 |-----------------------|---------|---------|
@@ -510,6 +552,8 @@ WARNING: changes in step 16 applied more than once, check if the matching files 
 |-----------------------|---------|---------|
 | Change to syntax      | 0       | 0.00%   |
 | Change to semantics   | 0       | 0.00%   |
+|-----------------------|---------|---------|
+| Number of changes     | 0       | ??%     |
 
 | Type                  | #Syntax | %Syntax |
 |-----------------------|---------|---------|
@@ -532,6 +576,8 @@ WARNING: changes in step 16 applied more than once, check if the matching files 
 |-----------------------|---------|---------|
 | Change to syntax      | 3       | 100.00% |
 | Change to semantics   | 0       | 0.00%   |
+|-----------------------|---------|---------|
+| Number of changes     | 1       | ??%     |
 
 | Type                  | #Semantics | %Semantics |
 |-----------------------|------------|------------|
@@ -554,6 +600,8 @@ WARNING: changes in step 16 applied more than once, check if the matching files 
 |-----------------------|------------|------------|
 | Change to syntax      | 0          | 0.00%      |
 | Change to semantics   | 9          | 100.00%    |
+|-----------------------|------------|------------|
+| Number of changes     | 10         | ??%        |
 Checking for errors...
 Errors: 10
 
@@ -588,6 +636,8 @@ WARNING: step 19 is marked not automation but the first output fully matches the
 |-----------------------|---------|---------|
 | Change to syntax      | 7       | 28.00%  |
 | Change to semantics   | 8       | 32.00%  |
+|-----------------------|---------|---------|
+| Number of changes     | 18      | ??%     |
 
 | Type                  | #TS     | %TS     |
 |-----------------------|---------|---------|
@@ -610,6 +660,8 @@ WARNING: step 19 is marked not automation but the first output fully matches the
 |-----------------------|---------|---------|
 | Change to syntax      | 3       | 27.27%  |
 | Change to semantics   | 8       | 72.73%  |
+|-----------------------|---------|---------|
+| Number of changes     | 18      | ??%     |
 
 | Type                  | #Template | %Template |
 |-----------------------|-----------|-----------|
@@ -632,6 +684,8 @@ WARNING: step 19 is marked not automation but the first output fully matches the
 |-----------------------|-----------|-----------|
 | Change to syntax      | 4         | 66.67%    |
 | Change to semantics   | 2         | 33.33%    |
+|-----------------------|-----------|-----------|
+| Number of changes     | 0         | ??%       |
 
 | Type                  | #Test   | %Test   |
 |-----------------------|---------|---------|
@@ -654,6 +708,8 @@ WARNING: step 19 is marked not automation but the first output fully matches the
 |-----------------------|---------|---------|
 | Change to syntax      | 2       | 33.33%  |
 | Change to semantics   | 4       | 66.67%  |
+|-----------------------|---------|---------|
+| Number of changes     | 6       | ??%     |
 
 | Type                  | #JSON   | %JSON   |
 |-----------------------|---------|---------|
@@ -676,6 +732,8 @@ WARNING: step 19 is marked not automation but the first output fully matches the
 |-----------------------|---------|---------|
 | Change to syntax      | 0       | 0.00%   |
 | Change to semantics   | 0       | 0.00%   |
+|-----------------------|---------|---------|
+| Number of changes     | 0       | ??%     |
 
 | Type                  | #CLI    | %CLI    |
 |-----------------------|---------|---------|
@@ -698,6 +756,8 @@ WARNING: step 19 is marked not automation but the first output fully matches the
 |-----------------------|---------|---------|
 | Change to syntax      | 0       | 0.00%   |
 | Change to semantics   | 0       | 0.00%   |
+|-----------------------|---------|---------|
+| Number of changes     | 0       | ??%     |
 
 | Type                  | #Syntax | %Syntax |
 |-----------------------|---------|---------|
@@ -720,6 +780,8 @@ WARNING: step 19 is marked not automation but the first output fully matches the
 |-----------------------|---------|---------|
 | Change to syntax      | 7       | 100.00% |
 | Change to semantics   | 0       | 0.00%   |
+|-----------------------|---------|---------|
+| Number of changes     | 8       | ??%     |
 
 | Type                  | #Semantics | %Semantics |
 |-----------------------|------------|------------|
@@ -742,6 +804,8 @@ WARNING: step 19 is marked not automation but the first output fully matches the
 |-----------------------|------------|------------|
 | Change to syntax      | 0          | 0.00%      |
 | Change to semantics   | 8          | 100.00%    |
+|-----------------------|------------|------------|
+| Number of changes     | 10         | ??%        |
 Checking for errors...
 Errors: 11
 
@@ -787,6 +851,8 @@ WARNING: step 74 is marked not automation but the first output fully matches the
 |-----------------------|---------|---------|
 | Change to syntax      | 24      | 30.00%  |
 | Change to semantics   | 38      | 47.50%  |
+|-----------------------|---------|---------|
+| Number of changes     | 49      | ??%     |
 
 | Type                  | #TS     | %TS     |
 |-----------------------|---------|---------|
@@ -809,6 +875,8 @@ WARNING: step 74 is marked not automation but the first output fully matches the
 |-----------------------|---------|---------|
 | Change to syntax      | 17      | 34.00%  |
 | Change to semantics   | 37      | 74.00%  |
+|-----------------------|---------|---------|
+| Number of changes     | 49      | ??%     |
 
 | Type                  | #Template | %Template |
 |-----------------------|-----------|-----------|
@@ -831,6 +899,8 @@ WARNING: step 74 is marked not automation but the first output fully matches the
 |-----------------------|-----------|-----------|
 | Change to syntax      | 6         | 60.00%    |
 | Change to semantics   | 4         | 40.00%    |
+|-----------------------|-----------|-----------|
+| Number of changes     | 0         | ??%       |
 
 | Type                  | #Test   | %Test   |
 |-----------------------|---------|---------|
@@ -853,6 +923,8 @@ WARNING: step 74 is marked not automation but the first output fully matches the
 |-----------------------|---------|---------|
 | Change to syntax      | 2       | 12.50%  |
 | Change to semantics   | 14      | 87.50%  |
+|-----------------------|---------|---------|
+| Number of changes     | 12      | ??%     |
 
 | Type                  | #JSON   | %JSON   |
 |-----------------------|---------|---------|
@@ -875,6 +947,8 @@ WARNING: step 74 is marked not automation but the first output fully matches the
 |-----------------------|---------|---------|
 | Change to syntax      | 1       | 8.33%   |
 | Change to semantics   | 0       | 0.00%   |
+|-----------------------|---------|---------|
+| Number of changes     | 0       | ??%     |
 
 | Type                  | #CLI    | %CLI    |
 |-----------------------|---------|---------|
@@ -897,6 +971,8 @@ WARNING: step 74 is marked not automation but the first output fully matches the
 |-----------------------|---------|---------|
 | Change to syntax      | 0       | 0.00%   |
 | Change to semantics   | 0       | 0.00%   |
+|-----------------------|---------|---------|
+| Number of changes     | 0       | ??%     |
 
 | Type                  | #Syntax | %Syntax |
 |-----------------------|---------|---------|
@@ -919,6 +995,8 @@ WARNING: step 74 is marked not automation but the first output fully matches the
 |-----------------------|---------|---------|
 | Change to syntax      | 24      | 100.00% |
 | Change to semantics   | 4       | 16.67%  |
+|-----------------------|---------|---------|
+| Number of changes     | 23      | ??%     |
 
 | Type                  | #Semantics | %Semantics |
 |-----------------------|------------|------------|
@@ -941,5 +1019,7 @@ WARNING: step 74 is marked not automation but the first output fully matches the
 |-----------------------|------------|------------|
 | Change to syntax      | 4          | 10.53%     |
 | Change to semantics   | 38         | 100.00%    |
+|-----------------------|------------|------------|
+| Number of changes     | 28         | ??%        |
 Checking for errors...
 Errors: 4

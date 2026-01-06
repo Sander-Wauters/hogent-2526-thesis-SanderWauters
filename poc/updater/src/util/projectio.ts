@@ -25,7 +25,7 @@ export function loadTestenv(): Project {
 }
 
 /**
- * Loads in the control environmetn based on command line args.
+ * Loads in the control environment based on command line args.
  */
 export function loadControlenv(): Project {
   const projectRoot = process.argv[3];
