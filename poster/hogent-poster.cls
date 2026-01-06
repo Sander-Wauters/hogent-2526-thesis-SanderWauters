@@ -308,13 +308,13 @@
 
   \begingroup
   \raggedright\Large\@institution
-
-  \if\@specialisation\@empty\else
-    \raggedright\Large Keuzerichting: \@specialisation
-  \fi
   \endgroup
 
   \begingroup
+  \if\@specialisation\@empty\else
+    \raggedright\Large Keuzerichting: \@specialisation
+  \fi
+
   \if\@keywords\@empty\else
     \medskip
     \raggedright\Large Sleutelwoorden: \@keywords
