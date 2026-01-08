@@ -7,13 +7,12 @@
  *****************************************************************************/
 
 import { Project, SyntaxKind } from "ts-morph";
-import { loadControlenv, loadTestenv, saveProject } from "../util/projectio.js";
+import { loadTestenv, saveProject } from "../util/projectio.js";
 import {
   Capability,
   Change,
   logStepData,
   StepData,
-  validate,
 } from "../util/metrics.js";
 import {
   accessedFrom,
