@@ -7,12 +7,13 @@
  *****************************************************************************/
 
 import { Project, SyntaxKind } from "ts-morph";
-import { loadTestenv, saveProject } from "../util/projectio.js";
+import { loadControlenv, loadTestenv, saveProject } from "../util/projectio.js";
 import {
   Capability,
   Change,
   logStepData,
   StepData,
+  validate,
 } from "../util/metrics.js";
 import {
   accessedFrom,
@@ -24,7 +25,7 @@ import {
 } from "../util/traversal.js";
 
 const project = loadTestenv();
-// const control = loadControlenv();
+const control = loadControlenv();
 
 /******************************************************************************
  * Define steps.
@@ -1471,7 +1472,7 @@ metrics.push({
     "In templates parentheses are now always respected. This can lead to runtime breakages when nullish coalescing were nested in parathesis. eg (foo?.bar).baz will throw if foo is nullish as it would in native JavaScript.",
 });
 
-// validate(project, control, metrics);
+validate(project, control, metrics);
 logStepData(metrics);
 
 await saveProject(project, Number.MAX_VALUE);
