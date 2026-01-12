@@ -33,42 +33,39 @@
 
 \section*{Samenvatting}
 
-Applicatie ontwikkeld om de update van Angular-applicaties te ondersteunen.
-Getest door een Angular applicatie van v16 naar v20 te updaten.
-De evaluatie toont aan dat meer dan 25\% van alle nodige aanpassingen automatiseerbaar is.
+Applicatie ontwikkeld om het updateproces van Angular-applicaties te ondersteunen.
+De aanpak werd getest door een Angular-applicatie te upgraden van v16 naar v20.
+De evaluatie toont aan dat meer dan 25\% van alle noodzakelijke aanpassingen automatiseerbaar is.
 Deze aanpak is bruikbaar voor het refactoren van verschillende TypeScript-applicaties.
-De oplossing is gebaseerd op de TypeScript-compiler voor een betrouwbare error detectie.
+De applicatie gebruikt de TypeScript-compiler voor een betrouwbare foutdetectie.
 
 \section*{Introductie}
 
-Het Angular framework vereenvoudigt het ontwikkelingsproces voor het bouwen van dynamische webapplicaties.
-Zoals bij de meeste software ontvangt Angular regelmatig updates.
-Deze updates zijn noodzakelijk, omdat ze de cyberveiligheid verbeteren.
+Het Angular-framework vereenvoudigt het ontwikkelingsproces voor het bouwen van dynamische webapplicaties.
+Zoals bij de meeste software ontvangt Angular regelmatig updates, die noodzakelijk zijn om onder andere de cyberveiligheid te verbeteren.
 Het toepassen van dergelijke updates is echter niet altijd vanzelfsprekend.
 \medskip
 
 % - probleemstelling
-Angular verwijdert verouderde functionaliteiten uit het framework.
-Daardoor moet de broncode van een Angular-applicatie aangepast worden tijdens de update.
-Deze soort updates vinden plaats om de 6 maanden.
-Bij meerdere enterprise-applicaties kan de benodigde tijd voor dit updateproces snel oplopen.
-Het bedrijf Stater ervaart dit probleem.
+Angular verwijdert verouderde functionaliteiten uit het framework, waardoor aanpassingen aan de broncode nodig zijn.
+Dit soort updates vindt plaats om de 6 maanden.
+Wanneer er meerdere enterprise-applicaties betrokken zijn, kan de benodigde tijd voor dit updateproces snel oplopen.
+Het bedrijf Stater ondervindt dit probleem.
 Stater is een end-to-end dienstverlener voor zowel hypothecaire als consumentenkredieten.
-Ze moeten al hun applicaties updaten van Angular v16 naar v20.
-De sprong van vier versies betekent dat er vermoedelijk veel aanpassingen in de broncode nodig zijn.
+Ze willen al hun applicaties updaten van Angular v16 naar v20.
+Deze sprong van 4 versies vereist aanzienlijke aanpassingen aan de broncode.
 
 \section*{Methodologie}
 
-Deze studie begon met een literatuurstudie naar gekende methodes om code automatisch aan te passen.
-De beslissing werd genomen om een \emph{updater} te maken op basis van de TypeScript Compiler API.
-Door de TypeScript-compiler programmatisch aan te spreken en te koppelen aan zoek- en vervangfuncties was het mogelijk om gericht code op te sporen en te veranderen.
+Dit onderzoek begon met een literatuurstudie naar bekende methoden om code automatisch aan te passen.
+Er werd besloten een \emph{updater} te ontwikkelen op basis van de TypeScript Compiler API.
+Door de TypeScript-compiler programmatisch aan te spreken en te koppelen aan zoek- en vervangfuncties, werd het mogelijk om code gericht op te sporen en aan te passen.
 \medskip
 
-Een collectie aan helperfuncties is ontwikkeld om de implementatie te vereenvoudigen.
-Door een programmatische instelling behalen we een hoge flexibiliteit met de updater.
-De updater zelf is een commandline-applicatie.
-Op deze manier kan het op meerdere projecten opgeroepen worden.
-Het volgende codefragment toont een voorbeeld van hoe we alle instanties van een functie gericht van naam kunnen veranderen doorheen meerdere applicaties.
+Een collectie helperfuncties is ontwikkeld om de implementatie te vereenvoudigen.
+Dankzij de programmatische opzet biedt de updater een hoge van flexibiliteit.
+De updater is geïmplementeerd als een command-lineapplicatie, waardoor deze voor meerdere projecten kan worden gebruikt.
+Het volgende codefragment toont hoe alle instanties van een functie gericht kunnen worden hernoemd doorheen meerdere applicaties.
 
 \bigskip
 \begin{center}
@@ -105,12 +102,12 @@ Deelvragen:
 
 \section*{Conclusies}
 
-De testresultaten tonen aan dat de updater een meerwaarde biedt in de ondersteuning van het updateproces.
-Het is mogelijk om een vierde van alle aanpassingen automatisch uit te voeren.
-De hoge flexibiliteit van onze aanpak maakt het mogelijk om de updater te herconfigureren voor toekomstige updates.
-Bovendien is de updater niet gelimiteerd aan het uitvoeren van Angular-updates.
-Dezelfde manier van werken kan toegepast worden om meer algemene refactoringen uit te voeren.
-Verder kan men de updater gebruiken op andere TypeScript-applicaties.
+De testresultaten tonen aan dat de updater een meerwaarde biedt bij de ondersteuning van het updateproces.
+Ongeveer een kwart van alle aanpassingen kan automatisch worden uitgevoerd.
+De gekozen manier van werken kan eenvoudig overgenomen worden voor toekomstige updates.
+Bovendien is de updater niet beperkt tot het uitvoeren van Angular-updates.
+Deze werkwijze kan ook worden toegepast voor meer algemene refactorings.
+Daarnaast kan de updater worden ingezet voor andere TypeScript-applicaties.
 
 \bigskip
 \begin{center}
@@ -120,19 +117,19 @@ Verder kan men de updater gebruiken op andere TypeScript-applicaties.
     \toprule
     \textbf{Categorie} & \multicolumn{2}{c|}{\textbf{Totaal}} & \multicolumn{2}{c|}{\textbf{TypeScript}} & \multicolumn{2}{c|}{\textbf{Testen}} & \multicolumn{2}{c|}{\textbf{Syntax}} & \multicolumn{2}{c}{\textbf{Semantiek}} \\
     \hline
-    \textbf{\#Stappen}  & 80 & 100,00\%  & 50 & 100,00\%  & 16 & 100,00\% & 24 & 100,00\%  & 38 & 100,00\% \\
+    \textbf{\#Stappen}    & 80 & 100,00\%  & 50 & 100,00\%  & 16 & 100,00\% & 24 & 100,00\%  & 38 & 100,00\% \\
     \hline                                                      
     \multicolumn{11}{c}{\textbf{Automatiseerbaar}} \\                     
     \hline                                                      
-    \textbf{Volledig}   & 22 &  27,50\%  & 10 &  20,00\%  & 3  &  18,75\% & 9  &  37,50\%  & 1  &   2,63\% \\
-    \textbf{Deels}      & 8  &  10,00\%  & 8  &  16,00\%  & 0  &   0,00\% & 5  &  20,83\%  & 5  &  13,16\% \\
-    \textbf{Niet}       & 50 &  62,50\%  & 32 &  64,00\%  & 13 &  81,25\% & 10 &  41,67\%  & 32 &  84,21\% \\
+    \textbf{Volledig}     & 22 &  27,50\%  & 10 &  20,00\%  & 3  &  18,75\% & 9  &  37,50\%  & 1  &   2,63\% \\
+    \textbf{Gedeeltelijk} & 8  &  10,00\%  & 8  &  16,00\%  & 0  &   0,00\% & 5  &  20,83\%  & 5  &  13,16\% \\
+    \textbf{Niet}         & 50 &  62,50\%  & 32 &  64,00\%  & 13 &  81,25\% & 10 &  41,67\%  & 32 &  84,21\% \\
     \hline                                                      
     \multicolumn{11}{c}{\textbf{Detecteerbaar}} \\                        
     \hline                                                       
-    \textbf{Volledig}   & 24 &   30,00\%  & 24 &  48,00\%  & 6  &  37,50\% & 12 &  50,00\%  & 13 &  34,21\% \\
-    \textbf{Deels}      & 5  &    6,25\%  & 5  &  10,00\%  & 0  &   0,00\% & 2  &   8,33\%  & 4  &  10,53\% \\
-    \textbf{Niet}       & 51 &   63,75\%  & 21 &  42,00\%  & 10 &  62,50\% & 10 &  41,67\%  & 21 &  55,26\% \\
+    \textbf{Volledig}     & 24 &   30,00\%  & 24 &  48,00\%  & 6  &  37,50\% & 12 &  50,00\%  & 13 &  34,21\% \\
+    \textbf{Gedeeltelijk} & 5  &    6,25\%  & 5  &  10,00\%  & 0  &   0,00\% & 2  &   8,33\%  & 4  &  10,53\% \\
+    \textbf{Niet}         & 51 &   63,75\%  & 21 &  42,00\%  & 10 &  62,50\% & 10 &  41,67\%  & 21 &  55,26\% \\
     \bottomrule
   \end{tabular}
   \caption*{Resultaten van de updater om een Angular-applicatie te updaten van v16 naar v20.}
@@ -141,15 +138,15 @@ Verder kan men de updater gebruiken op andere TypeScript-applicaties.
 
 \section*{Toekomstig onderzoek}
 
-Dit onderzoek focust op één van meerdere automatisatietechnieken.
-Een vergelijking van deze technieken voor toepassing in andere casussen kan best interessant zijn.
-Wanneer zou een integratie met een language server, of met AI, gepast zijn bijvoorbeeld?
+Dit onderzoek focust op één van de vele automatisatietechnieken.
+Een vergelijking van verschillende technieken en hun toepasbaarheid in andere casussen kan interessant zijn voor toekomstig onderzoek.
+Zo kan worden onderzocht in welke situaties een integratie met een language server of met AI gepast is.
 \medskip
 
-Tijdens het schrijven van dit onderzoek is Angular v21 uitgekomen.
-Deze versie komt met nieuwe tools om AI beter te integreren in het ontwikkelingsproces.
-Voornamelijk beweren ze dat het AI toelaat om de nieuwste functionaliteiten te gebruiken.
-Deze tools zijn momenteel nog experimenteel, maar kunnen veelbelovend zijn.
+Tijdens het schrijven van dit onderzoek werd Angular versie 21 uitgebracht.
+Deze versie introduceert nieuwe tools om AI beter te integreren in het ontwikkelingsproces.
+Voornamelijk beweert het Angular-team dat het AI toelaat om de nieuwste functionaliteiten te gebruiken.
+Hoewel deze tools momenteel nog experimenteel zijn, tonen ze potentieel voor verdere automatisering.
 
 \end{large}
 \end{multicols}
