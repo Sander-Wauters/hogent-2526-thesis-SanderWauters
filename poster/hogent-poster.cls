@@ -248,7 +248,7 @@
 %%============================================================================
 
 \usepackage{multicol} % This is so we can have multiple columns of text side-by-side
-\columnsep=100pt % This is the amount of white space between the columns in the poster
+\columnsep=\oddsidemargin % This is the amount of white space between the columns in the poster
 \columnseprule=0pt % This is the thickness of the black line between the columns in the poster
 
 \usepackage[chapter,outputdir=../output]{minted}
@@ -269,7 +269,7 @@
 
 \renewcommand{\@maketitle}{%
   \begingroup
-  \raggedright\titlefont\color{title}\Large
+  \raggedright\titlefont\color{title}\huge
   \textsc{\@course\ \@studyprogramme\ (\@academicyear)}
   \endgroup
 
@@ -352,16 +352,14 @@
     \begin{tikzpicture}[remember picture, overlay]
       \node [anchor=south west, shift={(\the\wd\logopart, \the\wd\logopart)}, inner sep=0, outer sep=0] (logo) at (current page.south west)
       {
-        % \includegraphics[height=\the\ht\logopart]{hogent_logo}%
-        \if\@projectrepo\@empty\else
-          \medskip
-          \raggedright\Large Broncode: \url{\@projectrepo}
-        \fi
+        \includegraphics[height=\the\ht\logopart]{hogent_logo}%
+        % \if\@projectrepo\@empty\else
+        %   \medskip
+        %   \raggedright\Large Broncode: \url{\@projectrepo}
+        % \fi
       };
     \end{tikzpicture}
   }
-  \fancyfoot[C]{}
-  \fancyfoot[R]{}
 }
 
 %%============================================================================
@@ -443,13 +441,13 @@
 
 %% Section headers
 \titleformat{\section}
-{\LARGE\titlefont}
+{\huge\titlefont}
 {\bfseries\thesection.\ }
 {0pt}
 {\bfseries\color{title}}
 
 %% Sections are preceded by an empty line.
-\titlespacing{\section}{0pt}{\baselineskip}{3pt}
+\titlespacing{\section}{0pt}{1.5\baselineskip}{3pt}
 
 %% Subsection headers
 \titleformat{\subsection}
