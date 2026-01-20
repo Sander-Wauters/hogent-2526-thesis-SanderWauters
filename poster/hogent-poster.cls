@@ -147,26 +147,76 @@
 \@onlypreamble\keywords
 \@onlypreamble\institution
 
+% %%============================================================================
+% %% Kleuren HoGent huisstijl
+% %%============================================================================
+% 
+% \usepackage[dvipsnames]{xcolor}
+% 
+% %% Accent colors:
+% \definecolor{hogent-darkgreen}{RGB}{22,176,165}
+% \definecolor{hogent-pink}{RGB}{241,157,160}
+% \definecolor{hogent-ochre}{RGB}{250,188,50}
+% \definecolor{hogent-orange}{RGB}{239,135,103}
+% \definecolor{hogent-purple}{RGB}{187,144,189}
+% \definecolor{hogent-blue}{RGB}{76,162,213}
+% \definecolor{hogent-lightgreen}{RGB}{165,202,114}
+% \definecolor{hogent-brown}{RGB}{216,176,131}
+% \definecolor{hogent-grey}{RGB}{195,187,175}
+% \definecolor{hogent-yellow}{RGB}{244,222,0}
+% 
+% \colorlet{links}{hogent-blue}
+% \colorlet{title}{hogent-blue}
+
 %%============================================================================
-%% Kleuren HoGent huisstijl
+%% Kleuren
 %%============================================================================
 
 \usepackage[dvipsnames]{xcolor}
 
-%% Accent colors:
-\definecolor{hogent-darkgreen}{RGB}{22,176,165}
-\definecolor{hogent-pink}{RGB}{241,157,160}
-\definecolor{hogent-ochre}{RGB}{250,188,50}
-\definecolor{hogent-orange}{RGB}{239,135,103}
-\definecolor{hogent-purple}{RGB}{187,144,189}
-\definecolor{hogent-blue}{RGB}{76,162,213}
-\definecolor{hogent-lightgreen}{RGB}{165,202,114}
-\definecolor{hogent-brown}{RGB}{216,176,131}
-\definecolor{hogent-grey}{RGB}{195,187,175}
-\definecolor{hogent-yellow}{RGB}{244,222,0}
+\definecolor{dark0-hard}{RGB}{29,32,33}
+\definecolor{dark0}{RGB}{40,40,40}
+\definecolor{dark0-soft}{RGB}{50,48,47}
+\definecolor{dark1}{RGB}{60,56,54}
+\definecolor{dark2}{RGB}{80,73,69}
+\definecolor{dark3}{RGB}{102,92,84}
+\definecolor{dark4}{RGB}{124,111,100}
+\definecolor{dark4-256}{RGB}{124,111,100}
+\definecolor{gray-245}{RGB}{146,131,116}
+\definecolor{gray-244}{RGB}{146,131,116}
+\definecolor{light0-hard}{RGB}{249,245,215}
+\definecolor{light0}{RGB}{253,244,193}
+\definecolor{light0-soft}{RGB}{242,229,188}
+\definecolor{light1}{RGB}{235,219,178}
+\definecolor{light2}{RGB}{213,196,161}
+\definecolor{light3}{RGB}{189,174,147}
+\definecolor{light4}{RGB}{168,153,132}
+\definecolor{light4-256}{RGB}{168,153,132}
+\definecolor{bright-red}{RGB}{251,73,52}
+\definecolor{bright-green}{RGB}{184,187,38}
+\definecolor{bright-yellow}{RGB}{250,189,47}
+\definecolor{bright-blue}{RGB}{131,165,152}
+\definecolor{bright-purple}{RGB}{211,134,155}
+\definecolor{bright-aqua}{RGB}{142,192,124}
+\definecolor{bright-orange}{RGB}{254,128,25}
+\definecolor{neutral-red}{RGB}{204,36,29}
+\definecolor{neutral-green}{RGB}{152,151,26}
+\definecolor{neutral-yellow}{RGB}{215,153,33}
+\definecolor{neutral-blue}{RGB}{69,133,136}
+\definecolor{neutral-purple}{RGB}{177,98,134}
+\definecolor{neutral-aqua}{RGB}{104,157,106}
+\definecolor{neutral-orange}{RGB}{214,93,14}
+\definecolor{faded-red}{RGB}{157,0,6}
+\definecolor{faded-green}{RGB}{121,116,14}
+\definecolor{faded-yellow}{RGB}{181,118,20}
+\definecolor{faded-blue}{RGB}{7,102,120}
+\definecolor{faded-purple}{RGB}{143,63,113}
+\definecolor{faded-aqua}{RGB}{66,123,88}
+\definecolor{faded-orange}{RGB}{175,58,3}
 
-\colorlet{links}{hogent-blue}
-\colorlet{title}{hogent-blue}
+\pagecolor{light0-soft}
+\colorlet{links}{neutral-orange}
+\colorlet{title}{neutral-orange}
 
 %%============================================================================
 %% Grootte papier
@@ -252,7 +302,7 @@
 \columnseprule=0pt % This is the thickness of the black line between the columns in the poster
 
 \usepackage[chapter,outputdir=../output]{minted}
-\usemintedstyle{solarized-light}
+\usemintedstyle{gruvbox-light}
 
 %% Formatting for minted environments.
 \setminted{%
@@ -263,6 +313,12 @@
     tabsize=4,
     framesep=5mm
 }
+
+%% -----------------------------------------------------------------------------
+%% Tables
+
+\setlength{\tabcolsep}{8pt}
+\renewcommand{\arraystretch}{1.25}
 
 %% -----------------------------------------------------------------------------
 %% Titel
