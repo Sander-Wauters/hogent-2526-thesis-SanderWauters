@@ -214,7 +214,7 @@
 \definecolor{faded-aqua}{RGB}{66,123,88}
 \definecolor{faded-orange}{RGB}{175,58,3}
 
-\pagecolor{light0-soft}
+\pagecolor{light0-hard}
 \colorlet{links}{neutral-orange}
 \colorlet{title}{neutral-orange}
 
